@@ -20,8 +20,7 @@ public class FirefliesManager : MonoBehaviour
 
     private void Update()
     {
-        float timeOfDay = LightingManager.Instance.GetTimeOfDay();
-        bool isNight = timeOfDay > .9f || timeOfDay < .1f;
+        bool isNight = LightingManager.Instance.IsNight();
 
         if (!isPlaying && isNight)
         {

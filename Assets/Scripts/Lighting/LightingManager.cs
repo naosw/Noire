@@ -2,10 +2,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using System;
 using UnityEditor.ShaderGraph.Internal;
+using UnityEngine.UIElements;
 
 [ExecuteAlways]
 public class LightingManager : MonoBehaviour
 {
+    [Header("Sun and Moon")]
     [SerializeField] private Light sun;
     [SerializeField] private Light moon;
     [SerializeField] private float dayLength = 10; 
@@ -18,14 +20,11 @@ public class LightingManager : MonoBehaviour
     [SerializeField] private Gradient sunColor;
     [SerializeField] private Gradient moonColor;
 
-    private float startingTimeOfDay = .5f;
-
     public static LightingManager Instance { get; private set; }
 
     private void Awake()
     {
         Instance = this;
-        timeOfDay = startingTimeOfDay;
     }
 
     private void Update()
@@ -67,5 +66,20 @@ public class LightingManager : MonoBehaviour
     public float GetTimeOfDay()
     {
         return timeOfDay;
+    }
+
+    public bool IsNight()
+    {
+        return timeOfDay > .9f || timeOfDay < .1f;
+    }
+
+    public bool IsDawn()
+    {
+        return timeOfDay >= .2f && timeOfDay <= .35f;
+    }
+
+    public bool IsDay()
+    {
+        return !IsNight() && !IsDawn();
     }
 }

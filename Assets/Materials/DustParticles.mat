@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Fireflies
+  m_Name: DustParticles
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -16,6 +16,7 @@ Material:
   - _EMISSION
   - _ENVIRONMENTREFLECTIONS_OFF
   - _RECEIVE_SHADOWS_OFF
+  - _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
   - _SPECULARHIGHLIGHTS_OFF
   m_InvalidKeywords: []
   m_LightmapFlags: 1
@@ -115,7 +116,7 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 0
     - _Smoothness: 0.5
-    - _SmoothnessTextureChannel: 0
+    - _SmoothnessTextureChannel: 1
     - _SpecularHighlights: 0
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
@@ -123,9 +124,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.9058824, b: 0.36078432, a: 1}
-    - _Color: {r: 1, g: 0.9058824, b: 0.3607843, a: 1}
-    - _EmissionColor: {r: 2.981618, g: 1.758629, b: 0.408967, a: 1}
+    - _BaseColor: {r: 0.54873616, g: 0.7899879, b: 0.7924528, a: 0.61960787}
+    - _Color: {r: 0.54873616, g: 0.7899879, b: 0.7924528, a: 0.61960787}
+    - _EmissionColor: {r: 3.6623719, g: 6.883181, b: 6.5779815, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &7029381813423182473
