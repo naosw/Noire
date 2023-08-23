@@ -11,7 +11,7 @@ public class TerrainMapping : MonoBehaviour
 
     private void Start()
     {
-        camToDrawWith.orthographicSize = 12.5f;
+        camToDrawWith.orthographicSize = 125f;
         camToDrawWith.aspect = 1.2f;
         camToDrawWith.Render();
 

@@ -59,4 +59,5 @@ Material:
     - _QueueOffset: 0
     m_Colors:
     - _Color: {r: 0.004752577, g: 0.006360639, b: 0.009433955, a: 0}
+    - _TerrainSize: {r: 300, g: 250, b: 0, a: 0}
   m_BuildTextureStacks: []

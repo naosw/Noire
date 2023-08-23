@@ -142,6 +142,11 @@ float offset, float curve, float2 uv, float3x3 rotation)
     return output;
 }
 
+float3 Posterize(float3 In, float3 Steps)
+{
+    return floor(In / (1 / Steps)) * (1 / Steps);
+}
+
 // ----------------------------------------
 
 // The main kernel
@@ -182,15 +187,16 @@ void Main(uint id : SV_DispatchThreadID)
     // normal
     float3 perpendicularAngle = float3(0, 0, 1);
     float3 faceNormal = sv.normalOS;
-  
 
     // Wind
-    float3 wind1 = float3(
-    sin(_Time.x * _WindSpeed + sv.positionWS.x) + sin(
-    _Time.x * _WindSpeed + sv.positionWS.z * 2) + sin(
-    _Time.x * _WindSpeed * 0.1 + sv.positionWS.x), 0,
-    cos(_Time.x * _WindSpeed + sv.positionWS.x * 2) + cos(
-    _Time.x * _WindSpeed + sv.positionWS.z));
+    float3 wind1 = Posterize(
+        float3(
+            sin(_Time.x * _WindSpeed + sv.positionWS.x) + sin(_Time.x * _WindSpeed + sv.positionWS.z * 2) + sin(_Time.x * _WindSpeed * 0.1 + sv.positionWS.x),
+            0,
+            cos(_Time.x * _WindSpeed + sv.positionWS.x * 2) + cos(_Time.x * _WindSpeed + sv.positionWS.z)
+        ),
+        float3(3,3,3)
+    );
     wind1 *= _WindStrength;
     
     // Set grass height and width
