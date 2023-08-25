@@ -111,4 +111,6 @@ public class Player : MonoBehaviour
     public bool IsIdle() => state == State.Idle;
     public bool IsAttacking1() => state == State.Attack1;
     public float GetPlayerHitBoxHeight() => playerHitBoxHeight;
+
+    public Weapon GetWeapon() => weapon;
 }
