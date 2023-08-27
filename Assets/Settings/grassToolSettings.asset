@@ -40,14 +40,14 @@ MonoBehaviour:
     m_Bits: 0
   hitMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 256
   paintMask:
     serializedVersion: 2
-    m_Bits: 1
-  brushSize: 9.4
+    m_Bits: 256
+  brushSize: 22.3
   brushFalloffSize: 0.8
   Flow: 0.1
-  density: 1.64
+  density: 10
   normalLimit: 1
-  grassAmountToGenerate: 6000
+  grassAmountToGenerate: 100000
   generationDensity: 1

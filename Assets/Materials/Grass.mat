@@ -27,8 +27,8 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 1
-  m_EnableInstancingVariants: 0
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -55,9 +55,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _LightingWeight: 1.5
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _TerrainWeight: 0.3
     m_Colors:
     - _Color: {r: 0.004752577, g: 0.006360639, b: 0.009433955, a: 0}
+    - _GrassLightingColor: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 0}
+    - _LightingColor: {r: 0.8998185, g: 0.9056604, b: 0.5673193, a: 0}
     - _TerrainSize: {r: 300, g: 250, b: 0, a: 0}
   m_BuildTextureStacks: []

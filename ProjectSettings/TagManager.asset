@@ -16,8 +16,8 @@ TagManager:
   - Terrain
   - Effects
   - Enemies
-  - 
-  - 
+  - TerrainVisible
+  - Lighting
   - 
   - 
   - 
