@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76cfc03fcf4ba62479422b25ea4f742e, type: 3}
   m_Name: PixelizeFeature
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   settings:
     renderPassEvent: 600
     screenHeight: 400

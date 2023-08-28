@@ -15,10 +15,11 @@ Material:
   - DR_CEL_EXTRA_ON
   - DR_RIM_ON
   - _CELPRIMARYMODE_SINGLE
+  - _TERRAIN_BLEND_HEIGHT
   m_InvalidKeywords:
   - _UNITYSHADOWMODE_NONE
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -136,13 +137,13 @@ Material:
     - _DirectionPitch: 0
     - _DirectionYaw: 0
     - _DstBlend: 0
-    - _EnableHeightBlend: 0
+    - _EnableHeightBlend: 1
     - _EnableInstancedPerPixelNormal: 0
     - _Exponent: 1
     - _FadeDistance: 0.5
     - _FlatRimEdgeSmoothness: 0
-    - _FlatRimLightAlign: 0.358
-    - _FlatRimSize: 0.563
+    - _FlatRimLightAlign: 0.4
+    - _FlatRimSize: 0.54
     - _FlatSpecularEdgeSmoothness: 0
     - _FlatSpecularSize: 0
     - _Flatness: 0.4
@@ -157,15 +158,15 @@ Material:
     - _FoamSpeed: 0.1
     - _FoamStretchX: 1
     - _FoamStretchY: 1
-    - _GradientAngle: 177
+    - _GradientAngle: 157
     - _GradientCenterX: 0
     - _GradientCenterY: 1.08
     - _GradientEnabled: 0
     - _GradientSize: 21.37
     - _HeightTransition: 0
     - _Intensity: 1
-    - _LightContribution: 0.606
-    - _LightFalloffSize: 0.115
+    - _LightContribution: 0.243
+    - _LightFalloffSize: 1
     - _LightmapDirectionPitch: 0
     - _LightmapDirectionYaw: 0
     - _Metallic0: 0
