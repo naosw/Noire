@@ -32,22 +32,6 @@ MonoBehaviour:
   m_Active: 1
   settings: {fileID: 11400000, guid: 5b5c006d039a35449922c44009c60d07, type: 2}
   _effectMaterial: {fileID: 0}
---- !u!114 &-1897093854840384869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76cfc03fcf4ba62479422b25ea4f742e, type: 3}
-  m_Name: PixelizeFeature
-  m_EditorClassIdentifier: 
-  m_Active: 0
-  settings:
-    renderPassEvent: 600
-    screenHeight: 400
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,10 +49,9 @@ MonoBehaviour:
       type: 3}
     hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
   m_RendererFeatures:
-  - {fileID: -1897093854840384869}
   - {fileID: -4604487927856889162}
   - {fileID: -5992480102913176740}
-  m_RendererFeatureMap: 9b92a9b4302bace5b602840fa09219c05c8b438e186fd6ac
+  m_RendererFeatureMap: b602840fa09219c05c8b438e186fd6ac
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -107,5 +90,5 @@ MonoBehaviour:
   m_RenderingMode: 1
   m_DepthPrimingMode: 0
   m_CopyDepthMode: 0
-  m_AccurateGbufferNormals: 0
+  m_AccurateGbufferNormals: 1
   m_IntermediateTextureMode: 1
