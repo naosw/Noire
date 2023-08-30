@@ -18,8 +18,8 @@ MonoBehaviour:
   useDepth: 1
   useNormals: 1
   useColor: 0
-  minDepthThreshold: 3
-  maxDepthThreshold: 14.7
+  minDepthThreshold: 4
+  maxDepthThreshold: 25
   minNormalsThreshold: 2
   maxNormalsThreshold: 10
   minColorThreshold: -1.06

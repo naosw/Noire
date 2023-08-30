@@ -1,6 +1,8 @@
 using Cinemachine;
 using System.Collections;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class Player : MonoBehaviour
 {
@@ -8,6 +10,9 @@ public class Player : MonoBehaviour
     [SerializeField] float rotateSpeed = 10f;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private Weapon weapon;
+    [SerializeField] private float playerRadius = 1.5f;
+    [SerializeField] private float playerHeight = 6f;
+    [SerializeField] private LayerMask hittableLayers;
 
     public static Player Instance { get; private set; }
     private enum State
@@ -24,6 +29,8 @@ public class Player : MonoBehaviour
     private float attack1Cooldown;
     private float attack1CooldownCounter;
     private float playerHitBoxHeight = 1f;
+    private Quaternion rightRotation = Quaternion.Euler(new Vector3(0, 90, 0));
+
 
     private void Awake()
     {
@@ -47,36 +54,54 @@ public class Player : MonoBehaviour
     private void Update()
     {
         attack1CooldownCounter -= Time.deltaTime;
-        Shader.SetGlobalVector("_PositionMoving", transform.position);
         if(IsIdle() || IsWalking())
             HandleMovement();
     }
 
-    void LateUpdate()
-    {
-        Vector3 pos = transform.position;
-        pos.y = Terrain.activeTerrain.SampleHeight(transform.position);
-        transform.position = pos;
-    }
-
     private void HandleMovement()
     {
+        // set to terrain height
+        Vector3 pos = transform.position;
+        pos.y = Terrain.activeTerrain.SampleHeight(transform.position) + .1f;
+        transform.position = pos;
+
         Vector3 inputVector = GameInput.Instance.GetMovementVectorNormalized();
-        if (inputVector == Vector3.zero) { 
+        if (inputVector == Vector3.zero)
+        {
             state = State.Idle;
             return;
         }
 
-        // calculates the rotation matrix for isometric camera
-        Matrix4x4 isoMatrix = Matrix4x4.Rotate(Quaternion.Euler(0, virtualCamera.transform.eulerAngles.y, 0));
-        Quaternion lookDir = Quaternion.LookRotation(isoMatrix.MultiplyPoint3x4(inputVector), Vector3.up);
+        Vector3 forward = virtualCamera.transform.forward;
+        forward.y = 0;
+        Vector3 right = rightRotation * forward;
+
+        forward *= inputVector.z;
+        right *= inputVector.x;
 
         float moveDistance = moveSpeed * Time.deltaTime;
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookDir, Time.deltaTime * rotateSpeed);
-        transform.position += moveDistance * transform.forward;
+        if (Physics.CapsuleCast(transform.position,
+                                transform.position + Vector3.up * playerHeight,
+                                playerRadius,
+                                forward,
+                                moveDistance,
+                                hittableLayers))
+            forward = Vector3.zero;
+        if (Physics.CapsuleCast(transform.position,
+                                transform.position + Vector3.up * playerHeight,
+                                playerRadius,
+                                right,
+                                moveDistance,
+                                hittableLayers))
+            right = Vector3.zero;
 
-        state = State.Walk;
+        Vector3 moveDir = forward + right;
+        transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
+        transform.position += moveDir.normalized * moveDistance;
+
+        if (moveDir != Vector3.zero)
+            state = State.Walk;
     }
 
     private void HandleAttack1()

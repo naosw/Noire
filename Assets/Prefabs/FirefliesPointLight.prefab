@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5104045266937788101}
   - component: {fileID: 756512562544883555}
   - component: {fileID: 359363051761229795}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FirefliesPointLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.49719378, b: 0.2867924, a: 1}
-  m_Intensity: 138.5
+  m_Intensity: 10
   m_Range: 4.92
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

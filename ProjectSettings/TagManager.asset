@@ -8,16 +8,16 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Grass
+  - 
   - Water
   - UI
   - Objects
   - Player
   - Terrain
-  - Effects
+  - Visuals
   - Enemies
   - TerrainVisible
-  - Lighting
+  - 
   - PostProcessing
   - 
   - 
