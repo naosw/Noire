@@ -16,7 +16,6 @@ Material:
   - DR_RIM_ON
   - DR_SPECULAR_ON
   - _CELPRIMARYMODE_SINGLE
-  - _TERRAIN_BLEND_HEIGHT
   m_InvalidKeywords:
   - _UNITYSHADOWMODE_NONE
   m_LightmapFlags: 4

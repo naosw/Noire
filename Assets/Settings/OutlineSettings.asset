@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: OutlineSettings
   m_EditorClassIdentifier: 
   edgeColor: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 0.2627451}
-  thickness: 1
+  thickness: 2
   resolutionInvariant: 0
   useDepth: 1
-  useNormals: 1
+  useNormals: 0
   useColor: 0
   minDepthThreshold: 4
   maxDepthThreshold: 25
