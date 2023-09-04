@@ -225,7 +225,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 132075896}
-  m_LocalRotation: {x: 0.7343056, y: -0.197227, z: -0.23993719, w: -0.6035951}
+  m_LocalRotation: {x: 0.6805586, y: 0.1919374, z: -0.1919374, w: 0.6805586}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -267,8 +267,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.006552623
+  m_Color: {r: 0.5398718, g: 0.63678044, b: 0.8490566, a: 1}
+  m_Intensity: 0.87958133
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1624,8 +1624,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.973974, g: 0.8851376, b: 0.6512684, a: 1}
-  m_Intensity: 1.9986839
+  m_Color: {r: 0.30501956, g: 0.41017264, b: 0.6415094, a: 1}
+  m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1705,7 +1705,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541323125}
-  m_LocalRotation: {x: 0.603595, y: 0.2399372, z: -0.19722699, w: 0.7343057}
+  m_LocalRotation: {x: -0.6805586, y: 0.1919374, z: 0.1919374, w: 0.6805586}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2436,7 +2436,7 @@ GameObject:
   - component: {fileID: 883171793}
   - component: {fileID: 883171792}
   m_Layer: 6
-  m_Name: Plane
+  m_Name: CloudPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2472,14 +2472,14 @@ MonoBehaviour:
   cloudLayerRelativeHeight: 200
   followTarget: {fileID: 0}
   windDirection: 0
-  windSpeed: 1
+  windSpeed: 0.5
   fadeInExtents: 0
-  maximumOpacity: 0.14
+  maximumOpacity: 0
   ditherScale: 1
   tilingDomain: 1000
-  orientation: 26
-  cloudiness: 0.23
-  cloudTexture: {fileID: 2800000, guid: d902d75571328244288dbd4dbaa207f9, type: 3}
+  orientation: 61
+  cloudiness: 0.169
+  cloudTexture: {fileID: 2800000, guid: 75506fc665b52834aaee5dd9b26467f1, type: 3}
   ditherNoiseType: 0
 --- !u!23 &883171793
 MeshRenderer:
@@ -2613,7 +2613,7 @@ MonoBehaviour:
   moon: {fileID: 132075899}
   dayLength: 1000
   yearLength: 3
-  timeOfDay: 0.469
+  timeOfDay: 0
   timeOfYear: 0.09
   sunIntensityCurve:
     serializedVersion: 2
@@ -4963,25 +4963,90 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2500089625298805022, guid: 02847462d1ec84e48845accd68eb4890,
+        type: 3}
+      propertyPath: m_MaskInteraction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2500089625298805022, guid: 02847462d1ec84e48845accd68eb4890,
+        type: 3}
+      propertyPath: m_MaxParticleSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2500089625298805022, guid: 02847462d1ec84e48845accd68eb4890,
+        type: 3}
+      propertyPath: m_MinParticleSize
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2500089625298805022, guid: 02847462d1ec84e48845accd68eb4890,
+        type: 3}
+      propertyPath: m_RenderAlignment
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2500089625298805022, guid: 02847462d1ec84e48845accd68eb4890,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3474690954128089650, guid: 02847462d1ec84e48845accd68eb4890,
         type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7012516478053784867, guid: 02847462d1ec84e48845accd68eb4890,
         type: 3}
       propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7012516478053784867, guid: 02847462d1ec84e48845accd68eb4890,
+        type: 3}
+      propertyPath: TrailModule.enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7012516478053784867, guid: 02847462d1ec84e48845accd68eb4890,
+        type: 3}
+      propertyPath: CollisionModule.quality
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7012516478053784867, guid: 02847462d1ec84e48845accd68eb4890,
+        type: 3}
+      propertyPath: CollisionModule.collisionMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7012516478053784867, guid: 02847462d1ec84e48845accd68eb4890,
+        type: 3}
+      propertyPath: CollisionModule.m_Bounce.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7012516478053784867, guid: 02847462d1ec84e48845accd68eb4890,
+        type: 3}
+      propertyPath: CollisionModule.collidesWith.m_Bits
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 7012516478053784867, guid: 02847462d1ec84e48845accd68eb4890,
         type: 3}
       propertyPath: TriggerModule.primitives.Array.data[0]
       value: 
       objectReference: {fileID: 578919854}
+    - target: {fileID: 7012516478053784867, guid: 02847462d1ec84e48845accd68eb4890,
+        type: 3}
+      propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7137214405114449172, guid: 02847462d1ec84e48845accd68eb4890,
         type: 3}
       propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7137214405114449172, guid: 02847462d1ec84e48845accd68eb4890,
+        type: 3}
+      propertyPath: moveWithTransform
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7137214405114449172, guid: 02847462d1ec84e48845accd68eb4890,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 8215728333709781762, guid: 02847462d1ec84e48845accd68eb4890,
         type: 3}
