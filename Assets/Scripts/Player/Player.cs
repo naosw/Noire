@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Weapon weapon;
     [SerializeField] private float playerRadius = 1.5f;
     [SerializeField] private float playerHeight = 6f;
-    [SerializeField] private LayerMask hittableLayers;
+    [SerializeField] private LayerMask collidableLayers;
 
     public static Player Instance { get; private set; }
     private enum State
@@ -86,14 +86,14 @@ public class Player : MonoBehaviour
                                 playerRadius,
                                 forward,
                                 moveDistance,
-                                hittableLayers))
+                                collidableLayers))
             forward = Vector3.zero;
         if (Physics.CapsuleCast(transform.position,
                                 transform.position + Vector3.up * playerHeight,
                                 playerRadius,
                                 right,
                                 moveDistance,
-                                hittableLayers))
+                                collidableLayers))
             right = Vector3.zero;
 
         Vector3 moveDir = forward + right;

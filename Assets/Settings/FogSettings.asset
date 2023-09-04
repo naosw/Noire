@@ -81,6 +81,6 @@ MonoBehaviour:
   high: 20.2
   heightFogIntensity: 0.072
   cameraRelativePosition: 0
-  distanceHeightBlend: 0.5
-  renderEvent: 550
-  applyInSceneView: 1
+  distanceHeightBlend: 0
+  renderEvent: 600
+  applyInSceneView: 0
