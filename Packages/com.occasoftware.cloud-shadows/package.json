@@ -1,0 +1,17 @@
+{
+    "displayName": "Cloud Shadows",
+    "name": "com.occasoftware.cloud-shadows",
+    "version": "2.1.0",
+    "unity": "2021.3",
+    "description": "Cloud Shadows is a shader and component that generates dynamic cloud shadows.",
+    "author": {
+        "name": "OccaSoftware",
+        "email": "hello@occasoftware.com",
+        "url": "https://www.occasoftware.com/"
+    },
+    "documentationUrl": "https://occasoftware.com/manual/cloud-shadows",
+    "unityRelease": "0f1",
+    "dependencies": {
+        "com.unity.shadergraph": "12.1.6"
+    }
+}

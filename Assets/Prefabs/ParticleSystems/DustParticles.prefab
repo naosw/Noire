@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 1191207924846191750}
   - component: {fileID: 8649035043888989889}
   - component: {fileID: 2094919268817021904}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: DustParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1191207924846191750
 Transform:
@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &8649035043888989889
 ParticleSystem:

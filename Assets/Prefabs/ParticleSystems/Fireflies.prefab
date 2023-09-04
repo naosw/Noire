@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 8649035043888989889}
   - component: {fileID: 2094919268817021904}
   - component: {fileID: 7349190031495204194}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Fireflies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1191207924846191750
 Transform:
@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &8649035043888989889
 ParticleSystem:
@@ -3854,12 +3854,12 @@ ParticleSystem:
     randomDistribution: 1
     color: 0
     range: 1
-    intensity: 1
+    intensity: 0
     rangeCurve:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 10
-      minScalar: 1
+      minMaxState: 3
+      scalar: 8
+      minScalar: 5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -3911,7 +3911,7 @@ ParticleSystem:
     intensityCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 8.61
+      scalar: 2
       minScalar: 1
       maxCurve:
         serializedVersion: 2

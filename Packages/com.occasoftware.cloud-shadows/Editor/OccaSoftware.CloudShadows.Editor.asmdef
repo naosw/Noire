@@ -1,0 +1,18 @@
+{
+    "name": "OccaSoftware.CloudShadows.Editor",
+    "rootNamespace": "OccaSoftware.CloudShadows.Editor",
+    "references": [
+        "GUID:9c398a75fbff2b940afaedb1c680081f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
