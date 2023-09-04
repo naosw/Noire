@@ -1,18 +1,18 @@
 # Noire
-Last updated: 9/4/2023
+Last updated: 9/4/2023 \
 Updated by: Hank Xu
 
 ## Setup
-This project uses *Unity 2022.3.1f1*. 
+This project uses *Unity 2022.3.1f1*. \
 
-***Please fork this repo to your own github. 
+***Please fork this repo to your own github. \
 Create a pull request if you want changes to be made to the main repo***
 
 ## Gameplay
-`q/e` rotates camera left or right 
-`left click` basic attack
-`wasd` movement
-`mouse scroll` zoom in/out
+`q/e` rotates camera left or right \
+`left click` basic attack \
+`wasd` movement \
+`mouse scroll` zoom in/out \
 
 ## Documentation
 ### Camera
