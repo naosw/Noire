@@ -168,8 +168,6 @@ public class Player : MonoBehaviour
             updateHealthBar?.Invoke();
             playerHealthSO.RegenBuffer(bufferDecreaseRate * Time.deltaTime);
         }
-
-        if (Input.GetKeyDown(KeyCode.L)) HandleHit(50);
     }
     
     public void HandleHit(float bufferDamage)
