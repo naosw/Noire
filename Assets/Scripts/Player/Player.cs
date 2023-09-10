@@ -31,6 +31,8 @@ public class Player : MonoBehaviour
     private float playerHitBoxHeight = 1f;
     private Quaternion rightRotation = Quaternion.Euler(new Vector3(0, 90, 0));
 
+    private float drowsiness = 100;
+
 
     private void Awake()
     {
