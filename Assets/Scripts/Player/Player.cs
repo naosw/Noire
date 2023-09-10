@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float playerRadius = 1.5f;
     [SerializeField] private float playerHeight = 6f;
     [SerializeField] private LayerMask collidableLayers;
+    [SerializeField] private float test;
 
     public static Player Instance { get; private set; }
     private enum State
