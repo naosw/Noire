@@ -19,7 +19,8 @@ public class Player : MonoBehaviour
     {
         Idle,
         Walk,
-        Attack1
+        Attack1,
+        state2
     }
 
     private const string ATTACK1 = "Attack1";
