@@ -141,5 +141,5 @@ public class Player : MonoBehaviour
     public float GetPlayerHitBoxHeight() => playerHitBoxHeight;
 
     public Weapon GetWeapon() => weapon;
-#comment
+//comment
 }
