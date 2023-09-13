@@ -1,0 +1,60 @@
+[LOG] System::create                           : Header version = 2.02.17. Current version = 2.02.17.
+[LOG] Manager::init                            : maxchannels = 256 studioflags = 00000006 flags 00000000 extradriverdata 0x0.
+[LOG] SystemI::init                            : Initialize version=20217 (136061), maxchannels=256, flags=0x00020000
+[LOG] SystemI::setOutputInternal               : Setting output to 'FMOD Core Audio Output'
+[LOG] OutputCoreAudio::init                    : Output running 2 channels at 44100Hz sample rate.
+[LOG] OutputCoreAudio::init                    : Maximum hardware read size: 512 samples, Software buffer size: 512 samples, Number of software buffers: 4.
+[LOG] SystemI::init                            : Output requires a sample rate of 44100Hz, resampling will occur.
+[LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
+[LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x4000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: Yes, Sleep Time: 0, Looping: Yes.
+[LOG] AsyncManager::init                       : manager 0x12e345a08 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : done
+[LOG] PlaybackSystem::init                     : 
+[LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
+[LOG] PlaybackSystem::init                     : done
+[LOG] Thread::initThread                       : Init FMOD Studio bank load thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
+[LOG] Manager::init                            : done.
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0x306914768, queue head = 0x3318690f8, queue count = 0
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0x3091629e8, queue head = 0x3318690f8, queue count = 1
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0x306914768
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0x306914768
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0x3091629e8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0x3091629e8
+[LOG] SoundI::release                          : Dauzkobza - Natural Countryside - Bonfire Flames and Smoke  (0x30693ed68)
+[LOG] SoundI::release                          :     Dauzkobza - Natural Countryside - Bonfire Flames and Smoke  (0x3069367f8)
+[LOG] SoundI::release                          :     Dauzkobza - Natural Countryside - Bonfire Flames and Smoke  (0x306914768)
+[LOG] SoundI::release                          : Dauzkobza - Urban Belarus - Light Rain Loop (0x3187d1068)
+[LOG] SoundI::release                          :     Dauzkobza - Urban Belarus - Light Rain Loop (0x3091ea9a8)
+[LOG] SoundI::release                          :     Dauzkobza - Urban Belarus - Light Rain Loop (0x3091629e8)
+[LOG] SoundI::release                          :  (0x3069cf608)
+[LOG] SoundI::release                          :     Woosh (0x3069cf7b8)
+[LOG] SoundI::release                          :  (0x2c5b38398)
+[LOG] SoundI::release                          :     footsteps_player_grass_01 (0x16e13a508)
+[LOG] SoundI::release                          :  (0x12e9611e8)
+[LOG] SoundI::release                          :     footsteps_player_grass_02 (0x16e141128)
+[LOG] SoundI::release                          :  (0x331847348)
+[LOG] SoundI::release                          :     footsteps_player_grass_03 (0x16e18ab48)
+[LOG] Thread::callback                         : FMOD Studio update thread finished.
+[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
+[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
+[LOG] LiveUpdate::release                      : 
+[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
+[LOG] Thread::callback                         : FMOD stream thread finished.
+[LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
+[LOG] SystemI::close                           : Closed.
+[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
+[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
+[LOG] LiveUpdate::release                      : 
+[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
+[LOG] Thread::callback                         : FMOD stream thread finished.
+[LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] SystemI::close                           : Closed.
+[LOG] Thread::callback                         : FMOD nonblocking thread (0) finished.
+[LOG] Thread::callback                         : FMOD file thread finished.

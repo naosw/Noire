@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{ecb163fc-e459-421f-80d7-f36e9114f75e}">
+		<property name="assetPath">
+			<value>Dauzkobza - Natural Countryside - Bonfire Flames and Smoke .wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>96</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>60</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{28bd54d8-5a67-4476-b471-a043c2e15d47}</destination>
+		</relationship>
+	</object>
+</objects>
