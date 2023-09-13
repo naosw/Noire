@@ -83,9 +83,8 @@ crashlytics-build.properties
 !/[Aa}ssets/Gizmos/FMOD/*
 !/[Aa}ssets/Editor Default Resources/FMOD/*
 
-# Ignore the Cache-file since it is updated locally either way
-/[Aa]ssets/**/FMODStudioCache.asset
-/[Aa]ssets/**/FMODStudioCache.asset.meta
+# ignore cache
+/[Aa]ssets/Plugins/FMOD/Cache/*
 
 # Log-files
 fmod.log
@@ -94,5 +93,7 @@ fmod_editor.log
 # FMOD 1.10.x (Legacy)
 /Assets/FMODAssets/*
 /Assets/FMODStudioCache.meta
+
+/NoireFM/.cache
 
 .DS_Store
