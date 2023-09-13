@@ -71,7 +71,14 @@ public class Player : MonoBehaviour
         if(IsIdle() || IsWalking())
             HandleMovement();
     }
-
+    public void PlaySteps(string path)
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);
+    }
+    public void PlaySwoosh(string path)
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);
+    }
     private void HandleMovement()
     {
         // set to terrain height
