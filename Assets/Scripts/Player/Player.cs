@@ -56,9 +56,20 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        //Debug code, to remove later before pushing.
+        drowsiness -= 10 * Time.deltaTime;
+
         attack1CooldownCounter -= Time.deltaTime;
         if(IsIdle() || IsWalking())
             HandleMovement();
+
+        if (drowsiness < 0){
+            Die();
+        }
+    }
+
+    private void Die(){
+        Debug.Log("You ded lol.\n");
     }
 
     private void HandleMovement()
