@@ -62,8 +62,7 @@ public class CameraMovements : MonoBehaviour
         }
     }
 
-    private void HandleCameraZoom()
-    {
+    private void HandleCameraZoom() {
         float zoomVal = GameInput.Instance.GetZoomVal();
         if (zoomVal > 0)
             targetFOV -= .5f;
