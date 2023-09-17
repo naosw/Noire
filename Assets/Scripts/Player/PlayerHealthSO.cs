@@ -55,4 +55,9 @@ public class PlayerHealthSO : ScriptableObject
         currentBuffer = 0;
         currentDrowsiness = maxDrowsiness;
     }
+
+    public bool isDead()
+    {
+        return currentDrowsiness <= 0.0f;
+    }
 }
