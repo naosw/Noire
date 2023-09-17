@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
+using UnityEngine.Events;
 using static UnityEditor.PlayerSettings;
 
 public class Player : MonoBehaviour
@@ -32,9 +33,17 @@ public class Player : MonoBehaviour
     private float playerHitBoxHeight = 1f;
     private Quaternion rightRotation = Quaternion.Euler(new Vector3(0, 90, 0));
 
-    private float drowsiness = 100;
-
-
+    [Header("Player Health")]
+    [SerializeField] private PlayerHealthSO playerHealthSO;
+    [SerializeField] private float bufferDecreaseRate = 1f;
+    [SerializeField] private float maxRegenHitCooldown = 4f;
+    private float currentBufferCooldown = 0f;
+    private bool bufferOnCooldown = false;
+    private bool IsDead;
+    public float playerHitIFrames = 1f;
+    private float currentIFrameTimer = 0f;
+    
+    public event UnityAction updateHealthBar;
     private void Awake()
     {
         state = State.Idle;
@@ -42,6 +51,7 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         attack1Cooldown = weapon.GetAttackCooldown();
         attack1CooldownCounter = 0;
+        playerHealthSO.ResetHealth();
     }
 
     private void Start()
@@ -56,22 +66,19 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        //Debug code, to remove later before pushing.
-        drowsiness -= 10 * Time.deltaTime;
-
+        HandleDrowsiness();
         attack1CooldownCounter -= Time.deltaTime;
         if(IsIdle() || IsWalking())
             HandleMovement();
-
-        if (drowsiness < 0){
-            Die();
-        }
     }
-
-    private void Die(){
-        Debug.Log("You ded lol.\n");
+    public void PlaySteps(string path)
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);
     }
-
+    public void PlaySwoosh(string path)
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);
+    }
     private void HandleMovement()
     {
         // set to terrain height
@@ -143,6 +150,48 @@ public class Player : MonoBehaviour
         foreach (Collider enemy in hitEnemies)
         {
             enemy.GetComponent<Enemy>().PlayOnHitEffects();
+        }
+    }
+
+    private void HandleDrowsiness()
+    {
+        if(currentIFrameTimer <= playerHitIFrames)
+        {
+            currentIFrameTimer += Time.deltaTime;
+        }
+
+        if (currentBufferCooldown <= 0)
+        {
+            bufferOnCooldown = false;
+        }
+        else
+        {
+            bufferOnCooldown = true;
+            currentBufferCooldown -= Time.deltaTime;
+        }
+        
+        if (!bufferOnCooldown)
+        {
+            updateHealthBar?.Invoke();
+            playerHealthSO.RegenBuffer(bufferDecreaseRate * Time.deltaTime);
+        }
+    }
+    
+    public void HandleHit(float bufferDamage)
+    {
+        if (IsDead)
+            return;
+        if (currentIFrameTimer <= playerHitIFrames)
+            return;
+        
+        currentBufferCooldown = maxRegenHitCooldown;
+        
+        playerHealthSO.InflictDamage(bufferDamage);
+        updateHealthBar?.Invoke();
+        
+        if (playerHealthSO.CurrentDrowsiness <= 0)
+        {
+            IsDead = true;
         }
     }
 
