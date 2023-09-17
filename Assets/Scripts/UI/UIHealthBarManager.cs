@@ -16,7 +16,7 @@ public class UIHealthBarManager : MonoBehaviour
     }
     void UpdateHealthBarValues()
     {
-        drowsiness.value = playerHealthSO.CurrentDrowsiness/playerHealthSO.MaxDrowsiness;
-        buffer.value = playerHealthSO.CurrentBuffer / playerHealthSO.MaxBuffer;
+        drowsiness.value = playerHealthSO.GetCurrentDrowsiness/playerHealthSO.GetMaxDrowsiness;
+        buffer.value = playerHealthSO.GetCurrentBuffer / playerHealthSO.GetMaxBuffer;
     }
 }

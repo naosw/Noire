@@ -15,13 +15,12 @@ public class PlayerHealthSO : ScriptableObject
     [SerializeField][ReadOnly] private float currentDrowsiness;
 
     
-    
-    public float MaxBuffer => maxBuffer;
-    public float CurrentBuffer => currentBuffer;
-    public float MaxDrowsiness => maxDrowsiness;
-    public float CurrentDrowsiness => currentDrowsiness;
+    public float GetMaxBuffer => maxBuffer;
+    public float GetCurrentBuffer => currentBuffer;
+    public float GetMaxDrowsiness => maxDrowsiness;
+    public float GetCurrentDrowsiness => currentDrowsiness;
 
-    public void setMaxBuffer(float newValue)
+    public void SetMaxBuffer(float newValue)
     {
         maxBuffer = newValue;
     }
@@ -56,8 +55,8 @@ public class PlayerHealthSO : ScriptableObject
         currentDrowsiness = maxDrowsiness;
     }
 
-    public bool isDead()
+    public bool IsDead()
     {
-        return currentDrowsiness <= 0.0f;
+        return currentDrowsiness <= 0;
     }
 }

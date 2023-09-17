@@ -1,6 +1,5 @@
 using Cinemachine;
 using System.Collections;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.Events;
 using static UnityEditor.PlayerSettings;
@@ -14,7 +13,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float playerRadius = 1.5f;
     [SerializeField] private float playerHeight = 6f;
     [SerializeField] private LayerMask collidableLayers;
-    [SerializeField] private float test;
 
     public static Player Instance { get; private set; }
     private enum State
@@ -180,7 +178,7 @@ public class Player : MonoBehaviour
             playerHealthSO.RegenBuffer(bufferDecreaseRate * Time.deltaTime);
         }
 
-        if (playerHealthSO.isDead())
+        if (playerHealthSO.IsDead())
         {
             HandleDeath();
         }
@@ -204,7 +202,7 @@ public class Player : MonoBehaviour
         playerHealthSO.InflictDamage(bufferDamage);
         updateHealthBar?.Invoke();
         
-        if (playerHealthSO.CurrentDrowsiness <= 0)
+        if (playerHealthSO.GetCurrentDrowsiness <= 0)
         {
             IsDead = true;
         }
@@ -214,6 +212,5 @@ public class Player : MonoBehaviour
     public bool IsIdle() => state == State.Idle;
     public bool IsAttacking1() => state == State.Attack1;
     public float GetPlayerHitBoxHeight() => playerHitBoxHeight;
-
     public Weapon GetWeapon() => weapon;
 }
