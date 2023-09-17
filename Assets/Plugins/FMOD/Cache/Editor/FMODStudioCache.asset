@@ -19,7 +19,7 @@ MonoBehaviour:
     Data3: 621909431
     Data4: -1153663256
   Banks:
-  - {fileID: -3931021649581387534}
+  - {fileID: 1647381265197042841}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -46,7 +46,7 @@ MonoBehaviour:
     Data3: 1307298456
     Data4: 816972735
   Banks:
-  - {fileID: -3931021649581387534}
+  - {fileID: 1647381265197042841}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
@@ -54,26 +54,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 60000
---- !u!114 &-3931021649581387534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/SFX.bank
-  m_EditorClassIdentifier: 
-  Path: ../../../Desktop/NoireFM/Build/Desktop/SFX.bank
-  Name: SFX
-  StudioPath: bank:/SFX
-  lastModified: 638301581433416124
-  FileSizes:
-  - Name: Desktop
-    Value: 3613088
-  Exists: 1
 --- !u!114 &-1200348141917974010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,9 +94,9 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: 6480685492777403422}
-  - {fileID: 3804455716737024811}
-  - {fileID: -3931021649581387534}
+  - {fileID: 2923559624641882194}
+  - {fileID: 227242851628638465}
+  - {fileID: 1647381265197042841}
   EditorEvents:
   - {fileID: -7577471951192635866}
   - {fileID: 1249290043006327248}
@@ -125,11 +105,31 @@ MonoBehaviour:
   EditorParameters:
   - {fileID: -1200348141917974010}
   MasterBanks:
-  - {fileID: 3804455716737024811}
+  - {fileID: 227242851628638465}
   StringsBanks:
-  - {fileID: 6480685492777403422}
-  cacheTime: 638301581433416124
+  - {fileID: 2923559624641882194}
+  cacheTime: 638305605578685573
   cacheVersion: 131607
+--- !u!114 &227242851628638465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: NoireFM/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638305605576160663
+  FileSizes:
+  - Name: Desktop
+    Value: 1250
+  Exists: 1
 --- !u!114 &1249290043006327248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +149,7 @@ MonoBehaviour:
     Data3: 203483558
     Data4: -721051577
   Banks:
-  - {fileID: -3931021649581387534}
+  - {fileID: 1647381265197042841}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -158,6 +158,46 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &1647381265197042841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/SFX.bank
+  m_EditorClassIdentifier: 
+  Path: NoireFM/Build/Desktop/SFX.bank
+  Name: SFX
+  StudioPath: bank:/SFX
+  lastModified: 638305605578685573
+  FileSizes:
+  - Name: Desktop
+    Value: 3613088
+  Exists: 1
+--- !u!114 &2923559624641882194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: NoireFM/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638305605576190569
+  FileSizes:
+  - Name: Desktop
+    Value: 1098
+  Exists: 1
 --- !u!114 &3244500224269077802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,46 +225,6 @@ MonoBehaviour:
   - Sand
   - Ground
   Exists: 1
---- !u!114 &3804455716737024811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.bank
-  m_EditorClassIdentifier: 
-  Path: ../../../Desktop/NoireFM/Build/Desktop/Master.bank
-  Name: Master
-  StudioPath: bank:/Master
-  lastModified: 638301551260642150
-  FileSizes:
-  - Name: Desktop
-    Value: 1250
-  Exists: 1
---- !u!114 &6480685492777403422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.strings.bank
-  m_EditorClassIdentifier: 
-  Path: ../../../Desktop/NoireFM/Build/Desktop/Master.strings.bank
-  Name: Master.strings
-  StudioPath: bank:/Master.strings
-  lastModified: 638301551260648136
-  FileSizes:
-  - Name: Desktop
-    Value: 1098
-  Exists: 1
 --- !u!114 &6600686639809881508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,7 +244,7 @@ MonoBehaviour:
     Data3: 1598374807
     Data4: 783911936
   Banks:
-  - {fileID: -3931021649581387534}
+  - {fileID: 1647381265197042841}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
