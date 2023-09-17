@@ -5,6 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenuScene.unity
+    guid: f42e3388b854f16498bd6bdcc77f2803
+  - enabled: 1
+    path: Assets/Scenes/Valley of Solura.unity
+    guid: 265aa3983c249aa46b952f3eb254934b
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
