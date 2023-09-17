@@ -140,6 +140,30 @@ public class Player : MonoBehaviour
     public bool IsAttacking1() => state == State.Attack1;
     public float GetPlayerHitBoxHeight() => playerHitBoxHeight;
 
-    public Weapon GetWeapon() => weapon;
-//comment
+    Weapon GetWeapon() => weapon;
+
+    [SerializeField] private float LucidThreshold; // needs value 
+    [SerializeField] private float DeepThreshold; // must be less than LucidThreshold
+
+    private enum DreamState
+    {
+        Neutral,
+        Lucid,
+        Deep
+    }
+
+    private DreamState dreamState;
+
+    private void PlayerDreamState()
+    {
+        dreamState = DreamState.Neutral;
+        if (drowsiness < LucidThreshold)
+        {
+            dreamState = DreamState.Lucid;
+        }
+        else if (drowsiness < DeepThreshold)
+        {
+            dreamState = DreamState.Deep;
+        }
+    } 
 }
