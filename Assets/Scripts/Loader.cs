@@ -10,7 +10,6 @@ public static class Loader {
         MainMenuScene,
         ValleyofSolura,
         LoadingScene
-
     }
     public static Scene targetScene;
 
