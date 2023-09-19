@@ -25,7 +25,8 @@ public class Enemy : MonoBehaviour
     private Renderer renderer;
     private Material originalMaterial;
     private Coroutine onHit;
-    public Weapon weapon; 
+    public Weapon weapon;
+
     public float health { get; private set; }
     private void Awake()
     {
@@ -102,6 +103,7 @@ public class Enemy : MonoBehaviour
         {
             onHitParticleEffects.transform.LookAt(Player.Instance.transform.position + new Vector3(0, Player.Instance.GetPlayerHitBoxHeight(), 0));
             onHitParticleEffects.Play();
+            Debug.Log("PLAY PARTI");
         }
         renderer.material = OnHitMaterial;
         yield return new WaitForSeconds(.2f);
