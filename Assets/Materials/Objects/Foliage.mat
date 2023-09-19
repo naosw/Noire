@@ -32,7 +32,7 @@ Material:
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 2450
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -40,7 +40,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _FoliageAlpha:
-        m_Texture: {fileID: 2800000, guid: 981061a12f4468247a38953fddb9c0e7, type: 3}
+        m_Texture: {fileID: 2800000, guid: d534eddd5e6922d4da220a72fb1433b2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_d191b8de23934d0891254a6828d8d707_Texture_1_Texture2D:
@@ -63,7 +63,7 @@ Material:
     m_Floats:
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _BillboardSize: 0.71
+    - _BillboardSize: 0.28
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _CastShadows: 1
@@ -73,7 +73,7 @@ Material:
     - _Enable_X_Shifts: 1
     - _Enable_Y_Shifts: 1
     - _Enable_Z_Shifts: 0
-    - _Inflate: 0.39
+    - _Inflate: 0.12
     - _JitterSpeed: 0.07
     - _NoiseScale: 5
     - _QueueControl: 0
@@ -96,5 +96,5 @@ Material:
     - _ZWriteControl: 0
     - _Z_Wind_Offset: 8
     m_Colors:
-    - _Color: {r: 0.7058824, g: 0.7055347, b: 0.3294118, a: 0}
+    - _Color: {r: 0.7058823, g: 0.7055347, b: 0.32941175, a: 1}
   m_BuildTextureStacks: []
