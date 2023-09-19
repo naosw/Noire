@@ -151,7 +151,7 @@ public class Player : MonoBehaviour
         Collider[] hitEnemies = Physics.OverlapSphere(weapon.GetAttackPoint().position, weapon.GetAttackRadius(), weapon.GetEnemyLayer());
         foreach (Collider enemy in hitEnemies)
         {
-            enemy.GetComponent<Enemy>().PlayOnHitEffects();
+            enemy.GetComponent<Enemy>().OnHit();
         }
     }
 
@@ -207,7 +207,6 @@ public class Player : MonoBehaviour
             IsDead = true;
         }
     }
-
     public bool IsWalking() => state == State.Walk;
     public bool IsIdle() => state == State.Idle;
     public bool IsAttacking1() => state == State.Attack1;
