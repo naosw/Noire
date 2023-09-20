@@ -22,8 +22,6 @@ public class LightingManager : MonoBehaviour
 
     public static LightingManager Instance { get; private set; }
 
-    private Color blendedColor;
-
     private void Awake()
     {
         Instance = this;

@@ -14,9 +14,9 @@ public class MeleeEnemyAI : Enemy
     private float currentChangeTime;
     
     [SerializeField] float[] attackCooldown = new float[2];
-    [SerializeField]private float currentAttackCooldown;
-    [SerializeField]private bool canAttack = true;
-    [SerializeField]private bool isAttacking = false;
+    [SerializeField] private float currentAttackCooldown;
+    [SerializeField] private bool canAttack = true;
+    [SerializeField] private bool isAttacking = false;
     [SerializeField] float AttackTime = 2f;
     [SerializeField] private float attackDistance = 1.5f;
     public override void Start()
@@ -72,7 +72,6 @@ public class MeleeEnemyAI : Enemy
             // handle attacking
             if (canAttack)
             {
-                
                 StartCoroutine(AttackCooldown());
                 StartCoroutine(DoAttack());
             }
