@@ -59,6 +59,7 @@ public class Player : MonoBehaviour
         attack1CooldownCounter -= Time.deltaTime;
         if(IsIdle() || IsWalking())
             HandleMovement();
+        HandleDreamState()
     }
 
     private void HandleMovement()
@@ -154,9 +155,8 @@ public class Player : MonoBehaviour
 
     private DreamState dreamState;
 
-    private void PlayerDreamState()
+    private void HandleDreamState()
     {
-        dreamState = DreamState.Neutral;
         if (drowsiness < LucidThreshold)
         {
             dreamState = DreamState.Lucid;
@@ -164,6 +164,9 @@ public class Player : MonoBehaviour
         else if (drowsiness < DeepThreshold)
         {
             dreamState = DreamState.Deep;
+        } else 
+        {
+            dreamState = DreamState.Neutral;
         }
     } 
 }
