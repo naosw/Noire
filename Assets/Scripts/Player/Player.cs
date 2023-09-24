@@ -4,23 +4,30 @@ using UnityEngine;
 using UnityEngine.Events;
 using static UnityEditor.PlayerSettings;
 
+[RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 7f;
+    [SerializeField] private float dashSpeed = 4;
+    [SerializeField] private float dashFalloff = 2;
+    [SerializeField] private float dashCooldown;
     [SerializeField] float rotateSpeed = 10f;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private Weapon weapon;
     [SerializeField] private float playerRadius = 1.5f;
     [SerializeField] private float playerHeight = 6f;
     [SerializeField] private LayerMask collidableLayers;
-
+    private bool isDashing = false;
+    private Vector3 dashDirection;
+    [SerializeField] float currentDashSpeed;
     public static Player Instance { get; private set; }
     private enum State
     {
         Idle,
         Walk,
         Attack1,
-        state2
+        state2,
+        Dash,
     }
 
     private const string ATTACK1 = "Attack1";
@@ -41,7 +48,9 @@ public class Player : MonoBehaviour
     private bool IsDead;
     public float playerHitIFrames = 1f;
     private float currentIFrameTimer = 0f;
-    
+    private CharacterController controller;
+    private bool startDash = false;
+
     public event UnityAction updateHealthBar;
     private void Awake()
     {
@@ -51,13 +60,13 @@ public class Player : MonoBehaviour
         attack1Cooldown = weapon.GetAttackCooldown();
         attack1CooldownCounter = 0;
         playerHealthSO.ResetHealth();
+        controller = GetComponent<CharacterController>();
     }
 
     private void Start()
     {
         GameInput.Instance.OnAttack1 += GameInput_OnAttack1;
     }
-
     private void GameInput_OnAttack1(object sender, System.EventArgs e)
     {
         HandleAttack1();
@@ -65,9 +74,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.V)) startDash = true;
         HandleDrowsiness();
         attack1CooldownCounter -= Time.deltaTime;
-        if(IsIdle() || IsWalking())
+        if(IsIdle() || IsWalking() || IsDashing())
             HandleMovement();
     }
 
@@ -80,16 +90,24 @@ public class Player : MonoBehaviour
     {
         FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);
     }
-
+    
     private void HandleMovement()
+{
+    if (currentDashSpeed > 0)
     {
-        // set to terrain height
-        Vector3 pos = transform.position;
-        pos.y = Terrain.activeTerrain.SampleHeight(transform.position) + .1f;
-        transform.position = pos;
+        if (startDash) startDash = false;
+        currentDashSpeed -= dashFalloff * Time.deltaTime;
+        if (currentDashSpeed < moveSpeed)
+        {
+            currentDashSpeed = 0;
+            isDashing = false; 
+        }
+    }
 
+    if (!isDashing) 
+    {
         Vector3 inputVector = GameInput.Instance.GetMovementVectorNormalized();
-        if (inputVector == Vector3.zero)
+        if (inputVector == Vector3.zero && currentDashSpeed <= 0)
         {
             state = State.Idle;
             return;
@@ -103,30 +121,50 @@ public class Player : MonoBehaviour
         right *= inputVector.x;
 
         float moveDistance = moveSpeed * Time.deltaTime;
-
-        if (Physics.CapsuleCast(transform.position,
-                                transform.position + Vector3.up * playerHeight,
-                                playerRadius,
-                                forward,
-                                moveDistance,
-                                collidableLayers))
-            forward = Vector3.zero;
-        if (Physics.CapsuleCast(transform.position,
-                                transform.position + Vector3.up * playerHeight,
-                                playerRadius,
-                                right,
-                                moveDistance,
-                                collidableLayers))
-            right = Vector3.zero;
-
+        
         Vector3 moveDir = forward + right;
-        transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
-        transform.position += moveDir.normalized * moveDistance;
-
-        if (moveDir != Vector3.zero)
-            state = State.Walk;
+        
+        if (startDash && currentDashSpeed <= 0)
+        {
+            Dash(moveDir);
+            isDashing = true; 
+        }
+        
+        if (!isDashing)
+        {
+            
+            moveDir = moveDir.normalized * moveDistance;
+            
+            float terrainHeight = Terrain.activeTerrain.SampleHeight(transform.position + moveDir) + .1f;
+            moveDir.y += terrainHeight - transform.position.y;
+            
+            controller.Move(moveDir);
+            if (moveDir != Vector3.zero)
+            {
+                transform.forward = Vector3.Slerp(transform.forward, new Vector3(moveDir.x, 0, moveDir.z), Time.deltaTime * rotateSpeed);
+                state = State.Walk;
+            }
+        }
     }
+    
+    if (isDashing)
+    {
+        state = State.Dash;
+        Vector3 dashMove = dashDirection * currentDashSpeed * Time.deltaTime;
+        transform.forward = Vector3.Slerp(transform.forward, new Vector3(dashMove.x, 0, dashMove.z), Time.deltaTime * rotateSpeed);
+        
+        float terrainHeight = Terrain.activeTerrain.SampleHeight(transform.position + dashMove) + .1f;
+        dashMove.y += terrainHeight - transform.position.y;
 
+        controller.Move(dashMove);
+    }
+}
+
+    private void Dash(Vector3 dir)
+    {
+        currentDashSpeed = dashSpeed;
+        dashDirection = dir.normalized;
+    }
     private void HandleAttack1()
     {
         if (!IsAttacking1() && attack1CooldownCounter <= 0)
@@ -207,6 +245,7 @@ public class Player : MonoBehaviour
             IsDead = true;
         }
     }
+    public bool IsDashing() => state == State.Dash;
     public bool IsWalking() => state == State.Walk;
     public bool IsIdle() => state == State.Idle;
     public bool IsAttacking1() => state == State.Attack1;
