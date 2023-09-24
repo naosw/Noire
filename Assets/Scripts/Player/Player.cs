@@ -263,6 +263,7 @@ public class Player : MonoBehaviour
     private void HandleDeath()
     {
         Debug.Log("u ded lol.\n");
+        Loader.Load(Loader.Scene.DeathScene);
     }
 
     public void HandleHit(float bufferDamage)
