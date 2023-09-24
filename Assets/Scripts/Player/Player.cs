@@ -26,7 +26,6 @@ public class Player : MonoBehaviour
         Idle,
         Walk,
         Attack1,
-        state2,
         Dash,
     }
 
@@ -52,6 +51,7 @@ public class Player : MonoBehaviour
     private bool startDash = false;
 
     public event UnityAction updateHealthBar;
+    
     private void Awake()
     {
         state = State.Idle;
@@ -92,79 +92,80 @@ public class Player : MonoBehaviour
     }
     
     private void HandleMovement()
-{
-    if (currentDashSpeed > 0)
     {
-        if (startDash) startDash = false;
-        currentDashSpeed -= dashFalloff * Time.deltaTime;
-        if (currentDashSpeed < moveSpeed)
+        if (currentDashSpeed > 0)
         {
-            currentDashSpeed = 0;
-            isDashing = false; 
-        }
-    }
-
-    if (!isDashing) 
-    {
-        Vector3 inputVector = GameInput.Instance.GetMovementVectorNormalized();
-        if (inputVector == Vector3.zero && currentDashSpeed <= 0)
-        {
-            state = State.Idle;
-            return;
-        }
-
-        Vector3 forward = virtualCamera.transform.forward;
-        forward.y = 0;
-        Vector3 right = rightRotation * forward;
-
-        forward *= inputVector.z;
-        right *= inputVector.x;
-
-        float moveDistance = moveSpeed * Time.deltaTime;
-        
-        Vector3 moveDir = forward + right;
-        
-        if (startDash && currentDashSpeed <= 0)
-        {
-            Dash(moveDir);
-            isDashing = true; 
-        }
-        
-        if (!isDashing)
-        {
-            
-            moveDir = moveDir.normalized * moveDistance;
-            
-            float terrainHeight = Terrain.activeTerrain.SampleHeight(transform.position + moveDir) + .1f;
-            moveDir.y += terrainHeight - transform.position.y;
-            
-            controller.Move(moveDir);
-            if (moveDir != Vector3.zero)
+            if (startDash) startDash = false;
+            currentDashSpeed -= dashFalloff * Time.deltaTime;
+            if (currentDashSpeed < moveSpeed)
             {
-                transform.forward = Vector3.Slerp(transform.forward, new Vector3(moveDir.x, 0, moveDir.z), Time.deltaTime * rotateSpeed);
-                state = State.Walk;
+                currentDashSpeed = 0;
+                isDashing = false; 
             }
         }
-    }
-    
-    if (isDashing)
-    {
-        state = State.Dash;
-        Vector3 dashMove = dashDirection * currentDashSpeed * Time.deltaTime;
-        transform.forward = Vector3.Slerp(transform.forward, new Vector3(dashMove.x, 0, dashMove.z), Time.deltaTime * rotateSpeed);
-        
-        float terrainHeight = Terrain.activeTerrain.SampleHeight(transform.position + dashMove) + .1f;
-        dashMove.y += terrainHeight - transform.position.y;
 
-        controller.Move(dashMove);
+        if (!isDashing) 
+        {
+            Vector3 inputVector = GameInput.Instance.GetMovementVectorNormalized();
+            if (inputVector == Vector3.zero && currentDashSpeed <= 0)
+            {
+                state = State.Idle;
+                return;
+            }
+
+            Vector3 forward = virtualCamera.transform.forward;
+            forward.y = 0;
+            Vector3 right = rightRotation * forward;
+
+            forward *= inputVector.z;
+            right *= inputVector.x;
+
+            float moveDistance = moveSpeed * Time.deltaTime;
+            
+            Vector3 moveDir = forward + right;
+            
+            if (startDash && currentDashSpeed <= 0)
+            {
+                Dash(moveDir);
+                isDashing = true; 
+            }
+            
+            if (!isDashing)
+            {
+                
+                moveDir = moveDir.normalized * moveDistance;
+                
+                float terrainHeight = Terrain.activeTerrain.SampleHeight(transform.position + moveDir) + .1f;
+                moveDir.y += terrainHeight - transform.position.y;
+                
+                controller.Move(moveDir);
+                if (moveDir != Vector3.zero)
+                {
+                    transform.forward = Vector3.Slerp(transform.forward, new Vector3(moveDir.x, 0, moveDir.z), Time.deltaTime * rotateSpeed);
+                    state = State.Walk;
+                }
+            }
+        }
+        
+        if (isDashing)
+        {
+            state = State.Dash;
+            Vector3 dashMove = dashDirection * currentDashSpeed * Time.deltaTime;
+            transform.forward = Vector3.Slerp(transform.forward, new Vector3(dashMove.x, 0, dashMove.z), Time.deltaTime * rotateSpeed);
+            
+            float terrainHeight = Terrain.activeTerrain.SampleHeight(transform.position + dashMove) + .1f;
+            dashMove.y += terrainHeight - transform.position.y;
+
+            controller.Move(dashMove);
+        }
     }
-}
 
     private void Dash(Vector3 dir)
     {
         currentDashSpeed = dashSpeed;
         dashDirection = dir.normalized;
     }
+    
     private void HandleAttack1()
     {
         if (!IsAttacking1() && attack1CooldownCounter <= 0)
