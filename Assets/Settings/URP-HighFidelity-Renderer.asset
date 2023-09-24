@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12dafafc38bc1bc42bb39c2c3fc51f69, type: 3}
   m_Name: SobelFeature
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   settings:
     renderPassEvent: 300
     DepthThreshold: 0.03

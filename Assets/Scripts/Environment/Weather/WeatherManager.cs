@@ -5,17 +5,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-
 public class WeatherManager : MonoBehaviour
 {
     [SerializeField] private Weather[] availableWeathers;
     [SerializeField] private Weather defaultWeather;
     [SerializeField] private float[] weatherWeights;
+    [SerializeField] private AudioManager audioManager;
 
     private Weather currentWeather;
+
     private float tickTimer = 0;
     private List<int> probablisticWeathers = new List<int>();
     private int probabilityLen;
+
+    private const string WEATHER = "Weather";
 
     private void Awake()
     {
@@ -66,11 +69,21 @@ public class WeatherManager : MonoBehaviour
                 ChangeWeather(nextWeather);
         }
     }
-
+    private float WthConverter(string wthName){
+        if (wthName == "Sunny"){
+            return 0;
+        }
+        if (wthName == "Rain"){
+            return 1;
+        }
+        return 0;
+    }
     private void ChangeWeather(Weather weather)
     {
         currentWeather.StopWeather();
         currentWeather = weather;
+        string name = currentWeather.GetWeatherName();
+        audioManager.ChangeGlobalParaByName("Weather",WthConverter(name));
         weather.PlayWeather();
     }
 }

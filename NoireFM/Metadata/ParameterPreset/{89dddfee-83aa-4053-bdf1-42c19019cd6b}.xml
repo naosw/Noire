@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{89dddfee-83aa-4053-bdf1-42c19019cd6b}">
+		<property name="name">
+			<value>Dowsiness Stage</value>
+		</property>
+		<relationship name="folder">
+			<destination>{65eba933-30f5-4b5e-b4e1-e59958a4531a}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{c1b6267c-391c-46d6-9908-23ee7f16d285}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{c1b6267c-391c-46d6-9908-23ee7f16d285}">
+		<property name="maximum">
+			<value>3</value>
+		</property>
+		<property name="isGlobal">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>

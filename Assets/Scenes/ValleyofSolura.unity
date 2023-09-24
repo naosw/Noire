@@ -152,6 +152,25 @@ MonoBehaviour:
   weatherName: Rain
   FollowPlayer: 1
   weatherDurationMax: 10
+  weatherAudio: {fileID: 298311303}
+--- !u!114 &9595770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9595763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9468c5f457ace64f8d4df6d642b107f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LoadEvent: 1
+  UnloadEvent: 2
+  Banks:
+  - SFX
+  CollisionTag: 
+  PreloadSamples: 1
 --- !u!1 &18792302
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,69 +575,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   attackDamage: 10
---- !u!1 &162009829
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 162009830}
-  - component: {fileID: 162009831}
-  m_Layer: 7
-  m_Name: Weather Audio
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &162009830
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 162009829}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 13.6, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 361044302}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &162009831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 162009829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: 36053687
-      Data2: 1220597089
-      Data3: 1598374807
-      Data4: 783911936
-    Path: event:/Scene/Weather
-  Event: 
-  PlayEvent: 1
-  StopEvent: 2
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  AllowNonRigidbodyDoppler: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
 --- !u!1 &231874527 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4118187688203045083, guid: c34c049c0620c514084fb426aa5d5d63,
@@ -772,6 +728,57 @@ ParticleSystem:
     type: 3}
   m_PrefabInstance: {fileID: 248229661}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &298311301
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 298311302}
+  - component: {fileID: 298311303}
+  m_Layer: 7
+  m_Name: WeatherAudio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &298311302
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298311301}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 361044302}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &298311303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298311301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6e8675d5932e416a9205a0fe200d46b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wthAudioEvent:
+    Guid:
+      Data1: 36053687
+      Data2: 1220597089
+      Data3: 1598374807
+      Data4: 783911936
+    Path: event:/Scene/WeatherSound
 --- !u!1 &313825785
 GameObject:
   m_ObjectHideFlags: 0
@@ -806,6 +813,7 @@ Transform:
   - {fileID: 18792304}
   - {fileID: 719287922}
   - {fileID: 1910941053}
+  - {fileID: 865975037}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1758,7 +1766,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: aaeef12fe738e4240b7f6d0f0db12bf8,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 162009830}
+      addedObject: {fileID: 298311302}
     - targetCorrespondingSourceObject: {fileID: 5170458951842637540, guid: aaeef12fe738e4240b7f6d0f0db12bf8,
         type: 3}
       insertIndex: -1
@@ -2953,6 +2961,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 241d06ffde45ae045b5cea945c5392cf, type: 3}
+--- !u!1 &865975036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 865975037}
+  - component: {fileID: 865975038}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &865975037
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865975036}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 313825786}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &865975038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865975036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2a6812a25c1c4ee2af0eec517e148e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &880062718
 GameObject:
   m_ObjectHideFlags: 3
@@ -4865,6 +4917,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1412619024}
   - component: {fileID: 1412619025}
+  - component: {fileID: 1412619026}
   m_Layer: 9
   m_Name: Sunny
   m_TagString: Untagged
@@ -4902,6 +4955,25 @@ MonoBehaviour:
   weatherName: Sunny
   FollowPlayer: 0
   weatherDurationMax: 20
+  weatherAudio: {fileID: 298311303}
+--- !u!114 &1412619026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412619023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9468c5f457ace64f8d4df6d642b107f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LoadEvent: 1
+  UnloadEvent: 2
+  Banks:
+  - SFX
+  CollisionTag: 
+  PreloadSamples: 1
 --- !u!1 &1447050807 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1328565379652136757, guid: 0d61035e6d31041ef892256af23757e9,
@@ -6163,8 +6235,9 @@ MonoBehaviour:
   - {fileID: 1412619025}
   defaultWeather: {fileID: 1412619025}
   weatherWeights:
+  - 6
   - 1
-  - 4
+  audioManager: {fileID: 865975038}
 --- !u!1 &1916311172
 GameObject:
   m_ObjectHideFlags: 0
@@ -6744,7 +6817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc0a60301def5df489454f8d0cde1fde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 12
+  moveSpeed: 10
   rotateSpeed: 30
   virtualCamera: {fileID: 648294668}
   weapon: {fileID: 156988901}
@@ -7350,6 +7423,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 9595767}
+    - targetCorrespondingSourceObject: {fileID: 491396527521279573, guid: 02847462d1ec84e48845accd68eb4890,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9595770}
   m_SourcePrefab: {fileID: 100100000, guid: 02847462d1ec84e48845accd68eb4890, type: 3}
 --- !u!224 &5047644837948617256
 RectTransform:
