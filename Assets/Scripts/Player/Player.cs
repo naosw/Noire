@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float maxRegenHitCooldown = 4f;
     private float currentBufferCooldown = 0f;
     private bool bufferOnCooldown = false;
-    private bool IsDead;
+    public bool IsDead = true;
     public float playerHitIFrames = 1f;
     private float currentIFrameTimer = 0f;
     private CharacterController controller;
@@ -227,6 +227,7 @@ public class Player : MonoBehaviour
     private void HandleDeath()
     {
         Debug.Log("u ded lol.\n");
+        Loader.Load(Loader.Scene.DeathScene);
     }
 
     public void HandleHit(float bufferDamage)
