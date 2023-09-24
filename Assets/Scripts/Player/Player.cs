@@ -57,6 +57,17 @@ public class Player : MonoBehaviour
     [Header("Player Audio")] 
     [SerializeField] private PlayerAudio playerAudio;
     // TODO: modify PlayerAudio.cs
+    
+    [Header("Player Dream State")]
+    [SerializeField] private float LucidThreshold;
+    [SerializeField] private float DeepThreshold; // must be less than LucidThreshold
+    private DreamState dreamState;
+    private enum DreamState
+    {
+        Neutral,
+        Lucid,
+        Deep
+    }
 
     public event UnityAction updateHealthBar;
     
@@ -101,6 +112,7 @@ public class Player : MonoBehaviour
         attack1CooldownCounter -= Time.deltaTime;
         if(IsIdle() || IsWalking() || IsDashing())
             HandleMovement();
+        HandleDreamState();
     }
     
     public void PlaySteps(string path)
@@ -237,6 +249,21 @@ public class Player : MonoBehaviour
         if (playerHealthSO.IsDead())
             HandleDeath();
     }
+    
+    private void HandleDreamState()
+    {
+        if (drowsiness < LucidThreshold)
+        {
+            dreamState = DreamState.Lucid;
+        }
+        else if (drowsiness < DeepThreshold)
+        {
+            dreamState = DreamState.Deep;
+        } else 
+        {
+            dreamState = DreamState.Neutral;
+        }
+    } 
     
     private void HandleDeath()
     {
