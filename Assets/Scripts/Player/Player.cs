@@ -59,8 +59,8 @@ public class Player : MonoBehaviour
     // TODO: modify PlayerAudio.cs
     
     [Header("Player Dream State")]
-    [SerializeField] private float LucidThreshold;
-    [SerializeField] private float DeepThreshold; // must be less than LucidThreshold
+    [SerializeField] [Range(0,1)] private float LucidThreshold;
+    [SerializeField] [Range(0,1)] private float DeepThreshold; // must be less than LucidThreshold
     private DreamState dreamState;
     private enum DreamState
     {
@@ -252,17 +252,12 @@ public class Player : MonoBehaviour
     
     private void HandleDreamState()
     {
-        if (drowsiness < LucidThreshold)
-        {
+        if (playerHealthSO.GetCurrentDrowsinessPercentage <= LucidThreshold)
             dreamState = DreamState.Lucid;
-        }
-        else if (drowsiness < DeepThreshold)
-        {
+        else if (playerHealthSO.GetCurrentDrowsinessPercentage >= DeepThreshold)
             dreamState = DreamState.Deep;
-        } else 
-        {
+        else
             dreamState = DreamState.Neutral;
-        }
     } 
     
     private void HandleDeath()
