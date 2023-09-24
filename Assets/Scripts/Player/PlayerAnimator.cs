@@ -7,6 +7,7 @@ public class PlayerAnimator : MonoBehaviour
     private Animator animator;
     private const string WALK = "PlayerWalk";
     private const string IDLE = "PlayerIdle";
+    private const string DASH = "PlayerDash";
     public event EventHandler OnAttackAnimationStarted;
 
     private void Awake()
@@ -18,6 +19,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetBool(WALK, Player.Instance.IsWalking());
         animator.SetBool(IDLE, Player.Instance.IsIdle());
+        animator.SetBool(DASH, Player.Instance.IsDashing());
     }
 
     public bool AnimatorIsPlaying(int layer)

@@ -1,0 +1,332 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8252471984227306234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Weather
+  m_EditorClassIdentifier: 
+  Name: Weather
+  StudioPath: parameter:/Weather
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 1133086588
+    data2: 1698176828
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Sunny
+  - Rain
+  - Windy
+  Exists: 1
+--- !u!114 &-3857056874783005105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/SFX.bank
+  m_EditorClassIdentifier: 
+  Path: NoireFM/Build/Desktop/SFX.bank
+  Name: SFX
+  StudioPath: bank:/SFX
+  lastModified: 638311751733474791
+  FileSizes:
+  - Name: Desktop
+    Value: 3609344
+  Exists: 1
+--- !u!114 &-946810674260398546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: NoireFM/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638311751733264496
+  FileSizes:
+  - Name: Desktop
+    Value: 1576
+  Exists: 1
+--- !u!114 &-853733126062296813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character/Player/PlayerAttack
+  m_EditorClassIdentifier: 
+  Path: event:/Character/Player/PlayerAttack
+  Guid:
+    Data1: 908623027
+    Data2: 1291791835
+    Data3: 621909431
+    Data4: -1153663256
+  Banks:
+  - {fileID: -3857056874783005105}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-557239875475096230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Dowsiness Stage
+  m_EditorClassIdentifier: 
+  Name: Dowsiness Stage
+  StudioPath: parameter:/Dowsiness Stage
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 679508957
+    data2: 3185187742
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: 5086426965566551007}
+  - {fileID: -946810674260398546}
+  - {fileID: -3857056874783005105}
+  EditorEvents:
+  - {fileID: 6902025846912196757}
+  - {fileID: 3363104962720457876}
+  - {fileID: -853733126062296813}
+  - {fileID: 3257407840172813195}
+  EditorParameters:
+  - {fileID: -8252471984227306234}
+  - {fileID: -557239875475096230}
+  - {fileID: 5161154332121984466}
+  MasterBanks:
+  - {fileID: -946810674260398546}
+  StringsBanks:
+  - {fileID: 5086426965566551007}
+  cacheTime: 638311751733474791
+  cacheVersion: 131607
+--- !u!114 &2934579907552096344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/WeatherSound/Weather
+  m_EditorClassIdentifier: 
+  Name: Weather
+  StudioPath: 
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 1133086588
+    data2: 1698176828
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Sunny
+  - Rain
+  - Windy
+  Exists: 1
+--- !u!114 &3257407840172813195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Scene/WeatherSound
+  m_EditorClassIdentifier: 
+  Path: event:/Scene/WeatherSound
+  Guid:
+    Data1: 36053687
+    Data2: 1220597089
+    Data3: 1598374807
+    Data4: 783911936
+  Banks:
+  - {fileID: -3857056874783005105}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 2934579907552096344}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 167500
+--- !u!114 &3363104962720457876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character/Player/PlayerFootsteps
+  m_EditorClassIdentifier: 
+  Path: event:/Character/Player/PlayerFootsteps
+  Guid:
+    Data1: 470906221
+    Data2: 1264846118
+    Data3: 203483558
+    Data4: -721051577
+  Banks:
+  - {fileID: -3857056874783005105}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 5822132498396595978}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5086426965566551007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: NoireFM/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638311751733264496
+  FileSizes:
+  - Name: Desktop
+    Value: 1196
+  Exists: 1
+--- !u!114 &5161154332121984466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Intensity
+  m_EditorClassIdentifier: 
+  Name: Intensity
+  StudioPath: parameter:/Intensity
+  Min: 0
+  Max: 100
+  Default: 0
+  ID:
+    data1: 3431416733
+    data2: 3746192936
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &5822132498396595978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PlayerFootsteps/Different surfaces
+  m_EditorClassIdentifier: 
+  Name: Different surfaces
+  StudioPath: 
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 1922564014
+    data2: 3568646181
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Grass
+  - Sand
+  - Ground
+  Exists: 1
+--- !u!114 &6902025846912196757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Scene/Fireplace
+  m_EditorClassIdentifier: 
+  Path: event:/Scene/Fireplace
+  Guid:
+    Data1: -916346011
+    Data2: 1148520605
+    Data3: 1307298456
+    Data4: 816972735
+  Banks:
+  - {fileID: -3857056874783005105}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 60000
