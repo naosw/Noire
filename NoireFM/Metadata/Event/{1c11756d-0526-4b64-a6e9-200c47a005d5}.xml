@@ -62,7 +62,7 @@
 	</object>
 	<object class="EventAutomatableProperties" id="{85bf3bec-205e-4a12-a717-7a9d084ff227}">
 		<property name="triggerCooldown">
-			<value>300</value>
+			<value>40</value>
 		</property>
 	</object>
 	<object class="MarkerTrack" id="{f668722a-97f1-4aaa-883c-820f6acaed7e}" />
@@ -117,7 +117,6 @@
 		<relationship name="sounds">
 			<destination>{c2a2e01e-eceb-477d-b48b-d7ee1bd2b342}</destination>
 			<destination>{a6b9df65-6907-4340-87b4-538fe64c1442}</destination>
-			<destination>{5bafc319-bbc9-4a5c-93a4-0efed6ceddad}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{349ed692-953f-4c86-9e2b-aa603e11390d}" />
@@ -156,17 +155,6 @@
 		</property>
 		<relationship name="audioFile">
 			<destination>{a517cf1a-61ad-44ce-9e33-61c47c016fc0}</destination>
-		</relationship>
-	</object>
-	<object class="SingleSound" id="{5bafc319-bbc9-4a5c-93a4-0efed6ceddad}">
-		<property name="voiceStealing">
-			<value>3</value>
-		</property>
-		<property name="volume">
-			<value>-1.5</value>
-		</property>
-		<relationship name="audioFile">
-			<destination>{084c1e4f-4963-4173-8b2a-be81152288d5}</destination>
 		</relationship>
 	</object>
 </objects>
