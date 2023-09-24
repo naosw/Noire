@@ -13,12 +13,12 @@ public class PlayerHealthSO : ScriptableObject
     [Header("Drowsiness Settings")]
     [SerializeField][ReadOnly] private float maxDrowsiness;
     [SerializeField][ReadOnly] private float currentDrowsiness;
-
     
     public float GetMaxBuffer => maxBuffer;
     public float GetCurrentBuffer => currentBuffer;
     public float GetMaxDrowsiness => maxDrowsiness;
     public float GetCurrentDrowsiness => currentDrowsiness;
+    public float GetCurrentDrowsinessPercentage => currentDrowsiness;
 
     public void SetMaxBuffer(float newValue)
     {
