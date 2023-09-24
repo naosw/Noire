@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
         attack1CooldownCounter -= Time.deltaTime;
         if(IsIdle() || IsWalking())
             HandleMovement();
-        HandleDreamState()
+        HandleDreamState();
     }
 
     private void HandleMovement()
