@@ -18,8 +18,8 @@ public class PlayerHealthSO : ScriptableObject
     public float GetMaxBuffer => maxBuffer;
     public float GetCurrentBuffer => currentBuffer;
     public float GetMaxDrowsiness => maxDrowsiness;
-    public float GetCurrentDrowsiness => currentDrowsiness / maxDrowsiness;
-    public float GetCurrentDrowsinessPercentage => currentDrowsiness;
+    public float GetCurrentDrowsiness => currentDrowsiness;
+    public float GetCurrentDrowsinessPercentage => currentDrowsiness / maxDrowsiness;
 
     public void SetMaxBuffer(float newValue)
     {
@@ -65,7 +65,7 @@ public class PlayerHealthSO : ScriptableObject
     public void ResetHealth()
     {
         currentBuffer = 0;
-        currentDrowsiness = maxDrowsiness;
+        currentDrowsiness = maxDrowsiness / 2;
     }
 
     public bool IsDead()

@@ -64,8 +64,8 @@ public class Player : MonoBehaviour
     // TODO: modify PlayerAudio.cs
     
     [Header("Player Dream State")]
-    [SerializeField] [Range(0,1)] private float lucidThreshold;
-    [SerializeField] [Range(0,1)] private float deepThreshold; // must be less than LucidThreshold
+    [SerializeField] [Range(0,.5f)] private float lucidThreshold;
+    [SerializeField] [Range(.5f,1)] private float deepThreshold;
     private DreamState dreamState;
     private enum DreamState
     {
@@ -79,6 +79,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         state = State.Idle;
+        dreamState = DreamState.Neutral;
         
         Instance = this;
         
@@ -89,7 +90,7 @@ public class Player : MonoBehaviour
 
         dashCooldownCounter = dashCooldown;
         
-        playerHealthSO.ResetHealth();
+        playerHealthSO.ResetHealth(); // resets to 50% HP as default
         
         controller = GetComponent<CharacterController>();
         
