@@ -6782,23 +6782,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc0a60301def5df489454f8d0cde1fde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 12
-  dashSpeed: 32
-  dashFalloff: 64
-  dashCooldown: 0
-  rotateSpeed: 30
   virtualCamera: {fileID: 648294668}
   weapon: {fileID: 156988901}
-  playerRadius: 0.7
-  playerHeight: 6
-  collidableLayers:
-    serializedVersion: 2
-    m_Bits: 1088
+  moveSpeed: 12
+  rotateSpeed: 30
+  dashSpeed: 200
+  dashFalloff: 400
+  dashCooldown: 1
   currentDashSpeed: 0
   playerHealthSO: {fileID: 11400000, guid: 33dac87c2e381db4798eb0f06d68916c, type: 2}
   bufferDecreaseRate: 8
   maxRegenHitCooldown: 2.5
   playerHitIFrames: 1
+  dreamShards: {fileID: 11400000, guid: 52aa4afa771a20a458e523be9bd1feaf, type: 2}
+  dreamThreads: {fileID: 11400000, guid: 2faab5e8af90e314cad56f42cedb8ea7, type: 2}
+  playerAudio: {fileID: 0}
+  LucidThreshold: 0.143
+  DeepThreshold: 0.814
 --- !u!136 &2003174262
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -1,27 +1,32 @@
+using System;
 using Cinemachine;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
 {
-    public static Player Instance { get; private set; }
-    
     [Header("Fields")]
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private Weapon weapon;
+    public static Player Instance { get; private set; }
+    private Animator animator;
+    private Quaternion rightRotation = Quaternion.Euler(new Vector3(0, 90, 0));
     
-    [Header("Basic Movements")]
-    [SerializeField] private float moveSpeed = 7f;
-    [SerializeField] float rotateSpeed = 10f;
-    [SerializeField] private float dashSpeed = 4;
-    [SerializeField] private float dashFalloff = 2;
-    [SerializeField] private float dashCooldown;
-    [SerializeField] float currentDashSpeed;
-    private bool isDashing = false;
-    private Vector3 dashDirection;
-    private CharacterController controller;
+    private const string DASH = "Dash";
+    private const string ATTACK1 = "Attack1";
+    
+    private float playerHitBoxHeight = 1f;
+    
+    [Header("Player Controller")]
+    [SerializeField] private float moveSpeed = 12f;
+    [SerializeField] private float rotateSpeed = 30f;
+    [SerializeField] private float dashSpeed = 200;
+    [SerializeField] private float dashFalloff = 400;
+    [SerializeField] private float dashCooldown = 0.5f;
+    private float currentDashSpeed;
     
     private State state;
     private enum State
@@ -30,37 +35,37 @@ public class Player : MonoBehaviour
         Walk,
         Attack1,
         Dash,
+        Dead
     }
 
-    private const string ATTACK1 = "Attack1";
-    private Animator animator;
-    private float attack1Cooldown;
+    private CharacterController controller;
+    private float dashCooldownCounter;
+    private float attack1Cooldown; // weapon determines this field
     private float attack1CooldownCounter;
-    private float playerHitBoxHeight = 1f;
-    private Quaternion rightRotation = Quaternion.Euler(new Vector3(0, 90, 0));
+    private float attackDuration = .25f;
+    private Vector3 moveDir;
 
     [Header("Player Health")]
     [SerializeField] private PlayerHealthSO playerHealthSO;
-    [SerializeField] private float bufferDecreaseRate = 1f;
-    [SerializeField] private float maxRegenHitCooldown = 4f;
+    [SerializeField] private float bufferDecreaseRate = 8f;
+    [SerializeField] private float maxRegenHitCooldown = 2.5f;
     [SerializeField] private float playerHitIFrames = 1f;
     private float currentBufferCooldown = 0f;
     private bool bufferOnCooldown = false;
-    private bool isDead = false;
     private float currentIFrameTimer = 0f;
-    private bool startDash = false;
+    public event UnityAction UpdateHealthBar;
 
-    [Header("Player Health")] 
-    [SerializeField] private PlayerStatistics dreamShards;
-    [SerializeField] private PlayerStatistics dreamThreads;
+    [Header("Player Stats")] 
+    [SerializeField] private PlayerStatisticsSO dreamShards;
+    [SerializeField] private PlayerStatisticsSO dreamThreads;
 
     [Header("Player Audio")] 
     [SerializeField] private PlayerAudio playerAudio;
     // TODO: modify PlayerAudio.cs
     
     [Header("Player Dream State")]
-    [SerializeField] [Range(0,1)] private float LucidThreshold;
-    [SerializeField] [Range(0,1)] private float DeepThreshold; // must be less than LucidThreshold
+    [SerializeField] [Range(0,1)] private float lucidThreshold;
+    [SerializeField] [Range(0,1)] private float deepThreshold; // must be less than LucidThreshold
     private DreamState dreamState;
     private enum DreamState
     {
@@ -68,8 +73,8 @@ public class Player : MonoBehaviour
         Lucid,
         Deep
     }
-
-    public event UnityAction updateHealthBar;
+    
+    // ***************************** EVENT FUNCTIONS ***************************** //
     
     private void Awake()
     {
@@ -80,7 +85,9 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         
         attack1Cooldown = weapon.GetAttackCooldown();
-        attack1CooldownCounter = 0;
+        attack1CooldownCounter = attack1Cooldown;
+
+        dashCooldownCounter = dashCooldown;
         
         playerHealthSO.ResetHealth();
         
@@ -96,128 +103,140 @@ public class Player : MonoBehaviour
         GameInput.Instance.OnDash += GameInput_OnDash;
     }
 
-    private void GameInput_OnAttack1(object sender, System.EventArgs e)
+    private void OnDestroy()
     {
-        HandleAttack1();
+        GameInput.Instance.OnAttack1 -= GameInput_OnAttack1;
+        GameInput.Instance.OnDash -= GameInput_OnDash;
     }
-
-    private void GameInput_OnDash(object sender, System.EventArgs e)
-    {
-        startDash = true;
-    }
-
+    
     private void Update()
     {
-        HandleDrowsiness();
+        if (IsDead())
+            return;
+        
         attack1CooldownCounter -= Time.deltaTime;
-        if(IsIdle() || IsWalking() || IsDashing())
+        dashCooldownCounter -= Time.deltaTime;
+        
+        HandleDrowsiness();
+        if (IsIdle() || IsWalking())
             HandleMovement();
-        HandleDreamState();
+        if (IsDashing())
+            HandleDash();
     }
+
+    // ***************************** TRIGGER FUNCTIONS ***************************** //
     
-    public void PlaySteps(string path)
+    private void GameInput_OnAttack1(object sender, System.EventArgs e)
     {
-        FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);
-    }
-
-    public void PlaySwoosh(string path)
-    {
-        FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);
-    }
-    
-    private void HandleMovement()
-    {
-        if (currentDashSpeed > 0)
-        {
-            if (startDash) startDash = false;
-            currentDashSpeed -= dashFalloff * Time.deltaTime;
-            if (currentDashSpeed < moveSpeed)
-            {
-                currentDashSpeed = 0;
-                isDashing = false; 
-            }
-        }
-
-        if (!isDashing) 
-        {
-            Vector3 inputVector = GameInput.Instance.GetMovementVectorNormalized();
-            if (inputVector == Vector3.zero && currentDashSpeed <= 0)
-            {
-                state = State.Idle;
-                return;
-            }
-        
-            // calculates orthographic camera angle
-            Vector3 forward = virtualCamera.transform.forward;
-            forward.y = 0;
-            Vector3 right = rightRotation * forward;
-
-            forward *= inputVector.z;
-            right *= inputVector.x;
-            
-            Vector3 moveDir = forward + right;
-            
-            float moveDistance = moveSpeed * Time.deltaTime;
-            if (startDash && currentDashSpeed <= 0)
-            {
-                Dash(moveDir);
-                isDashing = true; 
-            }
-            
-            if (!isDashing)
-            {
-                moveDir = moveDir.normalized * moveDistance;
-                
-                float terrainHeight = Terrain.activeTerrain.SampleHeight(transform.position + moveDir) + .1f;
-                moveDir.y += terrainHeight - transform.position.y;
-                
-                controller.Move(moveDir);
-                if (moveDir != Vector3.zero)
-                {
-                    transform.forward = Vector3.Slerp(transform.forward, new Vector3(moveDir.x, 0, moveDir.z), Time.deltaTime * rotateSpeed);
-                    state = State.Walk;
-                }
-            }
-        }
-        
-        if (isDashing)
-        {
-            state = State.Dash;
-            Vector3 dashMove = dashDirection * currentDashSpeed * Time.deltaTime;
-            transform.forward = Vector3.Slerp(transform.forward, new Vector3(dashMove.x, 0, dashMove.z), Time.deltaTime * rotateSpeed);
-            
-            float terrainHeight = Terrain.activeTerrain.SampleHeight(transform.position + dashMove) + .1f;
-            dashMove.y += terrainHeight - transform.position.y;
-
-            controller.Move(dashMove);
-        }
-    }
-
-    private void Dash(Vector3 dir)
-    {
-        currentDashSpeed = dashSpeed;
-        dashDirection = dir.normalized;
-    }
-    
-    private void HandleAttack1()
-    {
+        // handles attack with coroutines
         if (!IsAttacking1() && attack1CooldownCounter <= 0)
         {
             animator.SetTrigger(ATTACK1);
+            attack1CooldownCounter = attack1Cooldown;
             state = State.Attack1;
             HandleAttackOnHitEffects();
             StartCoroutine(HandleAttack1Duration());
         }
     }
 
-    private IEnumerator HandleAttack1Duration()
+    private void GameInput_OnDash(object sender, System.EventArgs e)
     {
-        float attackDuration = .25f;
-        yield return new WaitForSeconds(attackDuration);
-        state = State.Idle;
-        attack1CooldownCounter = attack1Cooldown;
+        // handles by setting state -> later handled in Update()
+        if (!IsDashing() && dashCooldownCounter <= 0)
+        {
+            animator.SetTrigger(DASH);
+            currentDashSpeed = dashSpeed;
+            dashCooldownCounter = dashCooldown;
+            state = State.Dash;
+        }
     }
 
+    // ***************************** HANDLE FUNCTIONS ***************************** //
+    
+    // called after ending attacks/dashing for state transition
+    private void ResetStateAfterAction()
+    {
+        if (GameInput.Instance.GetMovementVectorNormalized() != Vector3.zero)
+            state = State.Walk;
+        else
+            state = State.Idle;
+    }
+    
+    // TODO: move this to playeraudio.cs
+    public void PlaySteps(string path)
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);
+    }
+    
+    // TODO: move this to playeraudio.cs
+    public void PlaySwoosh(string path)
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);
+    }
+    
+    // called when player is either moving or idle
+    private void HandleMovement()
+    {
+        Vector3 inputVector = GameInput.Instance.GetMovementVectorNormalized();
+        if (inputVector == Vector3.zero)
+        {
+            state = State.Idle;
+            return;
+        }
+        
+        // calculates orthographic camera angle
+        Vector3 forward = virtualCamera.transform.forward;
+        forward.y = 0;
+        Vector3 right = rightRotation * forward;
+        
+        forward *= inputVector.z;
+        right *= inputVector.x;
+        
+        moveDir = moveSpeed * Time.deltaTime * (forward + right).normalized;
+        
+        // snap to terrain
+        float terrainHeight = Terrain.activeTerrain.SampleHeight(transform.position + moveDir) + .1f;
+        moveDir.y += terrainHeight - transform.position.y;
+        
+        if (moveDir != Vector3.zero)
+        {
+            transform.forward = Vector3.Slerp(transform.forward, new Vector3(moveDir.x, 0, moveDir.z), Time.deltaTime * rotateSpeed);
+            state = State.Walk;
+        }
+        
+        controller.Move(moveDir);
+    }
+    
+    // subroutine used by attack to simulate cooldown
+    private IEnumerator HandleAttack1Duration()
+    {
+        yield return new WaitForSeconds(attackDuration);
+        ResetStateAfterAction();
+    }
+    
+    // called after dashing
+    private void HandleDash()
+    {
+        if (currentDashSpeed > 0)
+        {
+            currentDashSpeed -= dashFalloff * Time.deltaTime;
+            if (currentDashSpeed < moveSpeed)
+            {
+                currentDashSpeed = 0;
+                ResetStateAfterAction();
+                return;
+            }
+            
+            Vector3 dashMove = currentDashSpeed * Time.deltaTime * moveDir;
+            
+            float terrainHeight = Terrain.activeTerrain.SampleHeight(transform.position + dashMove) + .1f;
+            dashMove.y += terrainHeight - transform.position.y;
+            
+            controller.Move(dashMove);
+        }
+    }
+    
+    // called after attacks
     private void HandleAttackOnHitEffects()
     {
         Collider[] hitEnemies = Physics.OverlapSphere(weapon.GetAttackPoint().position, weapon.GetAttackRadius(), weapon.GetEnemyLayer());
@@ -227,6 +246,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    // called on every frame for buffer regen
     private void HandleDrowsiness()
     {
         if(currentIFrameTimer <= playerHitIFrames)
@@ -242,50 +262,79 @@ public class Player : MonoBehaviour
         
         if (!bufferOnCooldown)
         {
-            updateHealthBar?.Invoke();
+            UpdateHealthBar?.Invoke();
             playerHealthSO.RegenBuffer(bufferDecreaseRate * Time.deltaTime);
         }
-
+        
+        // TODO: remove this later since it is never triggered, should only trigger death in HandleHit()
         if (playerHealthSO.IsDead())
             HandleDeath();
     }
     
+    // called upon changing HP
     private void HandleDreamState()
     {
-        if (playerHealthSO.GetCurrentDrowsinessPercentage <= LucidThreshold)
+        var prevDreamState = dreamState;
+        
+        float currentDrowsinessPercentage = playerHealthSO.GetCurrentDrowsinessPercentage;
+        if (currentDrowsinessPercentage <= lucidThreshold)
             dreamState = DreamState.Lucid;
-        else if (playerHealthSO.GetCurrentDrowsinessPercentage >= DeepThreshold)
+        else if (currentDrowsinessPercentage >= deepThreshold)
             dreamState = DreamState.Deep;
         else
             dreamState = DreamState.Neutral;
-    } 
+
+        if (prevDreamState != dreamState)
+            DreamStateTransition(prevDreamState);
+    }
+
+    private void DreamStateTransition(DreamState prevDreamState)
+    {
+        // TODO: add visual effects, change enemy style, change world settings, etc
+        return;
+    }
     
+    // TODO: currency drops
+    // TODO: reset to save points
     private void HandleDeath()
     {
-        Debug.Log("u ded lol.\n");
+        state = State.Dead;
         Loader.Load(Loader.Scene.DeathScene);
     }
 
     public void HandleHit(float bufferDamage)
     {
-        if (isDead)
-            return;
+        if (IsDead())
+            Debug.LogError("Cannot take dmg if dead. This should not happen -- should've handled death earlier");
         if (currentIFrameTimer <= playerHitIFrames)
             return;
         
         currentBufferCooldown = maxRegenHitCooldown;
         
         playerHealthSO.InflictDamage(bufferDamage);
-        updateHealthBar?.Invoke();
-        
-        if (playerHealthSO.GetCurrentDrowsiness <= 0)
-            isDead = true;
+        UpdateHealthBar?.Invoke();
+        HandleDreamState();
+
+        if (playerHealthSO.IsDead())
+            HandleDeath();
     }
+    
+    public int RegenDrowsiness(float value)
+    {
+        if(playerHealthSO.RegenHealth(value) == 1){
+            HandleDreamState();
+            return 1;
+        }
+        return 0;
+    }
+    
+    // ***************************** GETTERS/SETTERS ***************************** //
     
     public bool IsDashing() => state == State.Dash;
     public bool IsWalking() => state == State.Walk;
     public bool IsIdle() => state == State.Idle;
     public bool IsAttacking1() => state == State.Attack1;
+    public bool IsDead() => state == State.Dead;
     public float GetPlayerHitBoxHeight() => playerHitBoxHeight;
     public Weapon GetWeapon() => weapon;
 }

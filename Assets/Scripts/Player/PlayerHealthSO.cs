@@ -10,6 +10,7 @@ public class PlayerHealthSO : ScriptableObject
     [SerializeField][ReadOnly] private float maxBuffer;
     [SerializeField][ReadOnly] private float currentBuffer;
     [SerializeField][ReadOnly] private float maxBufferDamage = 10f;
+    
     [Header("Drowsiness Settings")]
     [SerializeField][ReadOnly] private float maxDrowsiness;
     [SerializeField][ReadOnly] private float currentDrowsiness;
@@ -17,7 +18,7 @@ public class PlayerHealthSO : ScriptableObject
     public float GetMaxBuffer => maxBuffer;
     public float GetCurrentBuffer => currentBuffer;
     public float GetMaxDrowsiness => maxDrowsiness;
-    public float GetCurrentDrowsiness => currentDrowsiness;
+    public float GetCurrentDrowsiness => currentDrowsiness / maxDrowsiness;
     public float GetCurrentDrowsinessPercentage => currentDrowsiness;
 
     public void SetMaxBuffer(float newValue)
@@ -30,21 +31,33 @@ public class PlayerHealthSO : ScriptableObject
         currentBuffer = newValue;
     }
 	
-    public void InflictDamage(float DamageValue)
+    public void InflictDamage(float damageValue)
     {
-        if (DamageValue < 0) return;
-        currentBuffer += DamageValue;
+        if (damageValue < 0) return;
+        currentBuffer += damageValue;
         if (currentBuffer > maxBuffer)
         {
             currentBuffer = 0;
             currentDrowsiness -= maxBufferDamage;
         }
     }
-
-    public void RegenBuffer(float BufferRegenValue)
+    
+    // returns 1 upon successful regen. Should not decrease potion otherwise
+    public int RegenHealth(float regenValue)
     {
-        if(BufferRegenValue < 0) return;
-        currentBuffer -= BufferRegenValue;
+        if (currentDrowsiness == maxDrowsiness)
+            return 0;
+        
+        currentDrowsiness += regenValue;
+        if (currentDrowsiness >= maxDrowsiness)
+            currentDrowsiness = maxDrowsiness;
+        return 1;
+    }
+
+    public void RegenBuffer(float regenValue)
+    {
+        if(regenValue < 0) return;
+        currentBuffer -= regenValue;
         if(currentBuffer < 0)
             currentBuffer = 0;
     }

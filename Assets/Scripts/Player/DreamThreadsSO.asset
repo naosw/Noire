@@ -9,11 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f4dad889c540fc4eb154b7d8315bcae, type: 3}
-  m_Name: DrowsinessSO
+  m_Script: {fileID: 11500000, guid: b71171ebc86142e4a82f3cee7ffcfe7d, type: 3}
+  m_Name: DreamThreadsSO
   m_EditorClassIdentifier: 
-  maxBuffer: 100
-  currentBuffer: 0
-  maxBufferDamage: 10
-  maxDrowsiness: 100
-  currentDrowsiness: 100
