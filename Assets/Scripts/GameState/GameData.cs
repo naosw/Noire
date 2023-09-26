@@ -1,15 +1,19 @@
 [System.Serializable]
 public class GameData
 {
+    // profile fields
+    public string profileName;
+    public long lastUpdated;
+    public float percentageComplete;
+    
+    // player fields
     public float maxDrowsiness;
     public float attackDamage;
     public float dreamShards;
     public float dreamThreads;
     public float[] position;
-    public long lastUpdated;
-    public float percentageComplete;
 
-    public GameData()
+    public GameData(string profileId)
     {
         maxDrowsiness = 50;
         attackDamage = 5;
@@ -20,6 +24,7 @@ public class GameData
         position[1] = 6.7f;
         position[2] = 83;
 
+        profileName = profileId;
         percentageComplete = 0;
     }
 }

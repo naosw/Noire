@@ -7,12 +7,16 @@ using UnityEngine.UI;
 public class SaveSlot : MonoBehaviour
 {
     [Header("Profile")]
-    [SerializeField] private string profileId = "";
+    [SerializeField] private string profileId = "default";
 
+    [Header("Clear Button")] 
+    [SerializeField] private Button clearButton;
+    
     [Header("Content")]
     [SerializeField] private GameObject noDataContent;
     [SerializeField] private GameObject hasDataContent;
     [SerializeField] private TextMeshProUGUI percentageCompleteText;
+    [SerializeField] private TextMeshProUGUI profileName;
 
     [SerializeField] private SaveSlotsMenu saveSlotsMenu;
 
@@ -22,33 +26,44 @@ public class SaveSlot : MonoBehaviour
     {
         saveSlotButton = GetComponent<Button>();
         saveSlotButton.onClick.AddListener(OnSaveSlotClicked);
+        clearButton.onClick.AddListener(OnClear);
     }
     
     private void OnSaveSlotClicked() 
     {
         saveSlotsMenu.DisableMenuButtons();
 
-        DataPersistenceManager.instance.ChangeSelectedProfileId(profileId);
+        DataPersistenceManager.Instance.ChangeSelectedProfileId(profileId);
 
         // create a new game - which will initialize our data to a clean slate
         if (!saveSlotsMenu.IsLoading) 
-            DataPersistenceManager.instance.NewGame();
+            DataPersistenceManager.Instance.NewGame(profileId);
+        
         Loader.Load(Loader.Scene.ValleyofSolura);
     }
 
+    private void OnClear()
+    {
+        DataPersistenceManager.Instance.DeleteProfileData(profileId);
+        saveSlotsMenu.Refresh();
+    }
+    
     public void SetData(GameData data) 
     {
         if (data == null) 
         {
             noDataContent.SetActive(true);
             hasDataContent.SetActive(false);
+            clearButton.gameObject.SetActive(false);
         }
         else 
         {
             noDataContent.SetActive(false);
             hasDataContent.SetActive(true);
+            clearButton.gameObject.SetActive(true);
 
             percentageCompleteText.text = data.percentageComplete + "% COMPLETE";
+            profileName.text = data.profileName;
         }
     }
 
@@ -57,5 +72,6 @@ public class SaveSlot : MonoBehaviour
     public void SetInteractable(bool interactable)
     {
         saveSlotButton.interactable = interactable;
+        clearButton.interactable = interactable;
     }
 }

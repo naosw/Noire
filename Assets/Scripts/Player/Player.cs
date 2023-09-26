@@ -10,7 +10,7 @@ public class Player : MonoBehaviour, IDataPersistence
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     public static Player Instance { get; private set; }
     private Animator animator;
-    private Quaternion rightRotation = Quaternion.Euler(new Vector3(0, 90, 0));
+    private readonly Quaternion rightRotation = Quaternion.Euler(new Vector3(0, 90, 0));
     
     private const string DASH = "Dash";
     private const string ATTACK1 = "Attack1";
@@ -336,6 +336,15 @@ public class Player : MonoBehaviour, IDataPersistence
     // ***************************** IDataPersistence methods ***************************** //
     public void LoadData(GameData data)
     {
+        playerHealthSO.SetMaxDrowsiness(data.maxDrowsiness);
+        attackDamage = data.attackDamage;
+        dreamShardsSO.SetCurrencyCount(data.dreamShards);
+        dreamThreadsSO.SetCurrencyCount(data.dreamThreads);
+        transform.position = new Vector3(data.position[0], data.position[1], data.position[2]);
+    }
+
+    public void SaveData(GameData data)
+    {
         data.maxDrowsiness = playerHealthSO.GetMaxDrowsiness;
         data.attackDamage = attackDamage;
         data.dreamShards = dreamShardsSO.GetCurrencyCount();
@@ -344,15 +353,6 @@ public class Player : MonoBehaviour, IDataPersistence
         data.position[0] = transform.position.x;
         data.position[1] = transform.position.y;
         data.position[2] = transform.position.z;
-    }
-
-    public void SaveData(GameData data)
-    {
-        playerHealthSO.SetMaxDrowsiness(data.maxDrowsiness);
-        attackDamage = data.attackDamage;
-        dreamShardsSO.SetCurrencyCount(data.dreamShards);
-        dreamThreadsSO.SetCurrencyCount(data.dreamThreads);
-        transform.position = new Vector3(data.position[0], data.position[1], data.position[2]);
     }
     
     // ***************************** GETTERS/SETTERS ***************************** //

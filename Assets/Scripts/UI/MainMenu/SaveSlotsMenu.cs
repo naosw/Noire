@@ -22,21 +22,21 @@ public class SaveSlotsMenu : Menu
         saveSlots = GetComponentsInChildren<SaveSlot>();
         backButton.onClick.AddListener(OnBackClicked);
         
-        DeactivateMenu();
+        Hide();
     }
     
     private void OnBackClicked() 
     {
-        mainMenu.ActivateMenu();
-        DeactivateMenu();
+        mainMenu.Show();
+        Hide();
     }
 
-    public void ActivateMenu(bool isLoading) 
+    public void Show(bool isLoading) 
     {
         gameObject.SetActive(true);
         isLoadingGame = isLoading;
 
-        Dictionary<string, GameData> profilesGameData = DataPersistenceManager.instance.GetAllProfilesGameData();
+        Dictionary<string, GameData> profilesGameData = DataPersistenceManager.Instance.GetAllProfilesGameData();
 
         // loop through each save slot in the UI and set the content appropriately
         GameObject firstSelected = backButton.gameObject;
@@ -45,24 +45,25 @@ public class SaveSlotsMenu : Menu
             profilesGameData.TryGetValue(saveSlot.GetProfileId(), out GameData profileData);
             saveSlot.SetData(profileData);
             if (profileData == null && isLoadingGame) 
-            {
                 saveSlot.SetInteractable(false);
-            }
             else 
             {
                 saveSlot.SetInteractable(true);
                 if (firstSelected.Equals(backButton.gameObject))
-                {
                     firstSelected = saveSlot.gameObject;
-                }
             }
         }
 
         // set the first selected button
-        StartCoroutine(this.SetFirstSelected(firstSelected));
+        SetFirstSelected(firstSelected.GetComponent<Button>());
     }
 
-    private void DeactivateMenu() 
+    public void Refresh()
+    {
+        Show(isLoadingGame);
+    }
+
+    private void Hide() 
     {
         gameObject.SetActive(false);
     }
@@ -70,9 +71,7 @@ public class SaveSlotsMenu : Menu
     public void DisableMenuButtons() 
     {
         foreach (SaveSlot saveSlot in saveSlots) 
-        {
             saveSlot.SetInteractable(false);
-        }
         backButton.interactable = false;
     }
 

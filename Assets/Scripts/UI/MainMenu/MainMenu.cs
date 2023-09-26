@@ -23,12 +23,17 @@ public class MainMenu : Menu
         loadGameButton.onClick.AddListener(OnLoadGameClicked);
         quitGameButton.onClick.AddListener(OnQuitGameClicked);
         
-        ActivateMenu();
+        Show();
     }
 
     private void Start() 
     {
-        if (!DataPersistenceManager.instance.HasGameData()) 
+        Refresh();
+    }
+
+    private void Refresh()
+    {
+        if (!DataPersistenceManager.Instance.HasGameData()) 
         {
             continueGameButton.interactable = false;
             loadGameButton.interactable = false;
@@ -37,8 +42,8 @@ public class MainMenu : Menu
 
     private void OnNewGameClicked() 
     {
-        saveSlotsMenu.ActivateMenu(false);
-        DeactivateMenu();
+        saveSlotsMenu.Show(false);
+        Hide();
     }
 
     private void OnContinueGameClicked() 
@@ -50,8 +55,8 @@ public class MainMenu : Menu
     
     private void OnLoadGameClicked() 
     {
-        saveSlotsMenu.ActivateMenu(true);
-        DeactivateMenu();
+        saveSlotsMenu.Show(true);
+        Hide();
     }
 
     private void OnQuitGameClicked()
@@ -65,12 +70,13 @@ public class MainMenu : Menu
         continueGameButton.interactable = false;
     }
 
-    public void ActivateMenu() 
+    public void Show()
     {
+        Refresh();
         gameObject.SetActive(true);
     }
 
-    public void DeactivateMenu() 
+    public void Hide() 
     {
         gameObject.SetActive(false);
     }

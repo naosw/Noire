@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public static class Loader {
-
     public enum Scene
     {
         MainMenuScene,
@@ -12,12 +8,13 @@ public static class Loader {
         ValleyofSolura,
         LoadingScene
     }
+    
     public static Scene targetScene;
 
-    public static void Load(Scene targetScene)
+    public static void Load(Scene scene)
     {
-        Loader.targetScene = targetScene;
-
+        targetScene = scene;
+        DataPersistenceManager.Instance.SaveGame();
         SceneManager.LoadScene(Scene.LoadingScene.ToString());
     }
 

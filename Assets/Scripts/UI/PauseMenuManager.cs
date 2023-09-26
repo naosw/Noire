@@ -1,12 +1,7 @@
- using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PauseMenuManager : MonoBehaviour {
-
- 
-
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button mainMenuButton;
     [SerializeField] private Button optionsButton;
@@ -16,18 +11,13 @@ public class PauseMenuManager : MonoBehaviour {
 
     private void Awake()
     {
-
-
-        resumeButton.onClick.AddListener(() => {
-            TogglePauseGame();
-        });
-        mainMenuButton.onClick.AddListener(() => {
-            Loader.Load(Loader.Scene.MainMenuScene);
-        });
+        resumeButton.onClick.AddListener(TogglePauseGame);
+        mainMenuButton.onClick.AddListener(OnMainMenuClick);
         optionsButton.onClick.AddListener(() => {
             OptionsUI.Instance.Show();
         });
     }
+    
     private void Start() 
     {
         GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
@@ -37,6 +27,12 @@ public class PauseMenuManager : MonoBehaviour {
     private void GameInput_OnPauseAction(object sender, System.EventArgs e) 
     {
         TogglePauseGame();
+    }
+
+    private void OnMainMenuClick()
+    {
+        TogglePauseGame();
+        Loader.Load(Loader.Scene.MainMenuScene);
     }
 
     private void TogglePauseGame() 
