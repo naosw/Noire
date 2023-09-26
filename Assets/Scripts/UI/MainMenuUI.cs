@@ -1,20 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuUI : MonoBehaviour
 {
-    [SerializeField] private Button playButton;
+    [SerializeField] private Button newGameButton;
     [SerializeField] private Button quitButton;
+    [SerializeField] private Button continueButton;
 
     private void Awake()
     {
-        playButton.onClick.AddListener(() =>
+        newGameButton.onClick.AddListener(() =>
         {
             Loader.Load(Loader.Scene.ValleyofSolura);
         });
+        
         quitButton.onClick.AddListener(() =>
         {
             Application.Quit();

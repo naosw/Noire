@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DeathMenuUI : MonoBehaviour
 {
     [SerializeField] private Button respawnButton;
     [SerializeField] private Button quitButton;
+    [SerializeField] private Button mainMenuButton;
 
     private void Awake()
     {
@@ -15,9 +13,15 @@ public class DeathMenuUI : MonoBehaviour
         {
             Loader.Load(Loader.Scene.ValleyofSolura);
         });
+        
         quitButton.onClick.AddListener(() =>
         {
             Application.Quit();
+        });
+        
+        mainMenuButton.onClick.AddListener(() =>
+        {
+            Loader.Load(Loader.Scene.MainMenuScene);
         });
 
         Time.timeScale = 1f;

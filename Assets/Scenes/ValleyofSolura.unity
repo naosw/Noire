@@ -6796,7 +6796,7 @@ MonoBehaviour:
   dreamShards: {fileID: 11400000, guid: 52aa4afa771a20a458e523be9bd1feaf, type: 2}
   dreamThreads: {fileID: 11400000, guid: 2faab5e8af90e314cad56f42cedb8ea7, type: 2}
   playerAudio: {fileID: 0}
-  lucidThreshold: 0.328
+  lucidThreshold: 0.131
   deepThreshold: 0.849
 --- !u!136 &2003174262
 CapsuleCollider:

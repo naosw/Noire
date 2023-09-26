@@ -1,5 +1,6 @@
 using Unity.Collections;
 using UnityEngine;
+
 /// <summary>
 /// Manages the players "health"(drowsiness) for the whole game.
 /// </summary>
@@ -21,15 +22,11 @@ public class PlayerHealthSO : ScriptableObject
     public float GetCurrentDrowsiness => currentDrowsiness;
     public float GetCurrentDrowsinessPercentage => currentDrowsiness / maxDrowsiness;
 
-    public void SetMaxBuffer(float newValue)
-    {
-        maxBuffer = newValue;
-    }
+    public void SetMaxBuffer(float newValue) => maxBuffer = newValue;
 
-    public void SetCurrentBuffer(float newValue)
-    {
-        currentBuffer = newValue;
-    }
+    public void SetCurrentBuffer(float newValue) => currentBuffer = newValue;
+    
+    public void SetMaxDrowsiness(float newValue) => maxDrowsiness = newValue;
 	
     public void InflictDamage(float damageValue)
     {

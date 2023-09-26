@@ -1,24 +1,19 @@
-using System;
 using Cinemachine;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
 {
     [Header("Fields")]
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
-    [SerializeField] private Weapon weapon;
     public static Player Instance { get; private set; }
     private Animator animator;
     private Quaternion rightRotation = Quaternion.Euler(new Vector3(0, 90, 0));
     
     private const string DASH = "Dash";
     private const string ATTACK1 = "Attack1";
-    
-    private float playerHitBoxHeight = 1f;
     
     [Header("Player Controller")]
     [SerializeField] private float moveSpeed = 12f;
@@ -40,10 +35,15 @@ public class Player : MonoBehaviour
 
     private CharacterController controller;
     private float dashCooldownCounter;
+    private Vector3 moveDir;
+    
+    [Header("Player combat")]
+    [SerializeField] private Weapon weapon;
+    private float playerHitBoxHeight = 1f;
     private float attack1Cooldown; // weapon determines this field
     private float attack1CooldownCounter;
     private float attackDuration = .25f;
-    private Vector3 moveDir;
+    private float attackDamage = 5;
 
     [Header("Player Health")]
     [SerializeField] private PlayerHealthSO playerHealthSO;
@@ -54,10 +54,10 @@ public class Player : MonoBehaviour
     private bool bufferOnCooldown = false;
     private float currentIFrameTimer = 0f;
     public event UnityAction UpdateHealthBar;
-
+    
     [Header("Player Stats")] 
-    [SerializeField] private PlayerStatisticsSO dreamShards;
-    [SerializeField] private PlayerStatisticsSO dreamThreads;
+    [SerializeField] private PlayerStatisticsSO dreamShardsSO;
+    [SerializeField] private PlayerStatisticsSO dreamThreadsSO;
 
     [Header("Player Audio")] 
     [SerializeField] private PlayerAudio playerAudio;
@@ -94,8 +94,8 @@ public class Player : MonoBehaviour
         
         controller = GetComponent<CharacterController>();
         
-        dreamShards.setCurrencyCount(0);
-        dreamThreads.setCurrencyCount(0);
+        dreamShardsSO.SetCurrencyCount(0);
+        dreamThreadsSO.SetCurrencyCount(0);
     }
 
     private void Start()
@@ -288,13 +288,15 @@ public class Player : MonoBehaviour
         if (prevDreamState != dreamState)
             DreamStateTransition(prevDreamState);
     }
-
+    
+    // called when transitioning between dream states
     private void DreamStateTransition(DreamState prevDreamState)
     {
         // TODO: add visual effects, change enemy style, change world settings, etc
         return;
     }
     
+    // called when drowsiness == 0
     // TODO: currency drops
     // TODO: reset to save points
     private void HandleDeath()
@@ -302,7 +304,8 @@ public class Player : MonoBehaviour
         state = State.Dead;
         Loader.Load(Loader.Scene.DeathScene);
     }
-
+    
+    // called when taking any damage
     public void HandleHit(float bufferDamage)
     {
         if (IsDead())
@@ -320,6 +323,7 @@ public class Player : MonoBehaviour
             HandleDeath();
     }
     
+    // called when restoring drowsiness (hp)
     public int RegenDrowsiness(float value)
     {
         if(playerHealthSO.RegenHealth(value) == 1){
@@ -338,4 +342,15 @@ public class Player : MonoBehaviour
     public bool IsDead() => state == State.Dead;
     public float GetPlayerHitBoxHeight() => playerHitBoxHeight;
     public Weapon GetWeapon() => weapon;
+    public float GetAttackDamage() => attackDamage;
+    public float GetDreamShards() => dreamShardsSO.GetCurrencyCount();
+    public float GetDreamThreads() => dreamThreadsSO.GetCurrencyCount();
+    public float GetMaximumDrowsiness() => playerHealthSO.GetMaxDrowsiness;
+    public void SetAttackDamage(float value) => attackDamage = value;
+    public void SetDreamShards(float value) => dreamShardsSO.SetCurrencyCount(value);
+    public void SetDreamThreads(float value) => dreamThreadsSO.SetCurrencyCount(value);
+    public void SetMaximumDrowsiness(float value) => playerHealthSO.SetMaxDrowsiness(value);
+    public float x => transform.position.x;
+    public float y => transform.position.y;
+    public float z => transform.position.z;
 }
