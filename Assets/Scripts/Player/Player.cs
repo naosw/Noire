@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(CharacterController))]
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDataPersistence
 {
     [Header("Fields")]
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
@@ -333,6 +333,28 @@ public class Player : MonoBehaviour
         return 0;
     }
     
+    // ***************************** IDataPersistence methods ***************************** //
+    public void LoadData(GameData data)
+    {
+        data.maxDrowsiness = playerHealthSO.GetMaxDrowsiness;
+        data.attackDamage = attackDamage;
+        data.dreamShards = dreamShardsSO.GetCurrencyCount();
+        data.dreamThreads = dreamThreadsSO.GetCurrencyCount();
+        data.position = new float[3];
+        data.position[0] = transform.position.x;
+        data.position[1] = transform.position.y;
+        data.position[2] = transform.position.z;
+    }
+
+    public void SaveData(GameData data)
+    {
+        playerHealthSO.SetMaxDrowsiness(data.maxDrowsiness);
+        attackDamage = data.attackDamage;
+        dreamShardsSO.SetCurrencyCount(data.dreamShards);
+        dreamThreadsSO.SetCurrencyCount(data.dreamThreads);
+        transform.position = new Vector3(data.position[0], data.position[1], data.position[2]);
+    }
+    
     // ***************************** GETTERS/SETTERS ***************************** //
     
     public bool IsDashing() => state == State.Dash;
@@ -342,15 +364,4 @@ public class Player : MonoBehaviour
     public bool IsDead() => state == State.Dead;
     public float GetPlayerHitBoxHeight() => playerHitBoxHeight;
     public Weapon GetWeapon() => weapon;
-    public float GetAttackDamage() => attackDamage;
-    public float GetDreamShards() => dreamShardsSO.GetCurrencyCount();
-    public float GetDreamThreads() => dreamThreadsSO.GetCurrencyCount();
-    public float GetMaximumDrowsiness() => playerHealthSO.GetMaxDrowsiness;
-    public void SetAttackDamage(float value) => attackDamage = value;
-    public void SetDreamShards(float value) => dreamShardsSO.SetCurrencyCount(value);
-    public void SetDreamThreads(float value) => dreamThreadsSO.SetCurrencyCount(value);
-    public void SetMaximumDrowsiness(float value) => playerHealthSO.SetMaxDrowsiness(value);
-    public float x => transform.position.x;
-    public float y => transform.position.y;
-    public float z => transform.position.z;
 }

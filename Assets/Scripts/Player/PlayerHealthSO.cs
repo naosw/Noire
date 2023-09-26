@@ -25,8 +25,8 @@ public class PlayerHealthSO : ScriptableObject
     public void SetMaxBuffer(float newValue) => maxBuffer = newValue;
 
     public void SetCurrentBuffer(float newValue) => currentBuffer = newValue;
-    
     public void SetMaxDrowsiness(float newValue) => maxDrowsiness = newValue;
+    public void SetCurrentDrowsiness(float newValue) => currentDrowsiness = newValue;
 	
     public void InflictDamage(float damageValue)
     {
