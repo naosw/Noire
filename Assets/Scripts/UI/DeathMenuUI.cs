@@ -4,19 +4,13 @@ using UnityEngine.UI;
 public class DeathMenuUI : MonoBehaviour
 {
     [SerializeField] private Button respawnButton;
-    [SerializeField] private Button quitButton;
     [SerializeField] private Button mainMenuButton;
 
     private void Awake()
     {
         respawnButton.onClick.AddListener(() =>
         {
-            Loader.Load(Loader.Scene.ValleyofSolura);
-        });
-        
-        quitButton.onClick.AddListener(() =>
-        {
-            Application.Quit();
+            Loader.Load(DataPersistenceManager.Instance.CurrentScene);
         });
         
         mainMenuButton.onClick.AddListener(() =>

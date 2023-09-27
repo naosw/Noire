@@ -38,6 +38,8 @@ public class SaveSlotsMenu : Menu
 
         Dictionary<string, GameData> profilesGameData = DataPersistenceManager.Instance.GetAllProfilesGameData();
 
+        backButton.interactable = true;
+
         // loop through each save slot in the UI and set the content appropriately
         GameObject firstSelected = backButton.gameObject;
         foreach (SaveSlot saveSlot in saveSlots) 

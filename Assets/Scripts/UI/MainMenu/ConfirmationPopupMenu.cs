@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,9 +13,14 @@ public class ConfirmationPopupMenu : Menu
     [SerializeField] private Button confirmButton;
     [SerializeField] private Button cancelButton;
 
+    private void Awake()
+    {
+        Hide();
+    }
+
     public void ActivateMenu(string displayText, UnityAction confirmAction, UnityAction cancelAction)
     {
-        this.gameObject.SetActive(true);
+        gameObject.SetActive(true);
 
         // set the display text
         this.displayText.text = displayText;

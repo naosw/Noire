@@ -7,15 +7,19 @@ public class GameData
     public float percentageComplete;
     
     // player fields
-    public float maxDrowsiness;
+    public float drowsiness;
     public float attackDamage;
     public float dreamShards;
     public float dreamThreads;
     public float[] position;
-
+    
+    // game states
+    public string currentScene;
+    
+    // default parameters for new game
     public GameData(string profileId)
     {
-        maxDrowsiness = 50;
+        drowsiness = 50;
         attackDamage = 5;
         dreamShards = 0;
         dreamThreads = 0;
@@ -26,5 +30,7 @@ public class GameData
 
         profileName = profileId;
         percentageComplete = 0;
+
+        currentScene = Loader.firstScene.ToString();
     }
 }

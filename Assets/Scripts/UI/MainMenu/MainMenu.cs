@@ -50,7 +50,7 @@ public class MainMenu : Menu
     {
         DisableMenuButtons();
         // TODO: add which scene in GameData
-        Loader.Load(Loader.Scene.ValleyofSolura);
+        Loader.Load(DataPersistenceManager.Instance.CurrentScene);
     }
     
     private void OnLoadGameClicked() 

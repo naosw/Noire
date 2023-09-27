@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour, IDataPersistence
@@ -334,9 +335,16 @@ public class Player : MonoBehaviour, IDataPersistence
     }
     
     // ***************************** IDataPersistence methods ***************************** //
+    
+    /** IMPORTANT DEBUGGING INFORMATION:
+     * if you get an error saying loading error or something in main scene,
+     * please DISABLE DataPersistenceManager in scene/Globals or toggle on "Disable Data Persistence"
+    */
+    
     public void LoadData(GameData data)
     {
-        playerHealthSO.SetMaxDrowsiness(data.maxDrowsiness);
+        // data.currentScene should have already been loaded.   
+        playerHealthSO.SetCurrentDrowsiness(data.drowsiness);
         attackDamage = data.attackDamage;
         dreamShardsSO.SetCurrencyCount(data.dreamShards);
         dreamThreadsSO.SetCurrencyCount(data.dreamThreads);
@@ -345,7 +353,11 @@ public class Player : MonoBehaviour, IDataPersistence
 
     public void SaveData(GameData data)
     {
-        data.maxDrowsiness = playerHealthSO.GetMaxDrowsiness;
+        // IMPORTANT: here we need to save the current scene, 
+        // which was the last `targetScene` the loader had loaded
+        data.currentScene = SceneManager.GetActiveScene().name;
+        
+        data.drowsiness = playerHealthSO.GetCurrentDrowsiness;
         data.attackDamage = attackDamage;
         data.dreamShards = dreamShardsSO.GetCurrencyCount();
         data.dreamThreads = dreamThreadsSO.GetCurrencyCount();

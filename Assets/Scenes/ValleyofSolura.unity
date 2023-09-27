@@ -4936,12 +4936,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc7b4bf2106ede4da5e33b6c41fdfb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableDataPersistence: 0
-  overrideSelectedProfileId: 0
+  disableDataPersistence: 1
   initializeDataIfNull: 0
-  testSelectedProfileId: test
   fileName: data.game
   useEncryption: 0
+  autoSaveTimeSeconds: 240
 --- !u!1 &1412619023
 GameObject:
   m_ObjectHideFlags: 0
