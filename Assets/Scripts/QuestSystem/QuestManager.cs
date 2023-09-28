@@ -17,20 +17,20 @@ public class QuestManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventsManager.Instance.questEvents.onStartQuest += StartQuest;
-        GameEventsManager.Instance.questEvents.onAdvanceQuest += AdvanceQuest;
-        GameEventsManager.Instance.questEvents.onFinishQuest += FinishQuest;
+        GameEventsManager.Instance.questEvents.OnStartQuest += StartQuest;
+        GameEventsManager.Instance.questEvents.OnAdvanceQuest += AdvanceQuest;
+        GameEventsManager.Instance.questEvents.OnFinishQuest += FinishQuest;
 
-        GameEventsManager.Instance.questEvents.onQuestStepStateChange += QuestStepStateChange;
+        GameEventsManager.Instance.questEvents.OnQuestStepStateChange += QuestStepStateChange;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.Instance.questEvents.onStartQuest -= StartQuest;
-        GameEventsManager.Instance.questEvents.onAdvanceQuest -= AdvanceQuest;
-        GameEventsManager.Instance.questEvents.onFinishQuest -= FinishQuest;
+        GameEventsManager.Instance.questEvents.OnStartQuest -= StartQuest;
+        GameEventsManager.Instance.questEvents.OnAdvanceQuest -= AdvanceQuest;
+        GameEventsManager.Instance.questEvents.OnFinishQuest -= FinishQuest;
 
-        GameEventsManager.Instance.questEvents.onQuestStepStateChange -= QuestStepStateChange;
+        GameEventsManager.Instance.questEvents.OnQuestStepStateChange -= QuestStepStateChange;
     }
 
     private void Start()
@@ -87,7 +87,7 @@ public class QuestManager : MonoBehaviour
     {
         Quest quest = GetQuestById(id);
         quest.InstantiateCurrentQuestStep(this.transform);
-        ChangeQuestState(quest.info.id, QuestState.IN_PROGRESS);
+        ChangeQuestState(quest.info.id, QuestState.InProgress);
     }
 
     private void AdvanceQuest(string id)
@@ -118,8 +118,8 @@ public class QuestManager : MonoBehaviour
 
     private void ClaimRewards(Quest quest)
     {
-        GameEventsManager.Instance.goldEvents.GoldGained(quest.info.goldReward);
-        GameEventsManager.Instance.playerEvents.ExperienceGained(quest.info.experienceReward);
+        GameEventsManager.Instance.playerEvents.DreamShardsChange(quest.info.dreamThreadsReward);
+        GameEventsManager.Instance.playerEvents.DreamThreadsChange(quest.info.dreamThreadsReward);
     }
 
     private void QuestStepStateChange(string id, int stepIndex, QuestStepState questStepState)

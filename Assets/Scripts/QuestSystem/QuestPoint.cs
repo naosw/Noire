@@ -24,13 +24,13 @@ public class QuestPoint : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventsManager.Instance.questEvents.onQuestStateChange += QuestStateChange;
+        GameEventsManager.Instance.questEvents.OnQuestStateChange += QuestStateChange;
         GameInput.Instance.OnInteract += OnInteractQuest;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.Instance.questEvents.onQuestStateChange -= QuestStateChange;
+        GameEventsManager.Instance.questEvents.OnQuestStateChange -= QuestStateChange;
         GameInput.Instance.OnInteract -= OnInteractQuest;
     }
 

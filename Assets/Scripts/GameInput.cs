@@ -53,11 +53,11 @@ public class GameInput : MonoBehaviour
     }
 
     // invoke events
-    private void Pause_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) { OnPauseAction?.Invoke(this, EventArgs.Empty); }
-    private void Attack1_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) { OnAttack1?.Invoke(this, EventArgs.Empty); }
-    private void CameraLeft_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) { OnCameraTurn?.Invoke(this, new OnCameraTurnEventArgs { turnDir = 1 }); }
-    private void CameraRight_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) { OnCameraTurn?.Invoke(this, new OnCameraTurnEventArgs { turnDir = -1 }); }
-    private void Dash_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {OnDash?.Invoke(this, EventArgs.Empty); }
+    private void Pause_performed(InputAction.CallbackContext obj) { OnPauseAction?.Invoke(this, EventArgs.Empty); }
+    private void Attack1_performed(InputAction.CallbackContext obj) { OnAttack1?.Invoke(this, EventArgs.Empty); }
+    private void CameraLeft_performed(InputAction.CallbackContext obj) { OnCameraTurn?.Invoke(this, new OnCameraTurnEventArgs { turnDir = 1 }); }
+    private void CameraRight_performed(InputAction.CallbackContext obj) { OnCameraTurn?.Invoke(this, new OnCameraTurnEventArgs { turnDir = -1 }); }
+    private void Dash_performed(InputAction.CallbackContext obj) {OnDash?.Invoke(this, EventArgs.Empty); }
 
     private void Interact_performed(InputAction.CallbackContext obj)
     {

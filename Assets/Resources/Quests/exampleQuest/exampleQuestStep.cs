@@ -29,7 +29,19 @@ public class exampleQuestStep : QuestStep
             interacts++;
         if (interacts >= interactsToDo)
         {
-            FinishQuest();
+            FinishQuestStep();
         }
+    }
+    
+    private void UpdateState()
+    {
+        string state = interacts.ToString();
+        ChangeState(state);
+    }
+
+    protected override void SetQuestStepState(string state)
+    {
+        interacts = Int32.Parse(state);
+        UpdateState();
     }
 }

@@ -16,11 +16,11 @@ public class QuestInfoSO : ScriptableObject
     public QuestInfoSO[] prereqsRequirement;
 
     [Header("Steps")] 
-    [SerializeField] private GameObject[] questStepPrefabs;
+    public GameObject[] questStepPrefabs;
 
     [Header("Rewards")] 
-    [SerializeField] private int dreamShardsReward;
-    [SerializeField] private int dreamThreadsReward;
+    public int dreamShardsReward;
+    public int dreamThreadsReward;
     // insert other possible rewards here
     
     private void OnValidate()

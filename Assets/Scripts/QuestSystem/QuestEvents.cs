@@ -2,48 +2,48 @@ using System;
 
 public class QuestEvents
 {
-    public event Action<string> onStartQuest;
+    public event Action<string> OnStartQuest;
     public void StartQuest(string id)
     {
-        if (onStartQuest != null)
+        if (OnStartQuest != null)
         {
-            onStartQuest(id);
+            OnStartQuest(id);
         }
     }
 
-    public event Action<string> onAdvanceQuest;
+    public event Action<string> OnAdvanceQuest;
     public void AdvanceQuest(string id)
     {
-        if (onAdvanceQuest != null)
+        if (OnAdvanceQuest != null)
         {
-            onAdvanceQuest(id);
+            OnAdvanceQuest(id);
         }
     }
 
-    public event Action<string> onFinishQuest;
+    public event Action<string> OnFinishQuest;
     public void FinishQuest(string id)
     {
-        if (onFinishQuest != null)
+        if (OnFinishQuest != null)
         {
-            onFinishQuest(id);
+            OnFinishQuest(id);
         }
     }
 
-    public event Action<Quest> onQuestStateChange;
+    public event Action<Quest> OnQuestStateChange;
     public void QuestStateChange(Quest quest)
     {
-        if (onQuestStateChange != null)
+        if (OnQuestStateChange != null)
         {
-            onQuestStateChange(quest);
+            OnQuestStateChange(quest);
         }
     }
 
-    public event Action<string, int, QuestStepState> onQuestStepStateChange;
+    public event Action<string, int, QuestStepState> OnQuestStepStateChange;
     public void QuestStepStateChange(string id, int stepIndex, QuestStepState questStepState)
     {
-        if (onQuestStepStateChange != null)
+        if (OnQuestStepStateChange != null)
         {
-            onQuestStepStateChange(id, stepIndex, questStepState);
+            OnQuestStepStateChange(id, stepIndex, questStepState);
         }
     }
 }
