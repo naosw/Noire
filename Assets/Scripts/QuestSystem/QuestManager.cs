@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class QuestManager : MonoBehaviour
@@ -8,13 +9,11 @@ public class QuestManager : MonoBehaviour
 
     private Dictionary<string, Quest> questMap;
 
-    private int currentPlayerLevel;
-
     private void Awake()
     {
         questMap = CreateQuestMap();
     }
-
+    
     private void OnEnable()
     {
         GameEventsManager.Instance.questEvents.OnStartQuest += StartQuest;
@@ -56,37 +55,21 @@ public class QuestManager : MonoBehaviour
 
     private bool CheckRequirementsMet(Quest quest)
     {
-        bool meetsRequirements = currentPlayerLevel >= quest.info.levelRequirement;
-
-        // check quest prerequisites for completion
         foreach (QuestInfoSO prerequisiteQuestInfo in quest.info.prereqsRequirement)
         {
             if (GetQuestById(prerequisiteQuestInfo.id).state != QuestState.Finished)
             {
-                meetsRequirements = false;
+                return false;
             }
         }
 
-        return meetsRequirements;
+        return true;
     }
-
-    private void Update()
-    {
-        // loop through ALL quests
-        foreach (Quest quest in questMap.Values)
-        {
-            // if we're now meeting the requirements, switch over to the CAN_START state
-            if (quest.state == QuestState.RequirementsNotMet && CheckRequirementsMet(quest))
-            {
-                ChangeQuestState(quest.info.id, QuestState.CanStart);
-            }
-        }
-    }
-
+    
     private void StartQuest(string id) 
     {
         Quest quest = GetQuestById(id);
-        quest.InstantiateCurrentQuestStep(this.transform);
+        quest.InstantiateCurrentQuestStep(transform);
         ChangeQuestState(quest.info.id, QuestState.InProgress);
     }
 
@@ -94,13 +77,12 @@ public class QuestManager : MonoBehaviour
     {
         Quest quest = GetQuestById(id);
 
-        // move on to the next step
         quest.MoveToNextStep();
 
         // if there are more steps, instantiate the next one
         if (quest.CurrentStepExists())
         {
-            quest.InstantiateCurrentQuestStep(this.transform);
+            quest.InstantiateCurrentQuestStep(transform);
         }
         // if there are no more steps, then we've finished all of them for this quest
         else
@@ -114,8 +96,25 @@ public class QuestManager : MonoBehaviour
         Quest quest = GetQuestById(id);
         ClaimRewards(quest);
         ChangeQuestState(quest.info.id, QuestState.Finished);
+        // checks dependency tree to see if we have opened up any new quests
+        UpdateProgress();
+        
+        Debug.Log("Finished quest:" + id);
     }
-
+    
+    private void UpdateProgress()
+    {
+        foreach (Quest quest in questMap.Values)
+        {
+            // if we're now meeting the requirements, switch over to the CAN_START state
+            if (quest.state == QuestState.RequirementsNotMet && CheckRequirementsMet(quest))
+            {
+                ChangeQuestState(quest.info.id, QuestState.CanStart);
+            }
+        }
+    }
+    
+    // add more rewards as appropriate
     private void ClaimRewards(Quest quest)
     {
         GameEventsManager.Instance.playerEvents.DreamShardsChange(quest.info.dreamThreadsReward);
@@ -133,7 +132,7 @@ public class QuestManager : MonoBehaviour
     {
         // loads all QuestInfoSO Scriptable Objects under the Assets/Resources/Quests folder
         QuestInfoSO[] allQuests = Resources.LoadAll<QuestInfoSO>("Quests");
-        // Create the quest map
+        
         Dictionary<string, Quest> idToQuestMap = new Dictionary<string, Quest>();
         foreach (QuestInfoSO questInfo in allQuests)
         {
@@ -149,10 +148,6 @@ public class QuestManager : MonoBehaviour
     private Quest GetQuestById(string id)
     {
         Quest quest = questMap[id];
-        if (quest == null)
-        {
-            Debug.LogError("ID not found in the Quest Map: " + id);
-        }
         return quest;
     }
 
@@ -164,6 +159,7 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+    // TODO: use file IO instead of player pref to save progress.
     private void SaveQuest(Quest quest)
     {
         try 
@@ -171,9 +167,6 @@ public class QuestManager : MonoBehaviour
             QuestData questData = quest.GetQuestData();
             // serialize using JsonUtility, but use whatever you want here (like JSON.NET)
             string serializedData = JsonUtility.ToJson(questData);
-            // saving to PlayerPrefs is just a quick example for this tutorial video,
-            // you probably don't want to save this info there long-term.
-            // instead, use an actual Save & Load system and write to a file, the cloud, etc..
             PlayerPrefs.SetString(quest.info.id, serializedData);
         }
         catch (System.Exception e)
@@ -182,6 +175,8 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+    // TODO: use file IO instead of player pref to save progress.
+    // loads the quest (if loadQuestState enabled, will load player progress, else new Quest())
     private Quest LoadQuest(QuestInfoSO questInfo)
     {
         Quest quest = null;

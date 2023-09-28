@@ -16,6 +16,8 @@ MonoBehaviour:
   displayName: example quest
   levelRequirement: 0
   prereqsRequirement: []
-  questStepPrefabs: []
+  questStepPrefabs:
+  - {fileID: 4554751618510672836, guid: 089fcf6adb3cbaa419fe996cbd824ac9, type: 3}
+  - {fileID: 4554751618510672836, guid: 089fcf6adb3cbaa419fe996cbd824ac9, type: 3}
   dreamShardsReward: 100
   dreamThreadsReward: 10

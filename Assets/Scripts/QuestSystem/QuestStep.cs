@@ -13,7 +13,6 @@ public abstract class QuestStep : MonoBehaviour
     {
         this.questId = questId;
         this.stepIndex = stepIndex;
-        // if (questStepState != null && questStepState != "")
         if (!String.IsNullOrEmpty(questStepState))
         {
             SetQuestStepState(questStepState);

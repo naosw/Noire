@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿// can add new fields to be used in data persistence and quest progress saver
 [System.Serializable]
 public class QuestStepState
 {

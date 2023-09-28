@@ -41,7 +41,7 @@ public class GameInput : MonoBehaviour
     }
     
     // subscribe listeners
-    private void Start()
+    private void OnEnable()
     {
         gameInputActions.Player.Enable();
         gameInputActions.Player.CameraRight.performed += CameraRight_performed;
@@ -65,7 +65,7 @@ public class GameInput : MonoBehaviour
     }
     
     // discards listeners
-    private void OnDestroy()
+    private void OnDisable()
     {
         gameInputActions.Player.CameraLeft.performed -= CameraLeft_performed;
         gameInputActions.Player.CameraRight.performed -= CameraRight_performed;

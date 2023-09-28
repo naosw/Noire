@@ -13,7 +13,6 @@ public class QuestPoint : MonoBehaviour
     [SerializeField] private bool startPoint = true;
     [SerializeField] private bool finishPoint = true;
 
-    private bool playerIsNear = false;
     private string questId;
     private QuestState currentQuestState;
 
@@ -22,7 +21,7 @@ public class QuestPoint : MonoBehaviour
         questId = questInfoForPoint.id;
     }
 
-    private void OnEnable()
+    private void Start()
     {
         GameEventsManager.Instance.questEvents.OnQuestStateChange += QuestStateChange;
         GameInput.Instance.OnInteract += OnInteractQuest;
@@ -36,7 +35,9 @@ public class QuestPoint : MonoBehaviour
 
     private void OnInteractQuest(object sender, EventArgs e)
     {
-        if (!playerIsNear)
+        // checks if player is near first
+        // TODO: implement interaction system
+        if (Vector3.Distance(Player.Instance.transform.position, transform.position) > 5)
         {
             return;
         }
@@ -58,22 +59,6 @@ public class QuestPoint : MonoBehaviour
         if (quest.info.id.Equals(questId))
         {
             currentQuestState = quest.state;
-        }
-    }
-
-    private void OnTriggerEnter(Collider otherCollider)
-    {
-        if (otherCollider.CompareTag("Player"))
-        {
-            playerIsNear = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider otherCollider)
-    {
-        if (otherCollider.CompareTag("Player"))
-        {
-            playerIsNear = false;
         }
     }
 }

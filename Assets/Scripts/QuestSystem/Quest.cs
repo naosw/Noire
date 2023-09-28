@@ -24,8 +24,8 @@ public class Quest
 
     public Quest(QuestInfoSO questInfo, QuestState questState, int currentQuestStepIndex, QuestStepState[] questStepStates)
     {
-        this.info = questInfo;
-        this.state = questState;
+        info = questInfo;
+        state = questState;
         this.currentQuestStepIndex = currentQuestStepIndex;
         this.questStepStates = questStepStates;
 
@@ -36,7 +36,7 @@ public class Quest
             Debug.LogWarning("Quest Step Prefabs and Quest Step States are "
                 + "of different lengths. This indicates something changed "
                 + "with the QuestInfo and the saved data is now out of sync. "
-                + "Reset your data - as this might cause issues. QuestId: " + this.info.id);
+                + "Reset your data - as this might cause issues. QuestId: " + info.id);
         }
     }
 
@@ -52,6 +52,8 @@ public class Quest
 
     public void InstantiateCurrentQuestStep(Transform parentTransform)
     {
+        // TODO: can optimize using object pooling. Try to avoid instantiation.
+        
         GameObject questStepPrefab = GetCurrentQuestStepPrefab();
         if (questStepPrefab != null)
         {
