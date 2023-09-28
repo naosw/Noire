@@ -103,12 +103,18 @@ public class Player : MonoBehaviour, IDataPersistence
     {
         GameInput.Instance.OnAttack1 += GameInput_OnAttack1;
         GameInput.Instance.OnDash += GameInput_OnDash;
+        GameEventsManager.Instance.playerEvents.OnTakeDamage += OnTakingDamage;
+        GameEventsManager.Instance.playerEvents.OnDreamShardsChange += dreamShardsSO.Change;
+        GameEventsManager.Instance.playerEvents.OnDreamThreadsChange += dreamThreadsSO.Change;
     }
 
     private void OnDestroy()
     {
         GameInput.Instance.OnAttack1 -= GameInput_OnAttack1;
         GameInput.Instance.OnDash -= GameInput_OnDash;
+        GameEventsManager.Instance.playerEvents.OnTakeDamage -= OnTakingDamage;
+        GameEventsManager.Instance.playerEvents.OnDreamShardsChange -= dreamShardsSO.Change;
+        GameEventsManager.Instance.playerEvents.OnDreamThreadsChange -= dreamThreadsSO.Change;
     }
     
     private void Update()
@@ -152,7 +158,25 @@ public class Player : MonoBehaviour, IDataPersistence
             state = State.Dash;
         }
     }
+    
+    // called when taking any damage
+    private void OnTakingDamage(float bufferDamage)
+    {
+        if (IsDead())
+            Debug.LogError("Cannot take dmg if dead. This should not happen -- should've handled death earlier");
+        if (currentIFrameTimer <= playerHitIFrames)
+            return;
+        
+        currentBufferCooldown = maxRegenHitCooldown;
+        
+        playerHealthSO.InflictDamage(bufferDamage);
+        UpdateHealthBar?.Invoke();
+        HandleDreamState();
 
+        if (playerHealthSO.IsDead())
+            HandleDeath();
+    }
+    
     // ***************************** HANDLE FUNCTIONS ***************************** //
     
     // called after ending attacks/dashing for state transition
@@ -304,24 +328,6 @@ public class Player : MonoBehaviour, IDataPersistence
     {
         state = State.Dead;
         Loader.Load(Loader.Scene.DeathScene);
-    }
-    
-    // called when taking any damage
-    public void HandleHit(float bufferDamage)
-    {
-        if (IsDead())
-            Debug.LogError("Cannot take dmg if dead. This should not happen -- should've handled death earlier");
-        if (currentIFrameTimer <= playerHitIFrames)
-            return;
-        
-        currentBufferCooldown = maxRegenHitCooldown;
-        
-        playerHealthSO.InflictDamage(bufferDamage);
-        UpdateHealthBar?.Invoke();
-        HandleDreamState();
-
-        if (playerHealthSO.IsDead())
-            HandleDeath();
     }
     
     // called when restoring drowsiness (hp)
