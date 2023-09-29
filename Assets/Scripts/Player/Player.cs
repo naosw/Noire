@@ -354,7 +354,7 @@ public class Player : MonoBehaviour, IDataPersistence
         attackDamage = data.attackDamage;
         dreamShardsSO.SetCurrencyCount(data.dreamShards);
         dreamThreadsSO.SetCurrencyCount(data.dreamThreads);
-        transform.position = new Vector3(data.position[0], data.position[1], data.position[2]);
+        transform.position = data.position;
     }
 
     public void SaveData(GameData data)
@@ -367,10 +367,7 @@ public class Player : MonoBehaviour, IDataPersistence
         data.attackDamage = attackDamage;
         data.dreamShards = dreamShardsSO.GetCurrencyCount();
         data.dreamThreads = dreamThreadsSO.GetCurrencyCount();
-        data.position = new float[3];
-        data.position[0] = transform.position.x;
-        data.position[1] = transform.position.y;
-        data.position[2] = transform.position.z;
+        data.position = transform.position;
     }
     
     // ***************************** GETTERS/SETTERS ***************************** //
