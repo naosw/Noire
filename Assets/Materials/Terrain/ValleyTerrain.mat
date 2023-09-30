@@ -126,7 +126,7 @@ Material:
     - _CameraDistanceFadeFar: 10
     - _CameraDistanceImpact: 0
     - _CelExtraEnabled: 1
-    - _CelNumSteps: 3
+    - _CelNumSteps: 10
     - _CelPrimaryMode: 1
     - _ColorMode: 0
     - _CrestSharpness: 0.1
