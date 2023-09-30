@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using static UnityEditor.PlayerSettings;
 
 public class Player : MonoBehaviour
@@ -15,6 +16,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float playerHeight = 6f;
     [SerializeField] private LayerMask collidableLayers;
     [SerializeField] private float test;
+    [SerializeField] private GameInput gameInput;
 
     public static Player Instance { get; private set; }
     private enum State
@@ -33,6 +35,7 @@ public class Player : MonoBehaviour
     private float attack1CooldownCounter;
     private float playerHitBoxHeight = 1f;
     private Quaternion rightRotation = Quaternion.Euler(new Vector3(0, 90, 0));
+    private Vector3 lastInteractDir;
 
     [Header("Player Health")]
     [SerializeField] private PlayerHealthSO playerHealthSO;
@@ -71,6 +74,7 @@ public class Player : MonoBehaviour
         attack1CooldownCounter -= Time.deltaTime;
         if(IsIdle() || IsWalking())
             HandleMovement();
+       // HandleInteractions();
     }
 
     public void PlaySteps(string path)
@@ -209,6 +213,23 @@ public class Player : MonoBehaviour
             IsDead = true;
         }
     }
+
+    private void HandleInteractions() 
+    {
+        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+
+        Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
+
+        if (moveDir != Vector3.zero)
+        {
+            lastInteractDir = moveDir;
+        }
+
+        float interactDistance = 2f;
+        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance)) { Debug.Log(raycastHit.transform); }
+        else { Debug.Log("-"); }
+    }
+
 
     public bool IsWalking() => state == State.Walk;
     public bool IsIdle() => state == State.Idle;
