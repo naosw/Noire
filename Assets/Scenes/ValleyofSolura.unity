@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
   m_AmbientEquatorColor: {r: 0.125, g: 0.107894674, b: 0.08317343, a: 1}
   m_AmbientGroundColor: {r: 0.12278136, g: 0.086734004, b: 0.07382738, a: 1}
-  m_AmbientIntensity: 4.94
+  m_AmbientIntensity: 0
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.1981132, g: 0.16895692, b: 0.16895692, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
@@ -523,7 +523,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 132075896}
-  m_LocalRotation: {x: 0.6805586, y: 0.1919374, z: -0.1919374, w: 0.6805586}
+  m_LocalRotation: {x: 0.83581764, y: -0.14638774, z: -0.2682712, w: -0.4560812}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -565,8 +565,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.5398718, g: 0.63678044, b: 0.8490566, a: 1}
-  m_Intensity: 0.87958133
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 0.05296783
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -603,7 +603,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 11728
+    m_Bits: 4294967295
   m_RenderingLayerMask: 4294967295
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -2196,7 +2196,6 @@ Transform:
   - {fileID: 578919854}
   - {fileID: 376214261}
   - {fileID: 611782202}
-  - {fileID: 8954458234133261227}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2292,8 +2291,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.30501956, g: 0.41017264, b: 0.6415094, a: 1}
-  m_Intensity: 0
+  m_Color: {r: 0.9653468, g: 0.8639617, b: 0.6214652, a: 1}
+  m_Intensity: 1.999666
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2373,7 +2372,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541323125}
-  m_LocalRotation: {x: -0.6805586, y: 0.1919374, z: 0.1919374, w: 0.6805586}
+  m_LocalRotation: {x: 0.45608118, y: 0.2682712, z: -0.14638774, w: 0.83581764}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3478,16 +3477,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 541323126}
   moon: {fileID: 132075899}
-  dayLength: 1000
+  dayLength: 30
   yearLength: 3
-  timeOfDay: 0
+  timeOfDay: 0.409
   timeOfYear: 0.09
   sunIntensityCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.0020141602
       inSlope: -0.018933237
       outSlope: -0.018933237
       tangentMode: 0
@@ -3532,7 +3531,7 @@ MonoBehaviour:
       outWeight: 0.26714894
     - serializedVersion: 3
       time: 1
-      value: 0
+      value: 0.0020141602
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -9482,7 +9481,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: b51d753e04c25454fabe5555c644da9b, type: 2}
-  - {fileID: 2100000, guid: d7aefb3cbf6d79b41aae70f62cf22875, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12160,7 +12158,7 @@ GameObject:
   - component: {fileID: 5203072367112794318}
   - component: {fileID: 3587213106510939728}
   - component: {fileID: 4958000001007065743}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12906,8 +12904,8 @@ Transform:
   m_Children:
   - {fileID: 5203072367112794318}
   - {fileID: 2976349085116574605}
-  m_Father: {fileID: 392818808}
-  m_RootOrder: -1
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!1 &9083462941012776898
 GameObject:
