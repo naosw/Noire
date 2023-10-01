@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using MessagePack;
 
 public class DataPersistenceManager : MonoBehaviour
 {
@@ -12,7 +13,6 @@ public class DataPersistenceManager : MonoBehaviour
 
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
-    [SerializeField] private bool useEncryption;
 
     [Header("Autosave")] 
     [SerializeField] private float autoSaveTimeSeconds = 240;
@@ -22,6 +22,7 @@ public class DataPersistenceManager : MonoBehaviour
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private GameStateFileIO fileHandler;
+    public MessagePackSerializerOptions serializationOptions;
 
     private string selectedProfileId = "";
 
@@ -43,7 +44,7 @@ public class DataPersistenceManager : MonoBehaviour
             Debug.LogWarning("Data Persistence is currently disabled!");
         }
         
-        fileHandler = new GameStateFileIO(Application.persistentDataPath, fileName, useEncryption);
+        fileHandler = new GameStateFileIO(Application.persistentDataPath, fileName);
         InitializeSelectedProfileId();
     }
 
@@ -119,6 +120,7 @@ public class DataPersistenceManager : MonoBehaviour
     private void InitializeSelectedProfileId() 
     {
         selectedProfileId = fileHandler.GetMostRecentlyUpdatedProfileId();
+        gameData = fileHandler.Load(selectedProfileId);
     }
 
     private void OnApplicationQuit() 
@@ -133,9 +135,11 @@ public class DataPersistenceManager : MonoBehaviour
             .ToList();
     }
 
-    public bool HasGameData() 
+    public bool HasGameData()
     {
-        return gameData != null;
+        if (gameData != null)
+            return true;
+        return GetAllProfilesGameData().Count > 0;
     }
 
     public Dictionary<string, GameData> GetAllProfilesGameData() 

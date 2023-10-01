@@ -11,13 +11,16 @@ public class PlayerStatisticsSO : ScriptableObject
     public float GetCurrencyCount() => currencyCount;
     
     public void SetCurrencyCount(float value) => currencyCount = value;
-    
-    public void Increase(float increase) => currencyCount += increase;
 
-    public void Decrease(float decrease)
+    public void Change(float value)
     {
-        currencyCount -= decrease;
-        if (currencyCount < 0)
-            currencyCount = 0;
+        if(value > 0)
+            currencyCount += value;
+        else
+        {
+            currencyCount -= value;
+            if (currencyCount < 0)
+                currencyCount = 0;
+        }
     }
 }
