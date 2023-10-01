@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,11 +13,17 @@ public class UIHealthBarManager : MonoBehaviour
 
     private void Awake()
     {
-        playerHealth.updateHealthBar += UpdateHealthBarValues;
+        playerHealth.UpdateHealthBar += UpdateHealthBarValues;
     }
+
+    private void Start()
+    {
+        UpdateHealthBarValues();
+    }
+
     void UpdateHealthBarValues()
     {
-        drowsiness.value = playerHealthSO.CurrentDrowsiness/playerHealthSO.MaxDrowsiness;
-        buffer.value = playerHealthSO.CurrentBuffer / playerHealthSO.MaxBuffer;
+        drowsiness.value = playerHealthSO.GetCurrentDrowsinessPercentage;
+        buffer.value = playerHealthSO.GetCurrentBuffer / playerHealthSO.GetMaxBuffer;
     }
 }

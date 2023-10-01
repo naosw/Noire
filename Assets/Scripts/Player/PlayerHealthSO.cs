@@ -1,5 +1,6 @@
 using Unity.Collections;
 using UnityEngine;
+
 /// <summary>
 /// Manages the players "health"(drowsiness) for the whole game.
 /// </summary>
@@ -10,42 +11,50 @@ public class PlayerHealthSO : ScriptableObject
     [SerializeField][ReadOnly] private float maxBuffer;
     [SerializeField][ReadOnly] private float currentBuffer;
     [SerializeField][ReadOnly] private float maxBufferDamage = 10f;
+    
     [Header("Drowsiness Settings")]
     [SerializeField][ReadOnly] private float maxDrowsiness;
     [SerializeField][ReadOnly] private float currentDrowsiness;
-
     
-    
-    public float MaxBuffer => maxBuffer;
-    public float CurrentBuffer => currentBuffer;
-    public float MaxDrowsiness => maxDrowsiness;
-    public float CurrentDrowsiness => currentDrowsiness;
+    public float GetMaxBuffer => maxBuffer;
+    public float GetCurrentBuffer => currentBuffer;
+    public float GetMaxDrowsiness => maxDrowsiness;
+    public float GetCurrentDrowsiness => currentDrowsiness;
+    public float GetCurrentDrowsinessPercentage => currentDrowsiness / maxDrowsiness;
 
-    public void setMaxBuffer(float newValue)
-    {
-        maxBuffer = newValue;
-    }
+    public void SetMaxBuffer(float newValue) => maxBuffer = newValue;
 
-    public void SetCurrentBuffer(float newValue)
-    {
-        currentBuffer = newValue;
-    }
+    public void SetCurrentBuffer(float newValue) => currentBuffer = newValue;
+    public void SetMaxDrowsiness(float newValue) => maxDrowsiness = newValue;
+    public void SetCurrentDrowsiness(float newValue) => currentDrowsiness = newValue;
 	
-    public void InflictDamage(float DamageValue)
+    public void InflictDamage(float damageValue)
     {
-        if (DamageValue < 0) return;
-        currentBuffer += DamageValue;
+        if (damageValue < 0) return;
+        currentBuffer += damageValue;
         if (currentBuffer > maxBuffer)
         {
             currentBuffer = 0;
             currentDrowsiness -= maxBufferDamage;
         }
     }
-
-    public void RegenBuffer(float BufferRegenValue)
+    
+    // returns 1 upon successful regen. Should not decrease potion otherwise
+    public int RegenHealth(float regenValue)
     {
-        if(BufferRegenValue < 0) return;
-        currentBuffer -= BufferRegenValue;
+        if (currentDrowsiness == maxDrowsiness)
+            return 0;
+        
+        currentDrowsiness += regenValue;
+        if (currentDrowsiness >= maxDrowsiness)
+            currentDrowsiness = maxDrowsiness;
+        return 1;
+    }
+
+    public void RegenBuffer(float regenValue)
+    {
+        if(regenValue < 0) return;
+        currentBuffer -= regenValue;
         if(currentBuffer < 0)
             currentBuffer = 0;
     }
@@ -53,11 +62,11 @@ public class PlayerHealthSO : ScriptableObject
     public void ResetHealth()
     {
         currentBuffer = 0;
-        currentDrowsiness = maxDrowsiness;
+        currentDrowsiness = maxDrowsiness / 2;
     }
 
-    public bool isDead()
+    public bool IsDead()
     {
-        return currentDrowsiness <= 0.0f;
+        return currentDrowsiness <= 0;
     }
 }

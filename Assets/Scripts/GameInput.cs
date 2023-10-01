@@ -6,10 +6,19 @@ using UnityEngine.InputSystem;
 public class GameInput : MonoBehaviour
 {
     public static GameInput Instance { get; private set; }
-
+    
+    // list of events
     public event EventHandler<OnCameraTurnEventArgs> OnCameraTurn;
+    public class OnCameraTurnEventArgs : EventArgs
+    {
+        // -1 for right. 1 for left.
+        public int turnDir;
+    }
     public event EventHandler OnPauseAction;
-
+    public event EventHandler OnAttack1;
+    public event EventHandler OnDash;
+    public event EventHandler OnInteract;
+    
     public enum Bindings
     {
         Move_Up,
@@ -19,14 +28,9 @@ public class GameInput : MonoBehaviour
         Attack,
         Camera_Left,
         Camera_Right,
+        // TODO: add dash keybindings
+        // TODO: add interact keybindings
     }
-    public class OnCameraTurnEventArgs : EventArgs
-    {
-        // -1 for right. 1 for left.
-        public int turnDir;
-    }
-
-    public event EventHandler OnAttack1;
 
     private GameInputActions gameInputActions;
 
@@ -34,34 +38,45 @@ public class GameInput : MonoBehaviour
     {
         Instance = this;
         gameInputActions = new GameInputActions();
-
     }
-
-    private void Start()
+    
+    // subscribe listeners
+    private void OnEnable()
     {
         gameInputActions.Player.Enable();
-
         gameInputActions.Player.CameraRight.performed += CameraRight_performed;
         gameInputActions.Player.CameraLeft.performed += CameraLeft_performed;
         gameInputActions.Player.Attack1.performed += Attack1_performed;
         gameInputActions.Player.Pause.performed += Pause_performed;
+        gameInputActions.Player.Dash.performed += Dash_performed;
+        gameInputActions.Player.Interact.performed += Interact_performed;
     }
 
-    private void Pause_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) { OnPauseAction?.Invoke(this, EventArgs.Empty); }
+    // invoke events
+    private void Pause_performed(InputAction.CallbackContext obj) { OnPauseAction?.Invoke(this, EventArgs.Empty); }
+    private void Attack1_performed(InputAction.CallbackContext obj) { OnAttack1?.Invoke(this, EventArgs.Empty); }
+    private void CameraLeft_performed(InputAction.CallbackContext obj) { OnCameraTurn?.Invoke(this, new OnCameraTurnEventArgs { turnDir = 1 }); }
+    private void CameraRight_performed(InputAction.CallbackContext obj) { OnCameraTurn?.Invoke(this, new OnCameraTurnEventArgs { turnDir = -1 }); }
+    private void Dash_performed(InputAction.CallbackContext obj) {OnDash?.Invoke(this, EventArgs.Empty); }
 
-    private void Attack1_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) { OnAttack1?.Invoke(this, EventArgs.Empty); }
-
-    private void CameraLeft_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) { OnCameraTurn?.Invoke(this, new OnCameraTurnEventArgs { turnDir = 1 }); }
-    private void CameraRight_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) { OnCameraTurn?.Invoke(this, new OnCameraTurnEventArgs { turnDir = -1 }); }
-
-    private void OnDestroy()
+    private void Interact_performed(InputAction.CallbackContext obj)
+    {
+        OnInteract?.Invoke(this, EventArgs.Empty);
+    }
+    
+    // discards listeners
+    private void OnDisable()
     {
         gameInputActions.Player.CameraLeft.performed -= CameraLeft_performed;
         gameInputActions.Player.CameraRight.performed -= CameraRight_performed;
         gameInputActions.Player.Attack1.performed -= Attack1_performed;
         gameInputActions.Player.Pause.performed -= Pause_performed;
+        gameInputActions.Player.Dash.performed -= Dash_performed;
+        gameInputActions.Player.Interact.performed -= Interact_performed;
+        
         gameInputActions.Dispose();
     }
+    
     public float GetZoomVal()
     {
         return gameInputActions.Player.CameraZoom.ReadValue<float>();
@@ -71,9 +86,7 @@ public class GameInput : MonoBehaviour
     {
         Vector2 readVal = gameInputActions.Player.Move.ReadValue<Vector2>();
         return new Vector3(readVal.x, 0, readVal.y);
-
     }
-
 
     public string GetBindingText(Bindings binding)
     {
