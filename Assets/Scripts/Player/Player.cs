@@ -2,6 +2,8 @@ using Cinemachine;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
+using static UnityEditor.PlayerSettings;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
@@ -37,6 +39,7 @@ public class Player : MonoBehaviour, IDataPersistence
     private CharacterController controller;
     private float dashCooldownCounter;
     private Vector3 moveDir;
+    private Vector3 lastInteractDir;
     
     [Header("Player combat")]
     [SerializeField] private Weapon weapon;
@@ -45,6 +48,7 @@ public class Player : MonoBehaviour, IDataPersistence
     private float attack1CooldownCounter;
     private float attackDuration = .25f;
     private float attackDamage = 5;
+
 
     [Header("Player Health")]
     [SerializeField] private PlayerHealthSO playerHealthSO;
@@ -128,6 +132,7 @@ public class Player : MonoBehaviour, IDataPersistence
         HandleDrowsiness();
         if (IsIdle() || IsWalking())
             HandleMovement();
+
         if (IsDashing())
             HandleDash();
     }
@@ -356,6 +361,7 @@ public class Player : MonoBehaviour, IDataPersistence
         dreamThreadsSO.SetCurrencyCount(data.dreamThreads);
         transform.position = data.position;
     }
+
 
     public void SaveData(GameData data)
     {
