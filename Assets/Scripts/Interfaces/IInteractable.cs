@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Interface for interactable objects.
+/// </summary>
 public interface IInteractable 
 {
     void Interact();

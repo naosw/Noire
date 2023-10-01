@@ -1,5 +1,7 @@
 using UnityEngine;
-
+/// <summary>
+/// Handles all NON-INPUT events. Classes should subscribe/unsubscribe from events here.
+/// </summary>
 public class GameEventsManager : MonoBehaviour
 {
     public static GameEventsManager Instance { get; private set; }

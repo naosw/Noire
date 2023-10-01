@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public class ObjectInteractable : MonoBehaviour, IInteractable
+/// <summary>
+/// A base class for interactable objects
+/// </summary>
+public class InteractableObject : MonoBehaviour, IInteractable
 {
-
     [SerializeField] private string interactText;
+    
     public void Interact()
     {
         Debug.Log("Interacted!");
