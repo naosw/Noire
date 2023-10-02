@@ -29,8 +29,8 @@ public static class Loader {
         SceneManager.LoadScene(Scene.LoadingScene.ToString());
     }
 
-    public static void LoaderCallback()
-    {
-        SceneManager.LoadScene(targetScene.ToString());
-    }
+    // public static void LoaderCallback()
+    // {
+    //     SceneManager.LoadSceneAsync(targetScene.ToString(), LoadSceneMode.Single);
+    // }
 }
