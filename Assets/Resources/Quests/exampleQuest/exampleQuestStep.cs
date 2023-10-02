@@ -23,7 +23,7 @@ public class exampleQuestStep : QuestStep
         GameInput.Instance.OnInteract -= OnInteract;
     }
     
-    private void OnInteract(object sender, EventArgs e)
+    private void OnInteract()
     {
         if (interacts < interactsToDo)
             interacts++;

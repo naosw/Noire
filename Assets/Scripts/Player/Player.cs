@@ -1,6 +1,8 @@
 using System;
 using Cinemachine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -17,38 +19,19 @@ public class Player : MonoBehaviour, IDataPersistence
     private PlayerInteract playerInteract; 
         
     private readonly Quaternion rightRotation = Quaternion.Euler(new Vector3(0, 90, 0));
-    private const string DASH = "Dash";
-    private const string ATTACK1 = "Attack1";
     
     [Header("Player Controller")]
     [SerializeField] private float moveSpeed = 12f;
-    [SerializeField] private float dashSpeed = 30;
-    [SerializeField] private float dashFalloff = 50;
-    [SerializeField] private float dashCooldown = 0.5f;
-    private float currentDashSpeed;
-    
-    private State state;
-    private enum State
-    {
-        Idle,
-        Walk,
-        Attack1,
-        Dash,
-        Dead
-    }
+    private PlayerState state;
 
     private CharacterController controller;
-    private float dashCooldownCounter;
     private Vector3 moveDir;
-    private Vector3 lastInteractDir;
     
     [Header("Player combat")]
     [SerializeField] private Weapon weapon;
+    [SerializeField] private AbilitySO[] playerAbilitiesList; // up to three abilities is currently supported
+    private Dictionary<int, AbilitySO> playerAbilities;
     private float playerHitBoxHeight = 1f;
-    private float attack1Cooldown; // weapon determines this field
-    private float attack1CooldownCounter;
-    private float attackDuration = .25f;
-    private float attackDamage = 5;
 
     [Header("Player Health")]
     [SerializeField] private PlayerHealthSO playerHealthSO;
@@ -72,18 +55,12 @@ public class Player : MonoBehaviour, IDataPersistence
     [SerializeField] [Range(0,.5f)] private float lucidThreshold;
     [SerializeField] [Range(.5f,1)] private float deepThreshold;
     private DreamState dreamState;
-    private enum DreamState
-    {
-        Neutral,
-        Lucid,
-        Deep
-    }
     
     // ***************************** EVENT FUNCTIONS ***************************** //
     
     private void Awake()
     {
-        state = State.Idle;
+        state = PlayerState.Idle;
         dreamState = DreamState.Neutral;
         
         Instance = this;
@@ -92,22 +69,19 @@ public class Player : MonoBehaviour, IDataPersistence
         controller = GetComponent<CharacterController>();
         playerInteract = GetComponent<PlayerInteract>();
         
-        attack1Cooldown = weapon.GetAttackCooldown();
-        attack1CooldownCounter = attack1Cooldown;
-
-        dashCooldownCounter = dashCooldown;
-        
         playerHealthSO.ResetHealth(); // resets to 50% HP as default
         
         dreamShardsSO.SetCurrencyCount(0);
         dreamThreadsSO.SetCurrencyCount(0);
+        
+        // convert ability list to lookup dictionary
+        UpdateAbilities();
     }
 
     private void Start()
     {
-        GameInput.Instance.OnAttack1 += GameInput_OnAttack1;
-        GameInput.Instance.OnDash += GameInput_OnDash;
         GameInput.Instance.OnInteract += GameInput_OnInteract;
+        GameInput.Instance.OnAbilityCast += GameInput_OnAbilityCast;
         GameEventsManager.Instance.playerEvents.OnTakeDamage += OnTakingDamage;
         GameEventsManager.Instance.playerEvents.OnDreamShardsChange += dreamShardsSO.Change;
         GameEventsManager.Instance.playerEvents.OnDreamThreadsChange += dreamThreadsSO.Change;
@@ -115,9 +89,8 @@ public class Player : MonoBehaviour, IDataPersistence
 
     private void OnDestroy()
     {
-        GameInput.Instance.OnAttack1 -= GameInput_OnAttack1;
-        GameInput.Instance.OnDash -= GameInput_OnDash;
         GameInput.Instance.OnInteract -= GameInput_OnInteract;
+        GameInput.Instance.OnAbilityCast -= GameInput_OnAbilityCast;
         GameEventsManager.Instance.playerEvents.OnTakeDamage -= OnTakingDamage;
         GameEventsManager.Instance.playerEvents.OnDreamShardsChange -= dreamShardsSO.Change;
         GameEventsManager.Instance.playerEvents.OnDreamThreadsChange -= dreamThreadsSO.Change;
@@ -128,47 +101,35 @@ public class Player : MonoBehaviour, IDataPersistence
         if (IsDead())
             return;
         
-        attack1CooldownCounter -= Time.deltaTime;
-        dashCooldownCounter -= Time.deltaTime;
-        
         HandleDrowsiness();
-        if (IsIdle() || IsWalking())
+        HandleAbilityCast();
+        
+        if(CanCastAbility())
             HandleMovement();
-
-        if (IsDashing())
-            HandleDash();
     }
 
     // ***************************** TRIGGER FUNCTIONS ***************************** //
     
-    private void GameInput_OnAttack1(object sender, System.EventArgs e)
-    {
-        // handles attack with coroutines
-        if (!IsAttacking1() && attack1CooldownCounter <= 0)
-        {
-            animator.SetTrigger(ATTACK1);
-            attack1CooldownCounter = attack1Cooldown;
-            state = State.Attack1;
-            HandleAttackOnHitEffects();
-            StartCoroutine(HandleAttack1Duration());
-        }
-    }
-
-    private void GameInput_OnDash(object sender, System.EventArgs e)
-    {
-        // handles by setting state -> later handled in Update()
-        if (!IsDashing() && dashCooldownCounter <= 0)
-        {
-            animator.SetTrigger(DASH);
-            currentDashSpeed = dashSpeed;
-            dashCooldownCounter = dashCooldown;
-            state = State.Dash;
-        }
-    }
-    
-    private void GameInput_OnInteract(object sender, EventArgs e)
+    private void GameInput_OnInteract()
     {
         playerInteract.Interact();
+    }
+    
+    private void GameInput_OnAbilityCast(object sender, GameInput.OnAbilityCastArgs e)
+    {
+        if (CanCastAbility())
+        {
+            
+            if (playerAbilities.TryGetValue(e.abilityID, out AbilitySO ability)){
+                bool status = ability.Activate();
+                if (status)
+                    state = PlayerState.Casting;
+            }
+            else
+            {
+                Debug.Log("Ability not available");
+            }
+        }
     }
     
     // called when taking any damage
@@ -190,13 +151,24 @@ public class Player : MonoBehaviour, IDataPersistence
     }
     
     // ***************************** HANDLE FUNCTIONS ***************************** //
+    private void UpdateAbilities()
+    {
+        playerAbilities = new Dictionary<int, AbilitySO>();
+        foreach (AbilitySO ability in playerAbilitiesList)
+        {
+            if (ability.applicableDreamStates.Contains(dreamState))
+            {
+                playerAbilities.Add(ability.abilityID, ability);
+            }
+        }
+    }
     
     // called after ending attacks/dashing for state transition
-    private void ResetStateAfterAction()
+    public void ResetStateAfterAction()
     {
         state = GameInput.Instance.GetMovementVectorNormalized() != Vector3.zero 
-            ? State.Walk 
-            : State.Idle;
+            ? PlayerState.Walk 
+            : PlayerState.Idle;
     }
     
     // TODO: move this to playeraudio.cs
@@ -210,9 +182,14 @@ public class Player : MonoBehaviour, IDataPersistence
     {
         FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);
     }
+
+    public void SetAnimatorTrigger(string triggerName)
+    {
+        animator.SetTrigger(triggerName);
+    }
     
     // move towards `moveDir` with speed
-    private void Move(float speed)
+    public void Move(float speed)
     {
         Vector3 moveDist = speed * Time.deltaTime * moveDir;
         
@@ -232,7 +209,7 @@ public class Player : MonoBehaviour, IDataPersistence
         Vector3 inputVector = GameInput.Instance.GetMovementVectorNormalized();
         if (inputVector == Vector3.zero)
         {
-            state = State.Idle;
+            state = PlayerState.Idle;
             return;
         }
         
@@ -245,33 +222,20 @@ public class Player : MonoBehaviour, IDataPersistence
         moveDir = (forward + right).normalized;
         
         // move
-        state = State.Walk;
+        state = PlayerState.Walk;
         Move(moveSpeed);
     }
     
-    // subroutine used by attack to simulate cooldown
-    private IEnumerator HandleAttack1Duration()
+    // called every frame to decrease cooldown and handle ability states
+    private void HandleAbilityCast()
     {
-        yield return new WaitForSeconds(attackDuration);
-        ResetStateAfterAction();
+        foreach (AbilitySO ability in playerAbilities.Values)
+            ability.Continue();
     }
     
-    // called after dashing
-    private void HandleDash()
-    {
-        if (currentDashSpeed < moveSpeed)
-        {
-            currentDashSpeed = 0;
-            ResetStateAfterAction();
-            return;
-        }
-        
-        currentDashSpeed -= dashFalloff * Time.deltaTime;
-        Move(currentDashSpeed);
-    }
     
     // called after attacks
-    private void HandleAttackOnHitEffects()
+    public void HandleAttackOnHitEffects()
     {
         Collider[] hitEnemies = Physics.OverlapSphere(weapon.GetAttackPoint().position, weapon.GetAttackRadius(), weapon.GetEnemyLayer());
         foreach (Collider enemy in hitEnemies)
@@ -308,7 +272,7 @@ public class Player : MonoBehaviour, IDataPersistence
     // called upon changing HP
     private void HandleDreamState()
     {
-        var prevDreamState = dreamState;
+        DreamState prevDreamState = dreamState;
         
         float currentDrowsinessPercentage = playerHealthSO.GetCurrentDrowsinessPercentage;
         if (currentDrowsinessPercentage <= lucidThreshold)
@@ -325,8 +289,7 @@ public class Player : MonoBehaviour, IDataPersistence
     // called when transitioning between dream states
     private void DreamStateTransition(DreamState prevDreamState)
     {
-        // TODO: add visual effects, change enemy style, change world settings, etc
-        return;
+        UpdateAbilities();
     }
     
     // called when drowsiness == 0
@@ -334,7 +297,7 @@ public class Player : MonoBehaviour, IDataPersistence
     // TODO: reset to save points
     private void HandleDeath()
     {
-        state = State.Dead;
+        state = PlayerState.Dead;
         Loader.Load(Loader.Scene.DeathScene);
     }
     
@@ -359,7 +322,6 @@ public class Player : MonoBehaviour, IDataPersistence
     {
         // data.currentScene should have already been loaded.   
         playerHealthSO.SetCurrentDrowsiness(data.drowsiness);
-        attackDamage = data.attackDamage;
         dreamShardsSO.SetCurrencyCount(data.dreamShards);
         dreamThreadsSO.SetCurrencyCount(data.dreamThreads);
         transform.position = data.position;
@@ -373,7 +335,6 @@ public class Player : MonoBehaviour, IDataPersistence
         data.currentScene = SceneManager.GetActiveScene().name;
         
         data.drowsiness = playerHealthSO.GetCurrentDrowsiness;
-        data.attackDamage = attackDamage;
         data.dreamShards = dreamShardsSO.GetCurrencyCount();
         data.dreamThreads = dreamThreadsSO.GetCurrencyCount();
         data.position = transform.position;
@@ -381,11 +342,11 @@ public class Player : MonoBehaviour, IDataPersistence
     
     // ***************************** GETTERS/SETTERS ***************************** //
     
-    public bool IsDashing() => state == State.Dash;
-    public bool IsWalking() => state == State.Walk;
-    public bool IsIdle() => state == State.Idle;
-    public bool IsAttacking1() => state == State.Attack1;
-    public bool IsDead() => state == State.Dead;
+    public bool IsWalking() => state == PlayerState.Walk;
+    public bool IsIdle() => state == PlayerState.Idle;
+    public bool IsCasting() => state == PlayerState.Casting;
+    public bool IsDead() => state == PlayerState.Dead;
+    public bool CanCastAbility() => IsIdle() || IsWalking();
     public float GetPlayerHitBoxHeight() => playerHitBoxHeight;
     public Weapon GetWeapon() => weapon;
 }

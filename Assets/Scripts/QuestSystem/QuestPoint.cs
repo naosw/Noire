@@ -33,7 +33,7 @@ public class QuestPoint : MonoBehaviour
         GameInput.Instance.OnInteract -= OnInteractQuest;
     }
 
-    private void OnInteractQuest(object sender, EventArgs e)
+    private void OnInteractQuest()
     {
         // checks if player is near first
         // TODO: implement interaction system
