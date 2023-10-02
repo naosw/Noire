@@ -568,7 +568,7 @@ GameObject:
   - component: {fileID: 162009830}
   - component: {fileID: 162009831}
   m_Layer: 7
-  m_Name: Weather Audio
+  m_Name: WeatherAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1771,6 +1771,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2003174263}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: aaeef12fe738e4240b7f6d0f0db12bf8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2003174265}
   m_SourcePrefab: {fileID: 100100000, guid: aaeef12fe738e4240b7f6d0f0db12bf8, type: 3}
 --- !u!4 &361044302 stripped
 Transform:
@@ -2915,6 +2919,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2a6812a25c1c4ee2af0eec517e148e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxVolume: 1.5
+  ostVolume: 1.5
 --- !u!1001 &808807207
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6845,7 +6851,7 @@ MonoBehaviour:
   playerHitIFrames: 1
   dreamShardsSO: {fileID: 11400000, guid: 52aa4afa771a20a458e523be9bd1feaf, type: 2}
   dreamThreadsSO: {fileID: 11400000, guid: 2faab5e8af90e314cad56f42cedb8ea7, type: 2}
-  playerAudio: {fileID: 0}
+  playerAudio: {fileID: 2003174265}
   lucidThreshold: 0.131
   deepThreshold: 0.849
 --- !u!136 &2003174262
@@ -6897,6 +6903,19 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &2003174265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003174256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f9ae845cd3848118fa33cdcb9740318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioManager: {fileID: 781260851}
 --- !u!1 &2110742148
 GameObject:
   m_ObjectHideFlags: 0
@@ -7212,7 +7231,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music: 5'
+  m_text: 'Music: 4'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8105,7 +8124,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Sound Effects: 5'
+  m_text: 'Sound Effects: 4'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -11607,6 +11626,8 @@ MonoBehaviour:
   attackButton: {fileID: 7102055925374676399}
   cameraLeftButton: {fileID: 5869780341008800252}
   cameraRightButton: {fileID: 5746150904188931961}
+  soundEffectText: {fileID: 2075419790172846707}
+  musicText: {fileID: 536400329961853855}
   moveUpText: {fileID: 8554435679080745364}
   moveDownText: {fileID: 4266137570666005514}
   moveLeftText: {fileID: 3427485215026950089}
@@ -11615,6 +11636,7 @@ MonoBehaviour:
   cameraLeftText: {fileID: 1880606356968196325}
   cameraRightText: {fileID: 8137778660907183770}
   pressToRebindKeyTransform: {fileID: 4416840693152221760}
+  audioManager: {fileID: 781260851}
 --- !u!1 &7738974618858858442
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,6 +27,59 @@ MonoBehaviour:
   - Rain
   - Windy
   Exists: 1
+--- !u!114 &-7159290526010116231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Scene/Background Music
+  m_EditorClassIdentifier: 
+  Path: event:/Scene/Background Music
+  Guid:
+    Data1: 1141363793
+    Data2: 1316821038
+    Data3: 583768246
+    Data4: 1618897406
+  Banks:
+  - {fileID: 6671455521970195374}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -3502928802783383146}
+  - {fileID: -6623254897950730230}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 216058
+--- !u!114 &-6623254897950730230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Background Music/Intensity
+  m_EditorClassIdentifier: 
+  Name: Intensity
+  StudioPath: 
+  Min: 0
+  Max: 100
+  Default: 0
+  ID:
+    data1: 3431416733
+    data2: 3746192936
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &-3857056874783005105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42,10 +95,34 @@ MonoBehaviour:
   Path: NoireFM/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638311751733474791
+  lastModified: 638318168596694006
   FileSizes:
   - Name: Desktop
     Value: 3609344
+  Exists: 1
+--- !u!114 &-3502928802783383146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Background Music/Dowsiness Stage
+  m_EditorClassIdentifier: 
+  Name: Dowsiness Stage
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 679508957
+    data2: 3185187742
+  Type: 0
+  IsGlobal: 1
+  Labels: []
   Exists: 1
 --- !u!114 &-946810674260398546
 MonoBehaviour:
@@ -62,10 +139,10 @@ MonoBehaviour:
   Path: NoireFM/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638311751733264496
+  lastModified: 638318168596108360
   FileSizes:
   - Name: Desktop
-    Value: 1576
+    Value: 2110
   Exists: 1
 --- !u!114 &-853733126062296813
 MonoBehaviour:
@@ -134,11 +211,13 @@ MonoBehaviour:
   - {fileID: 5086426965566551007}
   - {fileID: -946810674260398546}
   - {fileID: -3857056874783005105}
+  - {fileID: 6671455521970195374}
   EditorEvents:
   - {fileID: 6902025846912196757}
   - {fileID: 3363104962720457876}
   - {fileID: -853733126062296813}
   - {fileID: 3257407840172813195}
+  - {fileID: -7159290526010116231}
   EditorParameters:
   - {fileID: -8252471984227306234}
   - {fileID: -557239875475096230}
@@ -147,7 +226,7 @@ MonoBehaviour:
   - {fileID: -946810674260398546}
   StringsBanks:
   - {fileID: 5086426965566551007}
-  cacheTime: 638311751733474791
+  cacheTime: 638318168596694006
   cacheVersion: 131607
 --- !u!114 &2934579907552096344
 MonoBehaviour:
@@ -247,10 +326,10 @@ MonoBehaviour:
   Path: NoireFM/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638311751733264496
+  lastModified: 638318168596113564
   FileSizes:
   - Name: Desktop
-    Value: 1196
+    Value: 1436
   Exists: 1
 --- !u!114 &5161154332121984466
 MonoBehaviour:
@@ -302,6 +381,26 @@ MonoBehaviour:
   - Grass
   - Sand
   - Ground
+  Exists: 1
+--- !u!114 &6671455521970195374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/OST.bank
+  m_EditorClassIdentifier: 
+  Path: NoireFM/Build/Desktop/OST.bank
+  Name: OST
+  StudioPath: bank:/OST
+  lastModified: 638318168596328188
+  FileSizes:
+  - Name: Desktop
+    Value: 2977024
   Exists: 1
 --- !u!114 &6902025846912196757
 MonoBehaviour:

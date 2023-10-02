@@ -164,18 +164,6 @@ public class Player : MonoBehaviour, IDataPersistence
             state = State.Idle;
     }
     
-    // TODO: move this to playeraudio.cs
-    public void PlaySteps(string path)
-    {
-        FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);
-    }
-    
-    // TODO: move this to playeraudio.cs
-    public void PlaySwoosh(string path)
-    {
-        FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);
-    }
-    
     // called when player is either moving or idle
     private void HandleMovement()
     {
