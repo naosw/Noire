@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eee77b482b94b73ac9b2a516bf59a4f, type: 3}
   m_Name: Circle
   m_EditorClassIdentifier: 
-  LerpCurve:
+  animName: 2
+  intensityCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -36,6 +37,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  AnimationTime: 1
+  animationTime: 1
   CircleSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   Color: {r: 0, g: 0, b: 0, a: 0}

@@ -189,14 +189,35 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1529918879043366876, guid: c36a962c338ce874ab9028cbacbf0d66,
         type: 3}
+      propertyPath: Transitions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1529918879043366876, guid: c36a962c338ce874ab9028cbacbf0d66,
+        type: 3}
       propertyPath: Transitions.Array.data[0].Mode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1529918879043366876, guid: c36a962c338ce874ab9028cbacbf0d66,
+        type: 3}
+      propertyPath: Transitions.Array.data[0].anim
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1529918879043366876, guid: c36a962c338ce874ab9028cbacbf0d66,
+        type: 3}
+      propertyPath: Transitions.Array.data[1].anim
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1529918879043366876, guid: c36a962c338ce874ab9028cbacbf0d66,
         type: 3}
       propertyPath: Transitions.Array.data[0].AnimationSO
       value: 
       objectReference: {fileID: 11400000, guid: d77e4ce5730c60246a160e6963a306e2,
+        type: 2}
+    - target: {fileID: 1529918879043366876, guid: c36a962c338ce874ab9028cbacbf0d66,
+        type: 3}
+      propertyPath: Transitions.Array.data[1].AnimationSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 960fe9dce7a751b4fad163d3104c1a19,
         type: 2}
     - target: {fileID: 2525280680078203893, guid: c36a962c338ce874ab9028cbacbf0d66,
         type: 3}

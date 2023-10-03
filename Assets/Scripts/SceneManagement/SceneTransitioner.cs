@@ -2,19 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
+using ANIM = SceneTransitionAnim;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Canvas))]
 public class SceneTransitioner : MonoBehaviour
 {
-    private static SceneTransitioner _instance;
     public static SceneTransitioner Instance { get; private set; }
-
-    private Canvas TransitionCanvas;
-    [SerializeField] private List<Transition> Transitions = new();
+    
+    [SerializeField] private List<TransitionSO> Transitions = new();
     
     private AsyncOperation LoadLevelOperation;
-    private AbstractSceneTransitionScriptableObject ActiveTransition;
+    private TransitionSO ActiveEnterTransition;
+    private TransitionSO ActiveExitTransition;
+    private Canvas TransitionCanvas;
 
     private void Awake()
     {
@@ -26,6 +28,7 @@ public class SceneTransitioner : MonoBehaviour
         }
 
         SceneManager.activeSceneChanged += HandleSceneChange;
+        
         Instance = this;
         DontDestroyOnLoad(gameObject);
         
@@ -34,56 +37,55 @@ public class SceneTransitioner : MonoBehaviour
     }
 
     public void LoadScene(
-        string Scene, 
-        SceneTransitionMode TransitionMode = SceneTransitionMode.None, 
-        LoadSceneMode Mode = LoadSceneMode.Single)
+        string scene, 
+        ANIM animEnter = ANIM.None,
+        ANIM animExit = ANIM.None, 
+        LoadSceneMode mode = LoadSceneMode.Single)
     {
-        LoadLevelOperation = SceneManager.LoadSceneAsync(Scene);
+        LoadLevelOperation = SceneManager.LoadSceneAsync(scene, mode);
 
-        Transition transition = Transitions.Find(
-            (transition) => transition.Mode == TransitionMode
+        var enterTransition = Transitions.Find(
+            (transition) => transition.animName == animEnter
         );
-        if (transition != null)
+        var exitTransition = Transitions.Find(
+            (transition) => transition.animName == animExit
+        );
+        
+        if (enterTransition != null)
         {
             LoadLevelOperation.allowSceneActivation = false;
             TransitionCanvas.enabled = true;
-            ActiveTransition = transition.AnimationSO;
+            ActiveEnterTransition = enterTransition;
+            ActiveExitTransition = exitTransition;
             StartCoroutine(Exit());
         }
         else
         {
             Debug.LogWarning($"No transition found for" +
-                $" TransitionMode {TransitionMode}!" +
+                $" TransitionMode {animEnter}!" +
                 $" Maybe you are misssing a configuration?");
         }
     }
 
     private IEnumerator Exit()
     {
-        yield return StartCoroutine(ActiveTransition.Exit(TransitionCanvas));
+        yield return StartCoroutine(ActiveExitTransition.Exit(TransitionCanvas));
         LoadLevelOperation.allowSceneActivation = true;
     }
 
     private IEnumerator Enter()
     {
-        yield return StartCoroutine(ActiveTransition.Enter(TransitionCanvas));
+        yield return StartCoroutine(ActiveEnterTransition.Enter(TransitionCanvas));
         TransitionCanvas.enabled = false;
         LoadLevelOperation = null;
-        ActiveTransition = null;
+        ActiveExitTransition = null;
     }
 
-    private void HandleSceneChange(Scene OldScene, Scene NewScene)
+    private void HandleSceneChange(Scene oldScene, Scene newScene)
     {
-        if (ActiveTransition != null)
+        if (ActiveExitTransition != null)
         {
             StartCoroutine(Enter());
         }
-    }
-
-    [System.Serializable]
-    public class Transition
-    {
-        public SceneTransitionMode Mode;
-        public AbstractSceneTransitionScriptableObject AnimationSO;
     }
 }

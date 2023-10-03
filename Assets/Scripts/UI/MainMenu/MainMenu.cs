@@ -46,7 +46,7 @@ public class MainMenu : Menu
         Hide();
     }
 
-    private void OnContinueGameClicked() 
+    private void OnContinueGameClicked()
     {
         Loader.Load(DataPersistenceManager.Instance.CurrentScene);
     }

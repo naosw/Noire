@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SaveSlot : MonoBehaviour
 {
@@ -66,7 +65,7 @@ public class SaveSlot : MonoBehaviour
     {
         DataPersistenceManager.Instance.ChangeSelectedProfileId(profileId);
         DataPersistenceManager.Instance.NewGame(profileId);
-        Loader.Load(Loader.firstScene);
+        Loader.Load(Loader.FirstScene);
     }
 
     private void OnClear()
