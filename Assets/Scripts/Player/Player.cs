@@ -332,7 +332,7 @@ public class Player : MonoBehaviour, IDataPersistence
     private void HandleDeath()
     {
         state = State.Dead;
-        Loader.Load(Loader.Scene.DeathScene);
+        LoaderStatic.Load(GameScene.DeathScene);
     }
     
     // called when restoring drowsiness (hp)

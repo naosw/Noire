@@ -48,7 +48,7 @@ public class MainMenu : Menu
 
     private void OnContinueGameClicked() 
     {
-        Loader.Load(DataPersistenceManager.Instance.CurrentScene);
+        LoaderStatic.Load(DataPersistenceManager.Instance.CurrentScene);
     }
     
     private void OnLoadGameClicked() 
