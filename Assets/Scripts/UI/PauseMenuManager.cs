@@ -32,7 +32,7 @@ public class PauseMenuManager : MonoBehaviour {
     private void OnMainMenuClick()
     {
         TogglePauseGame();
-        LoaderStatic.Load(GameScene.MainMenuScene);
+        Loader.Load(GameScene.MainMenuScene);
     }
 
     private void TogglePauseGame() 

@@ -39,7 +39,7 @@ public class SaveSlot : MonoBehaviour
         if (saveSlotsMenu.IsLoading)
         {
             DataPersistenceManager.Instance.ChangeSelectedProfileId(profileId);
-            LoaderStatic.Load(DataPersistenceManager.Instance.CurrentScene);
+            Loader.Load(DataPersistenceManager.Instance.CurrentScene);
         }
         else if (hasData)
         {
@@ -66,7 +66,7 @@ public class SaveSlot : MonoBehaviour
     {
         DataPersistenceManager.Instance.ChangeSelectedProfileId(profileId);
         DataPersistenceManager.Instance.NewGame(profileId);
-        LoaderStatic.Load(LoaderStatic.firstScene);
+        Loader.Load(Loader.firstScene);
     }
 
     private void OnClear()

@@ -1,22 +1,20 @@
 using System;
 
-public static class LoaderStatic {
+public static class Loader {
     public const GameScene firstScene = GameScene.ValleyofSolura;
 
-    public static GameScene targetScene;
+    public static string targetScene;
     
     public static void Load(GameScene scene)
     {
-        targetScene = scene;
+        targetScene = scene.ToString();
         SceneTransitioner.Instance.LoadScene(GameScene.LoadingScene.ToString(), SceneTransitionMode.Fade);
-        // SceneTransitioner.Instance.LoadScene(scene.ToString(), SceneTransitionMode.Fade);
     }
     
     // overloading: load using string scene name
     public static void Load(string scene)
     {
-        targetScene = Enum.Parse<GameScene>(scene);;
+        targetScene = scene;
         SceneTransitioner.Instance.LoadScene(GameScene.LoadingScene.ToString(), SceneTransitionMode.Fade);
-        // SceneTransitioner.Instance.LoadScene(scene, SceneTransitionMode.Fade);
     }
 }

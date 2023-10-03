@@ -11,8 +11,8 @@ public class LoaderCallback : MonoBehaviour
 
     private IEnumerator LoadLevelAsync()
     {
-        yield return new WaitForSeconds(20);
-        SceneTransitioner.Instance.LoadScene(LoaderStatic.targetScene.ToString(), SceneTransitionMode.Fade);
+        yield return new WaitForSeconds(2);
+        SceneTransitioner.Instance.LoadScene(Loader.targetScene, SceneTransitionMode.Fade);
     }
     
 }
