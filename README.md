@@ -49,5 +49,9 @@ Game objects that needs to save data locally should subscribe to the `IDataPersi
 *Saved data is currently saved as JSON, but will be translated into using Binary Formatter soon.*
 
 ### Quest System
-![QuestManager cs](https://github.com/hankxu1212/Noire/assets/53340720/58505523-6efc-4e41-8586-9e487287fa83) \
+![QuestManager](https://github.com/hankxu1212/Noire/assets/53340720/58505523-6efc-4e41-8586-9e487287fa83) \
 *Currently quest progress is saved as playerpref. Will be switched to using data persistence instead soon.*
+
+### Scene Management
+![Scene Management](https://github.com/hankxu1212/Noire/assets/53340720/6d9055e1-dc02-4a8a-999d-a98f53bea5b9) \
+Supporting a SO-based async scene transitioning and loading system.
