@@ -11,12 +11,12 @@ public class DeathMenuUI : MonoBehaviour
     {
         // respawnButton.onClick.AddListener(() =>
         // {
-        //     Loader.Load(SceneManager.GetActiveScene(), DataPersistenceManager.Instance.CurrentScene);
+        //     Loader.Load(DataPersistenceManager.Instance.CurrentScene);
         // });
         
         mainMenuButton.onClick.AddListener(() =>
         {
-            Loader.Load(SceneManager.GetActiveScene(), GameScene.MainMenuScene);
+            Loader.Load(GameScene.MainMenuScene);
         });
 
         Time.timeScale = 1f;
