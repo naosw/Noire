@@ -12,10 +12,6 @@ public class AudioManager : MonoBehaviour
     private FMOD.Studio.VCA sfxVCA;
     private FMOD.Studio.VCA ostVCA;
 
-    public void Start()
-    {
-    }
-
     public float getVcaVolume(string vca)
     {
         float result;

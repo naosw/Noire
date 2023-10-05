@@ -33,21 +33,17 @@ public class OptionsUI : MonoBehaviour
     [SerializeField] private AudioManager audioManager;
     private void Awake()
     {
-       Instance = this;
-
-        closeButton.onClick.AddListener(() =>
-        {
-            Hide();
-        });
-        soundEffectsButton.onClick.AddListener(() => VolChange("Sfx"));
-        musicButton.onClick.AddListener(() => VolChange("Ost"));
-        moveUpButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Up); });   
-        moveDownButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Down); });   
-        moveLeftButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Left); });   
-        moveRightButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Right); });   
-        attackButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Attack); });   
-        cameraLeftButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Camera_Left); });   
-        cameraRightButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Camera_Right); });   
+       Instance = this; 
+       closeButton.onClick.AddListener(Hide);
+       soundEffectsButton.onClick.AddListener(() => VolChange("Sfx"));
+       musicButton.onClick.AddListener(() => VolChange("Ost"));
+       moveUpButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Up); });   
+       moveDownButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Down); });   
+       moveLeftButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Left); });   
+       moveRightButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Right); });   
+       attackButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Attack); });   
+       cameraLeftButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Camera_Left); });   
+       cameraRightButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Camera_Right); });   
 
     }
 
@@ -58,6 +54,7 @@ public class OptionsUI : MonoBehaviour
         Hide();
         HidePressToRebindKey();
     }
+    
     private void GameInput_OnPauseAction(object sender, System.EventArgs e)
     {
         Hide();
