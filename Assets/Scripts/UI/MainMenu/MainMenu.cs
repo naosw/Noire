@@ -40,25 +40,35 @@ public class MainMenu : Menu
         }
     }
 
-    private void OnNewGameClicked() 
+    private void Disable()
     {
-        saveSlotsMenu.Show(false);
+        newGameButton.interactable = false;
+        continueGameButton.interactable = false;
+        loadGameButton.interactable = false;
+        quitGameButton.interactable = false;
+    }
+
+    private void OnNewGameClicked()
+    {
         Hide();
+        saveSlotsMenu.Show(false);
     }
 
     private void OnContinueGameClicked()
     {
+        Disable();
         Loader.Load(DataPersistenceManager.Instance.CurrentScene);
     }
     
     private void OnLoadGameClicked() 
     {
-        saveSlotsMenu.Show(true);
         Hide();
+        saveSlotsMenu.Show(true);
     }
 
     private void OnQuitGameClicked()
     {
+        Disable();
         Application.Quit();
     }
 

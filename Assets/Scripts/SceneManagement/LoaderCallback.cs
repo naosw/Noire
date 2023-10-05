@@ -13,7 +13,7 @@ public class LoaderCallback : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         var info = Loader.TargetSceneInfoObj;
-        SceneTransitioner.Instance.LoadScene(Loader.TargetScene, Loader.loadingSceneInfo.OutAnim, info.InAnim, info.LoadMode);
+        SceneTransitioner.Instance.LoadScene(Loader.TargetScene, info.LoadMode);
     }
     
 }

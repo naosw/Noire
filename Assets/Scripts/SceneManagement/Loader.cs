@@ -1,21 +1,13 @@
-using System;
 using System.Collections.Generic;
-using FMOD;
-using UnityEditorInternal;
 using UnityEngine.SceneManagement;
-
-// some useful aliases ...
-using ANIM = SceneTransitionAnim;
-using LOAD = SceneLoadType;
 
 public static class Loader {
     // maps scene -> (in transition, out transition, load type, load mode)
     private static readonly Dictionary<GameScene, SceneInfo> INFO = new()
     {
-        { GameScene.MainMenuScene, new SceneInfo(ANIM.Fade, ANIM.Circle, LOAD.Fast, LoadSceneMode.Single) },
-        { GameScene.DeathScene, new SceneInfo(ANIM.Fade, ANIM.Fade, LOAD.Fast, LoadSceneMode.Single) },
-        { GameScene.ValleyofSolura, new SceneInfo(ANIM.Fade, ANIM.Fade, LOAD.Normal, LoadSceneMode.Single) },
-        { GameScene.LoadingScene, new SceneInfo(ANIM.Fade, ANIM.Fade, LOAD.Fast, LoadSceneMode.Single) },
+        { GameScene.MainMenuScene, new SceneInfo(SceneLoadType.Fast, LoadSceneMode.Single) },
+        { GameScene.DeathScene, new SceneInfo(SceneLoadType.Fast, LoadSceneMode.Single) },
+        { GameScene.ValleyofSolura, new SceneInfo(SceneLoadType.Normal, LoadSceneMode.Single) },
     };
     
     private static readonly Dictionary<string, GameScene> GAMESCENES = new()
@@ -29,8 +21,8 @@ public static class Loader {
     private static string LoadScene = GameScene.LoadingScene.ToString();
     public const GameScene FirstScene = GameScene.ValleyofSolura;
     
-    public static SceneInfo loadingSceneInfo = INFO[GameScene.LoadingScene];
     public static SceneInfo TargetSceneInfoObj;
+    
     public static string TargetScene;
     
     // THE function to call to load any scene
@@ -39,18 +31,15 @@ public static class Loader {
         TargetScene = nextScene.ToString();
         TargetSceneInfoObj = INFO[nextScene];
         
-        var currentScene = GAMESCENES[SceneManager.GetActiveScene().name];
-        var currSceneInfoObj = INFO[currentScene];
-        
         switch (TargetSceneInfoObj.LoadType)
         {
-            case LOAD.Fast:
-                SceneTransitioner.Instance.LoadScene(TargetScene, currSceneInfoObj.OutAnim, TargetSceneInfoObj.InAnim, TargetSceneInfoObj.LoadMode);
+            case SceneLoadType.Fast:
+                SceneTransitioner.Instance.LoadScene(TargetScene, TargetSceneInfoObj.LoadMode);
                 break;
-            case LOAD.Normal:
-                SceneTransitioner.Instance.LoadScene(LoadScene, currSceneInfoObj.OutAnim, loadingSceneInfo.InAnim, TargetSceneInfoObj.LoadMode);
+            case SceneLoadType.Normal:
+                SceneTransitioner.Instance.LoadScene(LoadScene);
                 break;
-            case LOAD.None:
+            case SceneLoadType.None:
                 SceneTransitioner.Instance.LoadScene(TargetScene);
                 break;
             default:
