@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -40,12 +41,12 @@ public class MainMenu : Menu
         }
     }
 
-    private void Disable()
+    private void ToggleButtons(bool val)
     {
-        newGameButton.interactable = false;
-        continueGameButton.interactable = false;
-        loadGameButton.interactable = false;
-        quitGameButton.interactable = false;
+        newGameButton.interactable = val;
+        continueGameButton.interactable = val;
+        loadGameButton.interactable = val;
+        quitGameButton.interactable = val;
     }
 
     private void OnNewGameClicked()
@@ -56,8 +57,9 @@ public class MainMenu : Menu
 
     private void OnContinueGameClicked()
     {
-        Disable();
-        Loader.Load(DataPersistenceManager.Instance.CurrentScene);
+        ToggleButtons(false);
+        if(!Loader.Load(DataPersistenceManager.Instance.CurrentScene))
+            ToggleButtons(true);
     }
     
     private void OnLoadGameClicked() 
@@ -68,7 +70,7 @@ public class MainMenu : Menu
 
     private void OnQuitGameClicked()
     {
-        Disable();
+        ToggleButtons(false);
         Application.Quit();
     }
 

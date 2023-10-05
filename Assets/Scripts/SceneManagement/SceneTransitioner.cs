@@ -14,6 +14,7 @@ public class SceneTransitioner : MonoBehaviour
     [SerializeField] private TransitionSO fadeTransition;
     private Canvas transitionCanvas;
     private AsyncOperation loadLevelOperation;
+    private bool isLoading = false;
 
     private void Awake()
     {
@@ -40,27 +41,38 @@ public class SceneTransitioner : MonoBehaviour
         SceneManager.activeSceneChanged -= HandleSceneChange;
     }
 
-    public void LoadScene(string scene, LoadSceneMode mode = LoadSceneMode.Single)
+    public bool LoadScene(string scene, LoadSceneMode mode = LoadSceneMode.Single)
     {
-        loadLevelOperation = SceneManager.LoadSceneAsync(scene, mode);
+        if (isLoading)
+            return false;
         
+        loadLevelOperation = SceneManager.LoadSceneAsync(scene, mode);
+
         loadLevelOperation.allowSceneActivation = false;
         transitionCanvas.enabled = true;
-        
+
         StartCoroutine(Exit());
+
+        return true;
     }
 
     private IEnumerator Exit()
     {
+        // start fade out
+        isLoading = true;
         yield return StartCoroutine(fadeTransition.Exit(transitionCanvas));
         loadLevelOperation.allowSceneActivation = true;
     }
 
     private IEnumerator Enter()
     {
+        // start to fade in with next scene
         yield return StartCoroutine(fadeTransition.Enter(transitionCanvas));
+        
+        // finished loading
         transitionCanvas.enabled = false;
         loadLevelOperation = null;
+        isLoading = false;
     }
 
     private void HandleSceneChange(Scene oldScene, Scene newScene)

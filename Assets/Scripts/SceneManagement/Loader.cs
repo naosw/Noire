@@ -25,8 +25,8 @@ public static class Loader {
     
     public static string TargetScene;
     
-    // THE function to call to load any scene
-    public static void Load(GameScene nextScene)
+    // THE function to call to load any scene. Returns true upon successful loading.
+    public static bool Load(GameScene nextScene)
     {
         TargetScene = nextScene.ToString();
         TargetSceneInfoObj = INFO[nextScene];
@@ -34,28 +34,24 @@ public static class Loader {
         switch (TargetSceneInfoObj.LoadType)
         {
             case SceneLoadType.Fast:
-                SceneTransitioner.Instance.LoadScene(TargetScene, TargetSceneInfoObj.LoadMode);
-                break;
+                return SceneTransitioner.Instance.LoadScene(TargetScene, TargetSceneInfoObj.LoadMode);
             case SceneLoadType.Normal:
-                SceneTransitioner.Instance.LoadScene(LoadScene);
-                break;
+                return SceneTransitioner.Instance.LoadScene(LoadScene);
             case SceneLoadType.None:
-                SceneTransitioner.Instance.LoadScene(TargetScene);
-                break;
+                return SceneTransitioner.Instance.LoadScene(TargetScene);
             default:
-                SceneTransitioner.Instance.LoadScene(TargetScene);
-                break;
+                return SceneTransitioner.Instance.LoadScene(TargetScene);
         }
     }
     
     // overloading: load using string scene name
-    public static void Load(string nextScene)
+    public static bool Load(string nextScene)
     {
-        Load(GAMESCENES[nextScene]);
+        return Load(GAMESCENES[nextScene]);
     }
     
-    public static void Load(Scene nextScene)
+    public static bool Load(Scene nextScene)
     {
-        Load(GAMESCENES[nextScene.name]);
+        return Load(GAMESCENES[nextScene.name]);
     }
 }

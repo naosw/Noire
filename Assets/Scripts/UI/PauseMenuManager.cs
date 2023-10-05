@@ -8,8 +8,7 @@ public class PauseMenuManager : MonoBehaviour {
     [SerializeField] private Button optionsButton;
      
     private bool isGamePaused = false;
-
-
+    
     private void Awake()
     {
         resumeButton.onClick.AddListener(TogglePauseGame);
@@ -17,6 +16,13 @@ public class PauseMenuManager : MonoBehaviour {
         optionsButton.onClick.AddListener(() => {
             OptionsUI.Instance.Show();
         });
+    }
+
+    private void ToggleButtons(bool val)
+    {
+        resumeButton.interactable = val;
+        mainMenuButton.interactable = val;
+        optionsButton.interactable = val;
     }
     
     private void Start() 
@@ -32,8 +38,10 @@ public class PauseMenuManager : MonoBehaviour {
 
     private void OnMainMenuClick()
     {
+        ToggleButtons(false);
         TogglePauseGame();
-        Loader.Load(GameScene.MainMenuScene);
+        if (!Loader.Load(GameScene.MainMenuScene))
+            ToggleButtons(true);
     }
 
     private void TogglePauseGame() 

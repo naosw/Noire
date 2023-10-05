@@ -12,8 +12,7 @@ public class LoaderCallback : MonoBehaviour
     private IEnumerator LoadLevelAsync()
     {
         yield return new WaitForSeconds(2);
-        var info = Loader.TargetSceneInfoObj;
-        SceneTransitioner.Instance.LoadScene(Loader.TargetScene, info.LoadMode);
+        SceneTransitioner.Instance.LoadScene(Loader.TargetScene, Loader.TargetSceneInfoObj.LoadMode);
     }
     
 }

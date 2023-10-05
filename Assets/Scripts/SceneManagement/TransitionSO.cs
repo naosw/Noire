@@ -6,17 +6,19 @@ using UnityEngine.UI;
 public class TransitionSO : ScriptableObject
 {
     [SerializeField] protected AnimationCurve intensityCurve;
-    [SerializeField] protected float animationTime = 0.25f;
-    protected Image AnimatedObject;
+    [SerializeField] protected float animationTime = 2f;
+    private Image img;
     
     public IEnumerator Enter(Canvas Parent)
     {
         float time = 0;
+        
         Color startColor = Color.black;
         Color endColor = new Color(0, 0, 0, 0);
+        
         while (time < 1)
         {
-            AnimatedObject.color = Color.Lerp(
+            img.color = Color.Lerp(
                 startColor, 
                 endColor, 
                 intensityCurve.Evaluate(time)
@@ -24,23 +26,25 @@ public class TransitionSO : ScriptableObject
             yield return null;
             time += Time.deltaTime / animationTime;
         }
-
-        Destroy(AnimatedObject.gameObject);
+        
+        Destroy(img.gameObject);
+        
+        Debug.Log("Finished");
     }
 
     public IEnumerator Exit(Canvas Parent)
     {
-        AnimatedObject = CreateImage(Parent);
-        AnimatedObject.rectTransform.anchorMin = Vector2.zero;
-        AnimatedObject.rectTransform.anchorMax = Vector2.one;
-        AnimatedObject.rectTransform.sizeDelta = Vector2.zero;
+        img = CreateImage(Parent);
+        img.rectTransform.anchorMin = Vector2.zero;
+        img.rectTransform.anchorMax = Vector2.one;
+        img.rectTransform.sizeDelta = Vector2.zero;
 
         float time = 0;
         Color startColor = new Color(0, 0, 0, 0);
         Color endColor = Color.black;
         while (time < 1)
         {
-            AnimatedObject.color = Color.Lerp(
+            img.color = Color.Lerp(
                 startColor, 
                 endColor, 
                 intensityCurve.Evaluate(time)
@@ -50,9 +54,9 @@ public class TransitionSO : ScriptableObject
         }
     }
     
-    protected Image CreateImage(Canvas parent)
+    private Image CreateImage(Canvas parent)
     {
-        GameObject child = new GameObject("Transition Image");
+        GameObject child = new GameObject("Transition");
         child.transform.SetParent(parent.transform, false);
 
         return child.AddComponent<Image>();
