@@ -2,6 +2,8 @@ using Cinemachine;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
+using static UnityEditor.PlayerSettings;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
@@ -37,6 +39,7 @@ public class Player : MonoBehaviour, IDataPersistence
     private CharacterController controller;
     private float dashCooldownCounter;
     private Vector3 moveDir;
+    private Vector3 lastInteractDir;
     
     [Header("Player combat")]
     [SerializeField] private Weapon weapon;
@@ -45,6 +48,7 @@ public class Player : MonoBehaviour, IDataPersistence
     private float attack1CooldownCounter;
     private float attackDuration = .25f;
     private float attackDamage = 5;
+
 
     [Header("Player Health")]
     [SerializeField] private PlayerHealthSO playerHealthSO;
@@ -103,12 +107,18 @@ public class Player : MonoBehaviour, IDataPersistence
     {
         GameInput.Instance.OnAttack1 += GameInput_OnAttack1;
         GameInput.Instance.OnDash += GameInput_OnDash;
+        GameEventsManager.Instance.playerEvents.OnTakeDamage += OnTakingDamage;
+        GameEventsManager.Instance.playerEvents.OnDreamShardsChange += dreamShardsSO.Change;
+        GameEventsManager.Instance.playerEvents.OnDreamThreadsChange += dreamThreadsSO.Change;
     }
 
     private void OnDestroy()
     {
         GameInput.Instance.OnAttack1 -= GameInput_OnAttack1;
         GameInput.Instance.OnDash -= GameInput_OnDash;
+        GameEventsManager.Instance.playerEvents.OnTakeDamage -= OnTakingDamage;
+        GameEventsManager.Instance.playerEvents.OnDreamShardsChange -= dreamShardsSO.Change;
+        GameEventsManager.Instance.playerEvents.OnDreamThreadsChange -= dreamThreadsSO.Change;
     }
     
     private void Update()
@@ -122,6 +132,7 @@ public class Player : MonoBehaviour, IDataPersistence
         HandleDrowsiness();
         if (IsIdle() || IsWalking())
             HandleMovement();
+
         if (IsDashing())
             HandleDash();
     }
@@ -152,7 +163,25 @@ public class Player : MonoBehaviour, IDataPersistence
             state = State.Dash;
         }
     }
+    
+    // called when taking any damage
+    private void OnTakingDamage(float bufferDamage)
+    {
+        if (IsDead())
+            Debug.LogError("Cannot take dmg if dead. This should not happen -- should've handled death earlier");
+        if (currentIFrameTimer <= playerHitIFrames)
+            return;
+        
+        currentBufferCooldown = maxRegenHitCooldown;
+        
+        playerHealthSO.InflictDamage(bufferDamage);
+        UpdateHealthBar?.Invoke();
+        HandleDreamState();
 
+        if (playerHealthSO.IsDead())
+            HandleDeath();
+    }
+    
     // ***************************** HANDLE FUNCTIONS ***************************** //
     
     // called after ending attacks/dashing for state transition
@@ -294,24 +323,6 @@ public class Player : MonoBehaviour, IDataPersistence
         Loader.Load(Loader.Scene.DeathScene);
     }
     
-    // called when taking any damage
-    public void HandleHit(float bufferDamage)
-    {
-        if (IsDead())
-            Debug.LogError("Cannot take dmg if dead. This should not happen -- should've handled death earlier");
-        if (currentIFrameTimer <= playerHitIFrames)
-            return;
-        
-        currentBufferCooldown = maxRegenHitCooldown;
-        
-        playerHealthSO.InflictDamage(bufferDamage);
-        UpdateHealthBar?.Invoke();
-        HandleDreamState();
-
-        if (playerHealthSO.IsDead())
-            HandleDeath();
-    }
-    
     // called when restoring drowsiness (hp)
     public int RegenDrowsiness(float value)
     {
@@ -336,8 +347,9 @@ public class Player : MonoBehaviour, IDataPersistence
         attackDamage = data.attackDamage;
         dreamShardsSO.SetCurrencyCount(data.dreamShards);
         dreamThreadsSO.SetCurrencyCount(data.dreamThreads);
-        transform.position = new Vector3(data.position[0], data.position[1], data.position[2]);
+        transform.position = data.position;
     }
+
 
     public void SaveData(GameData data)
     {
@@ -349,10 +361,7 @@ public class Player : MonoBehaviour, IDataPersistence
         data.attackDamage = attackDamage;
         data.dreamShards = dreamShardsSO.GetCurrencyCount();
         data.dreamThreads = dreamThreadsSO.GetCurrencyCount();
-        data.position = new float[3];
-        data.position[0] = transform.position.x;
-        data.position[1] = transform.position.y;
-        data.position[2] = transform.position.z;
+        data.position = transform.position;
     }
     
     // ***************************** GETTERS/SETTERS ***************************** //

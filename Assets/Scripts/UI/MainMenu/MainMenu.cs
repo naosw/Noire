@@ -48,8 +48,6 @@ public class MainMenu : Menu
 
     private void OnContinueGameClicked() 
     {
-        DisableMenuButtons();
-        // TODO: add which scene in GameData
         Loader.Load(DataPersistenceManager.Instance.CurrentScene);
     }
     
@@ -62,12 +60,6 @@ public class MainMenu : Menu
     private void OnQuitGameClicked()
     {
         Application.Quit();
-    }
-
-    private void DisableMenuButtons() 
-    {
-        newGameButton.interactable = false;
-        continueGameButton.interactable = false;
     }
 
     public void Show()

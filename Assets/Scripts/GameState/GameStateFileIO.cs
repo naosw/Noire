@@ -4,20 +4,18 @@ using UnityEngine;
 using System;
 using System.IO;
 using System.Linq;
+using MessagePack;
 
 public class GameStateFileIO
 {
     private string dataDirPath = "";
     private string dataFileName = "";
-    private bool useEncryption = false;
-    private readonly string encryptionCodeWord = "12-3091-0dk-1293-12921-3120o-3185012-di-wq29341-9321";
     private readonly string backupExtension = ".bak";
 
-    public GameStateFileIO(string dataDirPath, string dataFileName, bool useEncryption) 
+    public GameStateFileIO(string dataDirPath, string dataFileName) 
     {
         this.dataDirPath = dataDirPath;
         this.dataFileName = dataFileName;
-        this.useEncryption = useEncryption;
     }
 
     public GameData Load(string profileId, bool allowRestoreFromBackup = true) 
@@ -33,23 +31,23 @@ public class GameStateFileIO
             try 
             {
                 // load the serialized data from the file
-                string dataToLoad = "";
-                using (FileStream stream = new FileStream(fullPath, FileMode.Open))
-                {
-                    using (StreamReader reader = new StreamReader(stream))
-                    {
-                        dataToLoad = reader.ReadToEnd();
-                    }
-                }
+                byte[] dataToLoad = File.ReadAllBytes(fullPath);
+                // using (FileStream stream = new FileStream(fullPath, FileMode.Open))
+                // {
+                //     using (StreamReader reader = new StreamReader(stream))
+                //     {
+                //         using (MemoryStream ms = new MemoryStream())
+                //         {
+                //             reader.BaseStream.CopyTo(ms);
+                //             dataToLoad = ms.ToArray();
+                //         }
+                //         // dataToLoad = reader.ReadToEnd();
+                //     }
+                // }
 
-                // optionally decrypt the data
-                if (useEncryption) 
-                {
-                    dataToLoad = EncryptDecrypt(dataToLoad);
-                }
-
-                // deserialize the data from Json back into the C# object
-                loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
+                // deserialize the data from binary using MessagePack
+                // loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
+                loadedData = MessagePackSerializer.Deserialize<GameData>(dataToLoad);
             }
             catch (Exception e) 
             {
@@ -86,19 +84,21 @@ public class GameStateFileIO
         {
             // create the directory the file will be written to if it doesn't already exist
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
-
-            string dataToStore = JsonUtility.ToJson(data, true);
-
-            if (useEncryption) 
-                dataToStore = EncryptDecrypt(dataToStore);
-
-            using (FileStream stream = new FileStream(fullPath, FileMode.Create))
-            {
-                using (StreamWriter writer = new StreamWriter(stream)) 
-                {
-                    writer.Write(dataToStore);
-                }
-            }
+            
+            // use MessagePack to binary format the GameData object
+            // string dataToStore = JsonUtility.ToJson(data, true);
+            byte[] dataToStore = MessagePackSerializer.Serialize(data, DataPersistenceManager.Instance.serializationOptions);
+            
+            File.WriteAllBytes(fullPath, dataToStore);
+            
+            
+            // using (FileStream stream = new FileStream(fullPath, FileMode.Create))
+            // {
+            //     using (StreamWriter writer = new StreamWriter(stream)) 
+            //     {
+            //         writer.Write(dataToStore);
+            //     }
+            // }
 
             GameData verifiedGameData = Load(profileId);
             if (verifiedGameData != null)
@@ -192,17 +192,6 @@ public class GameStateFileIO
             .Key;
     }
 
-    // simple XOR encryption
-    private string EncryptDecrypt(string data) 
-    {
-        string modifiedData = "";
-        for (int i = 0; i < data.Length; i++) 
-        {
-            modifiedData += (char) (data[i] ^ encryptionCodeWord[i % encryptionCodeWord.Length]);
-        }
-        return modifiedData;
-    }
-    
     private bool AttemptRollback(string fullPath) 
     {
         bool success = false;

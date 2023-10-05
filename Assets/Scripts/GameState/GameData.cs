@@ -1,32 +1,32 @@
-[System.Serializable]
+using MessagePack;
+using UnityEngine;
+
+[MessagePackObject]
 public class GameData
 {
     // profile fields
-    public string profileName;
-    public long lastUpdated;
-    public float percentageComplete;
+    [Key(0)] public string profileName;
+    [Key(1)] public long lastUpdated;
+    [Key(2)] public float percentageComplete;
     
     // player fields
-    public float drowsiness;
-    public float attackDamage;
-    public float dreamShards;
-    public float dreamThreads;
-    public float[] position;
+    [Key(3)] public float drowsiness;
+    [Key(4)] public float attackDamage;
+    [Key(5)] public float dreamShards;
+    [Key(6)] public float dreamThreads;
+    [Key(7)] public Vector3 position;
     
     // game states
-    public string currentScene;
+    [Key(8)] public string currentScene;
     
-    // default parameters for new game
+    [SerializationConstructor]
     public GameData(string profileId)
     {
         drowsiness = 50;
         attackDamage = 5;
         dreamShards = 0;
         dreamThreads = 0;
-        position = new float[3];
-        position[0] = 90;
-        position[1] = 6.7f;
-        position[2] = 83;
+        position = new Vector3(90, 6.7f, 83);
 
         profileName = profileId;
         percentageComplete = 0;
