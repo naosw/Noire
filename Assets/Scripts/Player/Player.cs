@@ -1,28 +1,29 @@
+using System;
 using Cinemachine;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using static UnityEditor.PlayerSettings;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(PlayerInteract))]
+[RequireComponent(typeof(Animator))]
 public class Player : MonoBehaviour, IDataPersistence
 {
     [Header("Fields")]
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     public static Player Instance { get; private set; }
     private Animator animator;
+    private PlayerInteract playerInteract; 
+        
     private readonly Quaternion rightRotation = Quaternion.Euler(new Vector3(0, 90, 0));
-    
     private const string DASH = "Dash";
     private const string ATTACK1 = "Attack1";
     
     [Header("Player Controller")]
     [SerializeField] private float moveSpeed = 12f;
-    [SerializeField] private float rotateSpeed = 30f;
-    [SerializeField] private float dashSpeed = 200;
-    [SerializeField] private float dashFalloff = 400;
+    [SerializeField] private float dashSpeed = 30;
+    [SerializeField] private float dashFalloff = 50;
     [SerializeField] private float dashCooldown = 0.5f;
     private float currentDashSpeed;
     
@@ -48,7 +49,6 @@ public class Player : MonoBehaviour, IDataPersistence
     private float attack1CooldownCounter;
     private float attackDuration = .25f;
     private float attackDamage = 5;
-
 
     [Header("Player Health")]
     [SerializeField] private PlayerHealthSO playerHealthSO;
@@ -89,6 +89,8 @@ public class Player : MonoBehaviour, IDataPersistence
         Instance = this;
         
         animator = GetComponent<Animator>();
+        controller = GetComponent<CharacterController>();
+        playerInteract = GetComponent<PlayerInteract>();
         
         attack1Cooldown = weapon.GetAttackCooldown();
         attack1CooldownCounter = attack1Cooldown;
@@ -96,8 +98,6 @@ public class Player : MonoBehaviour, IDataPersistence
         dashCooldownCounter = dashCooldown;
         
         playerHealthSO.ResetHealth(); // resets to 50% HP as default
-        
-        controller = GetComponent<CharacterController>();
         
         dreamShardsSO.SetCurrencyCount(0);
         dreamThreadsSO.SetCurrencyCount(0);
@@ -107,6 +107,7 @@ public class Player : MonoBehaviour, IDataPersistence
     {
         GameInput.Instance.OnAttack1 += GameInput_OnAttack1;
         GameInput.Instance.OnDash += GameInput_OnDash;
+        GameInput.Instance.OnInteract += GameInput_OnInteract;
         GameEventsManager.Instance.playerEvents.OnTakeDamage += OnTakingDamage;
         GameEventsManager.Instance.playerEvents.OnDreamShardsChange += dreamShardsSO.Change;
         GameEventsManager.Instance.playerEvents.OnDreamThreadsChange += dreamThreadsSO.Change;
@@ -116,6 +117,7 @@ public class Player : MonoBehaviour, IDataPersistence
     {
         GameInput.Instance.OnAttack1 -= GameInput_OnAttack1;
         GameInput.Instance.OnDash -= GameInput_OnDash;
+        GameInput.Instance.OnInteract -= GameInput_OnInteract;
         GameEventsManager.Instance.playerEvents.OnTakeDamage -= OnTakingDamage;
         GameEventsManager.Instance.playerEvents.OnDreamShardsChange -= dreamShardsSO.Change;
         GameEventsManager.Instance.playerEvents.OnDreamThreadsChange -= dreamThreadsSO.Change;
@@ -164,6 +166,11 @@ public class Player : MonoBehaviour, IDataPersistence
         }
     }
     
+    private void GameInput_OnInteract(object sender, EventArgs e)
+    {
+        playerInteract.Interact();
+    }
+    
     // called when taking any damage
     private void OnTakingDamage(float bufferDamage)
     {
@@ -187,10 +194,9 @@ public class Player : MonoBehaviour, IDataPersistence
     // called after ending attacks/dashing for state transition
     private void ResetStateAfterAction()
     {
-        if (GameInput.Instance.GetMovementVectorNormalized() != Vector3.zero)
-            state = State.Walk;
-        else
-            state = State.Idle;
+        state = GameInput.Instance.GetMovementVectorNormalized() != Vector3.zero 
+            ? State.Walk 
+            : State.Idle;
     }
     
     // TODO: move this to playeraudio.cs
@@ -203,6 +209,21 @@ public class Player : MonoBehaviour, IDataPersistence
     public void PlaySwoosh(string path)
     {
         FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);
+    }
+    
+    // move towards `moveDir` with speed
+    private void Move(float speed)
+    {
+        Vector3 moveDist = speed * Time.deltaTime * moveDir;
+        
+        // snap to terrain
+        float terrainHeight = Terrain.activeTerrain.SampleHeight(transform.position + moveDist) + .1f;
+        moveDist.y += terrainHeight - transform.position.y;
+        
+        controller.Move(moveDist);
+        
+        // rotation
+        transform.forward = new Vector3(moveDir.x, 0, moveDir.z);
     }
     
     // called when player is either moving or idle
@@ -219,23 +240,13 @@ public class Player : MonoBehaviour, IDataPersistence
         Vector3 forward = virtualCamera.transform.forward;
         forward.y = 0;
         Vector3 right = rightRotation * forward;
-        
         forward *= inputVector.z;
         right *= inputVector.x;
+        moveDir = (forward + right).normalized;
         
-        moveDir = moveSpeed * Time.deltaTime * (forward + right).normalized;
-        
-        // snap to terrain
-        float terrainHeight = Terrain.activeTerrain.SampleHeight(transform.position + moveDir) + .1f;
-        moveDir.y += terrainHeight - transform.position.y;
-        
-        if (moveDir != Vector3.zero)
-        {
-            transform.forward = Vector3.Slerp(transform.forward, new Vector3(moveDir.x, 0, moveDir.z), Time.deltaTime * rotateSpeed);
-            state = State.Walk;
-        }
-        
-        controller.Move(moveDir);
+        // move
+        state = State.Walk;
+        Move(moveSpeed);
     }
     
     // subroutine used by attack to simulate cooldown
@@ -248,23 +259,15 @@ public class Player : MonoBehaviour, IDataPersistence
     // called after dashing
     private void HandleDash()
     {
-        if (currentDashSpeed > 0)
+        if (currentDashSpeed < moveSpeed)
         {
-            currentDashSpeed -= dashFalloff * Time.deltaTime;
-            if (currentDashSpeed < moveSpeed)
-            {
-                currentDashSpeed = 0;
-                ResetStateAfterAction();
-                return;
-            }
-            
-            Vector3 dashMove = currentDashSpeed * Time.deltaTime * moveDir;
-            
-            float terrainHeight = Terrain.activeTerrain.SampleHeight(transform.position + dashMove) + .1f;
-            dashMove.y += terrainHeight - transform.position.y;
-            
-            controller.Move(dashMove);
+            currentDashSpeed = 0;
+            ResetStateAfterAction();
+            return;
         }
+        
+        currentDashSpeed -= dashFalloff * Time.deltaTime;
+        Move(currentDashSpeed);
     }
     
     // called after attacks

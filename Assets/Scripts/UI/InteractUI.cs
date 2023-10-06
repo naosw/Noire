@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -9,13 +7,16 @@ public class InteractUI : MonoBehaviour
     [SerializeField] private PlayerInteract playerInteract;
     [SerializeField] private TextMeshProUGUI interactTextMeshProUGUI;
 
-
+    private IInteractable interactable;
     private void Update()
     {
-        if (playerInteract.GetInteractableObject() != null) { Show(playerInteract.GetInteractableObject()); }
-        else { Hide(); } 
+        interactable = playerInteract.GetInteractableObject();
+        if (interactable != null)
+            Show();
+        else
+            Hide(); 
     }
-    private void Show(IInteractable interactable)
+    private void Show()
     {
         containerGameObject.SetActive(true);
         interactTextMeshProUGUI.text = interactable.GetInteractText();
