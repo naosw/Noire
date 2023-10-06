@@ -101,7 +101,7 @@ public class OptionsUI : MonoBehaviour
 
     private void VolChange(string vcaType)
     {
-        float currentVol = audioManager.getVcaVolume(vcaType);
+        float currentVol = audioManager.GetVcaVolume(vcaType);
         // Debug.Log(currentVol);
         float desVol = currentVol + 0.25f;
         if (vcaType == "Sfx")

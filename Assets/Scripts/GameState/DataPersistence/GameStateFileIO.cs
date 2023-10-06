@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -30,23 +29,7 @@ public class GameStateFileIO
         {
             try 
             {
-                // load the serialized data from the file
                 byte[] dataToLoad = File.ReadAllBytes(fullPath);
-                // using (FileStream stream = new FileStream(fullPath, FileMode.Open))
-                // {
-                //     using (StreamReader reader = new StreamReader(stream))
-                //     {
-                //         using (MemoryStream ms = new MemoryStream())
-                //         {
-                //             reader.BaseStream.CopyTo(ms);
-                //             dataToLoad = ms.ToArray();
-                //         }
-                //         // dataToLoad = reader.ReadToEnd();
-                //     }
-                // }
-
-                // deserialize the data from binary using MessagePack
-                // loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
                 loadedData = MessagePackSerializer.Deserialize<GameData>(dataToLoad);
             }
             catch (Exception e) 
@@ -86,19 +69,9 @@ public class GameStateFileIO
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
             
             // use MessagePack to binary format the GameData object
-            // string dataToStore = JsonUtility.ToJson(data, true);
             byte[] dataToStore = MessagePackSerializer.Serialize(data, DataPersistenceManager.Instance.serializationOptions);
             
             File.WriteAllBytes(fullPath, dataToStore);
-            
-            
-            // using (FileStream stream = new FileStream(fullPath, FileMode.Create))
-            // {
-            //     using (StreamWriter writer = new StreamWriter(stream)) 
-            //     {
-            //         writer.Write(dataToStore);
-            //     }
-            // }
 
             GameData verifiedGameData = Load(profileId);
             if (verifiedGameData != null)

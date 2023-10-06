@@ -12,7 +12,7 @@ public class AudioManager : MonoBehaviour
     private FMOD.Studio.VCA sfxVCA;
     private FMOD.Studio.VCA ostVCA;
 
-    public float getVcaVolume(string vca)
+    public float GetVcaVolume(string vca)
     {
         float result;
         if (vca == "Sfx")

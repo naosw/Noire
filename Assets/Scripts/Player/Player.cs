@@ -45,10 +45,6 @@ public class Player : MonoBehaviour, IDataPersistence
     [Header("Player Stats")] 
     [SerializeField] private PlayerStatisticsSO dreamShardsSO;
     [SerializeField] private PlayerStatisticsSO dreamThreadsSO;
-
-    [Header("Player Audio")] 
-    [SerializeField] private PlayerAudio playerAudio;
-    // TODO: modify PlayerAudio.cs
     
     [Header("Player Dream State")]
     [SerializeField] [Range(0,.5f)] private float lucidThreshold;

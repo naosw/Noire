@@ -78,6 +78,7 @@ public class DataPersistenceManager : MonoBehaviour
     public void NewGame(string profileId) 
     {
         gameData = new GameData(profileId);
+        fileHandler.Save(gameData, selectedProfileId);
     }
 
     private void LoadGame()
