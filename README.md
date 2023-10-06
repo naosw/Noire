@@ -1,6 +1,9 @@
 # Noire
-Last updated: 9/28/2023 \
+![Title](https://github.com/hankxu1212/Noire/assets/53340720/3de83903-3221-4fac-baa0-e10a102efa24)
+Last updated: 10/5/2023 \
 Updated by: Hank Xu
+
+
 
 ## Setup
 This project uses *Unity 2022.3.1f1*.
