@@ -24,7 +24,7 @@ public class PauseMenuManager : MonoBehaviour {
         Hide();
     }
 
-    private void GameInput_OnPauseAction(object sender, System.EventArgs e) 
+    private void GameInput_OnPauseAction() 
     {
         TogglePauseGame();
     }

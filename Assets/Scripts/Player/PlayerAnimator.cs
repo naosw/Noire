@@ -6,6 +6,9 @@ public class PlayerAnimator : MonoBehaviour
     private Animator animator;
     private const string WALK = "PlayerWalk";
     private const string IDLE = "PlayerIdle";
+    
+    public static PlayerAnimator Instance { get; private set; }
+    
     public event EventHandler OnAttackAnimationStarted;
 
     private void Awake()
