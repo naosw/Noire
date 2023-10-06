@@ -9,14 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenuScene.unity
     guid: f42e3388b854f16498bd6bdcc77f2803
   - enabled: 1
-    path: Assets/Scenes/DeathScene.unity
-    guid: e656f644c10a7ea439cd52231a32771b
-  - enabled: 1
     path: Assets/Scenes/LoadingScene.unity
     guid: fbc3ebd8009202c48a156eae1aacdfdf
   - enabled: 1
     path: Assets/Scenes/ValleyofSolura.unity
     guid: 265aa3983c249aa46b952f3eb254934b
+  - enabled: 1
+    path: Assets/Scenes/DeathScene.unity
+    guid: e656f644c10a7ea439cd52231a32771b
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5c552abcd6bddc54ead10d6b479e874c,
       type: 2}

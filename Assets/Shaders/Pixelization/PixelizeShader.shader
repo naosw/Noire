@@ -14,7 +14,7 @@ Shader "Hidden/Pixelize"
 
         HLSLINCLUDE
         #pragma vertex vert
-            #pragma fragment frag
+        #pragma fragment frag
 
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 

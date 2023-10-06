@@ -19,7 +19,7 @@ public class PixelizePass : ScriptableRenderPass
     {
         this.settings = settings;
         this.renderPassEvent = settings.renderPassEvent;
-        if (material == null) material = CoreUtils.CreateEngineMaterial("Hidden/Pixelize");
+        material = CoreUtils.CreateEngineMaterial("Hidden/Pixelize");
     }
 
     public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
@@ -32,7 +32,9 @@ public class PixelizePass : ScriptableRenderPass
 
         pixelScreenHeight = settings.screenHeight;
         pixelScreenWidth = (int)(pixelScreenHeight * renderingData.cameraData.camera.aspect + 0.5f);
-
+        
+        if (material == null)
+            Debug.Log("NULL");
         material.SetVector("_BlockCount", new Vector2(pixelScreenWidth, pixelScreenHeight));
         material.SetVector("_BlockSize", new Vector2(1.0f / pixelScreenWidth, 1.0f / pixelScreenHeight));
         material.SetVector("_HalfBlockSize", new Vector2(0.5f / pixelScreenWidth, 0.5f / pixelScreenHeight));
