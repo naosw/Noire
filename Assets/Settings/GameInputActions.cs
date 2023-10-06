@@ -125,6 +125,15 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""a12e010d-7389-4900-83d5-285d74a91953"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -292,6 +301,17 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Ability3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c5803022-8241-4674-a8bb-28e08f65f667"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -307,10 +327,14 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
         m_Player_Attack1 = m_Player.FindAction("Attack1", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+<<<<<<< HEAD
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Ability1 = m_Player.FindAction("Ability1", throwIfNotFound: true);
         m_Player_Ability2 = m_Player.FindAction("Ability2", throwIfNotFound: true);
         m_Player_Ability3 = m_Player.FindAction("Ability3", throwIfNotFound: true);
+=======
+        m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
+>>>>>>> inventory-system
     }
 
     public void Dispose()
@@ -379,10 +403,14 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Attack1;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Interact;
+<<<<<<< HEAD
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Ability1;
     private readonly InputAction m_Player_Ability2;
     private readonly InputAction m_Player_Ability3;
+=======
+    private readonly InputAction m_Player_Menu;
+>>>>>>> inventory-system
     public struct PlayerActions
     {
         private @GameInputActions m_Wrapper;
@@ -394,10 +422,14 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
         public InputAction @Attack1 => m_Wrapper.m_Player_Attack1;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+<<<<<<< HEAD
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Ability1 => m_Wrapper.m_Player_Ability1;
         public InputAction @Ability2 => m_Wrapper.m_Player_Ability2;
         public InputAction @Ability3 => m_Wrapper.m_Player_Ability3;
+=======
+        public InputAction @Menu => m_Wrapper.m_Player_Menu;
+>>>>>>> inventory-system
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -428,6 +460,7 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+<<<<<<< HEAD
             @Dash.started += instance.OnDash;
             @Dash.performed += instance.OnDash;
             @Dash.canceled += instance.OnDash;
@@ -440,6 +473,11 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
             @Ability3.started += instance.OnAbility3;
             @Ability3.performed += instance.OnAbility3;
             @Ability3.canceled += instance.OnAbility3;
+=======
+            @Menu.started += instance.OnMenu;
+            @Menu.performed += instance.OnMenu;
+            @Menu.canceled += instance.OnMenu;
+>>>>>>> inventory-system
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -465,6 +503,7 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+<<<<<<< HEAD
             @Dash.started -= instance.OnDash;
             @Dash.performed -= instance.OnDash;
             @Dash.canceled -= instance.OnDash;
@@ -477,6 +516,11 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
             @Ability3.started -= instance.OnAbility3;
             @Ability3.performed -= instance.OnAbility3;
             @Ability3.canceled -= instance.OnAbility3;
+=======
+            @Menu.started -= instance.OnMenu;
+            @Menu.performed -= instance.OnMenu;
+            @Menu.canceled -= instance.OnMenu;
+>>>>>>> inventory-system
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -503,9 +547,13 @@ public partial class @GameInputActions: IInputActionCollection2, IDisposable
         void OnAttack1(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+<<<<<<< HEAD
         void OnDash(InputAction.CallbackContext context);
         void OnAbility1(InputAction.CallbackContext context);
         void OnAbility2(InputAction.CallbackContext context);
         void OnAbility3(InputAction.CallbackContext context);
+=======
+        void OnMenu(InputAction.CallbackContext context);
+>>>>>>> inventory-system
     }
 }
