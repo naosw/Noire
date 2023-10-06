@@ -3537,7 +3537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 541323126}
   moon: {fileID: 132075899}
-  dayLength: 1000
+  dayLength: 200
   yearLength: 3
   timeOfDay: 0
   timeOfYear: 0.09

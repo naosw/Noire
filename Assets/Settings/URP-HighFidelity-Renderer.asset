@@ -57,6 +57,25 @@ MonoBehaviour:
       restoreCamera: 1
       offset: {x: 0, y: 0, z: 0, w: 0}
       cameraFieldOfView: 60
+--- !u!114 &-391392226721760221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12dafafc38bc1bc42bb39c2c3fc51f69, type: 3}
+  m_Name: SobelFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    renderPassEvent: 250
+    DepthThreshold: 0.03
+    NormalThreshold: -1
+    DepthColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+    NormalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,7 +99,8 @@ MonoBehaviour:
   - {fileID: 4259746766931862595}
   - {fileID: -1304647417798613784}
   - {fileID: 7790271975648803368}
-  m_RendererFeatureMap: b602840fa09219c0d2cc64e67c30396faf44effd412b9b3843a4178c1da91d3be8a4fbf815f6e4ed283a3a54169b1c6c
+  - {fileID: -391392226721760221}
+  m_RendererFeatureMap: b602840fa09219c0d2cc64e67c30396faf44effd412b9b3843a4178c1da91d3be8a4fbf815f6e4ed283a3a54169b1c6c237c66eed77e91fa
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -175,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e8d8b64cbc0704a800ba614f411140, type: 3}
   m_Name: PixelizeFeature
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   settings:
     renderPassEvent: 550
     screenHeight: 440
