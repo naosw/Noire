@@ -31,6 +31,6 @@ public class GameData
         profileName = profileId;
         percentageComplete = 0;
 
-        currentScene = Loader.firstScene.ToString();
+        currentScene = Loader.FirstScene.ToString();
     }
 }

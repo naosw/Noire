@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-using static UnityEngine.InputSystem.Controls.AxisControl;
-using UnityEngine.Assertions;
 
 public class CameraMovements : MonoBehaviour
 {

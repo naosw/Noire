@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -40,25 +41,36 @@ public class MainMenu : Menu
         }
     }
 
-    private void OnNewGameClicked() 
+    private void ToggleButtons(bool val)
     {
-        saveSlotsMenu.Show(false);
-        Hide();
+        newGameButton.interactable = val;
+        continueGameButton.interactable = val;
+        loadGameButton.interactable = val;
+        quitGameButton.interactable = val;
     }
 
-    private void OnContinueGameClicked() 
+    private void OnNewGameClicked()
     {
-        Loader.Load(DataPersistenceManager.Instance.CurrentScene);
+        Hide();
+        saveSlotsMenu.Show(false);
+    }
+
+    private void OnContinueGameClicked()
+    {
+        ToggleButtons(false);
+        if(!Loader.Load(DataPersistenceManager.Instance.CurrentScene))
+            ToggleButtons(true);
     }
     
     private void OnLoadGameClicked() 
     {
-        saveSlotsMenu.Show(true);
         Hide();
+        saveSlotsMenu.Show(true);
     }
 
     private void OnQuitGameClicked()
     {
+        ToggleButtons(false);
         Application.Quit();
     }
 

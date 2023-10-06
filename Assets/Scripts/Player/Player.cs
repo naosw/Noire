@@ -297,8 +297,13 @@ public class Player : MonoBehaviour, IDataPersistence
     // TODO: reset to save points
     private void HandleDeath()
     {
+<<<<<<< HEAD
         state = PlayerState.Dead;
         Loader.Load(Loader.Scene.DeathScene);
+=======
+        state = State.Dead;
+        Loader.Load(GameScene.DeathScene);
+>>>>>>> loading-asset-ver1
     }
     
     // called when restoring drowsiness (hp)

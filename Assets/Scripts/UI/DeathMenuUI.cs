@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DeathMenuUI : MonoBehaviour
@@ -8,14 +9,14 @@ public class DeathMenuUI : MonoBehaviour
 
     private void Awake()
     {
-        respawnButton.onClick.AddListener(() =>
-        {
-            Loader.Load(DataPersistenceManager.Instance.CurrentScene);
-        });
+        // respawnButton.onClick.AddListener(() =>
+        // {
+        //     Loader.Load(DataPersistenceManager.Instance.CurrentScene);
+        // });
         
         mainMenuButton.onClick.AddListener(() =>
         {
-            Loader.Load(Loader.Scene.MainMenuScene);
+            Loader.Load(GameScene.MainMenuScene);
         });
 
         Time.timeScale = 1f;
