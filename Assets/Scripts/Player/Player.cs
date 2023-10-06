@@ -170,18 +170,6 @@ public class Player : MonoBehaviour, IDataPersistence
             ? PlayerState.Walk 
             : PlayerState.Idle;
     }
-    
-    // TODO: move this to playeraudio.cs
-    public void PlaySteps(string path)
-    {
-        FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);
-    }
-    
-    // TODO: move this to playeraudio.cs
-    public void PlaySwoosh(string path)
-    {
-        FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);
-    }
 
     public void SetAnimatorTrigger(string triggerName)
     {
@@ -202,7 +190,7 @@ public class Player : MonoBehaviour, IDataPersistence
         // rotation
         transform.forward = new Vector3(moveDir.x, 0, moveDir.z);
     }
-    
+
     // called when player is either moving or idle
     private void HandleMovement()
     {
@@ -297,13 +285,8 @@ public class Player : MonoBehaviour, IDataPersistence
     // TODO: reset to save points
     private void HandleDeath()
     {
-<<<<<<< HEAD
-        state = PlayerState.Dead;
-        Loader.Load(Loader.Scene.DeathScene);
-=======
         state = State.Dead;
         Loader.Load(GameScene.DeathScene);
->>>>>>> loading-asset-ver1
     }
     
     // called when restoring drowsiness (hp)

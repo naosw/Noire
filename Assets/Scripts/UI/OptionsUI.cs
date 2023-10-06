@@ -16,7 +16,9 @@ public class OptionsUI : MonoBehaviour
     [SerializeField] private Button attackButton;
     [SerializeField] private Button cameraLeftButton;
     [SerializeField] private Button cameraRightButton;
-
+    
+    [SerializeField] private TextMeshProUGUI soundEffectText;
+    [SerializeField] private TextMeshProUGUI musicText;
     [SerializeField] private TextMeshProUGUI moveUpText;
     [SerializeField] private TextMeshProUGUI moveDownText;
     [SerializeField] private TextMeshProUGUI moveLeftText;
@@ -26,23 +28,22 @@ public class OptionsUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI cameraRightText;
 
     [SerializeField] private Transform pressToRebindKeyTransform;
-
+    
+    [Header("Audio Manager")] 
+    [SerializeField] private AudioManager audioManager;
     private void Awake()
     {
-       Instance = this;
-
-        closeButton.onClick.AddListener(() =>
-        {
-            Hide();
-        });
-
-        moveUpButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Up); });   
-        moveDownButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Down); });   
-        moveLeftButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Left); });   
-        moveRightButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Right); });   
-        attackButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Attack); });   
-        cameraLeftButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Camera_Left); });   
-        cameraRightButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Camera_Right); });   
+       Instance = this; 
+       closeButton.onClick.AddListener(Hide);
+       soundEffectsButton.onClick.AddListener(() => VolChange("Sfx"));
+       musicButton.onClick.AddListener(() => VolChange("Ost"));
+       moveUpButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Up); });   
+       moveDownButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Down); });   
+       moveLeftButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Left); });   
+       moveRightButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Right); });   
+       attackButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Attack); });   
+       cameraLeftButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Camera_Left); });   
+       cameraRightButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Camera_Right); });   
 
     }
 
@@ -53,7 +54,8 @@ public class OptionsUI : MonoBehaviour
         Hide();
         HidePressToRebindKey();
     }
-    private void GameInput_OnPauseAction()
+
+    private void GameInput_OnPauseAction(object sender, System.EventArgs e)
     {
         Hide();
     }
@@ -95,6 +97,55 @@ public class OptionsUI : MonoBehaviour
             HidePressToRebindKey();
             UpdateVisual();
         }); 
+    }
+
+    private void VolChange(string vcaType)
+    {
+        float currentVol = audioManager.getVcaVolume(vcaType);
+        // Debug.Log(currentVol);
+        float desVol = currentVol + 0.25f;
+        if (vcaType == "Sfx")
+        {
+            if ( desVol <= 1.25)
+            {
+                audioManager.SetSfxVolume(desVol);
+                float covVolume = (desVol * 4);
+                soundEffectText.text = "Sound Effects: " + covVolume.ToString();
+            }
+            else if (desVol == 1.50){
+                audioManager.SetSfxVolume(0);
+                soundEffectText.text = "Sound Effects: 0";
+                
+            }
+            else
+            {
+                desVol = desVol - 1.50f;
+                audioManager.SetSfxVolume(desVol);
+                float covVolume = (desVol * 4);
+                soundEffectText.text = "Sound Effects: " + covVolume.ToString();
+            }
+        }
+        else
+        {
+            if ( desVol <= 1.25)
+            {
+                audioManager.SetOstVolume(desVol);
+                float covVolume = (desVol * 4);
+                musicText.text = "Music: " + covVolume.ToString();
+            }
+            else if (desVol == 1.50){
+                audioManager.SetOstVolume(0);
+                musicText.text = "Music: 0";
+            }
+            else
+            {
+                desVol = desVol - 1.25f;
+                audioManager.SetOstVolume(desVol);
+                float covVolume = (desVol * 4);
+                musicText.text = "Music: " +covVolume.ToString();
+            }
+        }
+        
     }
 
 }

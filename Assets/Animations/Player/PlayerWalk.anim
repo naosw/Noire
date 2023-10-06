@@ -22477,7 +22477,7 @@ AnimationClip:
   - time: 0
     functionName: PlaySteps
     data: event:/Character/Player/PlayerFootsteps
-    objectReferenceParameter: {fileID: 11500000, guid: bc0a60301def5df489454f8d0cde1fde,
+    objectReferenceParameter: {fileID: 11500000, guid: 9f9ae845cd3848118fa33cdcb9740318,
       type: 3}
     floatParameter: 0
     intParameter: 0
@@ -22485,7 +22485,7 @@ AnimationClip:
   - time: 0.125
     functionName: PlaySteps
     data: event:/Character/Player/PlayerFootsteps
-    objectReferenceParameter: {fileID: 11500000, guid: bc0a60301def5df489454f8d0cde1fde,
+    objectReferenceParameter: {fileID: 11500000, guid: 9f9ae845cd3848118fa33cdcb9740318,
       type: 3}
     floatParameter: 0
     intParameter: 0
@@ -22493,7 +22493,7 @@ AnimationClip:
   - time: 0.25
     functionName: PlaySteps
     data: event:/Character/Player/PlayerFootsteps
-    objectReferenceParameter: {fileID: 11500000, guid: bc0a60301def5df489454f8d0cde1fde,
+    objectReferenceParameter: {fileID: 11500000, guid: 9f9ae845cd3848118fa33cdcb9740318,
       type: 3}
     floatParameter: 0
     intParameter: 0
@@ -22501,7 +22501,7 @@ AnimationClip:
   - time: 0.375
     functionName: PlaySteps
     data: event:/Character/Player/PlayerFootsteps
-    objectReferenceParameter: {fileID: 11500000, guid: bc0a60301def5df489454f8d0cde1fde,
+    objectReferenceParameter: {fileID: 11500000, guid: 9f9ae845cd3848118fa33cdcb9740318,
       type: 3}
     floatParameter: 0
     intParameter: 0
@@ -22509,7 +22509,7 @@ AnimationClip:
   - time: 0.5
     functionName: PlaySteps
     data: event:/Character/Player/PlayerFootsteps
-    objectReferenceParameter: {fileID: 11500000, guid: bc0a60301def5df489454f8d0cde1fde,
+    objectReferenceParameter: {fileID: 11500000, guid: 9f9ae845cd3848118fa33cdcb9740318,
       type: 3}
     floatParameter: 0
     intParameter: 0
@@ -22517,7 +22517,7 @@ AnimationClip:
   - time: 0.625
     functionName: PlaySteps
     data: event:/Character/Player/PlayerFootsteps
-    objectReferenceParameter: {fileID: 11500000, guid: bc0a60301def5df489454f8d0cde1fde,
+    objectReferenceParameter: {fileID: 11500000, guid: 9f9ae845cd3848118fa33cdcb9740318,
       type: 3}
     floatParameter: 0
     intParameter: 0
