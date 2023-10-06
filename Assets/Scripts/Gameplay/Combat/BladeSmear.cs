@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class BladeSmear : MonoBehaviour

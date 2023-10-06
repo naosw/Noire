@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Mathematics;
-using UnityEditor;
-using UnityEditor.Splines;
 using UnityEngine;
 using UnityEngine.Splines;
 

@@ -6514,7 +6514,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1910941053
 Transform:
   m_ObjectHideFlags: 0
@@ -7130,7 +7130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   virtualCamera: {fileID: 648294668}
-  moveSpeed: 12
+  moveSpeed: 8
   weapon: {fileID: 156988901}
   playerAbilitiesList:
   - {fileID: 11400000, guid: 95f7988d3ec1ba7468f7469e28f50abc, type: 2}
@@ -10139,6 +10139,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 640398344}
     m_Modifications:
+    - target: {fileID: 491396527521279573, guid: 02847462d1ec84e48845accd68eb4890,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1357016233061945801, guid: 02847462d1ec84e48845accd68eb4890,
         type: 3}
       propertyPath: m_Name

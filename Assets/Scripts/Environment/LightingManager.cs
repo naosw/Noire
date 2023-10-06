@@ -1,8 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using System;
-using UnityEditor.ShaderGraph.Internal;
-using UnityEngine.UIElements;
 
 [ExecuteAlways]
 public class LightingManager : MonoBehaviour

@@ -1,11 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.Splines;
 
 [RequireComponent(typeof(SplineSampler))]
@@ -308,17 +304,18 @@ public class SplineRoad : MonoBehaviour
 
     public void SaveMesh(string name)
     {
-        Mesh mesh = m_meshFilter.mesh;
-        string path = EditorUtility.SaveFilePanel("Save Separate Mesh Asset", "Assets/", name, "asset");
-        if (string.IsNullOrEmpty(path)) return;
-
-        path = FileUtil.GetProjectRelativePath(path);
-
-        Mesh meshToSave = UnityEngine.Object.Instantiate(mesh) as Mesh;
-        MeshUtility.Optimize(meshToSave);
-
-        AssetDatabase.CreateAsset(meshToSave, path);
-        AssetDatabase.SaveAssets();
+        return;
+        // Mesh mesh = m_meshFilter.mesh;
+        // string path = EditorUtility.SaveFilePanel("Save Separate Mesh Asset", "Assets/", name, "asset");
+        // if (string.IsNullOrEmpty(path)) return;
+        //
+        // path = FileUtil.GetProjectRelativePath(path);
+        //
+        // Mesh meshToSave = Instantiate(mesh) as Mesh;
+        // MeshUtility.Optimize(meshToSave);
+        //
+        // AssetDatabase.CreateAsset(meshToSave, path);
+        // AssetDatabase.SaveAssets();
     }
 
 }

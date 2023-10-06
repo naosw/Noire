@@ -108,7 +108,7 @@ Shader "Hidden/Flat Kit/Terrain/Lit (Add Pass)"
             #if UNITY_VERSION >= 202230
             #pragma multi_compile _ DYNAMICLIGHTMAP_ON
             #pragma multi_compile_fragment _ DEBUG_DISPLAY
-            #pragma instancing_options norenderinglayer assumeuniformscaling nomatrices nolightprobe nolightmap
+            //#pragma instancing_options norenderinglayer assumeuniformscaling nomatrices nolightprobe nolightmap
             #else
             #pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap
             #endif
