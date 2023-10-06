@@ -23,7 +23,6 @@ public class Player : MonoBehaviour, IDataPersistence
     [Header("Player Controller")]
     [SerializeField] private float moveSpeed = 12f;
     private PlayerState state;
-
     private CharacterController controller;
     private Vector3 moveDir;
     
@@ -285,7 +284,7 @@ public class Player : MonoBehaviour, IDataPersistence
     // TODO: reset to save points
     private void HandleDeath()
     {
-        state = State.Dead;
+        state = PlayerState.Dead;
         Loader.Load(GameScene.DeathScene);
     }
     

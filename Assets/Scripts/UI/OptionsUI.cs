@@ -55,7 +55,7 @@ public class OptionsUI : MonoBehaviour
         HidePressToRebindKey();
     }
 
-    private void GameInput_OnPauseAction(object sender, System.EventArgs e)
+    private void GameInput_OnPauseAction()
     {
         Hide();
     }
