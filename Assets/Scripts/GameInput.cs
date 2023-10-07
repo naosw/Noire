@@ -52,7 +52,7 @@ public class GameInput : MonoBehaviour
         gameInputActions.Player.Enable();
         gameInputActions.Player.CameraRight.performed += CameraRight_performed;
         gameInputActions.Player.CameraLeft.performed += CameraLeft_performed;
-        gameInputActions.Player.Attack1.performed += Attack1_performed;
+        gameInputActions.Player.LightAttack.performed += Attack1_performed;
         gameInputActions.Player.Pause.performed += Pause_performed;
         gameInputActions.Player.Interact.performed += Interact_performed;
         gameInputActions.Player.Dash.performed += Dash_performed;
@@ -65,7 +65,7 @@ public class GameInput : MonoBehaviour
     {
         gameInputActions.Player.CameraRight.performed -= CameraRight_performed;
         gameInputActions.Player.CameraLeft.performed -= CameraLeft_performed;
-        gameInputActions.Player.Attack1.performed -= Attack1_performed;
+        gameInputActions.Player.LightAttack.performed -= Attack1_performed;
         gameInputActions.Player.Pause.performed -= Pause_performed;
         gameInputActions.Player.Interact.performed -= Interact_performed;
         gameInputActions.Player.Dash.performed -= Dash_performed;
@@ -141,11 +141,23 @@ public class GameInput : MonoBehaviour
             case Bindings.MoveRight:
                 return gameInputActions.Player.Move.bindings[4].ToDisplayString();
             case Bindings.LightAttack:
-                return gameInputActions.Player.Attack1.bindings[0].ToDisplayString ();
+                return gameInputActions.Player.LightAttack.bindings[0].ToDisplayString();
+            case Bindings.StrongAttack:
+                return gameInputActions.Player.StrongAttack.bindings[0].ToDisplayString();
             case Bindings.CameraLeft:
                 return gameInputActions.Player.CameraLeft.bindings[0].ToDisplayString();
             case Bindings.CameraRight:
                 return gameInputActions.Player.CameraRight.bindings[0].ToDisplayString();
+            case Bindings.Dash:
+                return gameInputActions.Player.Dash.bindings[0].ToDisplayString();
+            case Bindings.Interact:
+                return gameInputActions.Player.Interact.bindings[0].ToDisplayString();
+            case Bindings.Ability1:
+                return gameInputActions.Player.Ability1.bindings[0].ToDisplayString();
+            case Bindings.Ability2:
+                return gameInputActions.Player.Ability2.bindings[0].ToDisplayString();
+            case Bindings.Ability3:
+                return gameInputActions.Player.Ability3.bindings[0].ToDisplayString();
         }
     }
 
@@ -175,10 +187,6 @@ public class GameInput : MonoBehaviour
                 inputAction = gameInputActions.Player.Move;
                 bindingIndex = 4;
                 break;
-            case Bindings.LightAttack:
-                inputAction = gameInputActions.Player.Attack1;
-                bindingIndex = 0;
-                break;
             case Bindings.CameraLeft:
                 inputAction = gameInputActions.Player.CameraLeft;
                 bindingIndex = 0;
@@ -187,9 +195,39 @@ public class GameInput : MonoBehaviour
                 inputAction = gameInputActions.Player.CameraRight;
                 bindingIndex = 0;
                 break;
+            case Bindings.LightAttack:
+                inputAction = gameInputActions.Player.LightAttack;
+                bindingIndex = 0;
+                break;
+            case Bindings.StrongAttack:
+                inputAction = gameInputActions.Player.StrongAttack;
+                bindingIndex = 0;
+                break;
+            case Bindings.Dash:
+                inputAction = gameInputActions.Player.Dash;
+                bindingIndex = 0;
+                break;
+            case Bindings.Interact:
+                inputAction = gameInputActions.Player.Interact;
+                bindingIndex = 0;
+                break;
+            case Bindings.Ability1:
+                inputAction = gameInputActions.Player.Ability1;
+                bindingIndex = 0;
+                break;
+            case Bindings.Ability2:
+                inputAction = gameInputActions.Player.Ability2;
+                bindingIndex = 0;
+                break;
+            case Bindings.Ability3:
+                inputAction = gameInputActions.Player.Ability3;
+                bindingIndex = 0;
+                break;
         }
 
         inputAction.PerformInteractiveRebinding(bindingIndex)
+            .WithCancelingThrough("escape")
+            .WithControlsExcluding("escape")
             .OnComplete(callback =>
             {
                 callback.Dispose();

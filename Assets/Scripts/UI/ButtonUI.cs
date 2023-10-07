@@ -10,7 +10,7 @@ public class ButtonUI : MonoBehaviour
     [SerializeField] private Color textColorTransparent;
     [SerializeField] private Color textColorOpaque;
     
-    private TextMeshProUGUI buttonText;
+    public TextMeshProUGUI buttonText;
     private Button button;
 
     private void Awake()
