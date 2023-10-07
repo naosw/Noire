@@ -8,6 +8,7 @@ public class GameEventsManager : MonoBehaviour
 
     public PlayerEvents playerEvents;
     public QuestEvents questEvents;
+    public BedRockPlainsEvents bedRockPlainsEvents;
 
     private void Awake()
     {
@@ -22,5 +23,6 @@ public class GameEventsManager : MonoBehaviour
         // initialize all events
         questEvents = new QuestEvents();
         playerEvents = new PlayerEvents();
+        bedRockPlainsEvents = new BedRockPlainsEvents();
     }
 }

@@ -8,6 +8,7 @@ public static class Loader {
         { GameScene.MainMenuScene, new SceneInfo(SceneLoadType.Fast, LoadSceneMode.Single) },
         { GameScene.DeathScene, new SceneInfo(SceneLoadType.Fast, LoadSceneMode.Single) },
         { GameScene.ValleyofSolura, new SceneInfo(SceneLoadType.Normal, LoadSceneMode.Single) },
+        { GameScene.BedRockPlains, new SceneInfo(SceneLoadType.Normal, LoadSceneMode.Single) },
     };
     
     private static readonly Dictionary<string, GameScene> GAMESCENES = new()
@@ -15,11 +16,12 @@ public static class Loader {
         {"MainMenuScene", GameScene.MainMenuScene},
         {"DeathScene", GameScene.DeathScene},
         {"ValleyofSolura", GameScene.ValleyofSolura},
+        {"BedRockPlains", GameScene.BedRockPlains},
         {"LoadingScene", GameScene.LoadingScene}
     };
     
     private static string LoadScene = GameScene.LoadingScene.ToString();
-    public const GameScene FirstScene = GameScene.ValleyofSolura;
+    public const GameScene FirstScene = GameScene.BedRockPlains;
     
     public static SceneInfo TargetSceneInfoObj;
     

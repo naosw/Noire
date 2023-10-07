@@ -3,5 +3,6 @@
     MainMenuScene,
     DeathScene,
     ValleyofSolura,
-    LoadingScene
+    LoadingScene,
+    BedRockPlains
 }

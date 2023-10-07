@@ -8,12 +8,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: DefaultTerrain
-  m_Shader: {fileID: 4800000, guid: fea9ee138d4a84d90a0c3f187fb3cd8a, type: 3}
+  m_Shader: {fileID: 4800000, guid: 69c1f799e772cb6438f56c23efccb782, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - DR_CEL_EXTRA_ON
+  m_ValidKeywords: []
   m_InvalidKeywords:
+  - DR_CEL_EXTRA_ON
   - DR_ENABLE_LIGHTMAP_DIR
   - _CELPRIMARYMODE_NONE
   - _UNITYSHADOWMODE_NONE

@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/LoadingScene.unity
     guid: fbc3ebd8009202c48a156eae1aacdfdf
   - enabled: 1
+    path: Assets/Scenes/BedrockPlains.unity
+    guid: 5addf77c29ec1374780fdd90a67be044
+  - enabled: 1
     path: Assets/Scenes/ValleyofSolura.unity
     guid: 265aa3983c249aa46b952f3eb254934b
   - enabled: 1
