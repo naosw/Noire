@@ -35,7 +35,7 @@ public class CameraMovements : MonoBehaviour
     private void GameInput_OnCameraTurn(object sender, GameInput.OnCameraTurnEventArgs e)
     {
         isMoving = true;
-        Vector3 offset = new Vector3(0, e.turnDir * 45, 0);
+        Vector3 offset = new Vector3(0, e.turnDir ? 45 : -45, 0);
         targetCameraRotation = Quaternion.Euler(targetCameraRotation.eulerAngles + offset);
     }
 

@@ -6,9 +6,9 @@ public class OptionsUI : MonoBehaviour
 {
     public static OptionsUI Instance { get; private set; }
 
-    [SerializeField] private Button soundEffectsButton;
-    [SerializeField] private Button musicButton;
-    [SerializeField] private Button closeButton;
+    [SerializeField] private ButtonUI soundEffectsButton;
+    [SerializeField] private ButtonUI musicButton;
+    [SerializeField] private ButtonUI closeButton;
     [SerializeField] private Button moveUpButton;
     [SerializeField] private Button moveDownButton;
     [SerializeField] private Button moveLeftButton; 
@@ -34,16 +34,16 @@ public class OptionsUI : MonoBehaviour
     private void Awake()
     {
        Instance = this; 
-       closeButton.onClick.AddListener(Hide);
-       soundEffectsButton.onClick.AddListener(() => VolChange("Sfx"));
-       musicButton.onClick.AddListener(() => VolChange("Ost"));
-       moveUpButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Up); });   
-       moveDownButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Down); });   
-       moveLeftButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Left); });   
-       moveRightButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Right); });   
-       attackButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Attack); });   
-       cameraLeftButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Camera_Left); });   
-       cameraRightButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Camera_Right); });   
+       closeButton.AddListener(Hide);
+       soundEffectsButton.AddListener(() => VolChange("Sfx"));
+       musicButton.AddListener(() => VolChange("Ost"));
+       // moveUpButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Up); });   
+       // moveDownButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Down); });   
+       // moveLeftButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Left); });   
+       // moveRightButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Move_Right); });   
+       // attackButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Attack); });   
+       // cameraLeftButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Camera_Left); });   
+       // cameraRightButton.onClick.AddListener(() => {RebindBinding(GameInput.Bindings.Camera_Right); });   
 
     }
 
@@ -62,13 +62,13 @@ public class OptionsUI : MonoBehaviour
 
     private void UpdateVisual()
     {
-        moveUpText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.Move_Up);
-        moveDownText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.Move_Down);
-        moveLeftText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.Move_Left);
-        moveRightText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.Move_Right);
-        attackText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.Attack);
-        cameraLeftText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.Camera_Left);
-        cameraRightText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.Camera_Right);
+        moveUpText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.MoveUp);
+        moveDownText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.MoveDown);
+        moveLeftText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.MoveLeft);
+        moveRightText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.MoveRight);
+        attackText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.LightAttack);
+        cameraLeftText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.CameraLeft);
+        cameraRightText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.CameraRight);
     }
 
     public void Show()

@@ -11,7 +11,7 @@ public class GameInput : MonoBehaviour
     public event EventHandler<OnCameraTurnEventArgs> OnCameraTurn;
     public class OnCameraTurnEventArgs : EventArgs
     {
-        public int turnDir; // -1 for right. 1 for left.
+        public bool turnDir; // 1 for right. 0 for left.
     }
     public event UnityAction OnPauseAction;
     public event UnityAction OnInteract;
@@ -23,16 +23,19 @@ public class GameInput : MonoBehaviour
     
     public enum Bindings
     {
-        Move_Up,
-        Move_Down,
-        Move_Left,
-        Move_Right,
-        Attack,
-        Camera_Left,
-        Camera_Right,
-        // TODO: add dash keybindings
-        // TODO: add interact keybindings
-        // TODO: add ability keybindings
+        MoveUp,
+        MoveDown,
+        MoveLeft,
+        MoveRight,
+        CameraLeft,
+        CameraRight,
+        Interact,
+        Dash,
+        LightAttack,
+        StrongAttack,
+        Ability1,
+        Ability2,
+        Ability3,
     }
 
     private GameInputActions gameInputActions;
@@ -78,12 +81,12 @@ public class GameInput : MonoBehaviour
 
     private void CameraLeft_performed(InputAction.CallbackContext obj)
     {
-        OnCameraTurn?.Invoke(this, new OnCameraTurnEventArgs { turnDir = 1 });
+        OnCameraTurn?.Invoke(this, new OnCameraTurnEventArgs { turnDir = true });
     }
 
     private void CameraRight_performed(InputAction.CallbackContext obj)
     {
-        OnCameraTurn?.Invoke(this, new OnCameraTurnEventArgs { turnDir = -1 });
+        OnCameraTurn?.Invoke(this, new OnCameraTurnEventArgs { turnDir = false });
     }
     
     private void Interact_performed(InputAction.CallbackContext obj) => OnInteract?.Invoke();
@@ -129,19 +132,19 @@ public class GameInput : MonoBehaviour
         switch (binding)
         {
             default:
-            case Bindings.Move_Up:
+            case Bindings.MoveUp:
                 return gameInputActions.Player.Move.bindings[1].ToDisplayString();
-            case Bindings.Move_Down:
+            case Bindings.MoveDown:
                 return gameInputActions.Player.Move.bindings[2].ToDisplayString();
-            case Bindings.Move_Left:
+            case Bindings.MoveLeft:
                 return gameInputActions.Player.Move.bindings[3].ToDisplayString();
-            case Bindings.Move_Right:
+            case Bindings.MoveRight:
                 return gameInputActions.Player.Move.bindings[4].ToDisplayString();
-            case Bindings.Attack:
+            case Bindings.LightAttack:
                 return gameInputActions.Player.Attack1.bindings[0].ToDisplayString ();
-            case Bindings.Camera_Left:
+            case Bindings.CameraLeft:
                 return gameInputActions.Player.CameraLeft.bindings[0].ToDisplayString();
-            case Bindings.Camera_Right:
+            case Bindings.CameraRight:
                 return gameInputActions.Player.CameraRight.bindings[0].ToDisplayString();
         }
     }
@@ -156,31 +159,31 @@ public class GameInput : MonoBehaviour
         switch (binding)
         {
             default:
-            case Bindings.Move_Up:
+            case Bindings.MoveUp:
                 inputAction = gameInputActions.Player.Move;
                 bindingIndex = 1;
                 break;
-            case Bindings.Move_Down:
+            case Bindings.MoveDown:
                 inputAction = gameInputActions.Player.Move;
                 bindingIndex = 2;
                 break;
-            case Bindings.Move_Left:
+            case Bindings.MoveLeft:
                 inputAction = gameInputActions.Player.Move;
                 bindingIndex = 3;
                 break;
-            case Bindings.Move_Right:
+            case Bindings.MoveRight:
                 inputAction = gameInputActions.Player.Move;
                 bindingIndex = 4;
                 break;
-            case Bindings.Attack:
+            case Bindings.LightAttack:
                 inputAction = gameInputActions.Player.Attack1;
                 bindingIndex = 0;
                 break;
-            case Bindings.Camera_Left:
+            case Bindings.CameraLeft:
                 inputAction = gameInputActions.Player.CameraLeft;
                 bindingIndex = 0;
                 break;
-            case Bindings.Camera_Right:
+            case Bindings.CameraRight:
                 inputAction = gameInputActions.Player.CameraRight;
                 bindingIndex = 0;
                 break;

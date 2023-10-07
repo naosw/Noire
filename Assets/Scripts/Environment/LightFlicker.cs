@@ -12,19 +12,19 @@ public class LightFlicker : MonoBehaviour
     private float time;
     private float startingIntensity;
     private float startingAngle;
-    private Light light;
+    private Light mainLight;
 
     void Start()
     {
-        light = GetComponent<Light>();
-        startingIntensity = light.intensity;
-        startingAngle = light.spotAngle;
+        mainLight = GetComponent<Light>();
+        startingIntensity = mainLight.intensity;
+        startingAngle = mainLight.spotAngle;
     }
 
     void Update()
     {
         time += Time.deltaTime * (1 - Random.Range(-speedRandomness, speedRandomness)) * Mathf.PI;
-        light.intensity = startingIntensity + Mathf.Sin(time * flickerPerSecond) * flickerIntensity;
-        light.spotAngle = startingAngle + Mathf.Sin(time * flickerPerSecond) * radiusShiftsIntensity;
+        mainLight.intensity = startingIntensity + Mathf.Sin(time * flickerPerSecond) * flickerIntensity;
+        mainLight.spotAngle = startingAngle + Mathf.Sin(time * flickerPerSecond) * radiusShiftsIntensity;
     }
 }

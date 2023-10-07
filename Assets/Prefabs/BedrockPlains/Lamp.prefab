@@ -209,15 +209,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6c3de3a3409607041b327810bf89b255,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 763348962875931633}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6c3de3a3409607041b327810bf89b255,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 4058350674869030697}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6c3de3a3409607041b327810bf89b255,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8591156105645828469}
+      addedObject: {fileID: 2060127526121530731}
   m_SourcePrefab: {fileID: 100100000, guid: 6c3de3a3409607041b327810bf89b255, type: 3}
 --- !u!1 &8578954756382112128 stripped
 GameObject:
@@ -225,19 +221,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8921622289775101137}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &763348962875931633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8578954756382112128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3adbfd996f615b944b97bac92e75bfda, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactText: Illuminate [F]
 --- !u!136 &4058350674869030697
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -261,7 +244,7 @@ CapsuleCollider:
   m_Height: 0.074751794
   m_Direction: 1
   m_Center: {x: -0.0020171953, y: -0.00016579591, z: -0.0013962267}
---- !u!114 &8591156105645828469
+--- !u!114 &2060127526121530731
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -270,9 +253,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8578954756382112128}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 123a8cd7b24c4300abb8a80f85fff1db, type: 3}
+  m_Script: {fileID: 11500000, guid: eb2929d7933f4994b6d6060e0c19a112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactText: Illumunate [F]
 --- !u!4 &8954635217310442298 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6c3de3a3409607041b327810bf89b255,
