@@ -1,22 +1,10 @@
 ﻿using UnityEngine;
 
-public class SaveInteractable : MonoBehaviour, IInteractable
+public class SaveInteractable : InteractableObject
 {
-    [SerializeField] private string interactText;
-    
-    public void Interact()
+    public override void Interact()
     {
-        Debug.Log("Interacted with save!");
+        Debug.Log("Game saved!");
         DataPersistenceManager.Instance.SaveGame();
-    }
-
-    public string GetInteractText()
-    {
-        return interactText;
-    }
-
-    public Transform GetTransform()
-    {
-        return transform;
     }
 }

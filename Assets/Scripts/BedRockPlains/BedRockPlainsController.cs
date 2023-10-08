@@ -19,12 +19,12 @@ public class BedRockPlainsController : MonoBehaviour
 
     private void Start()
     {
-        GameEventsManager.Instance.BedRockPlainsEvents.OnLampInteract += OpenLights;
+        GameEventsManager.Instance.BedrockPlainsEvents.OnLampInteract += OpenLights;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.Instance.BedRockPlainsEvents.OnLampInteract -= OpenLights;
+        GameEventsManager.Instance.BedrockPlainsEvents.OnLampInteract -= OpenLights;
     }
 
     private void OpenLights()

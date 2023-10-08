@@ -26,7 +26,7 @@ public class PlayerInteract : MonoBehaviour
         foreach (Collider collider in colliderArray)
         {
             if (collider.TryGetComponent(out IInteractable interactable))
-            {
+            { 
                 interactableList.Add(interactable);
             }
         }
