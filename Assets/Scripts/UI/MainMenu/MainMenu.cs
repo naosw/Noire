@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenu : Menu
+public class MainMenu : UI
 {
+    public static MainMenu Instance { get; private set; }
+    
     [Header("Menu Navigation")]
     [SerializeField] private SaveSlotsMenu saveSlotsMenu;
 
@@ -14,6 +16,7 @@ public class MainMenu : Menu
 
     private void Awake()
     {
+        Instance = this;
     }
 
     private void Start() 
@@ -56,7 +59,7 @@ public class MainMenu : Menu
     private void OnNewGameClicked()
     {
         Hide();
-        saveSlotsMenu.Show(false);
+        saveSlotsMenu.Activate(false);
     }
 
     private void OnContinueGameClicked()
@@ -69,7 +72,7 @@ public class MainMenu : Menu
     private void OnLoadGameClicked() 
     {
         Hide();
-        saveSlotsMenu.Show(true);
+        saveSlotsMenu.Activate(true);
     }
 
     private void OnQuitGameClicked()
@@ -82,10 +85,5 @@ public class MainMenu : Menu
     {
         Refresh();
         gameObject.SetActive(true);
-    }
-
-    public void Hide() 
-    {
-        gameObject.SetActive(false);
     }
 }

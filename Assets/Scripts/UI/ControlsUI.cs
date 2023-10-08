@@ -1,8 +1,6 @@
-﻿using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
-public class ControlsUI : MonoBehaviour
+public class ControlsUI : UI
 {
     public static ControlsUI Instance { get; private set; }
 
@@ -25,28 +23,29 @@ public class ControlsUI : MonoBehaviour
     private void Awake()
     {
        Instance = this; 
-       
-       moveUpButton.AddListener(() => {RebindBinding(GameInput.Bindings.MoveUp); });   
-       moveDownButton.AddListener(() => {RebindBinding(GameInput.Bindings.MoveDown); });   
-       moveLeftButton.AddListener(() => {RebindBinding(GameInput.Bindings.MoveLeft); });   
-       moveRightButton.AddListener(() => {RebindBinding(GameInput.Bindings.MoveRight); });
-       
-       cameraLeftButton.AddListener(() => {RebindBinding(GameInput.Bindings.CameraLeft); });   
-       cameraRightButton.AddListener(() => {RebindBinding(GameInput.Bindings.CameraRight); });
-       
-       lightAttackButton.AddListener(() => {RebindBinding(GameInput.Bindings.LightAttack); });   
-       strongAttackButton.AddListener(() => { RebindBinding(GameInput.Bindings.StrongAttack); });
-       dashButton.AddListener(() => { RebindBinding(GameInput.Bindings.Dash); });
-       interactButton.AddListener(() => { RebindBinding(GameInput.Bindings.Interact); });
-       
-       ability1Button.AddListener(() => {RebindBinding(GameInput.Bindings.Ability1); });
-       ability2Button.AddListener(() => {RebindBinding(GameInput.Bindings.Ability2); });
-       ability3Button.AddListener(() => {RebindBinding(GameInput.Bindings.Ability3); });
     }
 
     private void Start()
     {
         GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
+        
+        moveUpButton.AddListener(() => {RebindBinding(GameInput.Bindings.MoveUp); });   
+        moveDownButton.AddListener(() => {RebindBinding(GameInput.Bindings.MoveDown); });   
+        moveLeftButton.AddListener(() => {RebindBinding(GameInput.Bindings.MoveLeft); });   
+        moveRightButton.AddListener(() => {RebindBinding(GameInput.Bindings.MoveRight); });
+       
+        cameraLeftButton.AddListener(() => {RebindBinding(GameInput.Bindings.CameraLeft); });   
+        cameraRightButton.AddListener(() => {RebindBinding(GameInput.Bindings.CameraRight); });
+       
+        lightAttackButton.AddListener(() => {RebindBinding(GameInput.Bindings.LightAttack); });   
+        strongAttackButton.AddListener(() => { RebindBinding(GameInput.Bindings.StrongAttack); });
+        dashButton.AddListener(() => { RebindBinding(GameInput.Bindings.Dash); });
+        interactButton.AddListener(() => { RebindBinding(GameInput.Bindings.Interact); });
+       
+        ability1Button.AddListener(() => {RebindBinding(GameInput.Bindings.Ability1); });
+        ability2Button.AddListener(() => {RebindBinding(GameInput.Bindings.Ability2); });
+        ability3Button.AddListener(() => {RebindBinding(GameInput.Bindings.Ability3); });
+        
         UpdateVisual();
         Hide();
         HidePressToRebindKey();
@@ -75,16 +74,6 @@ public class ControlsUI : MonoBehaviour
         ability1Button.buttonText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.Ability1);
         ability2Button.buttonText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.Ability2);
         ability3Button.buttonText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.Ability3);
-    }
-
-    public void Show()
-    {
-        gameObject.SetActive(true);
-    }
-
-    private void Hide()
-    {
-        gameObject.SetActive(false);
     }
 
     private void ShowPressToRebindKey()

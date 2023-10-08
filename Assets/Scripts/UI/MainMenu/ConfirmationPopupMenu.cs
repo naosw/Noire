@@ -3,8 +3,9 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 
-public class ConfirmationPopupMenu : Menu
+public class ConfirmationPopupMenu : UI
 {
+    public static ConfirmationPopupMenu Instance { get; private set; }
     [Header("Components")]
     [SerializeField] private TextMeshProUGUI displayText;
     [SerializeField] private Button confirmButton;
@@ -12,6 +13,7 @@ public class ConfirmationPopupMenu : Menu
 
     private void Awake()
     {
+        Instance = this;
         Hide();
     }
 
@@ -36,10 +38,5 @@ public class ConfirmationPopupMenu : Menu
             Hide();
             cancelAction();
         });
-    }
-
-    private void Hide() 
-    {
-        gameObject.SetActive(false);
     }
 }

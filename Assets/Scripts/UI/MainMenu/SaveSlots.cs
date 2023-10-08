@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class SaveSlot : MonoBehaviour
+public class SaveSlot : UI
 {
     [Header("Profile")]
     [SerializeField] private string profileId = "default";
@@ -17,10 +17,6 @@ public class SaveSlot : MonoBehaviour
     [SerializeField] private TextMeshProUGUI percentageCompleteText;
     [SerializeField] private TextMeshProUGUI profileName;
     
-    [Header("Other Menus")]
-    [SerializeField] private SaveSlotsMenu saveSlotsMenu;
-    [SerializeField] private ConfirmationPopupMenu confirmationPopupMenu;
-
     private bool hasData = false;
     private Button saveSlotButton;
 
@@ -33,9 +29,9 @@ public class SaveSlot : MonoBehaviour
     
     private void OnSaveSlotClicked() 
     {
-        saveSlotsMenu.DisableMenuButtons();
+        SaveSlotsMenu.Instance.DisableMenuButtons();
 
-        if (saveSlotsMenu.IsLoading)
+        if (SaveSlotsMenu.Instance.IsLoading)
         {
             DataPersistenceManager.Instance.ChangeSelectedProfileId(profileId);
             Loader.Load(DataPersistenceManager.Instance.CurrentScene);
@@ -43,7 +39,7 @@ public class SaveSlot : MonoBehaviour
         else if (hasData)
         {
             // prompt to start new game
-            confirmationPopupMenu.ActivateMenu(
+            ConfirmationPopupMenu.Instance.ActivateMenu(
                 "Starting a New Game with this slot will override the currently saved data. Are you sure?",
                 () =>
                 {
@@ -51,7 +47,7 @@ public class SaveSlot : MonoBehaviour
                 },
                 () =>
                 {
-                    saveSlotsMenu.Refresh();
+                    SaveSlotsMenu.Instance.Refresh();
                 }
             );
         }
@@ -70,16 +66,23 @@ public class SaveSlot : MonoBehaviour
 
     private void OnClear()
     {
-        saveSlotsMenu.DisableMenuButtons();
+        SaveSlotsMenu.Instance.DisableMenuButtons();
         
-        confirmationPopupMenu.ActivateMenu(
+        ConfirmationPopupMenu.Instance.ActivateMenu(
             "Are you sure you want to delete this saved data?",
             () => {
                 DataPersistenceManager.Instance.DeleteProfileData(profileId);
-                saveSlotsMenu.Refresh();
+                if (!DataPersistenceManager.Instance.HasGameData())
+                {
+                    SaveSlotsMenu.Instance.BackToMainMenu();
+                }
+                else
+                {
+                    SaveSlotsMenu.Instance.Refresh();                    
+                }
             },
             () => {
-                saveSlotsMenu.Refresh();
+                SaveSlotsMenu.Instance.Refresh();
             }
         );
     }

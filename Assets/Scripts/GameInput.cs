@@ -8,21 +8,15 @@ public class GameInput : MonoBehaviour
     public static GameInput Instance { get; private set; }
     
     // list of events
-    public event EventHandler<OnCameraTurnEventArgs> OnCameraTurn;
-    public class OnCameraTurnEventArgs : EventArgs
-    {
-        public bool turnDir; // 1 for right. 0 for left.
-    }
-    public event UnityAction OnPauseAction;
-    public event UnityAction OnInteract;
-    public event EventHandler<OnAbilityCastArgs> OnAbilityCast;
-    public class OnAbilityCastArgs : EventArgs
-    {
-        public int abilityID;
-    }
+    public event Action<bool> OnCameraTurn; // 1 for right. 0 for left.
+    public event Action OnPlayerMenuToggle;
+    public event Action OnPauseAction;
+    public event Action OnInteract;
+    public event Action<int> OnAbilityCast;
     
     public enum Bindings
     {
+        Menu,
         MoveUp,
         MoveDown,
         MoveLeft,
@@ -50,11 +44,17 @@ public class GameInput : MonoBehaviour
     private void Start()
     {
         gameInputActions.Player.Enable();
+
+        gameInputActions.Player.Menu.performed += PlayerMenu_performed;
+        gameInputActions.Player.Pause.performed += Pause_performed;
+        
         gameInputActions.Player.CameraRight.performed += CameraRight_performed;
         gameInputActions.Player.CameraLeft.performed += CameraLeft_performed;
+        
         gameInputActions.Player.LightAttack.performed += Attack1_performed;
-        gameInputActions.Player.Pause.performed += Pause_performed;
+        
         gameInputActions.Player.Interact.performed += Interact_performed;
+        
         gameInputActions.Player.Dash.performed += Dash_performed;
         gameInputActions.Player.Ability1.performed += Ability1_performed;
         gameInputActions.Player.Ability2.performed += Ability2_performed;
@@ -77,43 +77,46 @@ public class GameInput : MonoBehaviour
     }
 
     // invoke events
+    
+    private void PlayerMenu_performed(InputAction.CallbackContext obj) => OnPlayerMenuToggle?.Invoke();
+    
     private void Pause_performed(InputAction.CallbackContext obj) => OnPauseAction?.Invoke();
 
     private void CameraLeft_performed(InputAction.CallbackContext obj)
     {
-        OnCameraTurn?.Invoke(this, new OnCameraTurnEventArgs { turnDir = true });
+        OnCameraTurn?.Invoke(true);
     }
 
     private void CameraRight_performed(InputAction.CallbackContext obj)
     {
-        OnCameraTurn?.Invoke(this, new OnCameraTurnEventArgs { turnDir = false });
+        OnCameraTurn?.Invoke(false);
     }
     
     private void Interact_performed(InputAction.CallbackContext obj) => OnInteract?.Invoke();
     
     private void Attack1_performed(InputAction.CallbackContext obj)
     {
-        OnAbilityCast?.Invoke(this, new OnAbilityCastArgs { abilityID = 0 });
+        OnAbilityCast?.Invoke(0);
     }
     
     private void Dash_performed(InputAction.CallbackContext obj)
     {
-        OnAbilityCast?.Invoke(this, new OnAbilityCastArgs { abilityID = 1 });
+        OnAbilityCast?.Invoke(1);
     }
 
     private void Ability1_performed(InputAction.CallbackContext obj)
     {
-        OnAbilityCast?.Invoke(this, new OnAbilityCastArgs { abilityID = 2 });
+        OnAbilityCast?.Invoke(2);
     }
     
     private void Ability2_performed(InputAction.CallbackContext obj)
     {
-        OnAbilityCast?.Invoke(this, new OnAbilityCastArgs{ abilityID = 3 });
+        OnAbilityCast?.Invoke(3);
     }
     
     private void Ability3_performed(InputAction.CallbackContext obj)
     {
-        OnAbilityCast?.Invoke(this, new OnAbilityCastArgs{ abilityID = 4 });
+        OnAbilityCast?.Invoke(4);
     }
     
     public float GetZoomVal()

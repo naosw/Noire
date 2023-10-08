@@ -9,8 +9,8 @@ public class CameraMovements : MonoBehaviour
     [SerializeField] private float FOVmax;
     [SerializeField] private float FOVmin;
     [SerializeField] private float FOVDefault;
-    [SerializeField] float zoomSpeed = 10f;
-    [SerializeField] float shiftCameraPerspectiveSpeed = 20f;
+    [SerializeField] private float zoomSpeed = 10f;
+    [SerializeField] private float shiftCameraPerspectiveSpeed = 20f;
 
     private const float EPS = .1f;
 
@@ -32,10 +32,10 @@ public class CameraMovements : MonoBehaviour
         virtualCamera.m_Lens.OrthographicSize = FOVDefault;
     }
 
-    private void GameInput_OnCameraTurn(object sender, GameInput.OnCameraTurnEventArgs e)
+    private void GameInput_OnCameraTurn(bool turnDir)
     {
         isMoving = true;
-        Vector3 offset = new Vector3(0, e.turnDir ? 45 : -45, 0);
+        Vector3 offset = new Vector3(0, turnDir ? 45 : -45, 0);
         targetCameraRotation = Quaternion.Euler(targetCameraRotation.eulerAngles + offset);
     }
 

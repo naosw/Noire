@@ -7,7 +7,7 @@ public class Lamp : MonoBehaviour, IInteractable
     public void Interact()
     {
         if(!PauseMenuManager.Instance.IsGamePaused)
-            GameEventsManager.Instance.bedRockPlainsEvents.LampInteract();
+            GameEventsManager.Instance.BedRockPlainsEvents.LampInteract();
     }
 
     public string GetInteractText()

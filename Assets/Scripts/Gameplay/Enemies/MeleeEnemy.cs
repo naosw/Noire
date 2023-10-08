@@ -116,7 +116,7 @@ public class MeleeEnemyAI : Enemy
 
         if (Vector3.Distance(transform.position, target.position) < attackDistance)
         {
-            GameEventsManager.Instance.playerEvents.TakeDamage(damage);
+            GameEventsManager.Instance.PlayerEvents.TakeDamage(damage);
         }
 
         agent.SetDestination(target.position - transform.forward * 2f);

@@ -6,9 +6,9 @@ public class GameEventsManager : MonoBehaviour
 {
     public static GameEventsManager Instance { get; private set; }
 
-    public PlayerEvents playerEvents;
-    public QuestEvents questEvents;
-    public BedRockPlainsEvents bedRockPlainsEvents;
+    public PlayerEvents PlayerEvents;
+    public QuestEvents QuestEvents;
+    public BedRockPlainsEvents BedRockPlainsEvents;
 
     private void Awake()
     {
@@ -21,8 +21,8 @@ public class GameEventsManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         // initialize all events
-        questEvents = new QuestEvents();
-        playerEvents = new PlayerEvents();
-        bedRockPlainsEvents = new BedRockPlainsEvents();
+        QuestEvents = new QuestEvents();
+        PlayerEvents = new PlayerEvents();
+        BedRockPlainsEvents = new BedRockPlainsEvents();
     }
 }

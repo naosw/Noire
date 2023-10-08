@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class OptionsUI : MonoBehaviour
+public class OptionsUI : UI
 {
     public static OptionsUI Instance { get; private set; }
 
     [SerializeField] private ButtonUI soundEffectsButton;
     [SerializeField] private ButtonUI musicButton;
     [SerializeField] private ButtonUI controlsButton;
-    [SerializeField] private ButtonUI closeButton;
+    [SerializeField] private ButtonUI backButton;
     
     [Header("Audio Manager")] 
     [SerializeField] private AudioManager audioManager;
@@ -15,15 +15,17 @@ public class OptionsUI : MonoBehaviour
     private void Awake()
     {
        Instance = this; 
-       soundEffectsButton.AddListener(() => VolChange("Sfx"));
-       musicButton.AddListener(() => VolChange("Ost"));
-       controlsButton.AddListener(OnControlsButtonClicked);
-       closeButton.AddListener(Hide);
     }
 
     private void Start()
     {
         GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
+        
+        soundEffectsButton.AddListener(() => VolChange("Sfx"));
+        musicButton.AddListener(() => VolChange("Ost"));
+        controlsButton.AddListener(OnControlsButtonClicked);
+        backButton.AddListener(OnBackButtonClicked);
+        
         Hide();
     }
 
@@ -35,6 +37,12 @@ public class OptionsUI : MonoBehaviour
     private void GameInput_OnPauseAction()
     {
         Hide();
+    }
+    
+    private void OnBackButtonClicked()
+    {
+        Hide();
+        PauseMenuManager.Instance.Show();
     }
 
     private void OnControlsButtonClicked()
@@ -89,16 +97,5 @@ public class OptionsUI : MonoBehaviour
             }
         }
     }
-    
-    public void Show()
-    {
-        gameObject.SetActive(true);
-    }
-
-    private void Hide()
-    {
-        gameObject.SetActive(false);
-    }
-
 }
 

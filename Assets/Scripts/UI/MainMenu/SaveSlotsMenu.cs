@@ -5,33 +5,31 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SaveSlotsMenu : Menu
+public class SaveSlotsMenu : UI
 {
-    [Header("Menu Navigation")]
-    [SerializeField] private MainMenu mainMenu;
+    public static SaveSlotsMenu Instance { get; private set; }
 
-    [Header("Menu Buttons")]
     [SerializeField] private Button backButton;
-
     private SaveSlot[] saveSlots;
-
     private bool isLoadingGame = false;
 
-    private void Awake() 
+    private void Awake()
     {
+        Instance = this;
+        
         saveSlots = GetComponentsInChildren<SaveSlot>();
-        backButton.onClick.AddListener(OnBackClicked);
+        backButton.onClick.AddListener(BackToMainMenu);
         
         Hide();
     }
     
-    private void OnBackClicked() 
+    public void BackToMainMenu() 
     {
-        mainMenu.Show();
+        MainMenu.Instance.Show();
         Hide();
     }
 
-    public void Show(bool isLoading) 
+    public void Activate(bool isLoading) 
     {
         gameObject.SetActive(true);
         isLoadingGame = isLoading;
@@ -55,19 +53,11 @@ public class SaveSlotsMenu : Menu
                     firstSelected = saveSlot.gameObject;
             }
         }
-
-        // set the first selected button
-        SetFirstSelected(firstSelected.GetComponent<Button>());
     }
 
     public void Refresh()
     {
-        Show(isLoadingGame);
-    }
-
-    private void Hide() 
-    {
-        gameObject.SetActive(false);
+        Activate(isLoadingGame);
     }
 
     public void DisableMenuButtons() 

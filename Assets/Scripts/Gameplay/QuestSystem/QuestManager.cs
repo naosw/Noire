@@ -16,20 +16,20 @@ public class QuestManager : MonoBehaviour
     
     private void OnEnable()
     {
-        GameEventsManager.Instance.questEvents.OnStartQuest += StartQuest;
-        GameEventsManager.Instance.questEvents.OnAdvanceQuest += AdvanceQuest;
-        GameEventsManager.Instance.questEvents.OnFinishQuest += FinishQuest;
+        GameEventsManager.Instance.QuestEvents.OnStartQuest += StartQuest;
+        GameEventsManager.Instance.QuestEvents.OnAdvanceQuest += AdvanceQuest;
+        GameEventsManager.Instance.QuestEvents.OnFinishQuest += FinishQuest;
 
-        GameEventsManager.Instance.questEvents.OnQuestStepStateChange += QuestStepStateChange;
+        GameEventsManager.Instance.QuestEvents.OnQuestStepStateChange += QuestStepStateChange;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.Instance.questEvents.OnStartQuest -= StartQuest;
-        GameEventsManager.Instance.questEvents.OnAdvanceQuest -= AdvanceQuest;
-        GameEventsManager.Instance.questEvents.OnFinishQuest -= FinishQuest;
+        GameEventsManager.Instance.QuestEvents.OnStartQuest -= StartQuest;
+        GameEventsManager.Instance.QuestEvents.OnAdvanceQuest -= AdvanceQuest;
+        GameEventsManager.Instance.QuestEvents.OnFinishQuest -= FinishQuest;
 
-        GameEventsManager.Instance.questEvents.OnQuestStepStateChange -= QuestStepStateChange;
+        GameEventsManager.Instance.QuestEvents.OnQuestStepStateChange -= QuestStepStateChange;
     }
 
     private void Start()
@@ -42,7 +42,7 @@ public class QuestManager : MonoBehaviour
                 quest.InstantiateCurrentQuestStep(transform);
             }
             // broadcast the initial state of all quests on startup
-            GameEventsManager.Instance.questEvents.QuestStateChange(quest);
+            GameEventsManager.Instance.QuestEvents.QuestStateChange(quest);
         }
     }
 
@@ -50,7 +50,7 @@ public class QuestManager : MonoBehaviour
     {
         Quest quest = GetQuestById(id);
         quest.state = state;
-        GameEventsManager.Instance.questEvents.QuestStateChange(quest);
+        GameEventsManager.Instance.QuestEvents.QuestStateChange(quest);
     }
 
     private bool CheckRequirementsMet(Quest quest)
@@ -117,8 +117,8 @@ public class QuestManager : MonoBehaviour
     // add more rewards as appropriate
     private void ClaimRewards(Quest quest)
     {
-        GameEventsManager.Instance.playerEvents.DreamShardsChange(quest.info.dreamThreadsReward);
-        GameEventsManager.Instance.playerEvents.DreamThreadsChange(quest.info.dreamThreadsReward);
+        GameEventsManager.Instance.PlayerEvents.DreamShardsChange(quest.info.dreamShardsReward);
+        GameEventsManager.Instance.PlayerEvents.DreamThreadsChange(quest.info.dreamThreadsReward);
     }
 
     private void QuestStepStateChange(string id, int stepIndex, QuestStepState questStepState)

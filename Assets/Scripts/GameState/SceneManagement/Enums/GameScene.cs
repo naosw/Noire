@@ -4,5 +4,5 @@
     DeathScene,
     ValleyofSolura,
     LoadingScene,
-    BedRockPlains
+    BedrockPlains
 }

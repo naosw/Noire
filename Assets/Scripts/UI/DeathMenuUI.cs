@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class DeathMenuUI : MonoBehaviour
+public class DeathMenuUI : UI
 {
     [SerializeField] private Button respawnButton;
     [SerializeField] private Button mainMenuButton;

@@ -40,7 +40,6 @@ public class Player : MonoBehaviour, IDataPersistence
     private float currentBufferCooldown = 0f;
     private bool bufferOnCooldown = false;
     private float currentIFrameTimer = 0f;
-    public event UnityAction UpdateHealthBar;
     
     [Header("Player Stats")] 
     [SerializeField] private PlayerStatisticsSO dreamShardsSO;
@@ -77,18 +76,18 @@ public class Player : MonoBehaviour, IDataPersistence
     {
         GameInput.Instance.OnInteract += GameInput_OnInteract;
         GameInput.Instance.OnAbilityCast += GameInput_OnAbilityCast;
-        GameEventsManager.Instance.playerEvents.OnTakeDamage += OnTakingDamage;
-        GameEventsManager.Instance.playerEvents.OnDreamShardsChange += dreamShardsSO.Change;
-        GameEventsManager.Instance.playerEvents.OnDreamThreadsChange += dreamThreadsSO.Change;
+        GameEventsManager.Instance.PlayerEvents.OnTakeDamage += OnTakingDamage;
+        GameEventsManager.Instance.PlayerEvents.OnDreamShardsChange += OnDreamShardsChange;
+        GameEventsManager.Instance.PlayerEvents.OnDreamThreadsChange += OnDreamThreadsChange;
     }
 
     private void OnDestroy()
     {
         GameInput.Instance.OnInteract -= GameInput_OnInteract;
         GameInput.Instance.OnAbilityCast -= GameInput_OnAbilityCast;
-        GameEventsManager.Instance.playerEvents.OnTakeDamage -= OnTakingDamage;
-        GameEventsManager.Instance.playerEvents.OnDreamShardsChange -= dreamShardsSO.Change;
-        GameEventsManager.Instance.playerEvents.OnDreamThreadsChange -= dreamThreadsSO.Change;
+        GameEventsManager.Instance.PlayerEvents.OnTakeDamage -= OnTakingDamage;
+        GameEventsManager.Instance.PlayerEvents.OnDreamShardsChange -= OnDreamShardsChange;
+        GameEventsManager.Instance.PlayerEvents.OnDreamThreadsChange -= OnDreamThreadsChange;
     }
     
     private void Update()
@@ -110,12 +109,12 @@ public class Player : MonoBehaviour, IDataPersistence
         playerInteract.Interact();
     }
     
-    private void GameInput_OnAbilityCast(object sender, GameInput.OnAbilityCastArgs e)
+    private void GameInput_OnAbilityCast(int abilityID)
     {
         if (CanCastAbility())
         {
             
-            if (playerAbilities.TryGetValue(e.abilityID, out AbilitySO ability)){
+            if (playerAbilities.TryGetValue(abilityID, out AbilitySO ability)){
                 bool status = ability.Activate();
                 if (status)
                     state = PlayerState.Casting;
@@ -138,11 +137,24 @@ public class Player : MonoBehaviour, IDataPersistence
         currentBufferCooldown = maxRegenHitCooldown;
         
         playerHealthSO.InflictDamage(bufferDamage);
-        UpdateHealthBar?.Invoke();
+        GameEventsManager.Instance.PlayerEvents.UpdateHealthBar();
         HandleDreamState();
 
         if (playerHealthSO.IsDead())
             HandleDeath();
+    }
+    
+    // handle when currency change occurs
+    private void OnDreamShardsChange(float val)
+    {
+        dreamShardsSO.Change(val);
+        GameEventsManager.Instance.PlayerEvents.DreamShardsChangeFinished();
+    }
+    
+    private void OnDreamThreadsChange(float val)
+    {
+        dreamThreadsSO.Change(val);
+        GameEventsManager.Instance.PlayerEvents.DreamThreadsChangeFinished();
     }
     
     // ***************************** HANDLE FUNCTIONS ***************************** //
@@ -243,7 +255,7 @@ public class Player : MonoBehaviour, IDataPersistence
         
         if (!bufferOnCooldown)
         {
-            UpdateHealthBar?.Invoke();
+            GameEventsManager.Instance.PlayerEvents.UpdateHealthBar();
             playerHealthSO.RegenBuffer(bufferDecreaseRate * Time.deltaTime);
         }
         
