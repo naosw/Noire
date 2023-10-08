@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Events;
 
 public class GameInput : MonoBehaviour
 {
@@ -63,6 +62,7 @@ public class GameInput : MonoBehaviour
     
     private void OnDisable()
     {
+        gameInputActions.Player.Menu.performed -= PlayerMenu_performed;
         gameInputActions.Player.CameraRight.performed -= CameraRight_performed;
         gameInputActions.Player.CameraLeft.performed -= CameraLeft_performed;
         gameInputActions.Player.LightAttack.performed -= Attack1_performed;
@@ -161,6 +161,8 @@ public class GameInput : MonoBehaviour
                 return gameInputActions.Player.Ability2.bindings[0].ToDisplayString();
             case Bindings.Ability3:
                 return gameInputActions.Player.Ability3.bindings[0].ToDisplayString();
+            case Bindings.Menu:
+                return gameInputActions.Player.Menu.bindings[0].ToDisplayString();
         }
     }
 

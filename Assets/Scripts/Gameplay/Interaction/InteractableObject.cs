@@ -6,7 +6,7 @@ public class InteractableObject : MonoBehaviour, IInteractable
 {
     [SerializeField] private string interactText;
     
-    public void Interact()
+    public virtual void Interact()
     {
         Debug.Log("Interacted!");
     }

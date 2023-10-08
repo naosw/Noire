@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class PauseMenuManager : MonoBehaviour {
     [SerializeField] private Button resumeButton;

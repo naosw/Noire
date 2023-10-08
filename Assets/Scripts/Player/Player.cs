@@ -49,6 +49,9 @@ public class Player : MonoBehaviour, IDataPersistence
     [SerializeField] [Range(0,.5f)] private float lucidThreshold;
     [SerializeField] [Range(.5f,1)] private float deepThreshold;
     private DreamState dreamState;
+
+    [Header("Player Items")] 
+    [SerializeField] private InventorySO playerInventory;
     
     // ***************************** EVENT FUNCTIONS ***************************** //
     
@@ -67,6 +70,8 @@ public class Player : MonoBehaviour, IDataPersistence
         
         dreamShardsSO.SetCurrencyCount(0);
         dreamThreadsSO.SetCurrencyCount(0);
+        
+        playerInventory.Init();
         
         // convert ability list to lookup dictionary
         UpdateAbilities();
@@ -158,6 +163,9 @@ public class Player : MonoBehaviour, IDataPersistence
     }
     
     // ***************************** HANDLE FUNCTIONS ***************************** //
+    public bool AddItem(CollectableItemSO item) => playerInventory.Add(item);
+    public bool RemoveItem(CollectableItemSO item) => playerInventory.Remove(item);
+    
     private void UpdateAbilities()
     {
         playerAbilities = new Dictionary<int, AbilitySO>();
@@ -227,7 +235,6 @@ public class Player : MonoBehaviour, IDataPersistence
         foreach (AbilitySO ability in playerAbilities.Values)
             ability.Continue();
     }
-    
     
     // called after attacks
     public void HandleAttackOnHitEffects()

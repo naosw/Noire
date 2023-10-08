@@ -1,32 +1,23 @@
-using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-    [SerializeField] private Image defaultSprite;
-    
-    // private CollectableItemSO item;
-    
-    private Image icon;
-    private TextMeshProUGUI displayText;
-    private TextMeshProUGUI stackCount;
+    [SerializeField] private Sprite defaultSprite;
+    [SerializeField] private Image sprite;
+    [SerializeField] private TextMeshProUGUI stackCount;
 
     private void Awake()
     {
-        icon = defaultSprite;
-        displayText.enabled = false;
-        stackCount.enabled = false;
+        ToggleEnable(false);
     }
 
     public void Display(CollectableItemSO newItem, int count)
     {
         ToggleEnable(true);
         
-        icon.sprite = newItem.Sprite;
-        displayText.text = newItem.Description;
+        sprite.sprite = newItem.Sprite;
         if (count > 1)
             stackCount.text = count.ToString();
         else
@@ -40,8 +31,7 @@ public class InventorySlot : MonoBehaviour
 
     private void ToggleEnable(bool val)
     {
-        icon.enabled = val;
-        displayText.enabled = val;
+        sprite.sprite = defaultSprite;
         stackCount.enabled = val;
     }
 }

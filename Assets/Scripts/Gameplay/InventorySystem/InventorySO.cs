@@ -4,20 +4,20 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Inventory", menuName = "Inventory/Inventory")]
 public class InventorySO : ScriptableObject
 {
-    public Dictionary<CollectableItemSO, int> inventory { get; private set; }
+    public Dictionary<CollectableItemSO, int> Inventory { get; private set; }
     
     public void Init()
     {
-        inventory = new Dictionary<CollectableItemSO, int>();
+        Inventory = new Dictionary<CollectableItemSO, int>();
     }
     
     // returns true upon successful add
     public bool Add(CollectableItemSO item)
     {
-        inventory.TryAdd(item, 0);
-        if (inventory[item] < item.StackLimit)
+        Inventory.TryAdd(item, 0);
+        if (Inventory[item] < item.StackLimit)
         {
-            inventory[item]++;
+            Inventory[item]++;
             return true;
         }
 
@@ -27,11 +27,11 @@ public class InventorySO : ScriptableObject
     // returns true upon successful removal
     public bool Remove(CollectableItemSO item)
     {
-        if (inventory.ContainsKey(item))
+        if (Inventory.ContainsKey(item))
         {
-            inventory[item]--;
-            if (inventory[item] == 0)
-                inventory.Remove(item);
+            Inventory[item]--;
+            if (Inventory[item] == 0)
+                Inventory.Remove(item);
 
             return true;
         }
