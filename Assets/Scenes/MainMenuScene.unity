@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731704, g: 0.1341472, b: 0.121078566, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -968,6 +968,7 @@ GameObject:
   m_Component:
   - component: {fileID: 804561953}
   - component: {fileID: 804561954}
+  - component: {fileID: 804561955}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -1016,6 +1017,37 @@ MonoBehaviour:
   continueGameButton: {fileID: 1347444470}
   loadGameButton: {fileID: 1493258316}
   quitGameButton: {fileID: 1850450134}
+--- !u!114 &804561955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804561952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -11620800
+      Data2: 1276838193
+      Data3: -323014227
+      Data4: 654127248
+    Path: event:/MainMenu/MainMenuBGM
+  Event: 
+  PlayEvent: 1
+  StopEvent: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &882523157
 PrefabInstance:
   m_ObjectHideFlags: 0
