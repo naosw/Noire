@@ -789,7 +789,7 @@ MonoBehaviour:
       Data2: 1220597089
       Data3: 1598374807
       Data4: 783911936
-    Path: event:/Scene/WeatherSound
+    Path: event:/BedRockPlain/WeatherSound
 --- !u!1001 &198410073
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2283,6 +2283,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 162009830}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: aaeef12fe738e4240b7f6d0f0db12bf8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1969270051}
     - targetCorrespondingSourceObject: {fileID: 5170458951842637540, guid: aaeef12fe738e4240b7f6d0f0db12bf8,
         type: 3}
       insertIndex: -1
@@ -9661,6 +9665,57 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1969270050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1969270051}
+  - component: {fileID: 1969270052}
+  m_Layer: 7
+  m_Name: BGMAudio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1969270051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969270050}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 361044302}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1969270052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969270050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4b7ac71480e747d081439d4ed6e77fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmAudioEvent:
+    Guid:
+      Data1: 1107171122
+      Data2: 1083193566
+      Data3: 1578759865
+      Data4: 1765462010
+    Path: event:/BedRockPlain/OstFirst
 --- !u!1 &2003174256 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: aaeef12fe738e4240b7f6d0f0db12bf8,
@@ -9859,6 +9914,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 392818808}
     m_Modifications:
+    - target: {fileID: 2060127526121530731, guid: 5f524716b748fb443aa31a8f70265ca4,
+        type: 3}
+      propertyPath: bgmAudio
+      value: 
+      objectReference: {fileID: 1969270052}
     - target: {fileID: 2060127526121530731, guid: 5f524716b748fb443aa31a8f70265ca4,
         type: 3}
       propertyPath: interactText
@@ -13686,7 +13746,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Sound Effects: 5/5
+  m_text: 'Sound Effects: 4/5
 
 '
   m_isRightToLeft: 0
@@ -18298,7 +18358,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music : 5/5'
+  m_text: 'Music : 4/5'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c494307d361923241a39b98d0b34b949, type: 2}
   m_sharedMaterial: {fileID: -3304485732601147265, guid: c494307d361923241a39b98d0b34b949,
