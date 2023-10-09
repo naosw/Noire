@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{4407d451-182e-4e7d-b698-cb22fe697e60}">
 		<property name="name">
-			<value>Background Music</value>
+			<value>BackgroundMusicCave</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -58,9 +58,6 @@
 		</relationship>
 	</object>
 	<object class="MixerInput" id="{e2fd1ff1-7209-4e28-be7d-9759a780536c}">
-		<relationship name="masters">
-			<destination>{15f72436-5a73-41d3-aadd-1dfcf86e555b}</destination>
-		</relationship>
 		<relationship name="effectChain">
 			<destination>{c27b8da2-93ef-49d3-902b-9aeae04f8d85}</destination>
 		</relationship>

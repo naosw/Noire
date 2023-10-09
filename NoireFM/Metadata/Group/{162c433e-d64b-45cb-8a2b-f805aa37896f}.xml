@@ -4,6 +4,9 @@
 		<property name="name">
 			<value>OST</value>
 		</property>
+		<relationship name="masters">
+			<destination>{15f72436-5a73-41d3-aadd-1dfcf86e555b}</destination>
+		</relationship>
 		<relationship name="effectChain">
 			<destination>{3970f77a-5490-418c-b85f-db9eb59d207b}</destination>
 		</relationship>

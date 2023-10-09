@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731704, g: 0.1341472, b: 0.121078566, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -176,8 +176,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3634103d635c1404bb53bcf9254c8d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSelected: {fileID: 2115409434}
-  mainMenu: {fileID: 804561954}
   backButton: {fileID: 1235556078}
 --- !u!1001 &24817072
 PrefabInstance:
@@ -510,7 +508,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77c577b4ed2415797590e10328e8816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSelected: {fileID: 1719618444}
   displayText: {fileID: 1674703429}
   confirmButton: {fileID: 2057243451}
   cancelButton: {fileID: 1719618444}
@@ -971,6 +968,7 @@ GameObject:
   m_Component:
   - component: {fileID: 804561953}
   - component: {fileID: 804561954}
+  - component: {fileID: 804561955}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -1014,12 +1012,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f1d4893a05d794a8ad74fa9f7bfe89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSelected: {fileID: 1243441594}
   saveSlotsMenu: {fileID: 21072931}
   newGameButton: {fileID: 1243441598}
   continueGameButton: {fileID: 1347444470}
   loadGameButton: {fileID: 1493258316}
   quitGameButton: {fileID: 1850450134}
+--- !u!114 &804561955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804561952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -11620800
+      Data2: 1276838193
+      Data3: -323014227
+      Data4: 654127248
+    Path: event:/MainMenu/MainMenuBGM
+  Event: 
+  PlayEvent: 1
+  StopEvent: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &882523157
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1482,18 +1510,6 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1370992746197932660, guid: 543271f55a37d244f87564827173c1d5,
     type: 3}
   m_PrefabInstance: {fileID: 24817072}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1243441594 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1370992746197932660, guid: 543271f55a37d244f87564827173c1d5,
-    type: 3}
-  m_PrefabInstance: {fileID: 1302262131}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -2527,18 +2543,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 617436980315064343}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2115409434 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6626358127142095423, guid: da24b38cc78792e4aa851eeaa58a60e6,
-    type: 3}
-  m_PrefabInstance: {fileID: 617436980315064343}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2127026755
 PrefabInstance:
   m_ObjectHideFlags: 0

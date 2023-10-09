@@ -81,14 +81,20 @@ public class AudioManager : MonoBehaviour
             FMODUnity.RuntimeManager.StudioSystem.getParameterDescriptionByName(name, out parameterDescription);
         if (result != FMOD.RESULT.OK)
         {
-            Debug.LogError("Setting weather params failed");
+            Debug.LogError("Setting Global params failed");
             return;
         }
 
         result = FMODUnity.RuntimeManager.StudioSystem.setParameterByID(parameterDescription.id, value);
         if (result != FMOD.RESULT.OK)
         {
-            Debug.LogError("Setting weather params failed");
+            Debug.LogError("Setting Global params failed");
         }
     }
+
+    public void PlayBackgroundMusic()
+    {
+        
+    }
+    
 }

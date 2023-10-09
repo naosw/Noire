@@ -62,15 +62,11 @@
 	</object>
 	<object class="EventAutomatableProperties" id="{85bf3bec-205e-4a12-a717-7a9d084ff227}">
 		<property name="triggerCooldown">
-			<value>40</value>
+			<value>160</value>
 		</property>
 	</object>
 	<object class="MarkerTrack" id="{f668722a-97f1-4aaa-883c-820f6acaed7e}" />
-	<object class="Timeline" id="{1ba20618-0b76-43a8-926d-6f6ac6e69291}">
-		<property name="isProxyEnabled">
-			<value>false</value>
-		</property>
-	</object>
+	<object class="Timeline" id="{1ba20618-0b76-43a8-926d-6f6ac6e69291}" />
 	<object class="ActionSheet" id="{c397e2ff-7f02-4fcf-9193-ddef340b88f2}">
 		<relationship name="modules">
 			<destination>{bce64253-8d46-43b2-81ab-a5bf4c751111}</destination>
@@ -136,6 +132,9 @@
 	</object>
 	<object class="MixerBusFader" id="{571fb44e-0594-4f8e-9980-60e96c0505f1}" />
 	<object class="SingleSound" id="{c2a2e01e-eceb-477d-b48b-d7ee1bd2b342}">
+		<property name="startOffset">
+			<value>4.5</value>
+		</property>
 		<property name="voiceStealing">
 			<value>3</value>
 		</property>
@@ -147,6 +146,9 @@
 		</relationship>
 	</object>
 	<object class="SingleSound" id="{a6b9df65-6907-4340-87b4-538fe64c1442}">
+		<property name="startOffset">
+			<value>6</value>
+		</property>
 		<property name="voiceStealing">
 			<value>3</value>
 		</property>
