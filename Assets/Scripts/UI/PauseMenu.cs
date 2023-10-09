@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PauseMenuManager : MonoBehaviour {
+public class PauseMenu : MonoBehaviour {
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button mainMenuButton;
     [SerializeField] private Button optionsButton;
      
-    public static PauseMenuManager Instance { get; private set; }
+    public static PauseMenu Instance { get; private set; }
 
     private bool isGamePaused = false;
     public bool IsGamePaused => isGamePaused;
@@ -70,6 +70,7 @@ public class PauseMenuManager : MonoBehaviour {
             // Time.timeScale = 1f;
             Hide();
         }
+        GameEventsManager.Instance.GameStateEvents.PauseToggle(isGamePaused);
     }
 
     public void Show()

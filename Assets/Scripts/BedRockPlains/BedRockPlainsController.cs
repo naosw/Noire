@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BedRockPlainsController : MonoBehaviour
 {
@@ -9,8 +10,8 @@ public class BedRockPlainsController : MonoBehaviour
     [SerializeField] private float finalIntensity;
     [SerializeField] private AnimationCurve intensityCurve;
     [SerializeField] private float animationTime = 3;
-    [SerializeField] private Fireflies fireflies;
-    private bool lightsOpened = false;
+    [SerializeField] private ParticleSystemBase fireFlies;
+    [SerializeField] private ParticleSystemBase dustParticles;  
     
     private void Awake()
     {
@@ -29,10 +30,6 @@ public class BedRockPlainsController : MonoBehaviour
 
     private void OpenLights()
     {
-        if (lightsOpened)
-            return;
-        
-        lightsOpened = true;
         StartCoroutine(PlayOpeningLightsAnimation());
     }
 
@@ -51,6 +48,7 @@ public class BedRockPlainsController : MonoBehaviour
             time += Time.deltaTime / animationTime;
         }
         
-        fireflies.Play();
+        dustParticles.Play();
+        fireFlies.Play();
     }
 }

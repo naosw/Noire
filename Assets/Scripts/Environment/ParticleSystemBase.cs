@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Fireflies : MonoBehaviour
+public class ParticleSystemBase : MonoBehaviour
 {
-    private ParticleSystem fireflies;
+    private ParticleSystem particles;
     private bool isPlaying;
 
     private void Awake()
@@ -12,15 +12,15 @@ public class Fireflies : MonoBehaviour
 
     private void Start()
     {
-        fireflies = GetComponent<ParticleSystem>();
-        fireflies.Stop();
+        particles = GetComponent<ParticleSystem>();
+        particles.Stop();
     }
 
     public void Play()
     {
         if (!isPlaying)
         {
-            fireflies.Play();
+            particles.Play();
             isPlaying = true;
         }
     }
@@ -29,7 +29,7 @@ public class Fireflies : MonoBehaviour
     {
         if (isPlaying)
         {
-            fireflies.Stop();
+            particles.Stop();
             isPlaying = false;
         }
     }

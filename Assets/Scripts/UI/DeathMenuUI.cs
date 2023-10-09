@@ -9,6 +9,7 @@ public class DeathMenuUI : UI
 
     private void Awake()
     {
+        // TODO: respawn at last checkpoint
         // respawnButton.onClick.AddListener(() =>
         // {
         //     Loader.Load(DataPersistenceManager.Instance.CurrentScene);
@@ -18,8 +19,6 @@ public class DeathMenuUI : UI
         {
             Loader.Load(GameScene.MainMenuScene);
         });
-
-        Time.timeScale = 1f;
     }
 
 }

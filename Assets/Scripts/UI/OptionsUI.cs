@@ -42,7 +42,7 @@ public class OptionsUI : UI
     private void OnBackButtonClicked()
     {
         Hide();
-        PauseMenuManager.Instance.Show();
+        PauseMenu.Instance.Show();
     }
 
     private void OnControlsButtonClicked()

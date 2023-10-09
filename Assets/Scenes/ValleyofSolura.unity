@@ -419,9 +419,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealthSO: {fileID: 11400000, guid: 33dac87c2e381db4798eb0f06d68916c, type: 2}
+  dreamShardsSO: {fileID: 0}
+  dreamThreadsSO: {fileID: 0}
+  dreamShardsCount: {fileID: 0}
+  dreamThreadsCount: {fileID: 0}
   drowsiness: {fileID: 8076559101675123695}
   buffer: {fileID: 1520654261}
-  playerHealth: {fileID: 2003174259}
 --- !u!1 &132075896
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,7 +754,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   containerGameObject: {fileID: 17570484}
   playerInteract: {fileID: 2003174266}
-  interactTextMeshProUGUI: {fileID: 17570486}
+  interactText: {fileID: 0}
+  cannotInteractTextColor: {r: 0, g: 0, b: 0, a: 0}
+  canInteractTextColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &231874527 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4118187688203045083, guid: c34c049c0620c514084fb426aa5d5d63,
@@ -1024,6 +1029,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactText: Save Game [f]
+  cannotInteractText: 
+  maxInteractions: 0
 --- !u!1 &313825785
 GameObject:
   m_ObjectHideFlags: 0
@@ -4580,6 +4587,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactText: interacted 1111
+  cannotInteractText: 
+  maxInteractions: 0
 --- !u!1 &1137138362
 GameObject:
   m_ObjectHideFlags: 0
@@ -6465,6 +6474,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactText: interact 22222
+  cannotInteractText: 
+  maxInteractions: 0
 --- !u!1001 &1817956923
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7319,6 +7330,7 @@ MonoBehaviour:
   dreamThreadsSO: {fileID: 11400000, guid: 2faab5e8af90e314cad56f42cedb8ea7, type: 2}
   lucidThreshold: 0.131
   deepThreshold: 0.849
+  playerInventory: {fileID: 0}
 --- !u!136 &2003174262
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7410,7 +7422,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2110742149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12099,26 +12111,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b5e0caa3e77134c98e129efad6b5c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEffectsButton: {fileID: 4162158820185128661}
-  musicButton: {fileID: 7094812141278367714}
-  closeButton: {fileID: 8700461424044110387}
-  moveUpButton: {fileID: 3957090762541432554}
-  moveDownButton: {fileID: 6930576415567479264}
-  moveLeftButton: {fileID: 2820641363961394617}
-  moveRightButton: {fileID: 6361965465852279250}
-  attackButton: {fileID: 7102055925374676399}
-  cameraLeftButton: {fileID: 5869780341008800252}
-  cameraRightButton: {fileID: 5746150904188931961}
-  soundEffectText: {fileID: 2075419790172846707}
-  musicText: {fileID: 536400329961853855}
-  moveUpText: {fileID: 8554435679080745364}
-  moveDownText: {fileID: 4266137570666005514}
-  moveLeftText: {fileID: 3427485215026950089}
-  moveRightText: {fileID: 7236310495412186155}
-  attackText: {fileID: 9110080074978459713}
-  cameraLeftText: {fileID: 1880606356968196325}
-  cameraRightText: {fileID: 8137778660907183770}
-  pressToRebindKeyTransform: {fileID: 4416840693152221760}
+  soundEffectsButton: {fileID: 0}
+  musicButton: {fileID: 0}
+  controlsButton: {fileID: 0}
+  backButton: {fileID: 0}
   audioManager: {fileID: 781260851}
 --- !u!1 &7738974618858858442
 GameObject:

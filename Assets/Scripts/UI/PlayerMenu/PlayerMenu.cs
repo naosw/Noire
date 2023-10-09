@@ -22,7 +22,6 @@ public class PlayerMenu : UI
     private void Start()
     {
         GameInput.Instance.OnPlayerMenuToggle += GameInput_OnPlayerMenuToggle;
-        GameInput.Instance.OnPauseAction += Hide;
 
         inventoryDisplay = GetComponentsInChildren<InventorySlot>();
         
@@ -32,21 +31,20 @@ public class PlayerMenu : UI
     private void OnDestroy()
     {
         GameInput.Instance.OnPlayerMenuToggle -= GameInput_OnPlayerMenuToggle;
-        GameInput.Instance.OnPauseAction -= Hide;
     }
 
     private void GameInput_OnPlayerMenuToggle()
     {
+        isToggledOn = !isToggledOn;
         if (isToggledOn)
-        {
-            Hide();
-        }
-        else
         {
             Show();
         }
-
-        isToggledOn = !isToggledOn;
+        else
+        {
+            Hide();
+        }
+        GameEventsManager.Instance.GameStateEvents.PauseToggle(isToggledOn);
     }
 
     private new void Show()
