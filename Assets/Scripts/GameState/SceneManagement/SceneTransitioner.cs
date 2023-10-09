@@ -59,6 +59,8 @@ public class SceneTransitioner : MonoBehaviour
     private IEnumerator Exit()
     {
         // start fade out
+        GameEventsManager.Instance.GameStateEvents.LoadToggle(false);
+        
         isLoading = true;
         yield return StartCoroutine(fadeTransition.Exit(transitionCanvas));
         loadLevelOperation.allowSceneActivation = true;
@@ -73,6 +75,8 @@ public class SceneTransitioner : MonoBehaviour
         transitionCanvas.enabled = false;
         loadLevelOperation = null;
         isLoading = false;
+        
+        GameEventsManager.Instance.GameStateEvents.LoadToggle(true);
     }
 
     private void HandleSceneChange(Scene oldScene, Scene newScene)

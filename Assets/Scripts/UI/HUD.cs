@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HUDManager : MonoBehaviour
+public class HUD : MonoBehaviour
 {
     [SerializeField] private PlayerHealthSO playerHealthSO;
     [SerializeField] private PlayerStatisticsSO dreamShardsSO;

@@ -7,7 +7,7 @@ public class Lamp : InteractableObject
         if (CanInteract())
         {
             interactionsOccured++;
-            if (!PauseMenuManager.Instance.IsGamePaused)
+            if (!PauseMenu.Instance.IsGamePaused)
                 GameEventsManager.Instance.BedrockPlainsEvents.LampInteract();
         }
     }

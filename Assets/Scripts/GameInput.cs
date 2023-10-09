@@ -35,17 +35,28 @@ public class GameInput : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
         Instance = this;
+        DontDestroyOnLoad(gameObject);
+        
         gameInputActions = new GameInputActions();
     }
     
     // subscribe listeners
     private void Start()
     {
+        // enable all maps
         gameInputActions.Player.Enable();
+        gameInputActions.Menu.Enable();
 
+        // handle subscriptions
         gameInputActions.Player.Menu.performed += PlayerMenu_performed;
-        gameInputActions.Player.Pause.performed += Pause_performed;
+        gameInputActions.Menu.Pause.performed += Pause_performed;
         
         gameInputActions.Player.CameraRight.performed += CameraRight_performed;
         gameInputActions.Player.CameraLeft.performed += CameraLeft_performed;
@@ -58,6 +69,10 @@ public class GameInput : MonoBehaviour
         gameInputActions.Player.Ability1.performed += Ability1_performed;
         gameInputActions.Player.Ability2.performed += Ability2_performed;
         gameInputActions.Player.Ability3.performed += Ability3_performed;
+        
+        // game states
+        GameEventsManager.Instance.GameStateEvents.OnPauseToggle += TogglePause;
+        GameEventsManager.Instance.GameStateEvents.OnLoadToggle += ToggleLoad;
     }
     
     private void OnDisable()
@@ -66,14 +81,45 @@ public class GameInput : MonoBehaviour
         gameInputActions.Player.CameraRight.performed -= CameraRight_performed;
         gameInputActions.Player.CameraLeft.performed -= CameraLeft_performed;
         gameInputActions.Player.LightAttack.performed -= Attack1_performed;
-        gameInputActions.Player.Pause.performed -= Pause_performed;
+        gameInputActions.Menu.Pause.performed -= Pause_performed;
         gameInputActions.Player.Interact.performed -= Interact_performed;
         gameInputActions.Player.Dash.performed -= Dash_performed;
         gameInputActions.Player.Ability1.performed -= Ability1_performed;
         gameInputActions.Player.Ability2.performed -= Ability2_performed;
         gameInputActions.Player.Ability3.performed -= Ability3_performed;
         
+        // game states
+        GameEventsManager.Instance.GameStateEvents.OnPauseToggle -= TogglePause;
+        GameEventsManager.Instance.GameStateEvents.OnLoadToggle -= ToggleLoad;
+        
+        // dispose all maps
         gameInputActions.Dispose();
+    }
+
+    private void TogglePause(bool paused)
+    {
+        if (paused)
+        {
+            gameInputActions.Player.Disable();
+        }
+        else
+        {
+            gameInputActions.Player.Enable();
+        }
+    }
+
+    private void ToggleLoad(bool finished)
+    {
+        if (finished)
+        {
+            gameInputActions.Player.Enable();
+            gameInputActions.Menu.Enable();
+        }
+        else
+        {
+            gameInputActions.Player.Disable();
+            gameInputActions.Menu.Disable();
+        }
     }
 
     // invoke events

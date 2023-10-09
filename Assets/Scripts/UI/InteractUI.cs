@@ -13,7 +13,7 @@ public class InteractUI : MonoBehaviour
     
     private void Update()
     {
-        if (!PauseMenuManager.Instance.IsGamePaused && 
+        if (!PauseMenu.Instance.IsGamePaused && 
             (interactable = playerInteract.GetInteractableObject()) != null)
         {
             Show();

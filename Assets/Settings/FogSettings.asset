@@ -31,7 +31,7 @@ MonoBehaviour:
     ctime5: 0
     ctime6: 0
     ctime7: 0
-    atime0: 48573
+    atime0: 47031
     atime1: 53585
     atime2: 0
     atime3: 0
@@ -43,9 +43,9 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  near: 6.2
-  far: 132.9
-  distanceFogIntensity: 0.107
+  near: 5.87
+  far: 124.4
+  distanceFogIntensity: 0.129
   useHeight: 0
   heightGradient:
     serializedVersion: 2
@@ -79,7 +79,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   low: 0
   high: 20.2
-  heightFogIntensity: 0.072
+  heightFogIntensity: 0.151
   cameraRelativePosition: 0
   distanceHeightBlend: 0
   renderEvent: 600

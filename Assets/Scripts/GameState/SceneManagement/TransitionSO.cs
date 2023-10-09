@@ -28,8 +28,6 @@ public class TransitionSO : ScriptableObject
         }
         
         Destroy(img.gameObject);
-        
-        Debug.Log("Finished");
     }
 
     public IEnumerator Exit(Canvas Parent)
