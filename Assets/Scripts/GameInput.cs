@@ -53,9 +53,10 @@ public class GameInput : MonoBehaviour
         // enable all maps
         gameInputActions.Player.Enable();
         gameInputActions.Menu.Enable();
+        gameInputActions.UI.Enable();
 
         // handle subscriptions
-        gameInputActions.Player.Menu.performed += PlayerMenu_performed;
+        gameInputActions.UI.Menu.performed += PlayerMenu_performed;
         gameInputActions.Menu.Pause.performed += Pause_performed;
         
         gameInputActions.Player.CameraRight.performed += CameraRight_performed;
@@ -73,15 +74,18 @@ public class GameInput : MonoBehaviour
         // game states
         GameEventsManager.Instance.GameStateEvents.OnPauseToggle += TogglePause;
         GameEventsManager.Instance.GameStateEvents.OnLoadToggle += ToggleLoad;
+        GameEventsManager.Instance.GameStateEvents.OnUIToggle += ToggleUI;
     }
     
     private void OnDisable()
     {
-        gameInputActions.Player.Menu.performed -= PlayerMenu_performed;
+        gameInputActions.UI.Menu.performed -= PlayerMenu_performed;
+        gameInputActions.Menu.Pause.performed -= Pause_performed;
+        
         gameInputActions.Player.CameraRight.performed -= CameraRight_performed;
         gameInputActions.Player.CameraLeft.performed -= CameraLeft_performed;
+        
         gameInputActions.Player.LightAttack.performed -= Attack1_performed;
-        gameInputActions.Menu.Pause.performed -= Pause_performed;
         gameInputActions.Player.Interact.performed -= Interact_performed;
         gameInputActions.Player.Dash.performed -= Dash_performed;
         gameInputActions.Player.Ability1.performed -= Ability1_performed;
@@ -91,19 +95,24 @@ public class GameInput : MonoBehaviour
         // game states
         GameEventsManager.Instance.GameStateEvents.OnPauseToggle -= TogglePause;
         GameEventsManager.Instance.GameStateEvents.OnLoadToggle -= ToggleLoad;
+        GameEventsManager.Instance.GameStateEvents.OnUIToggle -= ToggleUI;
         
         // dispose all maps
         gameInputActions.Dispose();
     }
-
+    
+    /********************** TOGGLE GAME STATE FUNCTIONS **********************/
+    
     private void TogglePause(bool paused)
     {
         if (paused)
         {
+            gameInputActions.UI.Disable();
             gameInputActions.Player.Disable();
         }
         else
         {
+            gameInputActions.UI.Disable();
             gameInputActions.Player.Enable();
         }
     }
@@ -114,11 +123,27 @@ public class GameInput : MonoBehaviour
         {
             gameInputActions.Player.Enable();
             gameInputActions.Menu.Enable();
+            gameInputActions.UI.Enable();
         }
         else
         {
             gameInputActions.Player.Disable();
             gameInputActions.Menu.Disable();
+            gameInputActions.UI.Disable();
+        }
+    }
+    
+    private void ToggleUI(bool isToggled)
+    {
+        if (isToggled)
+        {
+            gameInputActions.Player.Disable();
+            gameInputActions.Menu.Disable();
+        }
+        else
+        {
+            gameInputActions.Player.Enable();
+            gameInputActions.Menu.Enable();
         }
     }
 
@@ -208,7 +233,7 @@ public class GameInput : MonoBehaviour
             case Bindings.Ability3:
                 return gameInputActions.Player.Ability3.bindings[0].ToDisplayString();
             case Bindings.Menu:
-                return gameInputActions.Player.Menu.bindings[0].ToDisplayString();
+                return gameInputActions.UI.Menu.bindings[0].ToDisplayString();
         }
     }
 

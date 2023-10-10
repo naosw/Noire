@@ -171,7 +171,7 @@ MonoBehaviour:
   Path: NoireFM/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638324176761359192
+  lastModified: 638324894547670026
   FileSizes:
   - Name: Desktop
     Value: 3609344
@@ -191,7 +191,7 @@ MonoBehaviour:
   Path: NoireFM/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638324190825630704
+  lastModified: 638324894546964102
   FileSizes:
   - Name: Desktop
     Value: 2128
@@ -307,7 +307,7 @@ MonoBehaviour:
   - {fileID: -946810674260398546}
   StringsBanks:
   - {fileID: 5086426965566551007}
-  cacheTime: 638324211131086934
+  cacheTime: 638324894547670026
   cacheVersion: 131607
 --- !u!114 &3063085996791032867
 MonoBehaviour:
@@ -324,7 +324,7 @@ MonoBehaviour:
   Path: NoireFM/Build/Desktop/OST.bank
   Name: OST
   StudioPath: bank:/OST
-  lastModified: 638324211131086934
+  lastModified: 638324894547449709
   FileSizes:
   - Name: Desktop
     Value: 7170592
@@ -401,7 +401,7 @@ MonoBehaviour:
   Path: NoireFM/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638324190825638099
+  lastModified: 638324894546964102
   FileSizes:
   - Name: Desktop
     Value: 1536

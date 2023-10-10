@@ -44,7 +44,7 @@ public class PlayerMenu : UI
         {
             Hide();
         }
-        GameEventsManager.Instance.GameStateEvents.PauseToggle(isToggledOn);
+        GameEventsManager.Instance.GameStateEvents.UIToggle(isToggledOn);
     }
 
     private new void Show()

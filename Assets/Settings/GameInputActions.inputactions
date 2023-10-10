@@ -103,15 +103,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Menu",
-                    "type": "Button",
-                    "id": "a12e010d-7389-4900-83d5-285d74a91953",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -271,17 +262,6 @@
                 },
                 {
                     "name": "",
-                    "id": "c5803022-8241-4674-a8bb-28e08f65f667",
-                    "path": "<Keyboard>/m",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Menu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "d2d78098-597a-48e5-9841-5cd1aa2a9ab0",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
@@ -316,6 +296,34 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "d27004c1-4010-48f5-848e-b1ebfb15f4d8",
+            "actions": [
+                {
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "8528f881-7164-4862-bcda-44d110006644",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f580b55b-2d17-4d7c-89f5-c460dd745d3f",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

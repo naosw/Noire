@@ -3,6 +3,8 @@ using UnityEngine;
 /// <summary>
 /// A base class for interactable objects
 /// </summary>
+
+[RequireComponent(typeof(Collider))]
 public class InteractableObject : MonoBehaviour, IInteractable
 {
     [SerializeField] protected string interactText;

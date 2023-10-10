@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class ButtonUI : MonoBehaviour
+public class ButtonUI : UI
 {
     [SerializeField] private Color textColorTransparent;
     [SerializeField] private Color textColorOpaque;
@@ -19,10 +19,11 @@ public class ButtonUI : MonoBehaviour
         button = GetComponent<Button>();
     }
 
-    public void Disable()
+    public void Disable(bool setTransparent = true)
     {
         button.interactable = false;
-        buttonText.color = textColorTransparent;
+        if(setTransparent)
+            buttonText.color = textColorTransparent;
     }
 
     public void Enable()
@@ -34,5 +35,10 @@ public class ButtonUI : MonoBehaviour
     public void AddListener(UnityAction call)
     {
         button.onClick.AddListener(call);
+    }
+
+    public void SetText(string text)
+    {
+        buttonText.text = text;
     }
 }

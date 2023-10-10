@@ -62,12 +62,10 @@ public class PauseMenu : MonoBehaviour {
         isGamePaused = !isGamePaused;
         if (isGamePaused)
         {
-            // Time.timeScale = 0f;
             Show();
         }
         else
         {
-            // Time.timeScale = 1f;
             Hide();
         }
         GameEventsManager.Instance.GameStateEvents.PauseToggle(isGamePaused);
