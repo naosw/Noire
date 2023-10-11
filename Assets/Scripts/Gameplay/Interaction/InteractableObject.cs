@@ -5,12 +5,13 @@ using UnityEngine;
 /// </summary>
 
 [RequireComponent(typeof(Collider))]
-public class InteractableObject : MonoBehaviour, IInteractable
+public class InteractableObject : MonoBehaviour, IInteractable, IDataPersistence
 {
     [SerializeField] protected string interactText;
-    [SerializeField] protected string cannotInteractText;
     [SerializeField] protected int maxInteractions;
     protected int interactionsOccured = 0;
+
+    #region IInteractable
 
     public virtual void Interact()
     {
@@ -25,4 +26,21 @@ public class InteractableObject : MonoBehaviour, IInteractable
     public string GetInteractText() => interactText;
     
     public Transform GetTransform() => transform;
+
+    #endregion
+
+    #region IDataPersistence
+
+    public void LoadData(GameData gameData)
+    {
+        if (gameData.InteractableProgress.TryGetValue(GetInstanceID(), out int value))
+            interactionsOccured = value;
+    }
+    
+    public void SaveData(GameData gameData)
+    {
+        gameData.InteractableProgress[GetInstanceID()] = interactionsOccured;
+    }
+
+    #endregion
 }

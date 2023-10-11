@@ -1,3 +1,5 @@
+#define DEBUG
+
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -61,6 +63,7 @@ public class GameStateFileIO
             return;
 
         string fullPath = Path.Combine(dataDirPath, profileId, dataFileName);
+        string fullPathJson = Path.Combine(dataDirPath, profileId, dataFileName) + ".json";
         string backupPath = fullPath + backupExtension;
         
         try 
@@ -69,7 +72,20 @@ public class GameStateFileIO
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
             
             // use MessagePack to binary format the GameData object
-            byte[] dataToStore = MessagePackSerializer.Serialize(data, DataPersistenceManager.Instance.serializationOptions);
+            byte[] dataToStore = MessagePackSerializer.Serialize(data);
+            
+#if DEBUG
+    string jsonDataToStore = JsonUtility.ToJson(data, true);
+    
+    // write the serialized data to the file
+    using (FileStream stream = new FileStream(fullPathJson, FileMode.Create))
+    {
+        using (StreamWriter writer = new StreamWriter(stream)) 
+        {
+            writer.Write(jsonDataToStore);
+        }
+    }
+#endif
             
             File.WriteAllBytes(fullPath, dataToStore);
 
@@ -160,7 +176,7 @@ public class GameStateFileIO
 
         // MapReduce to find most recent save data id
         return profilesGameData
-            .Select(entry => (entry.Key, DateTime.FromBinary(entry.Value.lastUpdated)))
+            .Select(entry => (entry.Key, DateTime.FromBinary(entry.Value.LastUpdated)))
             .Aggregate((a, b) => a.Item2 > b.Item2 ? a : b)
             .Key;
     }

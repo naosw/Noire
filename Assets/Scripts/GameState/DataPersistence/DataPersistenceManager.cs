@@ -22,10 +22,9 @@ public class DataPersistenceManager : MonoBehaviour
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private GameStateFileIO fileHandler;
-    public MessagePackSerializerOptions serializationOptions;
 
     private string selectedProfileId = "";
-
+    
     public static DataPersistenceManager Instance { get; private set; }
 
     private void Awake() 
@@ -104,7 +103,7 @@ public class DataPersistenceManager : MonoBehaviour
             dataPersistenceObj.SaveData(gameData);
 
         // timestamp the data
-        gameData.lastUpdated = System.DateTime.Now.ToBinary();
+        gameData.LastUpdated = System.DateTime.Now.ToBinary();
 
         fileHandler.Save(gameData, selectedProfileId);
     }
@@ -116,7 +115,7 @@ public class DataPersistenceManager : MonoBehaviour
         LoadGame();
     }
 
-    public string CurrentScene => gameData.currentScene;
+    public string CurrentScene => gameData.CurrentScene;
     
     private void InitializeSelectedProfileId() 
     {

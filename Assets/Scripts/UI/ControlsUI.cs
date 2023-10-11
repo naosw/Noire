@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class ControlsUI : UI
 {
@@ -29,8 +30,6 @@ public class ControlsUI : UI
 
     private void Start()
     {
-        GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
-        
         moveUpButton.AddListener(() => {RebindBinding(GameInput.Bindings.MoveUp); });   
         moveDownButton.AddListener(() => {RebindBinding(GameInput.Bindings.MoveDown); });   
         moveLeftButton.AddListener(() => {RebindBinding(GameInput.Bindings.MoveLeft); });   
@@ -52,6 +51,16 @@ public class ControlsUI : UI
         HidePressToRebindKey();
         
         gameObject.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
+    }
+
+    private void OnDisable()
+    {
+        GameInput.Instance.OnPauseAction -= GameInput_OnPauseAction;
     }
 
     private void GameInput_OnPauseAction()

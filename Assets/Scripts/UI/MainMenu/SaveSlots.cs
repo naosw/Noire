@@ -97,7 +97,7 @@ public class SaveSlot : UI
             
             clearButton.Enable();
             saveSlotButton.Enable();
-            saveSlotButton.SetText(data.profileName + ":" + data.percentageComplete + "% COMPLETE");
+            saveSlotButton.SetText(data.ProfileName + ":" + data.PercentageComplete + "% COMPLETE");
         }
     }
 

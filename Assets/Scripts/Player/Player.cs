@@ -53,7 +53,7 @@ public class Player : MonoBehaviour, IDataPersistence
     [Header("Player Items")] 
     [SerializeField] private InventorySO playerInventory;
     
-    // ***************************** EVENT FUNCTIONS ***************************** //
+    #region EVENT FUNCTIONS
     
     private void Awake()
     {
@@ -106,9 +106,9 @@ public class Player : MonoBehaviour, IDataPersistence
         if(CanCastAbility())
             HandleMovement();
     }
+    #endregion
 
-    // ***************************** TRIGGER FUNCTIONS ***************************** //
-    
+    #region TRIGGER FUNCTIONS
     private void GameInput_OnInteract()
     {
         playerInteract.Interact();
@@ -161,8 +161,9 @@ public class Player : MonoBehaviour, IDataPersistence
         dreamThreadsSO.Change(val);
         GameEventsManager.Instance.PlayerEvents.DreamThreadsChangeFinished();
     }
+    #endregion
     
-    // ***************************** HANDLE FUNCTIONS ***************************** //
+    #region HANDLE FUNCTIONS
     public bool AddItem(CollectableItemSO item) => playerInventory.Add(item);
     public bool RemoveItem(CollectableItemSO item) => playerInventory.Remove(item);
     
@@ -312,8 +313,9 @@ public class Player : MonoBehaviour, IDataPersistence
         }
         return 0;
     }
+    #endregion
     
-    // ***************************** IDataPersistence methods ***************************** //
+    #region IDataPersistence
     
     /** IMPORTANT DEBUGGING INFORMATION:
      * if you get an error saying loading error or something in main scene,
@@ -323,10 +325,10 @@ public class Player : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         // data.currentScene should have already been loaded.   
-        playerHealthSO.SetCurrentDrowsiness(data.drowsiness);
-        dreamShardsSO.SetCurrencyCount(data.dreamShards);
-        dreamThreadsSO.SetCurrencyCount(data.dreamThreads);
-        transform.position = data.position;
+        playerHealthSO.SetCurrentDrowsiness(data.Drowsiness);
+        dreamShardsSO.SetCurrencyCount(data.DreamShards);
+        dreamThreadsSO.SetCurrencyCount(data.DreamThreads);
+        transform.position = data.Position;
     }
 
 
@@ -334,16 +336,16 @@ public class Player : MonoBehaviour, IDataPersistence
     {
         // IMPORTANT: here we need to save the current scene, 
         // which was the last `targetScene` the loader had loaded
-        data.currentScene = SceneManager.GetActiveScene().name;
+        data.CurrentScene = SceneManager.GetActiveScene().name;
         
-        data.drowsiness = playerHealthSO.GetCurrentDrowsiness;
-        data.dreamShards = dreamShardsSO.GetCurrencyCount();
-        data.dreamThreads = dreamThreadsSO.GetCurrencyCount();
-        data.position = transform.position;
+        data.Drowsiness = playerHealthSO.GetCurrentDrowsiness;
+        data.DreamShards = dreamShardsSO.GetCurrencyCount();
+        data.DreamThreads = dreamThreadsSO.GetCurrencyCount();
+        data.Position = transform.position;
     }
+    #endregion
     
-    // ***************************** GETTERS/SETTERS ***************************** //
-    
+    #region GETTERS AND SETTERS
     public bool IsWalking() => state == PlayerState.Walk;
     public bool IsIdle() => state == PlayerState.Idle;
     public bool IsCasting() => state == PlayerState.Casting;
@@ -351,4 +353,5 @@ public class Player : MonoBehaviour, IDataPersistence
     public bool CanCastAbility() => IsIdle() || IsWalking();
     public float GetPlayerHitBoxHeight() => playerHitBoxHeight;
     public Weapon GetWeapon() => weapon;
+    #endregion
 }

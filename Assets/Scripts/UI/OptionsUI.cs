@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class OptionsUI : UI
@@ -21,8 +22,6 @@ public class OptionsUI : UI
 
     private void Start()
     {
-        GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
-        
         soundEffectsButton.AddListener(() => VolChange("Sfx"));
         musicButton.AddListener(() => VolChange("Ost"));
         controlsButton.AddListener(OnControlsButtonClicked);
@@ -31,7 +30,12 @@ public class OptionsUI : UI
         gameObject.SetActive(false);
     }
 
-    private void OnDestroy()
+    private void OnEnable()
+    {
+        GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
+    }
+
+    private void OnDisable()
     {
         GameInput.Instance.OnPauseAction -= GameInput_OnPauseAction;
     }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using MessagePack;
 using UnityEngine;
 
@@ -5,32 +6,37 @@ using UnityEngine;
 public class GameData
 {
     // profile fields
-    [Key(0)] public string profileName;
-    [Key(1)] public long lastUpdated;
-    [Key(2)] public float percentageComplete;
+    [Key(0)] public string ProfileName;
+    [Key(1)] public long LastUpdated;
+    [Key(2)] public float PercentageComplete;
     
     // player fields
-    [Key(3)] public float drowsiness;
-    [Key(4)] public float attackDamage;
-    [Key(5)] public float dreamShards;
-    [Key(6)] public float dreamThreads;
-    [Key(7)] public Vector3 position;
+    [Key(3)] public float Drowsiness;
+    [Key(4)] public float AttackDamage;
+    [Key(5)] public float DreamShards;
+    [Key(6)] public float DreamThreads;
+    [Key(7)] public Vector3 Position;
     
     // game states
-    [Key(8)] public string currentScene;
+    [Key(8)] public string CurrentScene;
+
+    [Key(9)] public Dictionary<int, int> InteractableProgress;
     
     [SerializationConstructor]
     public GameData(string profileId)
     {
-        drowsiness = 50;
-        attackDamage = 5;
-        dreamShards = 0;
-        dreamThreads = 0;
-        position = new Vector3(90, 6.7f, 83);
+        Drowsiness = 50;
+        AttackDamage = 5;
+        DreamShards = 0;
+        DreamThreads = 0;
+        Position = new Vector3(90, 6.7f, 83);
 
-        profileName = profileId;
-        percentageComplete = 0;
+        ProfileName = profileId;
+        PercentageComplete = 0;
 
-        currentScene = Loader.FirstScene.ToString();
+        CurrentScene = Loader.FirstScene.ToString();
+        
+        // maps number of times each instance of interactable object has been interacted
+        InteractableProgress = new();
     }
 }

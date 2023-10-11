@@ -78,7 +78,8 @@ public class PauseMenu : UI
         }
         else
         {
-            Hide();
+            if(gameObject.activeSelf)
+                Hide();
         }
         GameEventsManager.Instance.GameStateEvents.PauseToggle(isGamePaused);
     }
