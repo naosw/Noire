@@ -28,7 +28,7 @@ public class OptionsUI : UI
         controlsButton.AddListener(OnControlsButtonClicked);
         backButton.AddListener(OnBackButtonClicked);
         
-        Hide();
+        gameObject.SetActive(false);
     }
 
     private void OnDestroy()

@@ -27,7 +27,7 @@ public class PlayerMenu : UI
 
         inventoryDisplay = GetComponentsInChildren<InventorySlot>();
         
-        Hide();
+        gameObject.SetActive(false);
     }
     
     private void OnDestroy()

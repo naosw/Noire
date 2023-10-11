@@ -25,7 +25,7 @@ public class PauseMenu : UI
         mainMenuButton.AddListener(OnMainMenuClick);
         optionsButton.AddListener(OnOptionsMenuClick);
         
-        Hide();
+        gameObject.SetActive(false);
     }
 
     private void OnDestroy()

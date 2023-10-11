@@ -21,7 +21,7 @@ public class SaveSlotsMenu : UI
     private void Start()
     {
         backButton.AddListener(BackToMainMenu);
-        Hide();
+        gameObject.SetActive(false);
     }
 
     public void BackToMainMenu() 

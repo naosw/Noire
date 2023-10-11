@@ -19,7 +19,7 @@ public class DialogueUI : UI
 	    Instance = this;
 	    canvasGroup = GetComponent<CanvasGroup>();
 	    
-	    Hide();
+	    gameObject.SetActive(false);
     }
 
     public void StartDialogue(Story newStory)

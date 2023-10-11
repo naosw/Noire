@@ -47,10 +47,11 @@ public class ControlsUI : UI
         ability1Button.AddListener(() => {RebindBinding(GameInput.Bindings.Ability1); });
         ability2Button.AddListener(() => {RebindBinding(GameInput.Bindings.Ability2); });
         ability3Button.AddListener(() => {RebindBinding(GameInput.Bindings.Ability3); });
-        
+
         UpdateVisual();
-        Hide();
         HidePressToRebindKey();
+        
+        gameObject.SetActive(false);
     }
 
     private void GameInput_OnPauseAction()

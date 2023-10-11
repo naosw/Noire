@@ -8,6 +8,7 @@ public class UI : MonoBehaviour
     [SerializeField] protected GameObject containerGameObject;
     protected CanvasGroup canvasGroup;
     protected bool alternativeGameObject = false;
+    private float animationTime = .5f;
 
     protected virtual void Activate() { }
     protected virtual void Deactivate() { }
@@ -29,32 +30,30 @@ public class UI : MonoBehaviour
 
     protected IEnumerator Fade(float start, float end)
     {
-        canvasGroup.alpha = start;
+        // canvasGroup.alpha = start;
         
         float time = 0;
-        while (time < 1)
+        while (time < animationTime)
         {
             time += Time.deltaTime;
 
-            canvasGroup.alpha = Mathf.Lerp(start, end, time);
+            canvasGroup.alpha = Mathf.Lerp(
+                start, 
+                end, 
+                StaticInfoObjects.Instance.FADE_ANIM_CURVE.Evaluate(time * 2)
+            );
             yield return null;
         }
         
-        canvasGroup.alpha = end;
-        
-        if(end == 0)
-            Display(false);
+        // canvasGroup.alpha = end;
+        Display(end != 0);
     }
 
     private void Display(bool active)
     {
         if (alternativeGameObject)
-        {
             containerGameObject.SetActive(active);
-        }
         else
-        {
             gameObject.SetActive(active);
-        }
     }
 }

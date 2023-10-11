@@ -1,24 +1,71 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class DeathMenuUI : UI
 {
-    [SerializeField] private Button respawnButton;
-    [SerializeField] private Button mainMenuButton;
+    [SerializeField] private ButtonUI respawnButton;
+    [SerializeField] private ButtonUI mainMenuButton;
+    [SerializeField] private TextMeshProUGUI deathMenuDisplay;
+    [SerializeField] private float typingSpeed = 0.1f;
+    [SerializeField] private CanvasGroup canvasGroup;
 
-    private void Awake()
+    private string deathMessage = "You woke up.\n Nothing has changed.";
+    
+    private void Start()
     {
-        // TODO: respawn at last checkpoint
-        // respawnButton.onClick.AddListener(() =>
-        // {
-        //     Loader.Load(DataPersistenceManager.Instance.CurrentScene);
-        // });
-        
-        mainMenuButton.onClick.AddListener(() =>
+        mainMenuButton.AddListener(() =>
         {
             Loader.Load(GameScene.MainMenuScene);
         });
+        
+        respawnButton.AddListener(() =>
+        {
+            Debug.Log("TODO: should respawn to last savepoint!");
+        });
+        
+        canvasGroup.alpha = 0;
+        ToggleButtons(false);
+        StartCoroutine(DisplayLine(deathMessage));
+    }
+    
+    private IEnumerator DisplayLine(string line) 
+    {
+        // set the text to the full line, but set the visible characters to 0
+        deathMenuDisplay.text = line;
+        deathMenuDisplay.maxVisibleCharacters = 0;
+
+        // display each letter one at a time
+        foreach (var _ in line)
+        {
+            PlayTypingSound();
+            deathMenuDisplay.maxVisibleCharacters++;
+            yield return new WaitForSeconds(typingSpeed);
+        }
+
+        ToggleButtons(true);
+        StartCoroutine(FadeInButtons());
     }
 
+    private void ToggleButtons(bool activate)
+    {
+        respawnButton.gameObject.SetActive(activate);
+        mainMenuButton.gameObject.SetActive(activate);
+    }
+
+    private IEnumerator FadeInButtons()
+    {
+        float time = 0;
+        while (time < 2)
+        {
+            canvasGroup.alpha = Mathf.Lerp(0, 1, time * 0.5f);
+            time += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    private void PlayTypingSound()
+    {
+        // TODO FELIX: implement some typing sound when u see this
+    }
 }

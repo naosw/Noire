@@ -17,7 +17,7 @@ public class ConfirmationPopupMenu : UI
         
         canvasGroup = GetComponent<CanvasGroup>();
         
-        Hide();
+        gameObject.SetActive(false);
     }
 
     public void ActivateMenu(string displayText, UnityAction confirmAction, UnityAction cancelAction)

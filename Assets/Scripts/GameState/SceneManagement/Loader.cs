@@ -2,24 +2,6 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 public static class Loader {
-    // maps scene -> (in transition, out transition, load type, load mode)
-    private static readonly Dictionary<GameScene, SceneInfo> INFO = new()
-    {
-        { GameScene.MainMenuScene, new SceneInfo(SceneLoadType.Fast, LoadSceneMode.Single) },
-        { GameScene.DeathScene, new SceneInfo(SceneLoadType.Fast, LoadSceneMode.Single) },
-        { GameScene.ValleyofSolura, new SceneInfo(SceneLoadType.Normal, LoadSceneMode.Single) },
-        { GameScene.BedrockPlains, new SceneInfo(SceneLoadType.Normal, LoadSceneMode.Single) },
-    };
-    
-    private static readonly Dictionary<string, GameScene> GAMESCENES = new()
-    {
-        {"MainMenuScene", GameScene.MainMenuScene},
-        {"DeathScene", GameScene.DeathScene},
-        {"ValleyofSolura", GameScene.ValleyofSolura},
-        {"BedrockPlains", GameScene.BedrockPlains},
-        {"LoadingScene", GameScene.LoadingScene}
-    };
-    
     private static string LoadScene = GameScene.LoadingScene.ToString();
     public const GameScene FirstScene = GameScene.BedrockPlains;
     
@@ -31,7 +13,7 @@ public static class Loader {
     public static bool Load(GameScene nextScene)
     {
         TargetScene = nextScene.ToString();
-        TargetSceneInfoObj = INFO[nextScene];
+        TargetSceneInfoObj = StaticInfoObjects.Instance.LOADING_INFO[nextScene];
         
         switch (TargetSceneInfoObj.LoadType)
         {
@@ -49,11 +31,11 @@ public static class Loader {
     // overloading: load using string scene name
     public static bool Load(string nextScene)
     {
-        return Load(GAMESCENES[nextScene]);
+        return Load(StaticInfoObjects.Instance.GAMESCENES[nextScene]);
     }
     
     public static bool Load(Scene nextScene)
     {
-        return Load(GAMESCENES[nextScene.name]);
+        return Load(StaticInfoObjects.Instance.GAMESCENES[nextScene.name]);
     }
 }

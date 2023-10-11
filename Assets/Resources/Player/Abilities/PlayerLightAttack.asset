@@ -16,4 +16,4 @@ MonoBehaviour:
   abilityAnimationTrigger: Attack1
   cooldown: 1
   applicableDreamStates: 0000000002000000
-  attackDuration: 0.25
+  attackDuration: 0.4
