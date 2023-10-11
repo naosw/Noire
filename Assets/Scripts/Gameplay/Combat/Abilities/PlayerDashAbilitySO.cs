@@ -1,36 +1,35 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "PlayerDashAbility", menuName = "Abilities/PlayerDash")]
 public class PlayerDashAbilitySO : AbilitySO
 {
     [Header("Ability-specific Fields")]
     [SerializeField] private float dashSpeed = 30;
-    [SerializeField] private float dashFalloff = 50;
-    [SerializeField] private float movespeedThreshold = 12;
+    [SerializeField] private float dashTime = 1;
     
-    private float currentDashSpeed;
+    private float dashTimeCounter;
 
     protected override void Initialize()
     {
-        currentDashSpeed = dashSpeed;
+        dashTimeCounter = dashTime;
         Player.Instance.SetAnimatorTrigger(abilityAnimationTrigger);
     }
 
     protected override void Cast()
     {
-        if (currentDashSpeed < movespeedThreshold)
-        {
+        if(dashTimeCounter < 0)
             Finish();
-            return;
+        else
+        {
+            dashTimeCounter -= Time.deltaTime;
+            Player.Instance.Move(dashSpeed);
         }
-        
-        currentDashSpeed -= dashFalloff * Time.deltaTime;
-        Player.Instance.Move(currentDashSpeed);
     }
     
     protected override void Finish()
     {
-        currentDashSpeed = 0;
+        dashTimeCounter = dashTime;
         state = AbilityState.OnCooldown;
         Player.Instance.ResetStateAfterAction();
     }

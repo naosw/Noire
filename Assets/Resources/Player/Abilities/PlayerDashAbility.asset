@@ -16,6 +16,5 @@ MonoBehaviour:
   abilityAnimationTrigger: Dash
   cooldown: 1
   applicableDreamStates: 0000000001000000
-  dashSpeed: 20
-  dashFalloff: 40
-  movespeedThreshold: 8
+  dashSpeed: 15
+  dashTime: 0.5
