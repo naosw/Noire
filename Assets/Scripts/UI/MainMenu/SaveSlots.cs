@@ -1,42 +1,32 @@
+using System;
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class SaveSlot : UI
 {
     [Header("Profile")]
     [SerializeField] private string profileId = "default";
 
-    [Header("Clear Button")] 
-    [SerializeField] private Button clearButton;
-    
-    [Header("Content")]
-    [SerializeField] private GameObject noDataContent;
-    [SerializeField] private GameObject hasDataContent;
-    [SerializeField] private TextMeshProUGUI percentageCompleteText;
-    [SerializeField] private TextMeshProUGUI profileName;
-    
+    [SerializeField] private ButtonUI saveSlotButton;
+    [SerializeField] private ButtonUI clearButton;
+
     private bool hasData = false;
-    private Button saveSlotButton;
 
     private void Awake() 
     {
-        saveSlotButton = GetComponent<Button>();
-        saveSlotButton.onClick.AddListener(OnSaveSlotClicked);
-        clearButton.onClick.AddListener(OnClear);
+        canvasGroup = GetComponent<CanvasGroup>();
     }
-    
+
+    private void Start()
+    {
+        saveSlotButton.AddListener(OnSaveSlotClicked);
+        clearButton.AddListener(OnClear);
+    }
+
     private void OnSaveSlotClicked() 
     {
         SaveSlotsMenu.Instance.DisableMenuButtons();
-
-        if (SaveSlotsMenu.Instance.IsLoading)
-        {
-            DataPersistenceManager.Instance.ChangeSelectedProfileId(profileId);
-            Loader.Load(DataPersistenceManager.Instance.CurrentScene);
-        }
-        else if (hasData)
+        
+        if (hasData)
         {
             // prompt to start new game
             ConfirmationPopupMenu.Instance.ActivateMenu(
@@ -47,7 +37,7 @@ public class SaveSlot : UI
                 },
                 () =>
                 {
-                    SaveSlotsMenu.Instance.Refresh();
+                    SaveSlotsMenu.Instance.Show();
                 }
             );
         }
@@ -78,33 +68,36 @@ public class SaveSlot : UI
                 }
                 else
                 {
-                    SaveSlotsMenu.Instance.Refresh();                    
+                    SaveSlotsMenu.Instance.Show();
                 }
             },
             () => {
-                SaveSlotsMenu.Instance.Refresh();
+                SaveSlotsMenu.Instance.Show();
             }
         );
     }
     
-    public void SetData(GameData data) 
+    public void SetData(GameData data, bool isLoadingView) 
     {
         if (data == null)
         {
             hasData = false;
-            noDataContent.SetActive(true);
-            hasDataContent.SetActive(false);
-            clearButton.gameObject.SetActive(false);
+            
+            clearButton.Disable();
+            saveSlotButton.SetText("Empty");
+            
+            if(isLoadingView)
+                saveSlotButton.Disable();
+            else
+                saveSlotButton.Enable();
         }
         else
         {
             hasData = true;
-            noDataContent.SetActive(false);
-            hasDataContent.SetActive(true);
-            clearButton.gameObject.SetActive(true);
-
-            percentageCompleteText.text = data.percentageComplete + "% COMPLETE";
-            profileName.text = data.profileName;
+            
+            clearButton.Enable();
+            saveSlotButton.Enable();
+            saveSlotButton.SetText(data.profileName + ":" + data.percentageComplete + "% COMPLETE");
         }
     }
 
@@ -112,7 +105,15 @@ public class SaveSlot : UI
 
     public void SetInteractable(bool interactable)
     {
-        saveSlotButton.interactable = interactable;
-        clearButton.interactable = interactable;
+        if (interactable)
+        {
+            saveSlotButton.Enable();
+            clearButton.Enable();
+        }
+        else
+        {
+            saveSlotButton.Disable();
+            clearButton.Disable();
+        }
     }
 }

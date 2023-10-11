@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MainMenu : UI
@@ -16,6 +18,8 @@ public class MainMenu : UI
     private void Awake()
     {
         Instance = this;
+        
+        canvasGroup = GetComponent<CanvasGroup>();
     }
 
     private void Start() 
@@ -58,7 +62,7 @@ public class MainMenu : UI
     private void OnNewGameClicked()
     {
         Hide();
-        saveSlotsMenu.Activate(false);
+        saveSlotsMenu.NewGameMenu();
     }
 
     private void OnContinueGameClicked()
@@ -71,7 +75,7 @@ public class MainMenu : UI
     private void OnLoadGameClicked() 
     {
         Hide();
-        saveSlotsMenu.Activate(true);
+        saveSlotsMenu.LoadGameMenu();
     }
 
     private void OnQuitGameClicked()
@@ -80,9 +84,8 @@ public class MainMenu : UI
         Application.Quit();
     }
 
-    public void Show()
+    protected override void Activate()
     {
         Refresh();
-        gameObject.SetActive(true);
     }
 }

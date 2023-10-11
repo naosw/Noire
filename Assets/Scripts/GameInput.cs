@@ -35,6 +35,8 @@ public class GameInput : MonoBehaviour
 
     private void Awake()
     {
+        gameInputActions = new GameInputActions();
+        
         if (Instance != null)
         {
             Destroy(gameObject);
@@ -43,8 +45,6 @@ public class GameInput : MonoBehaviour
         
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        
-        gameInputActions = new GameInputActions();
     }
     
     // subscribe listeners
@@ -112,7 +112,7 @@ public class GameInput : MonoBehaviour
         }
         else
         {
-            gameInputActions.UI.Disable();
+            gameInputActions.UI.Enable();
             gameInputActions.Player.Enable();
         }
     }

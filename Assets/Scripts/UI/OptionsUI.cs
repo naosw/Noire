@@ -15,6 +15,8 @@ public class OptionsUI : UI
     private void Awake()
     {
        Instance = this; 
+       
+       canvasGroup = GetComponent<CanvasGroup>();
     }
 
     private void Start()

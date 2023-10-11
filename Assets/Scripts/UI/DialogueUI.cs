@@ -17,6 +17,8 @@ public class DialogueUI : UI
     private void Awake()
     {
 	    Instance = this;
+	    canvasGroup = GetComponent<CanvasGroup>();
+	    
 	    Hide();
     }
 

@@ -17,6 +17,8 @@ public class PlayerMenu : UI
     private void Awake()
     {
         Instance = this;
+        
+        canvasGroup = GetComponent<CanvasGroup>();
     }
 
     private void Start()
@@ -47,13 +49,12 @@ public class PlayerMenu : UI
         GameEventsManager.Instance.GameStateEvents.UIToggle(isToggledOn);
     }
 
-    private new void Show()
+    protected override void Activate()
     {
-        gameObject.SetActive(true);
-
-        int i = 0;
         if(playerInventory.Inventory.Count > inventoryDisplay.Length)
             Debug.LogError("Inventory overflow");
+        
+        int i = 0;
         foreach (var (item, count) in playerInventory.Inventory)
         {
             inventoryDisplay[i].Display(item, count);

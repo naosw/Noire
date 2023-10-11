@@ -18,6 +18,7 @@ public class PlayerInteract : MonoBehaviour
         return d1 < d2 ? a : b;
     }
     
+    // only returns objects that you CAN interact
     public IInteractable GetInteractableObject()
     {
         List<IInteractable> interactableList = new List<IInteractable>();
@@ -25,7 +26,7 @@ public class PlayerInteract : MonoBehaviour
         Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactDistance);
         foreach (Collider collider in colliderArray)
         {
-            if (collider.TryGetComponent(out IInteractable interactable))
+            if (collider.TryGetComponent(out IInteractable interactable) && interactable.CanInteract())
             { 
                 interactableList.Add(interactable);
             }

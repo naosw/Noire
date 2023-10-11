@@ -1,71 +1,65 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class SaveSlotsMenu : UI
 {
     public static SaveSlotsMenu Instance { get; private set; }
 
-    [SerializeField] private Button backButton;
+    [SerializeField] private ButtonUI backButton;
     private SaveSlot[] saveSlots;
-    private bool isLoadingGame = false;
+
+    private bool isLoadingView;
 
     private void Awake()
     {
         Instance = this;
         
         saveSlots = GetComponentsInChildren<SaveSlot>();
-        backButton.onClick.AddListener(BackToMainMenu);
-        
+        canvasGroup = GetComponent<CanvasGroup>();
+    }
+
+    private void Start()
+    {
+        backButton.AddListener(BackToMainMenu);
         Hide();
     }
-    
+
     public void BackToMainMenu() 
     {
         MainMenu.Instance.Show();
         Hide();
     }
 
-    public void Activate(bool isLoading) 
+    protected override void Activate()
     {
-        gameObject.SetActive(true);
-        isLoadingGame = isLoading;
-
         Dictionary<string, GameData> profilesGameData = DataPersistenceManager.Instance.GetAllProfilesGameData();
 
-        backButton.interactable = true;
+        backButton.Enable();
 
         // loop through each save slot in the UI and set the content appropriately
-        GameObject firstSelected = backButton.gameObject;
         foreach (SaveSlot saveSlot in saveSlots) 
         {
             profilesGameData.TryGetValue(saveSlot.GetProfileId(), out GameData profileData);
-            saveSlot.SetData(profileData);
-            if (profileData == null && isLoadingGame) 
-                saveSlot.SetInteractable(false);
-            else 
-            {
-                saveSlot.SetInteractable(true);
-                if (firstSelected.Equals(backButton.gameObject))
-                    firstSelected = saveSlot.gameObject;
-            }
+            saveSlot.SetData(profileData, isLoadingView);
         }
     }
 
-    public void Refresh()
+    public void NewGameMenu()
     {
-        Activate(isLoadingGame);
+        isLoadingView = false;
+        Show();
+    }
+    
+    public void LoadGameMenu()
+    {
+        isLoadingView = true;
+        Show();
     }
 
     public void DisableMenuButtons() 
     {
         foreach (SaveSlot saveSlot in saveSlots) 
             saveSlot.SetInteractable(false);
-        backButton.interactable = false;
+        backButton.Disable();
     }
-
-    public bool IsLoading => isLoadingGame;
 }

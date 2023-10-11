@@ -1,8 +1,9 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HUD : MonoBehaviour
+public class HUD : UI
 {
     [SerializeField] private PlayerHealthSO playerHealthSO;
     [SerializeField] private PlayerStatisticsSO dreamShardsSO;
@@ -12,8 +13,15 @@ public class HUD : MonoBehaviour
     [SerializeField] private Slider drowsiness;
     [SerializeField] private Slider buffer;
 
+    private void Awake()
+    {
+        canvasGroup = GetComponent<CanvasGroup>();
+    }
+
     private void Start()
     {
+        Show();
+        
         GameEventsManager.Instance.PlayerEvents.OnUpdateHealthBar += UpdateHealthBarValues;
         GameEventsManager.Instance.PlayerEvents.OnDreamShardsChangeFinished += UpdateDreamShardsCount;
         GameEventsManager.Instance.PlayerEvents.OnDreamThreadsChangeFinished += UpdateDreamThreadsCount;

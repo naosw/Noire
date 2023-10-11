@@ -21,13 +21,8 @@ public class InteractableObject : MonoBehaviour, IInteractable
     {
         return interactionsOccured < maxInteractions;
     }
-
-
+    
     public string GetInteractText() => interactText;
-    public string GetCannotInteractText() => cannotInteractText;
-
-    public Transform GetTransform() 
-    { 
-        return transform; 
-    }
+    
+    public Transform GetTransform() => transform;
 }

@@ -1,35 +1,30 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PauseMenu : MonoBehaviour {
-    [SerializeField] private Button resumeButton;
-    [SerializeField] private Button mainMenuButton;
-    [SerializeField] private Button optionsButton;
+public class PauseMenu : UI 
+{
+    [SerializeField] private ButtonUI resumeButton;
+    [SerializeField] private ButtonUI mainMenuButton;
+    [SerializeField] private ButtonUI optionsButton;
      
     public static PauseMenu Instance { get; private set; }
 
     private bool isGamePaused = false;
-    public bool IsGamePaused => isGamePaused;
     
     private void Awake()
     {
         Instance = this;
-        
-        resumeButton.onClick.AddListener(TogglePauseGame);
-        mainMenuButton.onClick.AddListener(OnMainMenuClick);
-        optionsButton.onClick.AddListener(OnOptionsMenuClick);
-    }
-
-    private void ToggleButtons(bool val)
-    {
-        resumeButton.interactable = val;
-        mainMenuButton.interactable = val;
-        optionsButton.interactable = val;
+        canvasGroup = GetComponent<CanvasGroup>();
     }
     
     private void Start()
     {
         GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
+        
+        resumeButton.AddListener(TogglePauseGame);
+        mainMenuButton.AddListener(OnMainMenuClick);
+        optionsButton.AddListener(OnOptionsMenuClick);
+        
         Hide();
     }
 
@@ -42,6 +37,23 @@ public class PauseMenu : MonoBehaviour {
     {
         TogglePauseGame();
     }
+    
+    private void ToggleButtons(bool val)
+    {
+        if (val)
+        {
+            resumeButton.Enable();
+            mainMenuButton.Enable();
+            optionsButton.Enable();
+        }
+        else
+        {
+            resumeButton.Disable();
+            mainMenuButton.Disable();
+            optionsButton.Disable();
+        }
+    }
+
 
     private void OnMainMenuClick()
     {
@@ -70,14 +82,4 @@ public class PauseMenu : MonoBehaviour {
         }
         GameEventsManager.Instance.GameStateEvents.PauseToggle(isGamePaused);
     }
-
-    public void Show()
-    {
-        gameObject.SetActive(true);
-    }
-    private void Hide()
-    {
-        gameObject.SetActive(false);
-    }
-
 }

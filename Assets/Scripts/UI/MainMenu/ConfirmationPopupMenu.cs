@@ -14,6 +14,9 @@ public class ConfirmationPopupMenu : UI
     private void Awake()
     {
         Instance = this;
+        
+        canvasGroup = GetComponent<CanvasGroup>();
+        
         Hide();
     }
 

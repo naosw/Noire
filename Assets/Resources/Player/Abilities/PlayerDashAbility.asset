@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityID: 1
   abilityAnimationTrigger: Dash
-  cooldown: 0.5
+  cooldown: 1
   applicableDreamStates: 0000000001000000
-  dashSpeed: 30
-  dashFalloff: 50
-  movespeedThreshold: 12
+  dashSpeed: 20
+  dashFalloff: 40
+  movespeedThreshold: 8

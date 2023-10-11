@@ -1,48 +1,46 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.Serialization;
 
-public class InteractUI : MonoBehaviour
+public class InteractUI : UI
 {
-    [SerializeField] private GameObject containerGameObject;
     [SerializeField] private PlayerInteract playerInteract;
     [SerializeField] private TextMeshProUGUI interactText;
-    [SerializeField] private Color cannotInteractTextColor;
-    [SerializeField] private Color canInteractTextColor;
     private IInteractable interactable;
-    
+
+    private bool isShowing; 
+
+    private void Awake()
+    {
+        alternativeGameObject = true;
+        canvasGroup = GetComponent<CanvasGroup>();
+    }
+
+    private void Start()
+    {
+        Hide();
+    }
+
     private void Update()
     {
-        if (!PauseMenu.Instance.IsGamePaused && 
-            (interactable = playerInteract.GetInteractableObject()) != null)
+        interactable = playerInteract.GetInteractableObject();
+        if (interactable != null && !isShowing)
         {
             Show();
         }
-        else
+        if(interactable == null && isShowing)
         {
             Hide();
         }
     }
     
-    private void Show()
+    protected override void Activate()
     {
-        containerGameObject.SetActive(true);
-        
-        if (!interactable.CanInteract())
-        {
-            interactText.text = interactable.GetCannotInteractText();
-            interactText.color = cannotInteractTextColor;
-        }
-        else
-        {
-            interactText.text = interactable.GetInteractText();
-            interactText.color = canInteractTextColor;
-        }
+        interactText.text = interactable.GetInteractText();
+        isShowing = true;
     }
     
-    private void Hide()
+    protected override void Deactivate()
     {
-        containerGameObject.SetActive(false); 
+        isShowing = false;
     }
-    
 }
