@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class BedRockPlainsController : MonoBehaviour
+public class BedRockPlainsController : MonoBehaviour, IDataPersistence
 {
     [Header("Opening Lights Animation (Lantern Interact)")]
     [SerializeField] private Light mainLight;
@@ -11,7 +11,9 @@ public class BedRockPlainsController : MonoBehaviour
     [SerializeField] private AnimationCurve intensityCurve;
     [SerializeField] private float animationTime = 3;
     [SerializeField] private ParticleSystemBase fireFlies;
-    [SerializeField] private ParticleSystemBase dustParticles;  
+    [SerializeField] private ParticleSystemBase dustParticles;
+
+    private bool lightsOpened;
     
     private void Awake()
     {
@@ -30,6 +32,7 @@ public class BedRockPlainsController : MonoBehaviour
 
     private void OpenLights()
     {
+        lightsOpened = true;
         StartCoroutine(PlayOpeningLightsAnimation());
     }
 
@@ -51,4 +54,18 @@ public class BedRockPlainsController : MonoBehaviour
         dustParticles.Play();
         fireFlies.Play();
     }
+
+    #region IDataPersistence
+    public void LoadData(GameData gameData)
+    {
+        lightsOpened = gameData.LightsOpen;
+        if(lightsOpened)
+            mainLight.intensity = finalIntensity;
+    }
+    
+    public void SaveData(GameData gameData)
+    {
+        gameData.LightsOpen = lightsOpened;
+    }
+    #endregion
 }

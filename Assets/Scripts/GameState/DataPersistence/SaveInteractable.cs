@@ -7,4 +7,9 @@ public class SaveInteractable : InteractableObject
         Debug.Log("Game saved!");
         DataPersistenceManager.Instance.SaveGame();
     }
+
+    public override bool CanInteract()
+    {
+        return true;
+    }
 }

@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
+
 /// <summary>
 /// A base class for interactable objects
 /// </summary>
@@ -7,6 +9,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class InteractableObject : MonoBehaviour, IInteractable, IDataPersistence
 {
+    [SerializeField] private string ID; // object id, should uniquely identifies an object
     [SerializeField] protected string interactText;
     [SerializeField] protected int maxInteractions;
     protected int interactionsOccured = 0;
@@ -30,17 +33,15 @@ public class InteractableObject : MonoBehaviour, IInteractable, IDataPersistence
     #endregion
 
     #region IDataPersistence
-
     public void LoadData(GameData gameData)
     {
-        if (gameData.InteractableProgress.TryGetValue(GetInstanceID(), out int value))
+        if (gameData.InteractableProgress.TryGetValue(ID, out int value))
             interactionsOccured = value;
     }
     
     public void SaveData(GameData gameData)
     {
-        gameData.InteractableProgress[GetInstanceID()] = interactionsOccured;
+        gameData.InteractableProgress[ID] = interactionsOccured;
     }
-
     #endregion
 }

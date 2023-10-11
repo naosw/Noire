@@ -16,4 +16,4 @@ MonoBehaviour:
   currentBuffer: 0
   maxBufferDamage: 10
   maxDrowsiness: 100
-  currentDrowsiness: 99
+  currentDrowsiness: 50
