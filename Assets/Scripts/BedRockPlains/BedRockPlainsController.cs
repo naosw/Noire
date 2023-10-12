@@ -12,6 +12,7 @@ public class BedRockPlainsController : MonoBehaviour, IDataPersistence
     [SerializeField] private float animationTime = 3;
     [SerializeField] private ParticleSystemBase fireFlies;
     [SerializeField] private ParticleSystemBase dustParticles;
+    [SerializeField] private BGMAudio bgmAudio;
 
     private bool lightsOpened;
     
@@ -59,8 +60,13 @@ public class BedRockPlainsController : MonoBehaviour, IDataPersistence
     public void LoadData(GameData gameData)
     {
         lightsOpened = gameData.LightsOpen;
-        if(lightsOpened)
+        if (lightsOpened)
+        {
             mainLight.intensity = finalIntensity;
+            dustParticles.Play();
+            fireFlies.Play();
+            bgmAudio.PlayBgmAudio();
+        }
     }
     
     public void SaveData(GameData gameData)

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class BGMAudio : MonoBehaviour
@@ -12,6 +13,7 @@ public class BGMAudio : MonoBehaviour
     // Update is called once per frame
     private void Start()
     {
+        SceneManager.activeSceneChanged += StopBgmAudio;
         bgmState = FMODUnity.RuntimeManager.CreateInstance(bgmAudioEvent);
     }
 
@@ -20,7 +22,8 @@ public class BGMAudio : MonoBehaviour
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(bgmState, transform, false);
         bgmState.start();
     }
-    public void StopBgmAudio(){
+    
+    public void StopBgmAudio(Scene oldScene, Scene newScene){
         bgmState.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         bgmState.release();
     }
