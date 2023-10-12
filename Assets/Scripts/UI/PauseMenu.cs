@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PauseMenu : UI 
@@ -9,7 +10,7 @@ public class PauseMenu : UI
      
     public static PauseMenu Instance { get; private set; }
 
-    private bool isGamePaused = false;
+    public bool IsGamePaused = false;
     
     private void Awake()
     {
@@ -71,8 +72,8 @@ public class PauseMenu : UI
 
     private void TogglePauseGame() 
     {
-        isGamePaused = !isGamePaused;
-        if (isGamePaused)
+        IsGamePaused = !IsGamePaused;
+        if (IsGamePaused)
         {
             Show();
         }
@@ -81,6 +82,6 @@ public class PauseMenu : UI
             if(gameObject.activeSelf)
                 Hide();
         }
-        GameEventsManager.Instance.GameStateEvents.PauseToggle(isGamePaused);
+        GameEventsManager.Instance.GameStateEvents.PauseToggle(IsGamePaused);
     }
 }

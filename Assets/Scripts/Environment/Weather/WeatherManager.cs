@@ -1,8 +1,5 @@
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 public class WeatherManager : MonoBehaviour

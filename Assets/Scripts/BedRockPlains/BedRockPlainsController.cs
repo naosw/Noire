@@ -23,6 +23,13 @@ public class BedRockPlainsController : MonoBehaviour, IDataPersistence
 
     private void Start()
     {
+        if (lightsOpened)
+        {
+            mainLight.intensity = finalIntensity;
+            dustParticles.Play();
+            fireFlies.Play();
+            bgmAudio.PlayBgmAudio();
+        }
         GameEventsManager.Instance.BedrockPlainsEvents.OnLampInteract += OpenLights;
     }
 
@@ -60,13 +67,6 @@ public class BedRockPlainsController : MonoBehaviour, IDataPersistence
     public void LoadData(GameData gameData)
     {
         lightsOpened = gameData.LightsOpen;
-        if (lightsOpened)
-        {
-            mainLight.intensity = finalIntensity;
-            dustParticles.Play();
-            fireFlies.Play();
-            bgmAudio.PlayBgmAudio();
-        }
     }
     
     public void SaveData(GameData gameData)

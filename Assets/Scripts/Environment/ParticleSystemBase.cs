@@ -8,12 +8,7 @@ public class ParticleSystemBase : MonoBehaviour
     private void Awake()
     {
         isPlaying = false;
-    }
-
-    private void Start()
-    {
         particles = GetComponent<ParticleSystem>();
-        particles.Stop();
     }
 
     public void Play()
@@ -32,6 +27,12 @@ public class ParticleSystemBase : MonoBehaviour
             particles.Stop();
             isPlaying = false;
         }
+    }
+
+    public void Restart()
+    {
+        particles.Clear();
+        particles.Play();
     }
     
     // private void Update()
