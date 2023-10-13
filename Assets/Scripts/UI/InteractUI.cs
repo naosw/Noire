@@ -18,7 +18,6 @@ public class InteractUI : UI
 
     private void Start()
     {
-        Hide();
         GameEventsManager.Instance.GameStateEvents.OnPauseToggle += ToggleActive;
     }
 

@@ -6,7 +6,14 @@ using UnityEngine;
 public interface IInteractable 
 {
     void Interact();
+    
     string GetInteractText();
+
+    void Disable();
+    
+    void Enable();
+    
     bool CanInteract();
+    
     Transform GetTransform();
 }

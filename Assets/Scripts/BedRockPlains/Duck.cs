@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Serialization;
 
 public class Duck : InteractableObject
@@ -6,10 +7,8 @@ public class Duck : InteractableObject
     [SerializeField] private ParticleSystemBase firefliesBurst;
     public override void Interact()
     {
-        if (CanInteract())
-        {
-            interactionsOccured++;
-            firefliesBurst.Play();
-        }
+        interactionsOccured++;
+        firefliesBurst.Play();
+        FinishInteract();
     }
 }

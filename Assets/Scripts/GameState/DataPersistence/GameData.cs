@@ -21,7 +21,7 @@ public class GameData
     [Key(8)] public string CurrentScene;
     
     // BedrockPlains
-    [Key(9)] public Dictionary<string, int> InteractableProgress;
+    [Key(9)] public Dictionary<string, InteractableProgress> InteractableProgress;
     [Key(10)] public bool LightsOpen;
     
     [SerializationConstructor]

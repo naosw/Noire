@@ -1,8 +1,10 @@
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.Serialization;
 
-public class CameraMovements : MonoBehaviour
+public class CameraManager : MonoBehaviour
 {
+    public static CameraManager Instance { get; private set; }
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
     // here orthographic camera is used so FOV is actually m_Lens.OrthographicSize
@@ -11,7 +13,9 @@ public class CameraMovements : MonoBehaviour
     [SerializeField] private float FOVDefault;
     [SerializeField] private float zoomSpeed = 10f;
     [SerializeField] private float shiftCameraPerspectiveSpeed = 20f;
-
+    
+    public Transform LookAt;
+    
     private const float EPS = .1f;
 
     private float targetFOV;
@@ -20,6 +24,8 @@ public class CameraMovements : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+        
         virtualCamera.m_Lens.OrthographicSize = FOVDefault;
         targetFOV = virtualCamera.m_Lens.OrthographicSize;
         targetCameraRotation = transform.rotation;

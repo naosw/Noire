@@ -9,10 +9,11 @@ public class SaveInteractable : InteractableObject
         onSaveParticleSystem.Restart();
         Debug.Log("Game saved!");
         DataPersistenceManager.Instance.SaveGame();
+        FinishInteract();
     }
 
     public override bool CanInteract()
     {
-        return true;
+        return !disabled;
     }
 }

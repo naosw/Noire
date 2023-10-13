@@ -12,18 +12,16 @@ public class InteractableItemDropper : InteractableObject
     
     public override void Interact()
     {
-        if (CanInteract())
-        {
-            interactionsOccured++;
-            // TODO: play animation of item dropping
-            // TODO: play sound of item dropping
+        interactionsOccured++;
+        // TODO: play animation of item dropping
+        // TODO: play sound of item dropping
 
-            foreach (var item in itemDroppedWhenInteract)
-                if (!Player.Instance.AddItem(item))
-                    Debug.Log("Cannot add item: reached item upper limit");
+        foreach (var item in itemDroppedWhenInteract)
+            if (!Player.Instance.AddItem(item))
+                Debug.Log("Cannot add item: reached item upper limit");
 
-            GameEventsManager.Instance.PlayerEvents.DreamShardsChange(dreamShardsAward);
-            GameEventsManager.Instance.PlayerEvents.DreamThreadsChange(dreamThreadsAward);
-        }
+        GameEventsManager.Instance.PlayerEvents.DreamShardsChange(dreamShardsAward);
+        GameEventsManager.Instance.PlayerEvents.DreamThreadsChange(dreamThreadsAward);
+        FinishInteract();
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8821302046704868177}
   - component: {fileID: 4835287933449729621}
   m_Layer: 9
-  m_Name: InteractSave
+  m_Name: InteractSaveBurst
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
