@@ -81,7 +81,9 @@ public class Player : MonoBehaviour, IDataPersistence
     {
         GameInput.Instance.OnInteract += GameInput_OnInteract;
         GameInput.Instance.OnAbilityCast += GameInput_OnAbilityCast;
+        
         GameEventsManager.Instance.PlayerEvents.OnTakeDamage += OnTakingDamage;
+        GameEventsManager.Instance.PlayerEvents.OnHealthRegen += RegenDrowsiness;
         GameEventsManager.Instance.PlayerEvents.OnDreamShardsChange += OnDreamShardsChange;
         GameEventsManager.Instance.PlayerEvents.OnDreamThreadsChange += OnDreamThreadsChange;
     }
@@ -91,6 +93,7 @@ public class Player : MonoBehaviour, IDataPersistence
         GameInput.Instance.OnInteract -= GameInput_OnInteract;
         GameInput.Instance.OnAbilityCast -= GameInput_OnAbilityCast;
         GameEventsManager.Instance.PlayerEvents.OnTakeDamage -= OnTakingDamage;
+        GameEventsManager.Instance.PlayerEvents.OnHealthRegen -= RegenDrowsiness;
         GameEventsManager.Instance.PlayerEvents.OnDreamShardsChange -= OnDreamShardsChange;
         GameEventsManager.Instance.PlayerEvents.OnDreamThreadsChange -= OnDreamThreadsChange;
     }
@@ -147,6 +150,18 @@ public class Player : MonoBehaviour, IDataPersistence
 
         if (playerHealthSO.IsDead())
             HandleDeath();
+    }
+    
+    // called when restoring drowsiness (hp)
+    private void RegenDrowsiness(float value)
+    {
+        if(playerHealthSO.RegenHealth(value) == 1){
+            HandleDreamState();
+        }
+        else
+        {
+            // should not decrease potion
+        }
     }
     
     // handle when currency change occurs
@@ -302,16 +317,6 @@ public class Player : MonoBehaviour, IDataPersistence
     {
         state = PlayerState.Dead;
         Loader.Load(GameScene.DeathScene);
-    }
-    
-    // called when restoring drowsiness (hp)
-    public int RegenDrowsiness(float value)
-    {
-        if(playerHealthSO.RegenHealth(value) == 1){
-            HandleDreamState();
-            return 1;
-        }
-        return 0;
     }
     #endregion
     

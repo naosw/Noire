@@ -6,12 +6,13 @@ public class GameInput : MonoBehaviour
 {
     public static GameInput Instance { get; private set; }
     
-    // list of events
     public event Action<bool> OnCameraTurn; // 1 for right. 0 for left.
     public event Action OnPlayerMenuToggle;
-    public event Action OnPauseAction;
+    public event Action OnPauseToggle;
     public event Action OnInteract;
     public event Action<int> OnAbilityCast;
+    public event Action OnDebugConsoleToggle;
+    public event Action OnDebugConsoleExecute;
     
     public enum Bindings
     {
@@ -54,6 +55,11 @@ public class GameInput : MonoBehaviour
         gameInputActions.Player.Enable();
         gameInputActions.Menu.Enable();
         gameInputActions.UI.Enable();
+        gameInputActions.Debug.Enable();
+        
+        // debug
+        gameInputActions.Debug.ToggleDebug.performed += ToggleDebugConsole;
+        gameInputActions.Debug.Execute.performed += ExecuteDebugConsole;
 
         // handle subscriptions
         gameInputActions.UI.Menu.performed += PlayerMenu_performed;
@@ -79,6 +85,10 @@ public class GameInput : MonoBehaviour
     
     private void OnDisable()
     {
+        // debug
+        gameInputActions.Debug.ToggleDebug.performed -= ToggleDebugConsole;
+        gameInputActions.Debug.Execute.performed -= ExecuteDebugConsole;
+        
         gameInputActions.UI.Menu.performed -= PlayerMenu_performed;
         gameInputActions.Menu.Pause.performed -= Pause_performed;
         
@@ -147,11 +157,34 @@ public class GameInput : MonoBehaviour
         }
     }
 
+    private bool debug = false;
+    private void OnToggleDebugConsole()
+    {
+        OnDebugConsoleToggle?.Invoke();
+
+        debug = !debug;
+        if (!debug)
+        {
+            gameInputActions.Player.Enable();
+            gameInputActions.Menu.Enable();
+            gameInputActions.UI.Enable();
+        }
+        else
+        {
+            gameInputActions.Player.Disable();
+            gameInputActions.Menu.Disable();
+            gameInputActions.UI.Disable();
+        }
+    }
+    
     // invoke events
+    private void ToggleDebugConsole(InputAction.CallbackContext obj) => OnToggleDebugConsole();
+    
+    private void ExecuteDebugConsole(InputAction.CallbackContext obj) => OnDebugConsoleExecute?.Invoke();
     
     private void PlayerMenu_performed(InputAction.CallbackContext obj) => OnPlayerMenuToggle?.Invoke();
     
-    private void Pause_performed(InputAction.CallbackContext obj) => OnPauseAction?.Invoke();
+    private void Pause_performed(InputAction.CallbackContext obj) => OnPauseToggle?.Invoke();
 
     private void CameraLeft_performed(InputAction.CallbackContext obj)
     {

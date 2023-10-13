@@ -6,6 +6,9 @@ public class PlayerEvents
     public event Action<float> OnTakeDamage;
     public void TakeDamage(float value) => OnTakeDamage?.Invoke(value);
     
+    public event Action<float> OnHealthRegen;
+    public void RegenHealth(float value) => OnHealthRegen?.Invoke(value);
+    
     public event Action<float> OnDreamShardsChange;
     public void DreamShardsChange(float value) => OnDreamShardsChange?.Invoke(value);
     

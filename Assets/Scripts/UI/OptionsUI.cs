@@ -32,15 +32,15 @@ public class OptionsUI : UI
 
     private void OnEnable()
     {
-        GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
+        GameInput.Instance.OnPauseToggle += GameInputOnPauseToggle;
     }
 
     private void OnDisable()
     {
-        GameInput.Instance.OnPauseAction -= GameInput_OnPauseAction;
+        GameInput.Instance.OnPauseToggle -= GameInputOnPauseToggle;
     }
 
-    private void GameInput_OnPauseAction()
+    private void GameInputOnPauseToggle()
     {
         Hide();
     }

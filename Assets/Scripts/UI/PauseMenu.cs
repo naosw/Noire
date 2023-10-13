@@ -20,7 +20,7 @@ public class PauseMenu : UI
     
     private void Start()
     {
-        GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
+        GameInput.Instance.OnPauseToggle += GameInputOnPauseToggle;
         
         resumeButton.AddListener(TogglePauseGame);
         mainMenuButton.AddListener(OnMainMenuClick);
@@ -31,10 +31,10 @@ public class PauseMenu : UI
 
     private void OnDestroy()
     {
-        GameInput.Instance.OnPauseAction -= GameInput_OnPauseAction;
+        GameInput.Instance.OnPauseToggle -= GameInputOnPauseToggle;
     }
 
-    private void GameInput_OnPauseAction() 
+    private void GameInputOnPauseToggle() 
     {
         TogglePauseGame();
     }
