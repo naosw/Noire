@@ -4,17 +4,17 @@ using UnityEngine;
 /// <summary>
 /// Manages the players "health"(drowsiness) for the whole game.
 /// </summary>
-[CreateAssetMenu(fileName = "Drowsiness", menuName = "Player/Drowsiness")]
+[CreateAssetMenu(fileName = "Stamina", menuName = "Player/Stamina")]
 public class PlayerStaminaSO : ScriptableObject
 {
     [SerializeField] private float staminaRegenRate = 8f;
     
-    public const float MAX_STAMINA = 100;
+    private const float MAX_STAMINA = 100;
     private float currentStamina;
     
-    public float GetCurrentStamina => currentStamina;
+    public float CurrentStamina => currentStamina;
     
-    public float GetCurrentStaminaPercentage => currentStamina / MAX_STAMINA;
+    public float CurrentStaminaPercentage => currentStamina / MAX_STAMINA;
 
     public void SetCurrentStamina(float newValue) => currentStamina = newValue;
 	
@@ -23,6 +23,7 @@ public class PlayerStaminaSO : ScriptableObject
     {
         if (value > currentStamina) 
             return false;
+        
         currentStamina -= value;
         return true;
     }
@@ -39,7 +40,7 @@ public class PlayerStaminaSO : ScriptableObject
         return true;
     }
 
-    public void ResetHealth()
+    public void ResetStamina()
     {
         currentStamina = MAX_STAMINA;
     }

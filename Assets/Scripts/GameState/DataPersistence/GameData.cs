@@ -11,23 +11,21 @@ public class GameData
     [Key(2)] public float PercentageComplete;
     
     // player fields
-    [Key(3)] public float Drowsiness;
-    [Key(4)] public float AttackDamage;
-    [Key(5)] public float DreamShards;
-    [Key(6)] public float DreamThreads;
-    [Key(7)] public Vector3 Position;
+    [Key(3)] public float AttackDamage;
+    [Key(4)] public float DreamShards;
+    [Key(5)] public float DreamThreads;
+    [Key(6)] public Vector3 Position;
     
     // game states
-    [Key(8)] public string CurrentScene;
+    [Key(7)] public string CurrentScene;
     
     // BedrockPlains
-    [Key(9)] public Dictionary<string, InteractableProgress> InteractableProgress;
-    [Key(10)] public bool LightsOpen;
+    [Key(8)] public Dictionary<string, InteractableProgress> InteractableProgress;
+    [Key(9)] public bool LightsOpen;
     
     [SerializationConstructor]
     public GameData(string profileId)
     {
-        Drowsiness = 50;
         AttackDamage = 5;
         DreamShards = 0;
         DreamThreads = 0;

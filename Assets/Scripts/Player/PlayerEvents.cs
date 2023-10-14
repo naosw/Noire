@@ -23,4 +23,7 @@ public class PlayerEvents
 
     public event Action OnUpdateHealthBar;
     public void UpdateHealthBar() => OnUpdateHealthBar?.Invoke();
+    
+    public event Action OnUpdateStaminaBar;
+    public void UpdateStaminaBar() => OnUpdateStaminaBar?.Invoke();
 }

@@ -65,7 +65,6 @@ public class DataPersistenceManager : MonoBehaviour
         // start up the auto saving coroutine
         if (autoSaveCoroutine != null) 
             StopCoroutine(autoSaveCoroutine);
-        autoSaveCoroutine = StartCoroutine(AutoSave());
     }
 
     public void ChangeSelectedProfileId(string newProfileId) 
@@ -123,11 +122,6 @@ public class DataPersistenceManager : MonoBehaviour
         gameData = fileHandler.Load(selectedProfileId);
     }
 
-    private void OnApplicationQuit() 
-    {
-        SaveGame();
-    }
-
     private List<IDataPersistence> FindAllDataPersistenceObjects() 
     {
         return FindObjectsOfType<MonoBehaviour>(true)
@@ -145,15 +139,5 @@ public class DataPersistenceManager : MonoBehaviour
     public Dictionary<string, GameData> GetAllProfilesGameData() 
     {
         return fileHandler.LoadAllProfiles();
-    }
-    
-    private IEnumerator AutoSave() 
-    {
-        while (true) 
-        {
-            yield return new WaitForSeconds(autoSaveTimeSeconds);
-            SaveGame();
-            Debug.Log("Auto Saved Game");
-        }
     }
 }

@@ -11,7 +11,7 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInteract))]
 [RequireComponent(typeof(Animator))]
-public class Player : MonoBehaviour, IDataPersistence
+public class Player : MonoBehaviour, IPlayer, IDataPersistence
 {
     [Header("Fields")]
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
@@ -32,8 +32,8 @@ public class Player : MonoBehaviour, IDataPersistence
     [SerializeField] private AbilitySO[] playerAbilitiesList;  // up to three abilities is currently supported
     [SerializeField] private float invulnerableTimerMax = 1f;
     private Dictionary<int, AbilitySO> playerAbilities;
-    private float playerHitBoxHeight = 1f;
-    private float invulnerableTimer = 0f;
+    private readonly float playerHitBoxHeight = 1f;
+    private float invulnerableTimer = 0;
 
     [Header("Player Health/Stamina")]
     [SerializeField] private PlayerHealthSO playerHealthSO;
@@ -46,25 +46,40 @@ public class Player : MonoBehaviour, IDataPersistence
     [Header("Player Dream State")]
     [Range(0,.5f)] public readonly float LucidThreshold = 0.2f;
     [Range(.5f,1)] public readonly float DeepThreshold = 0.8f;
-    private DreamState dreamState;
+    public DreamState DreamState { get; private set; }
 
     [Header("Player Items")] 
     [SerializeField] private InventorySO playerInventory;
+    
+    #region IPlayer
+    
+    public bool IsWalking() => state == PlayerState.Walk;
+    public bool IsIdle() => state == PlayerState.Idle;
+    public bool IsCasting() => state == PlayerState.Casting;
+    public bool IsDead() => state == PlayerState.Dead;
+    public bool CanCastAbility() => IsIdle() || IsWalking();
+    public float GetPlayerHitBoxHeight() => playerHitBoxHeight;
+    public Weapon GetWeapon() => weapon;
+    public bool AddItem(CollectableItemSO item) => playerInventory.Add(item);
+    public bool RemoveItem(CollectableItemSO item) => playerInventory.Remove(item);
+
+    #endregion
     
     #region EVENT FUNCTIONS
     
     private void Awake()
     {
-        state = PlayerState.Idle;
-        dreamState = DreamState.Neutral;
-        
         Instance = this;
+        
+        state = PlayerState.Idle;
+        DreamState = DreamState.Neutral;
         
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         playerInteract = GetComponent<PlayerInteract>();
         
-        playerHealthSO.ResetHealth(); // resets to 50% HP as default
+        playerHealthSO.ResetHealth();
+        playerStaminaSO.ResetStamina();
         
         dreamShardsSO.SetCurrencyCount(0);
         dreamThreadsSO.SetCurrencyCount(0);
@@ -77,21 +92,22 @@ public class Player : MonoBehaviour, IDataPersistence
 
     private void Start()
     {
-        GameInput.Instance.OnInteract += GameInput_OnInteract;
-        GameInput.Instance.OnAbilityCast += GameInput_OnAbilityCast;
+        GameInput.Instance.OnInteract += OnInteract;
+        GameInput.Instance.OnAbilityCast += OnAbilityCast;
         
         GameEventsManager.Instance.PlayerEvents.OnTakeDamage += OnTakingDamage;
-        GameEventsManager.Instance.PlayerEvents.OnHealthRegen += RegenDrowsiness;
+        GameEventsManager.Instance.PlayerEvents.OnHealthRegen += OnRegenDrowsiness;
         GameEventsManager.Instance.PlayerEvents.OnDreamShardsChange += OnDreamShardsChange;
         GameEventsManager.Instance.PlayerEvents.OnDreamThreadsChange += OnDreamThreadsChange;
     }
 
     private void OnDestroy()
     {
-        GameInput.Instance.OnInteract -= GameInput_OnInteract;
-        GameInput.Instance.OnAbilityCast -= GameInput_OnAbilityCast;
+        GameInput.Instance.OnInteract -= OnInteract;
+        GameInput.Instance.OnAbilityCast -= OnAbilityCast;
+        
         GameEventsManager.Instance.PlayerEvents.OnTakeDamage -= OnTakingDamage;
-        GameEventsManager.Instance.PlayerEvents.OnHealthRegen -= RegenDrowsiness;
+        GameEventsManager.Instance.PlayerEvents.OnHealthRegen -= OnRegenDrowsiness;
         GameEventsManager.Instance.PlayerEvents.OnDreamShardsChange -= OnDreamShardsChange;
         GameEventsManager.Instance.PlayerEvents.OnDreamThreadsChange -= OnDreamThreadsChange;
     }
@@ -101,7 +117,7 @@ public class Player : MonoBehaviour, IDataPersistence
         if (IsDead())
             return;
         
-        HandleHealthAndStamina();
+        HandleStamina();
         HandleAbilityCast();
         
         if(CanCastAbility())
@@ -110,12 +126,12 @@ public class Player : MonoBehaviour, IDataPersistence
     #endregion
 
     #region TRIGGER FUNCTIONS
-    private void GameInput_OnInteract()
+    private void OnInteract()
     {
         playerInteract.Interact();
     }
     
-    private void GameInput_OnAbilityCast(int abilityID)
+    private void OnAbilityCast(int abilityID)
     {
         if (CanCastAbility())
         {
@@ -147,10 +163,12 @@ public class Player : MonoBehaviour, IDataPersistence
     }
     
     // called when restoring drowsiness (hp)
-    private void RegenDrowsiness(float value)
+    private void OnRegenDrowsiness(float value)
     {
-        if(playerHealthSO.RegenHealth(value) == 1){
+        if(playerHealthSO.RegenHealth(value))
+        {
             HandleDreamState();
+            GameEventsManager.Instance.PlayerEvents.UpdateHealthBar();
         }
         else
         {
@@ -172,16 +190,14 @@ public class Player : MonoBehaviour, IDataPersistence
     }
     #endregion
     
-    #region HANDLE FUNCTIONS
-    public bool AddItem(CollectableItemSO item) => playerInventory.Add(item);
-    public bool RemoveItem(CollectableItemSO item) => playerInventory.Remove(item);
+    #region HELPER SUBROUTINES
     
     private void UpdateAbilities()
     {
         playerAbilities = new Dictionary<int, AbilitySO>();
         foreach (AbilitySO ability in playerAbilitiesList)
         {
-            if (ability.applicableDreamStates.Contains(dreamState))
+            if (ability.applicableDreamStates.Contains(DreamState))
             {
                 playerAbilities.Add(ability.abilityID, ability);
             }
@@ -216,6 +232,9 @@ public class Player : MonoBehaviour, IDataPersistence
         transform.forward = new Vector3(moveDir.x, 0, moveDir.z);
     }
 
+    #endregion
+    
+    #region HANDLE FUNCTIONS
     // called when player is either moving or idle
     private void HandleMovement()
     {
@@ -257,34 +276,34 @@ public class Player : MonoBehaviour, IDataPersistence
     }
 
     // called on every frame for buffer regen
-    private void HandleHealthAndStamina()
+    private void HandleStamina()
     {
         if(invulnerableTimer > 0)
             invulnerableTimer -= Time.deltaTime;
 
         if (playerStaminaSO.RegenStamina())
-            GameEventsManager.Instance.PlayerEvents.UpdateHealthBar();
+            GameEventsManager.Instance.PlayerEvents.UpdateStaminaBar();
     }
     
     // called upon changing HP
     private void HandleDreamState()
     {
-        DreamState prevDreamState = dreamState;
+        DreamState prevDreamState = DreamState;
         
-        float currentDrowsinessPercentage = playerHealthSO.GetCurrentDrowsinessPercentage;
-        if (currentDrowsinessPercentage <= LucidThreshold)
-            dreamState = DreamState.Lucid;
-        else if (currentDrowsinessPercentage >= DeepThreshold)
-            dreamState = DreamState.Deep;
+        float currentDrowsinessPercentage = playerHealthSO.CurrentDrowsinessPercentage;
+        if (currentDrowsinessPercentage < LucidThreshold)
+            DreamState = DreamState.Lucid;
+        else if (currentDrowsinessPercentage > DeepThreshold)
+            DreamState = DreamState.Deep;
         else
-            dreamState = DreamState.Neutral;
+            DreamState = DreamState.Neutral;
 
-        if (prevDreamState != dreamState)
-            DreamStateTransition(prevDreamState);
+        if (prevDreamState != DreamState)
+            HandleDreamStateTransition(prevDreamState);
     }
     
     // called when transitioning between dream states
-    private void DreamStateTransition(DreamState prevDreamState)
+    private void HandleDreamStateTransition(DreamState prevDreamState)
     {
         UpdateAbilities();
     }
@@ -297,6 +316,7 @@ public class Player : MonoBehaviour, IDataPersistence
         state = PlayerState.Dead;
         Loader.Load(GameScene.DeathScene);
     }
+    
     #endregion
     
     #region IDataPersistence
@@ -308,13 +328,12 @@ public class Player : MonoBehaviour, IDataPersistence
     
     public void LoadData(GameData data)
     {
-        // data.currentScene should have already been loaded.   
-        playerHealthSO.SetCurrentDrowsiness(data.Drowsiness);
+        // data.currentScene should have already been loaded.
+        
         dreamShardsSO.SetCurrencyCount(data.DreamShards);
         dreamThreadsSO.SetCurrencyCount(data.DreamThreads);
         transform.position = data.Position;
     }
-
 
     public void SaveData(GameData data)
     {
@@ -322,20 +341,10 @@ public class Player : MonoBehaviour, IDataPersistence
         // which was the last `targetScene` the loader had loaded
         data.CurrentScene = SceneManager.GetActiveScene().name;
         
-        data.Drowsiness = playerHealthSO.GetCurrentDrowsiness;
         data.DreamShards = dreamShardsSO.GetCurrencyCount();
         data.DreamThreads = dreamThreadsSO.GetCurrencyCount();
         data.Position = transform.position;
     }
-    #endregion
     
-    #region GETTERS AND SETTERS
-    public bool IsWalking() => state == PlayerState.Walk;
-    public bool IsIdle() => state == PlayerState.Idle;
-    public bool IsCasting() => state == PlayerState.Casting;
-    public bool IsDead() => state == PlayerState.Dead;
-    public bool CanCastAbility() => IsIdle() || IsWalking();
-    public float GetPlayerHitBoxHeight() => playerHitBoxHeight;
-    public Weapon GetWeapon() => weapon;
     #endregion
 }
