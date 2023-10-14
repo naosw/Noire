@@ -32,9 +32,9 @@ public class SaveSlotsMenu : UI
 
     protected override void Activate()
     {
+        ToggleMenuButtons(true);
+        
         Dictionary<string, GameData> profilesGameData = DataPersistenceManager.Instance.GetAllProfilesGameData();
-
-        backButton.Enable();
 
         // loop through each save slot in the UI and set the content appropriately
         foreach (SaveSlot saveSlot in saveSlots) 
@@ -56,10 +56,14 @@ public class SaveSlotsMenu : UI
         Show();
     }
 
-    public void DisableMenuButtons() 
+    public void ToggleMenuButtons(bool activate) 
     {
         foreach (SaveSlot saveSlot in saveSlots) 
-            saveSlot.SetInteractable(false);
-        backButton.Disable();
+            saveSlot.SetInteractable(activate);
+        
+        if(activate)
+            backButton.Enable();
+        else
+            backButton.Disable();
     }
 }

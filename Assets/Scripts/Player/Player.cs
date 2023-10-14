@@ -151,8 +151,11 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
     private void OnTakingDamage(float dmg)
     {
         if (invulnerableTimer > 0)
+        {
+            Debug.Log("Invulnerable -- did not take hit: " + dmg);
             return;
-        
+        }
+
         invulnerableTimer = invulnerableTimerMax;
         playerHealthSO.InflictDamage(dmg);
         GameEventsManager.Instance.PlayerEvents.UpdateHealthBar();

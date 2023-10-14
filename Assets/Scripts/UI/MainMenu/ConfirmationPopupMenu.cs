@@ -22,7 +22,7 @@ public class ConfirmationPopupMenu : UI
 
     public void ActivateMenu(string displayText, UnityAction confirmAction, UnityAction cancelAction)
     {
-        gameObject.SetActive(true);
+        Show();
 
         // set the display text
         this.displayText.text = displayText;

@@ -24,7 +24,7 @@ public class SaveSlot : UI
 
     private void OnSaveSlotClicked() 
     {
-        SaveSlotsMenu.Instance.DisableMenuButtons();
+        SaveSlotsMenu.Instance.ToggleMenuButtons(false);
         
         if (hasData)
         {
@@ -56,7 +56,7 @@ public class SaveSlot : UI
 
     private void OnClear()
     {
-        SaveSlotsMenu.Instance.DisableMenuButtons();
+        SaveSlotsMenu.Instance.ToggleMenuButtons(false);
         
         ConfirmationPopupMenu.Instance.ActivateMenu(
             "Are you sure you want to delete this saved data?",

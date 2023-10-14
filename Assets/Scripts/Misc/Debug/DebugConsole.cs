@@ -10,6 +10,7 @@ public class DebugConsole : MonoBehaviour
     [SerializeField] private int textFont = 30;
 
     public static DebugCommand<int> DEC_HP;
+    public static DebugCommand<(int, int)> DEC_HP_CONT;
     public static DebugCommand<int> INC_HP;
 
     public List<object> cmdList;
@@ -23,6 +24,11 @@ public class DebugConsole : MonoBehaviour
         DEC_HP = new DebugCommand<int>("dec_hp", "decreases player hp by x", "dec_hp <x>", (x) =>
         {
             GameEventsManager.Instance.PlayerEvents.TakeDamage(x);
+        });
+        
+        DEC_HP_CONT = new DebugCommand<(int, int)>("dec_hp_cont", "decreases player hp by x every s seconds", "dec_hp <x> <s>", (x) =>
+        {
+            GameEventsManager.Instance.PlayerEvents.TakeDamage(x.Item1);
         });
         
         INC_HP = new DebugCommand<int>("inc_hp", "increases player hp by x", "inc_hp <x>", (x) =>
@@ -76,8 +82,8 @@ public class DebugConsole : MonoBehaviour
         float y = Screen.height - boxHeight;
         GUI.Box(new Rect(10, y, Screen.width, boxHeight),"");
         GUI.backgroundColor = new Color(0, 0, 0, 0);
-        input = GUI.TextField(new Rect(10, y + 5f, Screen.width, textboxHeight), input, style);
         
+        input = GUI.TextField(new Rect(10, y + 5f, Screen.width, textboxHeight), input, style);
     }
 
     private void HandleInput()
@@ -89,14 +95,8 @@ public class DebugConsole : MonoBehaviour
             var cmdBase = cmd as DebugCommandBase;
             if (input.Contains(cmdBase.cmdId))
             {
-                if (cmd is DebugCommand)
-                {
-                    (cmd as DebugCommand).Invoke();
-                }
-                else if (cmd is DebugCommand<int>)
-                {
-                    (cmd as DebugCommand<int>).Invoke(int.Parse(properties[1]));
-                }
+                (cmd as DebugCommand)?.Invoke();
+                (cmd as DebugCommand<int>)?.Invoke(int.Parse(properties[1]));
             }
             
         }
