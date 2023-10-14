@@ -55,7 +55,7 @@ public class InteractableObject : MonoBehaviour, IInteractable, IDataPersistence
     public virtual void Enable()
     {
         disabled = false;
-        interactableIndicator.SetActive(true);
+        interactableIndicator.SetActive(CanInteract());
     }
     
     public virtual string GetInteractText() => interactText;
@@ -71,10 +71,8 @@ public class InteractableObject : MonoBehaviour, IInteractable, IDataPersistence
         {
             interactionsOccured = progress.interactionsOccured;
             disabled = progress.disabled;
+            interactableIndicator.SetActive(CanInteract());
         }
-
-        if(CanInteract())
-            interactableIndicator.SetActive(true);
     }
     
     public void SaveData(GameData gameData)

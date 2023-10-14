@@ -3,7 +3,7 @@ using Ink.Runtime;
 
 public class InteractableDialogue : InteractableObject
 {
-    [SerializeField] private TextAsset inkJSONAsset = null;
+    [SerializeField] private TextAsset inkJSONAsset;
     public override void Interact()
     {
         interactionsOccured++;
