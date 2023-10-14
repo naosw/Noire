@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInteract))]
@@ -16,8 +17,8 @@ public class Player : MonoBehaviour, IDataPersistence
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     public static Player Instance { get; private set; }
     private Animator animator;
-    private PlayerInteract playerInteract; 
-        
+    private PlayerInteract playerInteract;
+    
     private readonly Quaternion rightRotation = Quaternion.Euler(new Vector3(0, 90, 0));
     
     [Header("Player Controller")]
@@ -28,26 +29,23 @@ public class Player : MonoBehaviour, IDataPersistence
     
     [Header("Player combat")]
     [SerializeField] private Weapon weapon;
-    [SerializeField] private AbilitySO[] playerAbilitiesList; // up to three abilities is currently supported
+    [SerializeField] private AbilitySO[] playerAbilitiesList;  // up to three abilities is currently supported
+    [SerializeField] private float invulnerableTimerMax = 1f;
     private Dictionary<int, AbilitySO> playerAbilities;
     private float playerHitBoxHeight = 1f;
+    private float invulnerableTimer = 0f;
 
-    [Header("Player Health")]
+    [Header("Player Health/Stamina")]
     [SerializeField] private PlayerHealthSO playerHealthSO;
-    [SerializeField] private float bufferDecreaseRate = 8f;
-    [SerializeField] private float maxRegenHitCooldown = 2.5f;
-    [SerializeField] private float playerHitIFrames = 1f;
-    private float currentBufferCooldown = 0f;
-    private bool bufferOnCooldown = false;
-    private float currentIFrameTimer = 0f;
+    [SerializeField] private PlayerStaminaSO playerStaminaSO;
     
     [Header("Player Stats")] 
     [SerializeField] private PlayerStatisticsSO dreamShardsSO;
     [SerializeField] private PlayerStatisticsSO dreamThreadsSO;
     
     [Header("Player Dream State")]
-    [SerializeField] [Range(0,.5f)] private float lucidThreshold;
-    [SerializeField] [Range(.5f,1)] private float deepThreshold;
+    [Range(0,.5f)] public readonly float LucidThreshold = 0.2f;
+    [Range(.5f,1)] public readonly float DeepThreshold = 0.8f;
     private DreamState dreamState;
 
     [Header("Player Items")] 
@@ -103,7 +101,7 @@ public class Player : MonoBehaviour, IDataPersistence
         if (IsDead())
             return;
         
-        HandleDrowsiness();
+        HandleHealthAndStamina();
         HandleAbilityCast();
         
         if(CanCastAbility())
@@ -121,7 +119,6 @@ public class Player : MonoBehaviour, IDataPersistence
     {
         if (CanCastAbility())
         {
-            
             if (playerAbilities.TryGetValue(abilityID, out AbilitySO ability)){
                 bool status = ability.Activate();
                 if (status)
@@ -135,19 +132,16 @@ public class Player : MonoBehaviour, IDataPersistence
     }
     
     // called when taking any damage
-    private void OnTakingDamage(float bufferDamage)
+    private void OnTakingDamage(float dmg)
     {
-        if (IsDead())
-            Debug.LogError("Cannot take dmg if dead. This should not happen -- should've handled death earlier");
-        if (currentIFrameTimer <= playerHitIFrames)
+        if (invulnerableTimer > 0)
             return;
         
-        currentBufferCooldown = maxRegenHitCooldown;
-        
-        playerHealthSO.InflictDamage(bufferDamage);
+        invulnerableTimer = invulnerableTimerMax;
+        playerHealthSO.InflictDamage(dmg);
         GameEventsManager.Instance.PlayerEvents.UpdateHealthBar();
+        
         HandleDreamState();
-
         if (playerHealthSO.IsDead())
             HandleDeath();
     }
@@ -251,7 +245,7 @@ public class Player : MonoBehaviour, IDataPersistence
         foreach (AbilitySO ability in playerAbilities.Values)
             ability.Continue();
     }
-    
+
     // called after attacks
     public void HandleAttackOnHitEffects()
     {
@@ -263,28 +257,13 @@ public class Player : MonoBehaviour, IDataPersistence
     }
 
     // called on every frame for buffer regen
-    private void HandleDrowsiness()
+    private void HandleHealthAndStamina()
     {
-        if(currentIFrameTimer <= playerHitIFrames)
-            currentIFrameTimer += Time.deltaTime;
+        if(invulnerableTimer > 0)
+            invulnerableTimer -= Time.deltaTime;
 
-        if (currentBufferCooldown <= 0)
-            bufferOnCooldown = false;
-        else
-        {
-            bufferOnCooldown = true;
-            currentBufferCooldown -= Time.deltaTime;
-        }
-        
-        if (!bufferOnCooldown)
-        {
+        if (playerStaminaSO.RegenStamina())
             GameEventsManager.Instance.PlayerEvents.UpdateHealthBar();
-            playerHealthSO.RegenBuffer(bufferDecreaseRate * Time.deltaTime);
-        }
-        
-        // TODO: remove this later since it is never triggered, should only trigger death in HandleHit()
-        if (playerHealthSO.IsDead())
-            HandleDeath();
     }
     
     // called upon changing HP
@@ -293,9 +272,9 @@ public class Player : MonoBehaviour, IDataPersistence
         DreamState prevDreamState = dreamState;
         
         float currentDrowsinessPercentage = playerHealthSO.GetCurrentDrowsinessPercentage;
-        if (currentDrowsinessPercentage <= lucidThreshold)
+        if (currentDrowsinessPercentage <= LucidThreshold)
             dreamState = DreamState.Lucid;
-        else if (currentDrowsinessPercentage >= deepThreshold)
+        else if (currentDrowsinessPercentage >= DeepThreshold)
             dreamState = DreamState.Deep;
         else
             dreamState = DreamState.Neutral;
