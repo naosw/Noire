@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,14 +12,15 @@ public class DebugConsole : MonoBehaviour
     [SerializeField] private int textFont = 30;
 
     public static DebugCommand<int> DEC_HP;
-    public static DebugCommand<(int, int)> DEC_HP_CONT;
+    public static DebugCommand<(int, float)> DEC_HP_CONT;
     public static DebugCommand<int> INC_HP;
+    public static DebugCommand KILL;
 
     public List<object> cmdList;
     
     private bool showConsole;
     private string input;
-    private GUIStyle style = new GUIStyle();
+    private GUIStyle style = new();
 
     private void Awake()
     {
@@ -26,23 +29,38 @@ public class DebugConsole : MonoBehaviour
             GameEventsManager.Instance.PlayerEvents.TakeDamage(x);
         });
         
-        DEC_HP_CONT = new DebugCommand<(int, int)>("dec_hp_cont", "decreases player hp by x every s seconds", "dec_hp <x> <s>", (x) =>
+        DEC_HP_CONT = new DebugCommand<(int, float)>("dec_hp_cont", "decreases player hp by x every s seconds", "dec_hp <x> <s>", (x) =>
         {
-            GameEventsManager.Instance.PlayerEvents.TakeDamage(x.Item1);
+            StartCoroutine(dec_hp_cont(x.Item1, x.Item2));
         });
         
         INC_HP = new DebugCommand<int>("inc_hp", "increases player hp by x", "inc_hp <x>", (x) =>
         {
             GameEventsManager.Instance.PlayerEvents.RegenHealth(x);
         });
+        
+        KILL = new DebugCommand("kill", "kills the player", "kill", () =>
+        {
+            GameEventsManager.Instance.PlayerEvents.TakeDamage(Single.MaxValue);
+        });
 
         cmdList = new List<object>
         {
             DEC_HP,
+            DEC_HP_CONT,
             INC_HP,
+            KILL
         };
-        
-        
+    }
+
+    private IEnumerator dec_hp_cont(float value, float seconds)
+    {
+        while (true)
+        {
+            yield return null;
+            GameEventsManager.Instance.PlayerEvents.TakeDamage(value);
+            yield return new WaitForSeconds(seconds);
+        }
     }
 
     private void Start()
@@ -93,12 +111,17 @@ public class DebugConsole : MonoBehaviour
         foreach (var cmd in cmdList)
         {
             var cmdBase = cmd as DebugCommandBase;
-            if (input.Contains(cmdBase.cmdId))
+            if (properties.Contains(cmdBase.cmdId))
             {
-                (cmd as DebugCommand)?.Invoke();
-                (cmd as DebugCommand<int>)?.Invoke(int.Parse(properties[1]));
+                if(cmd is DebugCommand)
+                    (cmd as DebugCommand).Invoke();
+                else if (cmd is DebugCommand<int>)
+                    (cmd as DebugCommand<int>).Invoke(int.Parse(properties[1]));
+                else if (cmd is DebugCommand<(int, float)>)
+                    (cmd as DebugCommand<(int, float)>).Invoke((int.Parse(properties[1]), float.Parse(properties[2])));
+
+                break;
             }
-            
         }
     }
 }

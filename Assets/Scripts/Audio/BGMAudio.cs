@@ -40,7 +40,6 @@ public class BGMAudio : MonoBehaviour
     }
     
     public void StopBgmAudio(Scene oldScene, Scene newScene){
-        Debug.Log("STOPEED");
         bgmState.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         bgmState.release();
     }

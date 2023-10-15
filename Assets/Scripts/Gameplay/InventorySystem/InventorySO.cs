@@ -1,14 +1,19 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Inventory", menuName = "Inventory/Inventory")]
 public class InventorySO : ScriptableObject
 {
     public Dictionary<CollectableItemSO, int> Inventory { get; private set; }
+    private Dictionary<string, CollectableItemSO> AllItems;
     
     public void Init()
     {
         Inventory = new Dictionary<CollectableItemSO, int>();
+        AllItems = Resources.LoadAll<CollectableItemSO>("Items")
+            .ToDictionary(x => x.itemName, x => x);
     }
     
     // returns true upon successful add
@@ -37,5 +42,24 @@ public class InventorySO : ScriptableObject
         }
 
         return false;
+    }
+
+    public Dictionary<string, int> ToSerializableInventory()
+    {
+        return Inventory.ToDictionary(
+            x => x.Key.itemName, 
+            x => x.Value);
+    }
+
+    public void FromSerializedInventory(Dictionary<string, int> serializedInventory)
+    {
+        Inventory = new();
+        foreach (var kv in serializedInventory)
+        {
+            if (AllItems.TryGetValue(kv.Key, out CollectableItemSO item))
+            {
+                Inventory[item] = kv.Value;
+            }
+        }
     }
 }

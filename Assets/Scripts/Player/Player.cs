@@ -30,10 +30,10 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
     [Header("Player combat")]
     [SerializeField] private Weapon weapon;
     [SerializeField] private AbilitySO[] playerAbilitiesList;  // up to three abilities is currently supported
-    [SerializeField] private float invulnerableTimerMax = 1f;
+    [SerializeField] private float invulnerableTimerMax = .5f;
     private Dictionary<int, AbilitySO> playerAbilities;
     private readonly float playerHitBoxHeight = 1f;
-    private float invulnerableTimer = 0;
+    private float invulnerableTimer;
 
     [Header("Player Health/Stamina")]
     [SerializeField] private PlayerHealthSO playerHealthSO;
@@ -57,12 +57,24 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
     public bool IsIdle() => state == PlayerState.Idle;
     public bool IsCasting() => state == PlayerState.Casting;
     public bool IsDead() => state == PlayerState.Dead;
-    public bool CanCastAbility() => IsIdle() || IsWalking();
+
+    public AbilitySO CanCastAbility(int abilityId)
+    {
+        bool hasAbility = playerAbilities.TryGetValue(abilityId, out AbilitySO ability);
+        
+        if ((IsIdle() || IsWalking())
+            && hasAbility
+            && playerStaminaSO.CurrentStamina >= ability.staminaCost)
+        {
+            return ability;
+        }
+
+        return null;
+    }
     public float GetPlayerHitBoxHeight() => playerHitBoxHeight;
     public Weapon GetWeapon() => weapon;
     public bool AddItem(CollectableItemSO item) => playerInventory.Add(item);
     public bool RemoveItem(CollectableItemSO item) => playerInventory.Remove(item);
-
     #endregion
     
     #region EVENT FUNCTIONS
@@ -120,7 +132,7 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
         HandleStamina();
         HandleAbilityCast();
         
-        if(CanCastAbility())
+        if(IsWalking() || IsIdle())
             HandleMovement();
     }
     #endregion
@@ -131,19 +143,25 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
         playerInteract.Interact();
     }
     
-    private void OnAbilityCast(int abilityID)
+    private void OnAbilityCast(int abilityId)
     {
-        if (CanCastAbility())
+        var ability = CanCastAbility(abilityId);
+        if (ability != null)
         {
-            if (playerAbilities.TryGetValue(abilityID, out AbilitySO ability)){
-                bool status = ability.Activate();
-                if (status)
-                    state = PlayerState.Casting;
+            if (ability.Activate())
+            {
+                state = PlayerState.Casting;
+                playerStaminaSO.UseStamina(ability.staminaCost);
+                GameEventsManager.Instance.PlayerEvents.UpdateStaminaBar();
             }
             else
             {
-                Debug.Log("Ability not available");
+                Debug.Log($"Ability {abilityId} not available, either on cooldown or locked");
             }
+        }
+        else
+        {
+            Debug.Log($"Ability cast {abilityId} failed, either already casting or not enough stamina");
         }
     }
     
@@ -336,6 +354,7 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
         dreamShardsSO.SetCurrencyCount(data.DreamShards);
         dreamThreadsSO.SetCurrencyCount(data.DreamThreads);
         transform.position = data.Position;
+        playerInventory.FromSerializedInventory(data.Inventory);
     }
 
     public void SaveData(GameData data)
@@ -347,6 +366,7 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
         data.DreamShards = dreamShardsSO.GetCurrencyCount();
         data.DreamThreads = dreamThreadsSO.GetCurrencyCount();
         data.Position = transform.position;
+        data.Inventory = playerInventory.ToSerializableInventory();
     }
     
     #endregion

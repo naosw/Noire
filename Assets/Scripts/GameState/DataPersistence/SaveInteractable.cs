@@ -7,7 +7,6 @@ public class SaveInteractable : InteractableObject
     public override void Interact()
     {
         onSaveParticleSystem.Restart();
-        Debug.Log("Game saved!");
         DataPersistenceManager.Instance.SaveGame();
         FinishInteract();
     }

@@ -15,5 +15,6 @@ MonoBehaviour:
   abilityID: 0
   abilityAnimationTrigger: Attack1
   cooldown: 1
+  staminaCost: 30
   applicableDreamStates: 0000000002000000
   attackDuration: 0.4

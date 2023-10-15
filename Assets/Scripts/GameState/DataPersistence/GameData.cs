@@ -15,6 +15,7 @@ public class GameData
     [Key(4)] public float DreamShards;
     [Key(5)] public float DreamThreads;
     [Key(6)] public Vector3 Position;
+    [Key(10)] public Dictionary<string, int> Inventory;
     
     // game states
     [Key(7)] public string CurrentScene;
@@ -35,6 +36,8 @@ public class GameData
         PercentageComplete = 0;
 
         CurrentScene = Loader.FirstScene.ToString();
+
+        Inventory = new();
         
         // maps number of times each instance of interactable object has been interacted
         InteractableProgress = new();

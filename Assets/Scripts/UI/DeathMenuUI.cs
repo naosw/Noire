@@ -14,21 +14,15 @@ public class DeathMenuUI : UI
     
     private void Start()
     {
-        mainMenuButton.AddListener(() =>
-        {
-            Loader.Load(GameScene.MainMenuScene);
-        });
-        
-        respawnButton.AddListener(() =>
-        {
-            Debug.Log("TODO: should respawn to last savepoint!");
-        });
+        mainMenuButton.AddListener(() => Loader.Load(GameScene.MainMenuScene));
+        respawnButton.AddListener(Loader.Respawn);
         
         canvasGroup.alpha = 0;
         ToggleButtons(false);
         StartCoroutine(DisplayLine(deathMessage));
     }
     
+    // displays the text one character at a time
     private IEnumerator DisplayLine(string line) 
     {
         // set the text to the full line, but set the visible characters to 0

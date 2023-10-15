@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 450fb2210ebb424e9dd754acc9005661, type: 3}
   m_Name: StaminaSO
   m_EditorClassIdentifier: 
-  staminaRegenRate: 8
+  staminaRegenRate: 16

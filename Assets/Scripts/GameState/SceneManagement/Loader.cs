@@ -38,4 +38,9 @@ public static class Loader {
     {
         return Load(StaticInfoObjects.Instance.GAMESCENES[nextScene.name]);
     }
+
+    public static void Respawn()
+    {
+        Load(DataPersistenceManager.Instance.CurrentScene);
+    }
 }

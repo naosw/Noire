@@ -13,7 +13,6 @@ public class DebugCommandBase
         cmdDescription = description;
         cmdFormat = format;
     }
-
 }
 
 public class DebugCommand : DebugCommandBase
