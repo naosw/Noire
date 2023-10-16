@@ -31,9 +31,12 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
     [SerializeField] private Weapon weapon;
     [SerializeField] private AbilitySO[] playerAbilitiesList;  // up to three abilities is currently supported
     [SerializeField] private float invulnerableTimerMax = .5f;
+    [SerializeField] private ParticleSystemBase onHitParticleEffects;
     private Dictionary<int, AbilitySO> playerAbilities;
     private readonly float playerHitBoxHeight = 1f;
     private float invulnerableTimer;
+    private Material onhitMaterial;
+    private Coroutine onHitCoroutine;
 
     [Header("Player Health/Stamina")]
     [SerializeField] private PlayerHealthSO playerHealthSO;
@@ -52,7 +55,6 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
     [SerializeField] private InventorySO playerInventory;
     
     #region IPlayer
-    
     public bool IsWalking() => state == PlayerState.Walk;
     public bool IsIdle() => state == PlayerState.Idle;
     public bool IsCasting() => state == PlayerState.Casting;
@@ -104,6 +106,8 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
 
     private void Start()
     {
+        Shader.SetGlobalColor("_FullScreenVoronoiColor", StaticInfoObjects.Instance.VORONOI_INDICATOR[DreamState]);
+        
         GameInput.Instance.OnInteract += OnInteract;
         GameInput.Instance.OnAbilityCast += OnAbilityCast;
         
@@ -166,7 +170,7 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
     }
     
     // called when taking any damage
-    private void OnTakingDamage(float dmg)
+    private void OnTakingDamage(float dmg, Vector3 source)
     {
         if (invulnerableTimer > 0)
         {
@@ -174,13 +178,38 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
             return;
         }
 
+        // take damage
         invulnerableTimer = invulnerableTimerMax;
         playerHealthSO.InflictDamage(dmg);
         GameEventsManager.Instance.PlayerEvents.UpdateHealthBar();
         
+        // play onhit effects (material change + animation)
+        if (onHitCoroutine != null)
+            StopCoroutine(onHitCoroutine);
+        onHitCoroutine = StartCoroutine(PlayOnHitEffects(source));
+        
+        // handle effects
         HandleDreamState();
         if (playerHealthSO.IsDead())
             HandleDeath();
+    }
+
+    private IEnumerator PlayOnHitEffects(Vector3 source)
+    {
+        if (!onHitParticleEffects)
+        {
+            Debug.LogError("Did not find onHitParticleEffects. This may be intentional");
+            yield return null;
+        }
+        else
+        {
+            onHitParticleEffects.transform.LookAt(source);
+            onHitParticleEffects.Play();
+            CameraManager.Instance.CameraShake(invulnerableTimerMax, 5f);
+            yield return new WaitForSeconds(invulnerableTimerMax);
+            onHitParticleEffects.Stop();
+        }
+        onHitCoroutine = null;
     }
     
     // called when restoring drowsiness (hp)
@@ -327,13 +356,16 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
     private void HandleDreamStateTransition(DreamState prevDreamState)
     {
         UpdateAbilities();
+        Shader.SetGlobalColor("_FullScreenVoronoiColor", StaticInfoObjects.Instance.VORONOI_INDICATOR[DreamState]);
     }
     
     // called when drowsiness == 0
-    // TODO: currency drops
-    // TODO: reset to save points
     private void HandleDeath()
     {
+        dreamShardsSO.OnDeath();
+        dreamThreadsSO.OnDeath();
+        GameEventsManager.Instance.PlayerEvents.DreamShardsChangeFinished();
+        GameEventsManager.Instance.PlayerEvents.DreamThreadsChangeFinished();
         state = PlayerState.Dead;
         Loader.Load(GameScene.DeathScene);
     }

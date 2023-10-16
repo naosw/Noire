@@ -23,4 +23,9 @@ public class PlayerStatisticsSO : ScriptableObject
                 currencyCount = 0;
         }
     }
+
+    public void OnDeath()
+    {
+        currencyCount /= 2;
+    }
 }

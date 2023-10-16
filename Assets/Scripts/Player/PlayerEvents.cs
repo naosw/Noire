@@ -1,10 +1,10 @@
 using System;
-using UnityEngine.Events;
+using UnityEngine;
 
 public class PlayerEvents
 {
-    public event Action<float> OnTakeDamage;
-    public void TakeDamage(float value) => OnTakeDamage?.Invoke(value);
+    public event Action<float, Vector3> OnTakeDamage;
+    public void TakeDamage(float value, Vector3 source) => OnTakeDamage?.Invoke(value, source);
     
     public event Action<float> OnHealthRegen;
     public void RegenHealth(float value) => OnHealthRegen?.Invoke(value);

@@ -1,5 +1,5 @@
+using TMPro;
 using UnityEngine;
-
 
 public class PlayerMenu : UI
 {
@@ -10,6 +10,7 @@ public class PlayerMenu : UI
     // [SerializeField] private Button swipeRight;
 
     [SerializeField] private InventorySO playerInventory;
+    [SerializeField] private TextMeshProUGUI descriptionArea;
     private bool isToggledOn = false;
 
     private InventorySlot[] inventoryDisplay;
@@ -19,6 +20,8 @@ public class PlayerMenu : UI
         Instance = this;
         
         canvasGroup = GetComponent<CanvasGroup>();
+        
+        ToggleDescriptionText(false);
     }
 
     private void Start()
@@ -60,5 +63,15 @@ public class PlayerMenu : UI
             inventoryDisplay[i].Display(item, count);
             i++;
         }
+    }
+
+    public void SetDescriptionText(string text)
+    {
+        descriptionArea.text = text;
+    }
+
+    public void ToggleDescriptionText(bool activate)
+    {
+        descriptionArea.enabled = activate;
     }
 }

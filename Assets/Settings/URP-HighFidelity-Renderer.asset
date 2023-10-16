@@ -15,6 +15,23 @@ MonoBehaviour:
   m_Active: 0
   settings: {fileID: 11400000, guid: 5b5c006d039a35449922c44009c60d07, type: 2}
   _effectMaterial: {fileID: 0}
+--- !u!114 &-4327920889024400675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d613f08f173d4dd895bb07b3230baa9, type: 3}
+  m_Name: DreamStateIndicator
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  passMaterial: {fileID: 2100000, guid: ecdfe8e08ab214eb4bd5d638583e9571, type: 2}
+  injectionPoint: 600
+  requirements: 0
+  passIndex: 0
 --- !u!114 &-1304647417798613784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,7 +97,8 @@ MonoBehaviour:
   - {fileID: 4259746766931862595}
   - {fileID: -1304647417798613784}
   - {fileID: 7790271975648803368}
-  m_RendererFeatureMap: b602840fa09219c0d2cc64e67c30396faf44effd412b9b3843a4178c1da91d3be8a4fbf815f6e4ed283a3a54169b1c6c
+  - {fileID: -4327920889024400675}
+  m_RendererFeatureMap: b602840fa09219c0d2cc64e67c30396faf44effd412b9b3843a4178c1da91d3be8a4fbf815f6e4ed283a3a54169b1c6cdd32b5b9e122f0c3
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -191,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770acbaed70db4ad696458511aa3f084, type: 3}
   m_Name: FlatKitFog
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   settings: {fileID: 11400000, guid: a4b62fd46b1ce844cb8dab6b23d5de00, type: 2}
   _effectMaterial: {fileID: 0}
 --- !u!114 &8014490324881951954

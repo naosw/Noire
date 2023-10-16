@@ -7,7 +7,6 @@ public class InventorySlot : MonoBehaviour
     [SerializeField] private Sprite defaultSprite;
     [SerializeField] private Image sprite;
     [SerializeField] private TextMeshProUGUI stackCount;
-    [SerializeField] private TextMeshProUGUI displayText;
 
     private string currItemDescription;
     private Button inventorySlotButton;
@@ -17,7 +16,6 @@ public class InventorySlot : MonoBehaviour
         ToggleEnable(false);
         inventorySlotButton = GetComponent<Button>();
         inventorySlotButton.onClick.AddListener(OnInventorySlotClicked);
-        displayText.enabled = false;
     }
 
     public void Display(CollectableItemSO newItem, int count)
@@ -45,7 +43,7 @@ public class InventorySlot : MonoBehaviour
 
     private void OnInventorySlotClicked()
     {
-        displayText.text = currItemDescription;
-        displayText.enabled = true;
+        PlayerMenu.Instance.SetDescriptionText(currItemDescription);
+        PlayerMenu.Instance.ToggleDescriptionText(true);
     }
 }

@@ -377,6 +377,7 @@ GameObject:
   m_Component:
   - component: {fileID: 76827203}
   - component: {fileID: 76827204}
+  - component: {fileID: 76827205}
   m_Layer: 0
   m_Name: Health
   m_TagString: Untagged
@@ -418,13 +419,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb7cafc05f39b941b6bdc1b93d84268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  containerGameObject: {fileID: 0}
   playerHealthSO: {fileID: 11400000, guid: 33dac87c2e381db4798eb0f06d68916c, type: 2}
+  PlayerStaminaSO: {fileID: 0}
   dreamShardsSO: {fileID: 0}
   dreamThreadsSO: {fileID: 0}
   dreamShardsCount: {fileID: 0}
   dreamThreadsCount: {fileID: 0}
-  drowsiness: {fileID: 8076559101675123695}
-  buffer: {fileID: 1520654261}
+  neutralDrowsiness: {fileID: 0}
+  lucidDrowsiness: {fileID: 0}
+  deepDrowsiness: {fileID: 0}
+  stamina: {fileID: 0}
+--- !u!225 &76827205
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76827202}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &132075896
 GameObject:
   m_ObjectHideFlags: 0
@@ -712,6 +729,7 @@ GameObject:
   m_Component:
   - component: {fileID: 197680071}
   - component: {fileID: 197680072}
+  - component: {fileID: 197680073}
   m_Layer: 0
   m_Name: Interact
   m_TagString: Untagged
@@ -755,8 +773,18 @@ MonoBehaviour:
   containerGameObject: {fileID: 17570484}
   playerInteract: {fileID: 2003174266}
   interactText: {fileID: 0}
-  cannotInteractTextColor: {r: 0, g: 0, b: 0, a: 0}
-  canInteractTextColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!225 &197680073
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197680070}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &231874527 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4118187688203045083, guid: c34c049c0620c514084fb426aa5d5d63,
@@ -1028,9 +1056,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d05843a501aa4aab8c07b6502098630a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 
   interactText: Save Game [f]
-  cannotInteractText: 
   maxInteractions: 0
+  interactableIndicator: {fileID: 0}
+  onSaveParticleSystem: {fileID: 0}
 --- !u!1 &313825785
 GameObject:
   m_ObjectHideFlags: 0
@@ -2956,12 +2986,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf170c07de29384ab94f6d25d8097d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  virtualCamera: {fileID: 648294668}
-  FOVmax: 20
-  FOVmin: 4.5
-  FOVDefault: 20
-  zoomSpeed: 15
-  shiftCameraPerspectiveSpeed: 4
 --- !u!114 &648294668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4586,9 +4610,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3adbfd996f615b944b97bac92e75bfda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 
   interactText: interacted 1111
-  cannotInteractText: 
   maxInteractions: 0
+  interactableIndicator: {fileID: 0}
 --- !u!1 &1137138362
 GameObject:
   m_ObjectHideFlags: 0
@@ -6313,7 +6338,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6473,9 +6498,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3adbfd996f615b944b97bac92e75bfda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 
   interactText: interact 22222
-  cannotInteractText: 
   maxInteractions: 0
+  interactableIndicator: {fileID: 0}
 --- !u!1001 &1817956923
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7164,7 +7190,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1940346403
 Transform:
   m_ObjectHideFlags: 0
@@ -7322,14 +7348,11 @@ MonoBehaviour:
   playerAbilitiesList:
   - {fileID: 11400000, guid: 95f7988d3ec1ba7468f7469e28f50abc, type: 2}
   - {fileID: 11400000, guid: 2472705c088bb8c40a714fcfaffbb215, type: 2}
+  invulnerableTimerMax: 0.5
   playerHealthSO: {fileID: 11400000, guid: 33dac87c2e381db4798eb0f06d68916c, type: 2}
-  bufferDecreaseRate: 8
-  maxRegenHitCooldown: 2.5
-  playerHitIFrames: 1
+  playerStaminaSO: {fileID: 0}
   dreamShardsSO: {fileID: 11400000, guid: 52aa4afa771a20a458e523be9bd1feaf, type: 2}
   dreamThreadsSO: {fileID: 11400000, guid: 2faab5e8af90e314cad56f42cedb8ea7, type: 2}
-  lucidThreshold: 0.131
-  deepThreshold: 0.849
   playerInventory: {fileID: 0}
 --- !u!136 &2003174262
 CapsuleCollider:
@@ -9057,6 +9080,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6322739052315765486}
   - component: {fileID: 5699595630505067803}
+  - component: {fileID: 6322739052315765487}
   m_Layer: 0
   m_Name: GamePause
   m_TagString: Untagged
@@ -9530,7 +9554,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10824,9 +10848,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bcce44fe8f9ea64d97997f3ef1fd812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resumeButton: {fileID: 1429775986467880206}
-  mainMenuButton: {fileID: 4308060764844389165}
-  optionsButton: {fileID: 971448826871001257}
+  containerGameObject: {fileID: 0}
+  resumeButton: {fileID: 0}
+  mainMenuButton: {fileID: 0}
+  optionsButton: {fileID: 0}
+  IsGamePaused: 0
 --- !u!224 &5700733574890280976
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11181,6 +11207,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &6322739052315765487
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2918530623584455260}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6326013365366195978
 GameObject:
   m_ObjectHideFlags: 0
@@ -12111,6 +12149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b5e0caa3e77134c98e129efad6b5c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  containerGameObject: {fileID: 0}
   soundEffectsButton: {fileID: 0}
   musicButton: {fileID: 0}
   controlsButton: {fileID: 0}
@@ -12126,6 +12165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1283123866929166826}
   - component: {fileID: 7729609267085259264}
+  - component: {fileID: 7738974618858858443}
   m_Layer: 0
   m_Name: Options
   m_TagString: Untagged
@@ -12133,6 +12173,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!225 &7738974618858858443
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7738974618858858442}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &7785289957967819230
 MonoBehaviour:
   m_ObjectHideFlags: 0

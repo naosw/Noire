@@ -25,11 +25,18 @@ public class StaticInfoObjects : MonoBehaviour
     
     public readonly Dictionary<string, GameScene> GAMESCENES = new()
     {
-        {"MainMenuScene", GameScene.MainMenuScene},
-        {"DeathScene", GameScene.DeathScene},
-        {"ValleyofSolura", GameScene.ValleyofSolura},
-        {"BedrockPlains", GameScene.BedrockPlains},
-        {"LoadingScene", GameScene.LoadingScene}
+        { "MainMenuScene", GameScene.MainMenuScene },
+        { "DeathScene", GameScene.DeathScene },
+        { "ValleyofSolura", GameScene.ValleyofSolura },
+        { "BedrockPlains", GameScene.BedrockPlains },
+        { "LoadingScene", GameScene.LoadingScene }
+    };
+
+    public readonly Dictionary<DreamState, Color> VORONOI_INDICATOR = new()
+    {
+        { DreamState.Neutral, Color.black },
+        { DreamState.Lucid, Color.cyan },
+        { DreamState.Deep, Color.magenta },
     };
     
     private void Awake()

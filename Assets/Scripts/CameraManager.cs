@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.Serialization;
@@ -7,12 +8,19 @@ public class CameraManager : MonoBehaviour
     public static CameraManager Instance { get; private set; }
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
+    [Header("Camera zoom/pan")]
     // here orthographic camera is used so FOV is actually m_Lens.OrthographicSize
     [SerializeField] private float FOVmax;
     [SerializeField] private float FOVmin;
     [SerializeField] private float FOVDefault;
     [SerializeField] private float zoomSpeed = 10f;
     [SerializeField] private float shiftCameraPerspectiveSpeed = 20f;
+
+    [Header("Camera effects")] 
+    private const float shakeDuration = .5f;
+    private const float shakeMagnitude = 10f;
+    private Coroutine shakeCoroutine;
+    private CinemachineBasicMultiChannelPerlin shakeNoise;
     
     public Transform LookAt;
     
@@ -25,7 +33,10 @@ public class CameraManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        shakeNoise = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         
+        shakeNoise.m_AmplitudeGain = 0;
         virtualCamera.m_Lens.OrthographicSize = FOVDefault;
         targetFOV = virtualCamera.m_Lens.OrthographicSize;
         targetCameraRotation = transform.rotation;
@@ -73,5 +84,33 @@ public class CameraManager : MonoBehaviour
 
         targetFOV = Mathf.Clamp(targetFOV, FOVmin, FOVmax);
         virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(virtualCamera.m_Lens.OrthographicSize, targetFOV, Time.deltaTime * zoomSpeed); ;
+    }
+
+
+    public void CameraShake(float duration=shakeDuration, float magnitude=shakeMagnitude)
+    {
+        if (shakeCoroutine != null)
+            StopCoroutine(shakeCoroutine);
+        
+        shakeCoroutine = StartCoroutine(Shake(duration, magnitude));
+    }
+    
+    private IEnumerator Shake(float duration, float magnitude)
+    {
+        shakeNoise.m_AmplitudeGain = magnitude;
+
+        float time = 0f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+
+            shakeNoise.m_AmplitudeGain = Mathf.Lerp(magnitude, 0, time / duration);
+            
+            yield return null;
+        }
+
+        shakeNoise.m_AmplitudeGain = 0;
+        shakeCoroutine = null;
     }
 }

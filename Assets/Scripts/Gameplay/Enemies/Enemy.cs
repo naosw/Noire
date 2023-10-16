@@ -97,13 +97,10 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator PlayOnHitEffectsWithDelay()
     {
-        yield return new WaitForSeconds(.2f);
-        
         if (onHitParticleEffects != null)
         {
             onHitParticleEffects.transform.LookAt(Player.Instance.transform.position + new Vector3(0, Player.Instance.GetPlayerHitBoxHeight(), 0));
             onHitParticleEffects.Play();
-            Debug.Log("PLAY PARTI");
         }
         renderer.material = OnHitMaterial;
         yield return new WaitForSeconds(.2f);

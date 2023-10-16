@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 1191207924846191750, guid: 09608ae500e169b4786407c5831f6dcb,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 1191207924846191750, guid: 09608ae500e169b4786407c5831f6dcb,
         type: 3}
@@ -21,17 +21,17 @@ PrefabInstance:
     - target: {fileID: 1191207924846191750, guid: 09608ae500e169b4786407c5831f6dcb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 127.37
       objectReference: {fileID: 0}
     - target: {fileID: 1191207924846191750, guid: 09608ae500e169b4786407c5831f6dcb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 21.68
       objectReference: {fileID: 0}
     - target: {fileID: 1191207924846191750, guid: 09608ae500e169b4786407c5831f6dcb,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 79.55
       objectReference: {fileID: 0}
     - target: {fileID: 1191207924846191750, guid: 09608ae500e169b4786407c5831f6dcb,
         type: 3}
@@ -76,7 +76,7 @@ PrefabInstance:
     - target: {fileID: 3408444268450221785, guid: 09608ae500e169b4786407c5831f6dcb,
         type: 3}
       propertyPath: m_Name
-      value: FirefliesBurst Variant
+      value: FirefliesBurst
       objectReference: {fileID: 0}
     - target: {fileID: 3408444268450221785, guid: 09608ae500e169b4786407c5831f6dcb,
         type: 3}

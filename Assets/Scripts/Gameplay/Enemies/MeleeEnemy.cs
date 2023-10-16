@@ -25,11 +25,6 @@ public class MeleeEnemyAI : Enemy
         currentChangeTime = Random.Range(changeDirectionTime[0], changeDirectionTime[1]);
     }
 
-    public override void Update()
-    {
-        base.Update();
-    }
-
     public override void Idle()
     {
         if (IsPlayerInSight() && IsPlayerInRadius(lookRadius))
@@ -116,7 +111,7 @@ public class MeleeEnemyAI : Enemy
 
         if (Vector3.Distance(transform.position, target.position) < attackDistance)
         {
-            GameEventsManager.Instance.PlayerEvents.TakeDamage(damage);
+            GameEventsManager.Instance.PlayerEvents.TakeDamage(damage, transform.position);
         }
 
         agent.SetDestination(target.position - transform.forward * 2f);

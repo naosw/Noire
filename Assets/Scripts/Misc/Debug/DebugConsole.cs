@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class DebugConsole : MonoBehaviour
 {
@@ -26,7 +25,7 @@ public class DebugConsole : MonoBehaviour
     {
         DEC_HP = new DebugCommand<int>("dec_hp", "decreases player hp by x", "dec_hp <x>", (x) =>
         {
-            GameEventsManager.Instance.PlayerEvents.TakeDamage(x);
+            GameEventsManager.Instance.PlayerEvents.TakeDamage(x, Vector3.zero);
         });
         
         DEC_HP_CONT = new DebugCommand<(int, float)>("dec_hp_cont", "decreases player hp by x every s seconds", "dec_hp <x> <s>", (x) =>
@@ -41,7 +40,7 @@ public class DebugConsole : MonoBehaviour
         
         KILL = new DebugCommand("kill", "kills the player", "kill", () =>
         {
-            GameEventsManager.Instance.PlayerEvents.TakeDamage(Single.MaxValue);
+            GameEventsManager.Instance.PlayerEvents.TakeDamage(Single.MaxValue, Vector3.zero);
         });
 
         cmdList = new List<object>
@@ -58,7 +57,7 @@ public class DebugConsole : MonoBehaviour
         while (true)
         {
             yield return null;
-            GameEventsManager.Instance.PlayerEvents.TakeDamage(value);
+            GameEventsManager.Instance.PlayerEvents.TakeDamage(value, Vector3.zero);
             yield return new WaitForSeconds(seconds);
         }
     }
