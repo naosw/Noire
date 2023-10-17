@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerLightAttack", menuName = "Abilities/PlayerLightAttack")]
@@ -13,6 +12,7 @@ public class PlayerLightAttack : AbilitySO
     
     protected override void Cast()
     {
+        Debug.Log("CASTED attack");
         Player.Instance.HandleAttackOnHitEffects();
         Player.Instance.StartCoroutine(WaitEndOfAction(attackDuration));
     }

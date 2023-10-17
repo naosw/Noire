@@ -13,7 +13,20 @@ public class StaticInfoObjects : MonoBehaviour
     public static StaticInfoObjects Instance { get; private set; }
 
     [SerializeField] public AnimationCurve FADE_ANIM_CURVE;
-
+    [SerializeField] public AnimationCurve OPEN_REALM_CURVE;
+    [SerializeField] public AnimationCurve CLOSE_REALM_CURVE;
+    
+    private void Awake()
+    {
+        if (Instance != null) 
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+    
     // maps scene -> (in transition, out transition, load type, load mode)
     public readonly Dictionary<GameScene, SceneInfo> LOADING_INFO = new()
     {
@@ -38,15 +51,4 @@ public class StaticInfoObjects : MonoBehaviour
         { DreamState.Lucid, Color.cyan },
         { DreamState.Deep, Color.magenta },
     };
-    
-    private void Awake()
-    {
-        if (Instance != null) 
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
 }

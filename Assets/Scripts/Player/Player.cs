@@ -29,9 +29,9 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
     
     [Header("Player combat")]
     [SerializeField] private Weapon weapon;
-    [SerializeField] private AbilitySO[] playerAbilitiesList;  // up to three abilities is currently supported
     [SerializeField] private float invulnerableTimerMax = .5f;
     [SerializeField] private ParticleSystemBase onHitParticleEffects;
+    private AbilitySO[] playerAbilitiesList;  // up to three abilities is currently supported
     private Dictionary<int, AbilitySO> playerAbilities;
     private readonly float playerHitBoxHeight = 1f;
     private float invulnerableTimer;
@@ -99,7 +99,8 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
         dreamThreadsSO.SetCurrencyCount(0);
         
         playerInventory.Init();
-        
+
+        playerAbilitiesList = Resources.LoadAll<AbilitySO>("Player/Abilities");
         // convert ability list to lookup dictionary
         UpdateAbilities();
     }
@@ -154,7 +155,8 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
         {
             if (ability.Activate())
             {
-                state = PlayerState.Casting;
+                if(!ability.playerMovableDuringCast)
+                    state = PlayerState.Casting;
                 playerStaminaSO.UseStamina(ability.staminaCost);
                 GameEventsManager.Instance.PlayerEvents.UpdateStaminaBar();
             }
@@ -250,6 +252,7 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
             if (ability.applicableDreamStates.Contains(DreamState))
             {
                 playerAbilities.Add(ability.abilityID, ability);
+                ability.SetToReady();
             }
         }
     }
@@ -312,7 +315,7 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
     private void HandleAbilityCast()
     {
         foreach (AbilitySO ability in playerAbilities.Values)
-            ability.Continue();
+            ability.DecreaseCooldown();
     }
 
     // called after attacks

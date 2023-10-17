@@ -4,12 +4,12 @@ using UnityEngine.Serialization;
 
 public abstract class AbilitySO : ScriptableObject
 {
-    [Header("Inherited Fields")]
     [SerializeField] public int abilityID;
     [SerializeField] protected string abilityAnimationTrigger;
     [SerializeField] protected float cooldown = 1;
     [SerializeField] public float staminaCost = 10f;
     [SerializeField] public DreamState[] applicableDreamStates;
+    [SerializeField] public bool playerMovableDuringCast;
 
     private float cooldownCounter;
     
@@ -21,6 +21,8 @@ public abstract class AbilitySO : ScriptableObject
     }
 
     protected AbilityState state;
+    
+    public void SetToReady() => state = AbilityState.Ready;
     
     // should continue the ability by modifying the state of the object it is attached to
     // when finished, call finish()
@@ -42,27 +44,23 @@ public abstract class AbilitySO : ScriptableObject
             state = AbilityState.Active;
             cooldownCounter = cooldown;
             Initialize();
+            Cast();
             return true;
         }
         return false;
     }
     
     // called on each frame during which the ability is activated
-    public void Continue()
+    public void DecreaseCooldown()
     {
-        switch (state)
+        if (state == AbilityState.OnCooldown)
         {
-            case AbilityState.Active:
-                Cast();
-                break;
-            case AbilityState.OnCooldown:
-                cooldownCounter -= Time.deltaTime;
-                if (cooldownCounter < 0)
-                {
-                    state = AbilityState.Ready;
-                    cooldownCounter = cooldown;
-                }
-                break;
+            cooldownCounter -= Time.deltaTime;
+            if (cooldownCounter < 0)
+            {
+                state = AbilityState.Ready;
+                cooldownCounter = cooldown;
+            }
         }
     }
     
