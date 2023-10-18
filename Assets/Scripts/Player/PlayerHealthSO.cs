@@ -7,11 +7,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Drowsiness", menuName = "Player/Drowsiness")]
 public class PlayerHealthSO : ScriptableObject
 {
-    private const float MAX_HP = 100;
+    private float max_hp = 100;
     private float currentDrowsiness;
     
     public float CurrentDrowsiness => currentDrowsiness;
-    public float CurrentDrowsinessPercentage => currentDrowsiness / MAX_HP;
+    public float CurrentDrowsinessPercentage => currentDrowsiness / max_hp;
 
     public void SetCurrentDrowsiness(float newValue) => currentDrowsiness = newValue;
 	
@@ -25,22 +25,24 @@ public class PlayerHealthSO : ScriptableObject
     // returns true upon successful regen. Should not decrease potion otherwise
     public bool RegenHealth(float regenValue)
     {
-        if (currentDrowsiness >= MAX_HP || regenValue < 0)
+        if (currentDrowsiness >= max_hp || regenValue < 0)
             return false;
         
         currentDrowsiness += regenValue;
-        if (currentDrowsiness >= MAX_HP)
-            currentDrowsiness = MAX_HP;
+        if (currentDrowsiness >= max_hp)
+            currentDrowsiness = max_hp;
         return true;
     }
 
     public void ResetHealth()
     {
-        currentDrowsiness = MAX_HP * Player.Instance.DeepThreshold;
+        currentDrowsiness = max_hp * Player.Instance.DeepThreshold;
     }
 
     public bool IsDead()
     {
         return currentDrowsiness <= 0;
     }
+
+    public void SetMaxHP(float x) => max_hp = x;
 }

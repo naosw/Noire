@@ -10,16 +10,18 @@ public class PlayerDreamerSkill : AbilitySO
     [SerializeField] ScriptableRendererFeature playerSilhouetteFeature;
     [SerializeField] private float finalRadius = 100f;
     [SerializeField] private float skillDuration = 5f;
-    [SerializeField] private Volume postProcessVolume;
     
-    private float animationTime = 1f;
+    private float animationTime = 1.5f;
     private GameObject sphereInstance;
     private LensDistortion lensDistortion;
     private ChromaticAberration chromaticAberration;
+    private Volume postProcessVolume;
 
     public override void Ready()
     {
         state = AbilityState.Ready;
+
+        postProcessVolume = PostProcessingManager.Instance.GetVolume();
         if(!postProcessVolume.profile.TryGet(out lensDistortion))
             Debug.LogError("Did not find a lens distortion in PostEffects");
         if(!postProcessVolume.profile.TryGet(out chromaticAberration))
@@ -54,11 +56,21 @@ public class PlayerDreamerSkill : AbilitySO
         float time = 0;
         while (time < animationTime)
         {
-            var s = Mathf.Lerp(0, finalRadius, StaticInfoObjects.Instance.OPEN_REALM_CURVE.Evaluate(time));
+            float eval = time / animationTime;
+            // realm size
+            float s = Mathf.Lerp(0, finalRadius, StaticInfoObjects.Instance.OPEN_REALM_CURVE.Evaluate(eval));
             sphereInstance.transform.localScale = new Vector3(s,s,s);
+            
+            // post effects
+            lensDistortion.intensity.value = Mathf.Lerp(0, -1, StaticInfoObjects.Instance.LD_OPEN_REALM_CURVE.Evaluate(eval));
+            chromaticAberration.intensity.value = Mathf.Lerp(0, 1, StaticInfoObjects.Instance.CA_OPEN_REALM_CURVE.Evaluate(eval));
+            
             time += Time.deltaTime;
             yield return null;
         }
+
+        lensDistortion.intensity.value = 0;
+        chromaticAberration.intensity.value = 0;
         sphereInstance.transform.localScale = new Vector3(finalRadius,finalRadius,finalRadius);
     }
     
@@ -67,7 +79,9 @@ public class PlayerDreamerSkill : AbilitySO
         float time = 0;
         while (time < animationTime)
         {
-            var s = Mathf.Lerp(finalRadius, 0, StaticInfoObjects.Instance.CLOSE_REALM_CURVE.Evaluate(time));
+            float eval = time / animationTime;
+            
+            float s = Mathf.Lerp(finalRadius, 0, StaticInfoObjects.Instance.CLOSE_REALM_CURVE.Evaluate(eval));
             sphereInstance.transform.localScale = new Vector3(s,s,s);
             time += Time.deltaTime;
             yield return null;

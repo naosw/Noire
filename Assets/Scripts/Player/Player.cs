@@ -3,6 +3,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DisintegrationEffect;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -77,6 +78,9 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
     public Weapon GetWeapon() => weapon;
     public bool AddItem(CollectableItemSO item) => playerInventory.Add(item);
     public bool RemoveItem(CollectableItemSO item) => playerInventory.Remove(item);
+    public void SetMaxHP(float x) => playerHealthSO.SetMaxHP(x);
+    public void SetMaxStamina(float x) => playerStaminaSO.SetMaxStamina(x);
+    
     #endregion
     
     #region EVENT FUNCTIONS
@@ -101,12 +105,12 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
         playerInventory.Init();
 
         playerAbilitiesList = Resources.LoadAll<AbilitySO>("Player/Abilities");
-        // convert ability list to lookup dictionary
-        UpdateAbilities();
     }
 
     private void Start()
     {
+        UpdateAbilities();
+        
         Shader.SetGlobalColor("_FullScreenVoronoiColor", StaticInfoObjects.Instance.VORONOI_INDICATOR[DreamState]);
         
         GameInput.Instance.OnInteract += OnInteract;
@@ -369,8 +373,9 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
         dreamThreadsSO.OnDeath();
         GameEventsManager.Instance.PlayerEvents.DreamShardsChangeFinished();
         GameEventsManager.Instance.PlayerEvents.DreamThreadsChangeFinished();
+        
         state = PlayerState.Dead;
-        Loader.Load(GameScene.DeathScene);
+        // Loader.Load(GameScene.DeathScene);
     }
     
     #endregion

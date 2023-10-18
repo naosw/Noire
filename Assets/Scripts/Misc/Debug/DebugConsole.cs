@@ -9,31 +9,36 @@ public class DebugConsole : MonoBehaviour
     [SerializeField] private float boxHeight = 50;
     [SerializeField] private float textboxHeight = 40;
     [SerializeField] private int textFont = 30;
+    [SerializeField] private Texture2D boxTex;
 
-    public static DebugCommand<int> DEC_HP;
-    public static DebugCommand<(int, float)> DEC_HP_CONT;
-    public static DebugCommand<int> INC_HP;
+    public static DebugCommand<int> DECREASE_HP;
+    public static DebugCommand<(int, float)> DECREASE_HP_CONTINUOUS;
+    public static DebugCommand<int> INCREASE_HP;
     public static DebugCommand KILL;
+    public static DebugCommand SAVE;
+    public static DebugCommand INFINITE_HP;
+    public static DebugCommand INFINITE_STAMINA;
 
     public List<object> cmdList;
     
     private bool showConsole;
     private string input;
-    private GUIStyle style = new();
+    private GUIStyle textStyle = new();
+    private GUIStyle boxStyle = new();
 
     private void Awake()
     {
-        DEC_HP = new DebugCommand<int>("dec_hp", "decreases player hp by x", "dec_hp <x>", (x) =>
+        DECREASE_HP = new DebugCommand<int>("dec_hp", "decreases player hp by x", "dec_hp <x>", (x) =>
         {
             GameEventsManager.Instance.PlayerEvents.TakeDamage(x, Vector3.zero);
         });
         
-        DEC_HP_CONT = new DebugCommand<(int, float)>("dec_hp_cont", "decreases player hp by x every s seconds", "dec_hp <x> <s>", (x) =>
+        DECREASE_HP_CONTINUOUS = new DebugCommand<(int, float)>("dec_hp_cont", "decreases player hp by x every s seconds", "dec_hp <x> <s>", (x) =>
         {
             StartCoroutine(dec_hp_cont(x.Item1, x.Item2));
         });
         
-        INC_HP = new DebugCommand<int>("inc_hp", "increases player hp by x", "inc_hp <x>", (x) =>
+        INCREASE_HP = new DebugCommand<int>("inc_hp", "increases player hp by x", "inc_hp <x>", (x) =>
         {
             GameEventsManager.Instance.PlayerEvents.RegenHealth(x);
         });
@@ -42,13 +47,31 @@ public class DebugConsole : MonoBehaviour
         {
             GameEventsManager.Instance.PlayerEvents.TakeDamage(Single.MaxValue, Vector3.zero);
         });
+        
+        SAVE = new DebugCommand("save", "saves the game", "save", () =>
+        {
+            DataPersistenceManager.Instance.SaveGame();
+        });
+        
+        INFINITE_HP = new DebugCommand("inf_hp", "make the player's hp infinite", "inf_hp", () =>
+        {
+            Player.Instance.SetMaxHP(Single.MaxValue);
+        });
+        
+        INFINITE_STAMINA = new DebugCommand("inf_stamina", "make the player's stamina infinite", "inf_stamina", () =>
+        {
+            Player.Instance.SetMaxStamina(Single.MaxValue);
+        });
 
         cmdList = new List<object>
         {
-            DEC_HP,
-            DEC_HP_CONT,
-            INC_HP,
-            KILL
+            DECREASE_HP,
+            DECREASE_HP_CONTINUOUS,
+            INCREASE_HP,
+            KILL,
+            SAVE,
+            INFINITE_HP,
+            INFINITE_STAMINA
         };
     }
 
@@ -67,8 +90,10 @@ public class DebugConsole : MonoBehaviour
         GameInput.Instance.OnDebugConsoleToggle += OnToggleDebug;
         GameInput.Instance.OnDebugConsoleExecute += OnConsoleExecute;
 
-        style.fontSize = textFont;
-        style.normal.textColor = Color.white;
+        textStyle.fontSize = textFont;
+        textStyle.normal.textColor = Color.white;
+
+        boxStyle.normal.background = boxTex;
     }
 
     private void OnDisable()
@@ -97,10 +122,8 @@ public class DebugConsole : MonoBehaviour
         if (!showConsole) return;
 
         float y = Screen.height - boxHeight;
-        GUI.Box(new Rect(10, y, Screen.width, boxHeight),"");
-        GUI.backgroundColor = new Color(0, 0, 0, 0);
-        
-        input = GUI.TextField(new Rect(10, y + 5f, Screen.width, textboxHeight), input, style);
+        GUI.Box(new Rect(10, y, Screen.width, boxHeight),"", boxStyle);
+        input = GUI.TextField(new Rect(40, y + 13f, Screen.width, textboxHeight), input, textStyle);
     }
 
     private void HandleInput()

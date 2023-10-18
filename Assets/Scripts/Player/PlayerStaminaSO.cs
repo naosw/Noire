@@ -9,12 +9,12 @@ public class PlayerStaminaSO : ScriptableObject
 {
     [SerializeField] private float staminaRegenRate = 8f;
     
-    private const float MAX_STAMINA = 100;
+    private float max_stamina = 100;
     private float currentStamina;
     
     public float CurrentStamina => currentStamina;
     
-    public float CurrentStaminaPercentage => currentStamina / MAX_STAMINA;
+    public float CurrentStaminaPercentage => currentStamina / max_stamina;
 
     public void SetCurrentStamina(float newValue) => currentStamina = newValue;
 	
@@ -31,17 +31,19 @@ public class PlayerStaminaSO : ScriptableObject
     // returns true upon successful regen. Should not decrease potion otherwise
     public bool RegenStamina()
     {
-        if (currentStamina >= MAX_STAMINA)
+        if (currentStamina >= max_stamina)
             return false;
         
         currentStamina += staminaRegenRate * Time.deltaTime;
-        if (currentStamina >= MAX_STAMINA)
-            currentStamina = MAX_STAMINA;
+        if (currentStamina >= max_stamina)
+            currentStamina = max_stamina;
         return true;
     }
 
     public void ResetStamina()
     {
-        currentStamina = MAX_STAMINA;
+        currentStamina = max_stamina;
     }
+    
+    public void SetMaxStamina(float x) => max_stamina = x;
 }

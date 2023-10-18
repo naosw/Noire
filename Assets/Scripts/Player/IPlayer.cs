@@ -13,4 +13,6 @@ public interface IPlayer
     Weapon GetWeapon();
     bool AddItem(CollectableItemSO item);
     bool RemoveItem(CollectableItemSO item);
+    void SetMaxHP(float x);
+    void SetMaxStamina(float x);
 }
