@@ -1,4 +1,6 @@
 using System;
+using Common.Extensions;
+using TMPro;
 using UnityEngine;
 
 public class SaveSlot : UI
@@ -8,6 +10,8 @@ public class SaveSlot : UI
 
     [SerializeField] private ButtonUI saveSlotButton;
     [SerializeField] private ButtonUI clearButton;
+    [SerializeField] private TextMeshProUGUI percentageCompletedText;
+    [SerializeField] private TextMeshProUGUI currentAreaText;
 
     private bool hasData = false;
 
@@ -82,22 +86,23 @@ public class SaveSlot : UI
         if (data == null)
         {
             hasData = false;
-            
-            clearButton.Disable();
-            saveSlotButton.SetText("Empty");
-            
+
+            SetInteractable(false);
             if(isLoadingView)
                 saveSlotButton.Disable();
             else
                 saveSlotButton.Enable();
+            saveSlotButton.SetText("Empty");
         }
         else
         {
             hasData = true;
             
-            clearButton.Enable();
-            saveSlotButton.Enable();
-            saveSlotButton.SetText(data.ProfileName + ":" + data.PercentageComplete + "% COMPLETE");
+            SetInteractable(true);
+            
+            saveSlotButton.SetText(data.ProfileName);
+            percentageCompletedText.text = data.PercentageComplete + "% Complete";
+            currentAreaText.text = data.CurrentScene.SplitCamelCase();
         }
     }
 
@@ -115,5 +120,7 @@ public class SaveSlot : UI
             saveSlotButton.Disable();
             clearButton.Disable();
         }
+        percentageCompletedText.gameObject.SetActive(interactable);
+        currentAreaText.gameObject.SetActive(interactable);
     }
 }

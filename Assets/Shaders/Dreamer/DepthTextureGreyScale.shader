@@ -4,8 +4,6 @@ Shader "Custom/DepthTextureGreyScale"
     { 
         _MainTex("Texture", 2D) = "white" {}
         _Distort("Distort", float) = 0
-        _Clamp1("Clamp1", float) = 0
-        _Clamp2("Clamp2", float) = 0
         _ColorOne("Color One", color) = (1,1,1,1)
         _ColorTwo("Color Two", color) = (1,1,1,1)
     }
@@ -44,7 +42,7 @@ Shader "Custom/DepthTextureGreyScale"
             
             sampler2D _MainTex, _CameraDepthTexture;
             float4 _MainTex_ST, _ColorOne, _ColorTwo;
-            float _Distort, _Clamp1, _Clamp2;
+            float _Distort;
 
             v2f vert(appdata v)
             {
@@ -57,15 +55,13 @@ Shader "Custom/DepthTextureGreyScale"
 
             fixed4 frag(v2f i) : SV_TARGET
             {
-                const fixed4 UV_offset = tex2D(_MainTex, i.uv);
+                fixed4 UV_offset = tex2D(_MainTex, i.uv);
                 float2 screenSpaceUVs = i.screenspace.xy / i.screenspace.w;
                 screenSpaceUVs = 2 * screenSpaceUVs - 1;
                 screenSpaceUVs += UV_offset * _Distort;
                 screenSpaceUVs = screenSpaceUVs * 0.5 + 0.5;
                 
                 float depth = CorrectDepth(SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, screenSpaceUVs));
-                // depth = clamp(depth,_Clamp1,_Clamp2);
-
                 float3 mixedColor = lerp(_ColorOne, _ColorTwo, depth);
                 
                 return fixed4(mixedColor, 1);

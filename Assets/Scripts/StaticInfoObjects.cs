@@ -15,6 +15,8 @@ public class StaticInfoObjects : MonoBehaviour
     [SerializeField] public AnimationCurve FADE_ANIM_CURVE;
     [SerializeField] public AnimationCurve OPEN_REALM_CURVE;
     [SerializeField] public AnimationCurve CLOSE_REALM_CURVE;
+    [SerializeField] public AnimationCurve CA_OPEN_REALM_CURVE; // chromatic aberration curve
+    [SerializeField] public AnimationCurve LD_OPEN_REALM_CURVE; // lens distortion curve
     
     private void Awake()
     {

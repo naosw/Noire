@@ -12,7 +12,6 @@ public class PlayerLightAttack : AbilitySO
     
     protected override void Cast()
     {
-        Debug.Log("CASTED attack");
         Player.Instance.HandleAttackOnHitEffects();
         Player.Instance.StartCoroutine(WaitEndOfAction(attackDuration));
     }

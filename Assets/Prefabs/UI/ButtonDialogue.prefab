@@ -70,8 +70,8 @@ MonoBehaviour:
     aaaaadwa wda dwad awd awdawd wad aw aaaaadwa wda dwad awd awdawd wad aw aaaaadwa
     wda dwad awd awdawd wad aw '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c494307d361923241a39b98d0b34b949, type: 2}
-  m_sharedMaterial: {fileID: -3304485732601147265, guid: c494307d361923241a39b98d0b34b949,
+  m_fontAsset: {fileID: 11400000, guid: 2351eec0fc3b24576a6e6bf47089ed15, type: 2}
+  m_sharedMaterial: {fileID: -870105249645998829, guid: 2351eec0fc3b24576a6e6bf47089ed15,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

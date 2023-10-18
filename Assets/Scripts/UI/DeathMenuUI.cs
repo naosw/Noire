@@ -10,7 +10,7 @@ public class DeathMenuUI : UI
     [SerializeField] private float typingSpeed = 0.1f;
     [SerializeField] private CanvasGroup canvasGroup;
 
-    private string deathMessage = "You woke up.\n Nothing has changed.";
+    private string deathMessage = "You woke up.\n   Nothing has changed.";
     
     private void Start()
     {

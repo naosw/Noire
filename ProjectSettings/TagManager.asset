@@ -19,8 +19,8 @@ TagManager:
   - TerrainVisible
   - 
   - PostProcessing
-  - 
-  - 
+  - StencilLayer1
+  - StencilLayer2
   - 
   - 
   - 

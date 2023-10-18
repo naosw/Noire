@@ -252,7 +252,7 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
             if (ability.applicableDreamStates.Contains(DreamState))
             {
                 playerAbilities.Add(ability.abilityID, ability);
-                ability.SetToReady();
+                ability.Ready();
             }
         }
     }

@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Game
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c494307d361923241a39b98d0b34b949, type: 2}
-  m_sharedMaterial: {fileID: -3304485732601147265, guid: c494307d361923241a39b98d0b34b949,
+  m_fontAsset: {fileID: 11400000, guid: 1914b2d2bead443d792ba040679f290c, type: 2}
+  m_sharedMaterial: {fileID: 3990639045885664171, guid: 1914b2d2bead443d792ba040679f290c,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 0
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -273,4 +273,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textColorTransparent: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 0.24313726}
   textColorOpaque: {r: 1, g: 1, b: 1, a: 1}
-  buttonText: {fileID: 0}
+  buttonText: {fileID: 54555652269716947}

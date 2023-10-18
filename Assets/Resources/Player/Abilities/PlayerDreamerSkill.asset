@@ -20,5 +20,7 @@ MonoBehaviour:
   playerMovableDuringCast: 1
   SphereDepthSample: {fileID: 4493709772433381691, guid: 35ab07982ea2945efbfd70aac99e8297,
     type: 3}
+  playerSilhouetteFeature: {fileID: 8014490324881951954, guid: c40be3174f62c4acf8c1216858c64956,
+    type: 2}
   finalRadius: 100
   skillDuration: 5

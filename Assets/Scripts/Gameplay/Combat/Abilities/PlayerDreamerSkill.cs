@@ -1,14 +1,30 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 [CreateAssetMenu(fileName = "PlayerDreamerSkill", menuName = "Abilities/PlayerDreamerSkill")]
 public class PlayerDreamerSkill : AbilitySO
 {
     [SerializeField] private GameObject SphereDepthSample;
+    [SerializeField] ScriptableRendererFeature playerSilhouetteFeature;
     [SerializeField] private float finalRadius = 100f;
     [SerializeField] private float skillDuration = 5f;
+    [SerializeField] private Volume postProcessVolume;
+    
     private float animationTime = 1f;
     private GameObject sphereInstance;
+    private LensDistortion lensDistortion;
+    private ChromaticAberration chromaticAberration;
+
+    public override void Ready()
+    {
+        state = AbilityState.Ready;
+        if(!postProcessVolume.profile.TryGet(out lensDistortion))
+            Debug.LogError("Did not find a lens distortion in PostEffects");
+        if(!postProcessVolume.profile.TryGet(out chromaticAberration))
+            Debug.LogError("Did not find a chromatic aberration in PostEffects");
+    }
     
     protected override void Initialize()
     {
@@ -17,7 +33,6 @@ public class PlayerDreamerSkill : AbilitySO
     
     protected override void Cast()
     {
-        Debug.Log("CASTED dreamer");
         Player.Instance.StartCoroutine(WaitEndOfAction(skillDuration));
     }
     
@@ -30,7 +45,10 @@ public class PlayerDreamerSkill : AbilitySO
     private IEnumerator ExpandRealm()
     {
         if(!sphereInstance)
-            sphereInstance = Instantiate(SphereDepthSample, Player.Instance.transform);
+            sphereInstance = Instantiate(SphereDepthSample);
+        
+        sphereInstance.transform.position = Player.Instance.transform.position;
+        playerSilhouetteFeature.SetActive(false);
         sphereInstance.SetActive(true);
 
         float time = 0;
@@ -55,5 +73,6 @@ public class PlayerDreamerSkill : AbilitySO
             yield return null;
         }
         sphereInstance.SetActive(false);
+        playerSilhouetteFeature.SetActive(true);
     }
 }

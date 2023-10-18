@@ -22,7 +22,8 @@ public abstract class AbilitySO : ScriptableObject
 
     protected AbilityState state;
     
-    public void SetToReady() => state = AbilityState.Ready;
+    // this is called on game awake
+    public virtual void Ready() => state = AbilityState.Ready;
     
     // should continue the ability by modifying the state of the object it is attached to
     // when finished, call finish()
@@ -32,7 +33,7 @@ public abstract class AbilitySO : ScriptableObject
     // IMPORTANT: must call Player.Instance.ResetStateAfterAction() otherwise the ability is stuck forever
     protected abstract void Finish();
 
-    // initializes related fields
+    // called when ability is activated. Should initialize related fields
     protected abstract void Initialize();
     
     // called when the ability is activated

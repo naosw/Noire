@@ -8,13 +8,12 @@ public class ButtonUI : MonoBehaviour
 {
     [SerializeField] private Color textColorTransparent;
     [SerializeField] private Color textColorOpaque;
-    
-    public TextMeshProUGUI buttonText;
+    [SerializeField] public TextMeshProUGUI buttonText;
     private Button button;
 
     private void Awake()
     {
-        buttonText = GetComponentInChildren<TextMeshProUGUI>();
+        // buttonText = GetComponentInChildren<TextMeshProUGUI>();
         button = GetComponent<Button>();
     }
 
