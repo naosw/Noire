@@ -22,7 +22,8 @@ public class PixelizeFeature : ScriptableRendererFeature
     {
 
 #if UNITY_EDITOR
-        if (renderingData.cameraData.isSceneViewCamera) return;
+        if (renderingData.cameraData.isSceneViewCamera) 
+            return;
 #endif
         renderer.EnqueuePass(customPass);
     }

@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Active: 0
   settings:
     renderPassEvent: 500
-    screenHeight: 200
+    screenHeight: 400
 --- !u!114 &7790271975648803368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
   m_Name: PlayerHidden
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   settings:
     passTag: PlayerHidden
     Event: 500

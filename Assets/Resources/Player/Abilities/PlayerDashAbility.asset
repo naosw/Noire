@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityID: 1
   abilityAnimationTrigger: Dash
-  cooldown: 1
+  cooldown: 0.5
   staminaCost: 40
   applicableDreamStates: 0000000001000000
+  playerMovableDuringCast: 0
   dashSpeed: 15
   dashTime: 0.5

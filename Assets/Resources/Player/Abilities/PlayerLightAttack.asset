@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityID: 0
   abilityAnimationTrigger: Attack1
-  cooldown: 1
+  cooldown: 0.5
   staminaCost: 30
   applicableDreamStates: 0000000002000000
+  playerMovableDuringCast: 0
   attackDuration: 0.4

@@ -375,7 +375,7 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
         GameEventsManager.Instance.PlayerEvents.DreamThreadsChangeFinished();
         
         state = PlayerState.Dead;
-        // Loader.Load(GameScene.DeathScene);
+        Loader.Load(GameScene.DeathScene);
     }
     
     #endregion

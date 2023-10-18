@@ -51,13 +51,8 @@ public class PixelizePass : ScriptableRenderPass
         CommandBuffer cmd = CommandBufferPool.Get();
         using (new ProfilingScope(cmd, new ProfilingSampler("Pixelize Pass")))
         {
-            // No-shader variant
-            //Blit(cmd, colorBuffer, pointBuffer);
-            //Blit(cmd, pointBuffer, pixelBuffer);
-            //Blit(cmd, pixelBuffer, colorBuffer);
-
-            Blit(cmd, colorBuffer, pixelBuffer, material);
-            Blit(cmd, pixelBuffer, colorBuffer);
+            cmd.Blit(colorBuffer, pixelBuffer, material);
+            cmd.Blit(pixelBuffer, colorBuffer);
         }
 
         context.ExecuteCommandBuffer(cmd);
@@ -66,9 +61,9 @@ public class PixelizePass : ScriptableRenderPass
 
     public override void OnCameraCleanup(CommandBuffer cmd)
     {
-        if (cmd == null) throw new System.ArgumentNullException("cmd");
+        if (cmd == null) 
+            throw new System.ArgumentNullException("cmd");
         cmd.ReleaseTemporaryRT(pixelBufferID);
-        //cmd.ReleaseTemporaryRT(pointBufferID);
     }
 
 }

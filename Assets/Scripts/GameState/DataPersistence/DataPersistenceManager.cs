@@ -14,10 +14,6 @@ public class DataPersistenceManager : MonoBehaviour
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
 
-    [Header("Autosave")] 
-    [SerializeField] private float autoSaveTimeSeconds = 240;
-    private Coroutine autoSaveCoroutine;
-    
     // other fields
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
@@ -57,14 +53,10 @@ public class DataPersistenceManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    public void OnSceneLoaded(Scene scene, LoadSceneMode mode) 
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) 
     {
         dataPersistenceObjects = FindAllDataPersistenceObjects();
         LoadGame();
-        
-        // start up the auto saving coroutine
-        if (autoSaveCoroutine != null) 
-            StopCoroutine(autoSaveCoroutine);
     }
 
     public void ChangeSelectedProfileId(string newProfileId) 
