@@ -15,7 +15,7 @@ public class PauseMenu : UI
     private void Awake()
     {
         Instance = this;
-        canvasGroup = GetComponent<CanvasGroup>();
+        Init();
     }
     
     private void Start()

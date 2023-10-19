@@ -96,6 +96,7 @@ void Outline_float(float2 UV, out float4 Out)
 
     float4 output;
     output.rgb = lerp(original.rgb, _EdgeColor.rgb, g * _EdgeColor.a);
+    
     output.a = original.a;
 
     Out = output;

@@ -15,7 +15,7 @@ public class SaveSlotsMenu : UI
         Instance = this;
         
         saveSlots = GetComponentsInChildren<SaveSlot>();
-        canvasGroup = GetComponent<CanvasGroup>();
+        Init();
     }
 
     private void Start()

@@ -272,8 +272,6 @@ public class GameInput : MonoBehaviour
 
     public void RebindBinding(Bindings binding, Action onActionRebound)
     {
-        gameInputActions.Player.Disable();
-
         InputAction inputAction;
         int bindingIndex;
 
@@ -335,12 +333,10 @@ public class GameInput : MonoBehaviour
         }
 
         inputAction.PerformInteractiveRebinding(bindingIndex)
-            .WithCancelingThrough("escape")
-            .WithControlsExcluding("escape")
+            .WithControlsExcluding("<Keyboard>/escape")
             .OnComplete(callback =>
             {
                 callback.Dispose();
-                gameInputActions.Player.Enable();
                 onActionRebound();
             })
             .Start();

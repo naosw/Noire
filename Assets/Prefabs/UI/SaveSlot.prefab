@@ -475,7 +475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   containerGameObject: {fileID: 0}
-  profileId: Profile 2
+  profileId: Profile 1
   saveSlotButton: {fileID: 13184385511464347}
   clearButton: {fileID: 6644057329741490872}
   percentageCompletedText: {fileID: 7800576809735393628}
@@ -669,7 +669,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -111, y: -76}
+  m_AnchoredPosition: {x: -111, y: -75}
   m_SizeDelta: {x: 609, y: 124}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7744459089017307143

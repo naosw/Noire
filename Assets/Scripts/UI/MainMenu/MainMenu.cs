@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenu : UI
 {
@@ -16,8 +17,7 @@ public class MainMenu : UI
     private void Awake()
     {
         Instance = this;
-        
-        canvasGroup = GetComponent<CanvasGroup>();
+        Init();
     }
 
     private void Start() 

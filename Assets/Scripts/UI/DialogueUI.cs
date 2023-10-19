@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using Ink.Runtime;
 using TMPro;
 using UnityEngine.Events;
@@ -13,6 +14,7 @@ public class DialogueUI : UI
     
     private Story story;
     private const int MAX_CHOICES = 3;
+    private Coroutine displayLineCoroutine;
 
     private void Awake()
     {
@@ -36,8 +38,11 @@ public class DialogueUI : UI
 	private void RefreshView () {
 		RemoveChildren();
 		
-		while (story.canContinue) {
-			displayText.text = story.Continue().Trim();
+		while (story.canContinue)
+		{
+			if(displayLineCoroutine != null)
+				StopCoroutine(displayLineCoroutine);
+			displayLineCoroutine = StartCoroutine(DisplayLine(story.Continue().Trim()));
 		}
 
 		// Display all the choices, if there are any! [HARD UPPER-LIMIT: 3 choices]
@@ -55,11 +60,36 @@ public class DialogueUI : UI
 			CreateChoiceView("End conversation", EndDialogue);
 		}
 	}
+	
+	private IEnumerator DisplayLine(string line) 
+	{
+		// set the text to the full line, but set the visible characters to 0
+		displayText.text = line;
+		displayText.maxVisibleCharacters = 0;
+
+		// display each letter one at a time
+		foreach (var _ in line)
+		{
+			displayText.maxVisibleCharacters++;
+			yield return new WaitForSeconds(0.1f);
+		}
+
+		displayLineCoroutine = null;
+	}
 
 	private void EndDialogue()
 	{
-		Hide();
-		GameEventsManager.Instance.GameStateEvents.UIToggle(false);
+		if (displayLineCoroutine != null)
+		{
+			displayText.maxVisibleCharacters = displayText.text.Length;
+			StopCoroutine(displayLineCoroutine);
+			displayLineCoroutine = null;
+		}
+		else
+		{
+			Hide();
+			GameEventsManager.Instance.GameStateEvents.UIToggle(false);
+		}
 	}
 
 	// creates a choice view on button index i
@@ -72,8 +102,17 @@ public class DialogueUI : UI
 
 	// When we click the choice button, tell the story to choose that choice!
 	void OnClickChoiceButton (Choice choice) {
-		story.ChooseChoiceIndex (choice.index);
-		RefreshView();
+		if (displayLineCoroutine != null)
+		{
+			displayText.maxVisibleCharacters = displayText.text.Length;
+			StopCoroutine(displayLineCoroutine);
+			displayLineCoroutine = null;
+		}
+		else
+		{
+			story.ChooseChoiceIndex (choice.index);
+			RefreshView();
+		}
 	}
 	
 	void RemoveChildren () {

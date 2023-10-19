@@ -13,7 +13,6 @@ public class ButtonUI : MonoBehaviour
 
     private void Awake()
     {
-        // buttonText = GetComponentInChildren<TextMeshProUGUI>();
         button = GetComponent<Button>();
     }
 

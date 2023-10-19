@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CanvasGroup))]
 public class UI : MonoBehaviour
 {
     [SerializeField] protected GameObject containerGameObject;
     protected CanvasGroup canvasGroup;
+    protected RectTransform rectTransform;
     protected bool alternativeGameObject = false;
     private float animationTime = .5f;
 
@@ -55,5 +57,11 @@ public class UI : MonoBehaviour
             containerGameObject.SetActive(active);
         else
             gameObject.SetActive(active);
+    }
+
+    protected void Init()
+    {
+        canvasGroup = GetComponent<CanvasGroup>();
+        rectTransform = GetComponent<RectTransform>();
     }
 }

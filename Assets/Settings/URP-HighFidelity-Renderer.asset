@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cca7768aaaea4b0081f14e7f9d4b5ad, type: 3}
   m_Name: FlatKitOutline
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   settings: {fileID: 11400000, guid: 5b5c006d039a35449922c44009c60d07, type: 2}
   _effectMaterial: {fileID: 0}
 --- !u!114 &-4327920889024400675
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
   m_Name: PlayerHidden
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   settings:
     passTag: PlayerHidden
     Event: 500

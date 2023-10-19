@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OptionsUI : UI
 {
@@ -15,9 +16,8 @@ public class OptionsUI : UI
     
     private void Awake()
     {
-       Instance = this; 
-       
-       canvasGroup = GetComponent<CanvasGroup>();
+        Instance = this;
+        Init();
     }
 
     private void Start()

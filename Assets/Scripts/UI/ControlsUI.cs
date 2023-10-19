@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ControlsUI : UI
 {
@@ -24,8 +25,7 @@ public class ControlsUI : UI
     private void Awake()
     {
        Instance = this; 
-       
-       canvasGroup = GetComponent<CanvasGroup>();
+       Init();
     }
 
     private void Start()
@@ -86,6 +86,8 @@ public class ControlsUI : UI
         ability1Button.buttonText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.Ability1);
         ability2Button.buttonText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.Ability2);
         ability3Button.buttonText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.Ability3);
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
     }
 
     private void ShowPressToRebindKey()
