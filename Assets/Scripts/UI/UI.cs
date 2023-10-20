@@ -18,7 +18,6 @@ public class UI : MonoBehaviour
     public virtual void Show()
     {
         Activate();
-        StopAllCoroutines();
         Display(true);
         StartCoroutine(Fade(0, 1));
     }
@@ -26,14 +25,12 @@ public class UI : MonoBehaviour
     public virtual void Hide()
     {
         Deactivate();
-        StopAllCoroutines();
         StartCoroutine(Fade(1, 0));
     }
 
     protected IEnumerator Fade(float start, float end)
     {
-        // canvasGroup.alpha = start;
-        
+        GameEventsManager.Instance.GameStateEvents.MenuToggle(true);
         float time = 0;
         while (time < animationTime)
         {
@@ -47,8 +44,10 @@ public class UI : MonoBehaviour
             yield return null;
         }
         
-        // canvasGroup.alpha = end;
-        Display(end != 0);
+        canvasGroup.alpha = end;
+        if(end == 0)
+            Display(false);
+        GameEventsManager.Instance.GameStateEvents.MenuToggle(false);
     }
 
     private void Display(bool active)

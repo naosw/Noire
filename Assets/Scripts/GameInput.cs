@@ -81,6 +81,7 @@ public class GameInput : MonoBehaviour
         GameEventsManager.Instance.GameStateEvents.OnPauseToggle += TogglePause;
         GameEventsManager.Instance.GameStateEvents.OnLoadToggle += ToggleLoad;
         GameEventsManager.Instance.GameStateEvents.OnUIToggle += ToggleUI;
+        GameEventsManager.Instance.GameStateEvents.OnMenuToggle += ToggleMenu;
     }
     
     private void OnDisable()
@@ -106,13 +107,15 @@ public class GameInput : MonoBehaviour
         GameEventsManager.Instance.GameStateEvents.OnPauseToggle -= TogglePause;
         GameEventsManager.Instance.GameStateEvents.OnLoadToggle -= ToggleLoad;
         GameEventsManager.Instance.GameStateEvents.OnUIToggle -= ToggleUI;
-        
+        GameEventsManager.Instance.GameStateEvents.OnMenuToggle -= ToggleMenu;
+
         // dispose all maps
         gameInputActions.Dispose();
     }
+
+    #region TOGGLES
     
-    /********************** TOGGLE GAME STATE FUNCTIONS **********************/
-    
+    // toggles UI and player functions. called when inside pause menu.
     private void TogglePause(bool paused)
     {
         if (paused)
@@ -127,6 +130,7 @@ public class GameInput : MonoBehaviour
         }
     }
 
+    // toggles all input. called when loading scenes
     private void ToggleLoad(bool finished)
     {
         if (finished)
@@ -143,6 +147,7 @@ public class GameInput : MonoBehaviour
         }
     }
     
+    // toggles player and menu commands. called when in dialogues or UIs
     private void ToggleUI(bool isToggled)
     {
         if (isToggled)
@@ -156,28 +161,33 @@ public class GameInput : MonoBehaviour
             gameInputActions.Menu.Enable();
         }
     }
-
-    private bool debug = false;
-    private void OnToggleDebugConsole()
+    
+    // toggles escape key only. Called in transition functions
+    private void ToggleMenu(bool isToggled)
     {
-        OnDebugConsoleToggle?.Invoke();
-
-        debug = !debug;
-        if (!debug)
+        if (isToggled)
         {
-            gameInputActions.Player.Enable();
-            gameInputActions.Menu.Enable();
-            gameInputActions.UI.Enable();
+            gameInputActions.Menu.Disable();
         }
         else
         {
-            gameInputActions.Player.Disable();
-            gameInputActions.Menu.Disable();
-            gameInputActions.UI.Disable();
+            gameInputActions.Menu.Enable();
         }
     }
+
     
-    // invoke events
+    // toggles the debug console. Disables all.
+    private bool debug = false;
+    private void OnToggleDebugConsole()
+    {
+        debug = !debug;
+        OnDebugConsoleToggle?.Invoke();
+        ToggleLoad(!debug);
+    }
+    #endregion
+
+    #region INVOKE EVENTS
+    
     private void ToggleDebugConsole(InputAction.CallbackContext obj) => OnToggleDebugConsole();
     
     private void ExecuteDebugConsole(InputAction.CallbackContext obj) => OnDebugConsoleExecute?.Invoke();
@@ -233,6 +243,8 @@ public class GameInput : MonoBehaviour
         Vector2 readVal = gameInputActions.Player.Move.ReadValue<Vector2>();
         return new Vector3(readVal.x, 0, readVal.y);
     }
+    
+    #endregion
 
     public string GetBindingText(Bindings binding)
     {

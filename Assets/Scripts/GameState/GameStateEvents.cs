@@ -10,4 +10,7 @@ public class GameStateEvents
     
     public event Action<bool> OnUIToggle;
     public void UIToggle(bool isToggled) => OnUIToggle?.Invoke(isToggled);
+    
+    public event Action<bool> OnMenuToggle;
+    public void MenuToggle(bool isToggled) => OnMenuToggle?.Invoke(isToggled);
 }

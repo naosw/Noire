@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using Ink.Runtime;
 using TMPro;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class DialogueUI : UI
 {
@@ -20,7 +22,7 @@ public class DialogueUI : UI
     {
 	    Instance = this;
 	    canvasGroup = GetComponent<CanvasGroup>();
-	    
+	    rectTransform = choicesHolder.GetComponent<RectTransform>();
 	    gameObject.SetActive(false);
     }
 
@@ -54,6 +56,7 @@ public class DialogueUI : UI
 			foreach (Choice choice in story.currentChoices) {
 				CreateChoiceView(choice.text.Trim(), () => OnClickChoiceButton(choice));
 			}
+			LayoutRebuilder.ForceRebuildLayoutImmediate(choicesHolder.GetComponent<RectTransform>());
 		}
 		else
 		{
