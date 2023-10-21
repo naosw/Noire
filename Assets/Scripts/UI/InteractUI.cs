@@ -7,6 +7,7 @@ public class InteractUI : UI
     [SerializeField] private PlayerInteract playerInteract;
     [SerializeField] private TextMeshProUGUI interactText;
     private IInteractable interactable;
+    private IInteractable lastInteractable;
 
     private bool isShowing; 
 
@@ -33,12 +34,15 @@ public class InteractUI : UI
 
     private void Update()
     {
+        lastInteractable = interactable;
         interactable = playerInteract.GetInteractableObject();
-        if (interactable != null && !isShowing)
+
+        if (interactable != null && (!isShowing || interactable != lastInteractable))
         {
+            StopAllCoroutines();
             Show();
         }
-        if(interactable == null && isShowing)
+        else if(interactable == null && isShowing)
         {
             Hide();
         }

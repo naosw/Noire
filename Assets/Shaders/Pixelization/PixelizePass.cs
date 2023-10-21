@@ -9,9 +9,6 @@ public class PixelizePass : ScriptableRenderPass
     private RenderTargetIdentifier colorBuffer, pixelBuffer;
     private int pixelBufferID = Shader.PropertyToID("_PixelBuffer");
 
-    //private RenderTargetIdentifier pointBuffer;
-    //private int pointBufferID = Shader.PropertyToID("_PointBuffer");
-
     private Material material;
     private int pixelScreenHeight, pixelScreenWidth;
 
@@ -24,7 +21,7 @@ public class PixelizePass : ScriptableRenderPass
 
     public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
     {
-        colorBuffer = renderingData.cameraData.renderer.cameraColorTarget;
+        colorBuffer = renderingData.cameraData.renderer.cameraColorTargetHandle;
         RenderTextureDescriptor descriptor = renderingData.cameraData.cameraTargetDescriptor;
 
         //cmd.GetTemporaryRT(pointBufferID, descriptor.width, descriptor.height, 0, FilterMode.Point);
