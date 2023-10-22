@@ -15,10 +15,11 @@ public class InteractUI : UI
     {
         alternativeGameObject = true;
         canvasGroup = GetComponent<CanvasGroup>();
+        Hide();
     }
 
     private void Start()
-    {
+    {    
         GameEventsManager.Instance.GameStateEvents.OnPauseToggle += ToggleActive;
     }
 

@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 public class BedRockPlainsController : MonoBehaviour, IDataPersistence
 {
     [Header("Opening Lights Animation (Lantern Interact)")]
     [SerializeField] private Light mainLight;
     [SerializeField] private float finalIntensity;
-    [SerializeField] private AnimationCurve intensityCurve;
+    [SerializeField] private AnimationCurve openLightsIntensityCurve;
     [SerializeField] private float animationTime = 3;
-    [SerializeField] private ParticleSystemBase fireFlies;
     [SerializeField] private ParticleSystemBase dustParticles;
     [SerializeField] private BGMAudio bgmAudio;
-    [SerializeField] private InteractableObject[] unaffectedInteractableObjects; 
+    [SerializeField] private InteractableObject[] unaffectedInteractableObjects;
+    [SerializeField] private CanvasGroup SceneTitle;
+    [SerializeField] private CanvasGroup UI;
+    [SerializeField] private AnimationCurve titleIntensityCurve;
+    [SerializeField] private AnimationCurve UIIntensityCurve;
+    [SerializeField] private float TitleAnimationTime = 3;
     
     private bool lightsOpened;
     private List<InteractableObject> interactablesList;
@@ -28,6 +31,8 @@ public class BedRockPlainsController : MonoBehaviour, IDataPersistence
 
     private void Start()
     {
+        StartCoroutine(DisplaySceneName());
+        
         if (lightsOpened)
         {
             Begin();
@@ -68,7 +73,6 @@ public class BedRockPlainsController : MonoBehaviour, IDataPersistence
         mainLight.intensity = finalIntensity;
         bgmAudio.PlayBgmAudio();
         dustParticles.Play();
-        fireFlies.Play();
         ToggleAllInteractables(true);
     }
     
@@ -80,20 +84,46 @@ public class BedRockPlainsController : MonoBehaviour, IDataPersistence
 
     private IEnumerator PlayOpeningLightsAnimation()
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.2f);
         float time = 0;
         while (time < 1)
         {
             mainLight.intensity = Mathf.Lerp(
                 0, 
                 finalIntensity, 
-                intensityCurve.Evaluate(time)
+                openLightsIntensityCurve.Evaluate(time)
             );
-            yield return null;
             time += Time.deltaTime / animationTime;
+            yield return null;
         }
 
         Begin();
+    }
+
+    private IEnumerator DisplaySceneName()
+    {
+        SceneTitle.gameObject.SetActive(false);
+        UI.alpha = 0;
+        yield return new WaitForSeconds(1);
+        
+        SceneTitle.gameObject.SetActive(true);
+        float time = 0;
+        while (time < 1)
+        {
+            SceneTitle.alpha = Mathf.Lerp(1, 0, titleIntensityCurve.Evaluate(time));
+            time += Time.deltaTime / TitleAnimationTime;
+            yield return null;
+        }
+        SceneTitle.gameObject.SetActive(false);
+        
+        time = 0;
+        while (time < 1)
+        {
+            UI.alpha = Mathf.Lerp(0, 1, UIIntensityCurve.Evaluate(time));
+            time += Time.deltaTime;
+            yield return null;
+        }
+        UI.alpha = 1;
     }
 
     #region IDataPersistence
