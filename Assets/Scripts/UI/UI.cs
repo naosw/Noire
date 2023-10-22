@@ -30,7 +30,6 @@ public class UI : MonoBehaviour
 
     protected IEnumerator Fade(float start, float end)
     {
-        GameEventsManager.Instance.GameStateEvents.MenuToggle(true);
         float time = 0;
         while (time < animationTime)
         {
@@ -47,7 +46,6 @@ public class UI : MonoBehaviour
         canvasGroup.alpha = end;
         if(end == 0)
             Display(false);
-        GameEventsManager.Instance.GameStateEvents.MenuToggle(false);
     }
 
     private void Display(bool active)

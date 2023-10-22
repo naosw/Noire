@@ -46,11 +46,7 @@ public class GameInput : MonoBehaviour
         
         Instance = this;
         DontDestroyOnLoad(gameObject);
-    }
-    
-    // subscribe listeners
-    private void Start()
-    {
+        
         // enable all maps
         gameInputActions.Player.Enable();
         gameInputActions.Menu.Enable();
