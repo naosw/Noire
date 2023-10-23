@@ -102,7 +102,7 @@ public class BedRockPlainsController : MonoBehaviour, IDataPersistence
 
     private IEnumerator DisplaySceneName()
     {
-        GameEventsManager.Instance.GameStateEvents.UIToggle(true);
+        GameEventsManager.Instance.GameStateEvents.MenuToggle(true);
         
         SceneTitle.gameObject.SetActive(false);
         UI.alpha = 0;
@@ -127,7 +127,7 @@ public class BedRockPlainsController : MonoBehaviour, IDataPersistence
         }
         UI.alpha = 1;
         
-        GameEventsManager.Instance.GameStateEvents.UIToggle(false);
+        GameEventsManager.Instance.GameStateEvents.MenuToggle(false);
     }
 
     #region IDataPersistence

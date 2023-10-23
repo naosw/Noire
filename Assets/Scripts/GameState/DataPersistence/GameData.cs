@@ -30,7 +30,7 @@ public class GameData
         AttackDamage = 5;
         DreamShards = 0;
         DreamThreads = 0;
-        Position = new Vector3(92.64f, 6f, 113.99f);
+        Position = new Vector3();
 
         ProfileName = profileId;
         PercentageComplete = 0;

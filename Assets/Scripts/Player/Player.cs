@@ -280,8 +280,8 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
         Vector3 moveDist = speed * Time.deltaTime * moveDir;
         
         // snap to terrain
-        float terrainHeight = Terrain.activeTerrain.SampleHeight(transform.position + moveDist) + .1f;
-        moveDist.y += terrainHeight - transform.position.y;
+        // float terrainHeight = Terrain.activeTerrain.SampleHeight(transform.position + moveDist) + .1f;
+        // moveDist.y += terrainHeight - transform.position.y;
         
         controller.Move(moveDist);
         
