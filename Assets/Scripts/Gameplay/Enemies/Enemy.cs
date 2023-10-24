@@ -4,77 +4,36 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
-    public enum State
-    {
-        Idle,
-        Search,
-        Attack
-    }
-
-    public State currentState = State.Idle;
-    public float lookRadius = 10.0f;
-    public LayerMask obstacleMask;
-    public NavMeshAgent agent;
-    public Transform target;
-    public float searchTime = 0.0f;
-    public float searchDuration = 5.0f;
-    public Vector3 lastKnownPosition;
-    public float maxHealth = 100;
+    public float maxHealth = 20;
     [SerializeField] ParticleSystem onHitParticleEffects;
     [SerializeField] Material OnHitMaterial;
     private Renderer renderer;
-    private Material originalMaterial;
+    private Material[][] originalMaterial;
     private Coroutine onHit;
     public Weapon weapon;
-
-    public float health { get; private set; }
+    public float damage = 2f;
+    public float health;
+    public MeshRenderer[] onHits;
     private void Awake()
     {
         health = maxHealth;
         //weapon = Player.Instance.GetWeapon();
         renderer = GetComponent<Renderer>();
-        agent = GetComponent<NavMeshAgent>();
     }
 
     public virtual void Start()
     {
-        originalMaterial = renderer.material;
+        Material[][] originalMaterial = new Material[onHits.Length][];
+        for (int i = 0; i < onHits.Length; i++)
+        {
+            originalMaterial[i] = onHits[i].materials;
+        }
+        
         if (onHitParticleEffects != null)
             onHitParticleEffects.Stop();
     }
 
-    public virtual void Update()
-    {
-        switch (currentState)
-        {
-            case State.Idle:
-                Idle();
-                break;
-            case State.Search:
-                Search();
-                break;
-            case State.Attack:
-                Attack();
-                break;
-        }
-    }
-
-    public virtual void Idle()
-    {
-        agent.isStopped = true;
-    }
-
-    public virtual void Search()
-    {
-        agent.isStopped = false;
-        agent.SetDestination(lastKnownPosition);
-    }
-
-    public virtual void Attack()
-    {
-        agent.isStopped = false;
-    }
-
+    
     public void OnHit()
     {
         PlayOnHitEffects();
@@ -102,14 +61,24 @@ public class Enemy : MonoBehaviour
             onHitParticleEffects.transform.LookAt(Player.Instance.transform.position + new Vector3(0, Player.Instance.GetPlayerHitBoxHeight(), 0));
             onHitParticleEffects.Play();
         }
-        renderer.material = OnHitMaterial;
+        for (int i = 0; i < onHits.Length; i++)
+        {
+            for (int j = 0; j < onHits[i].materials.Length; j++)
+            {
+                onHits[i].materials[j] = OnHitMaterial;
+            }
+             
+        }
         yield return new WaitForSeconds(.2f);
-        renderer.material = originalMaterial;
+        for (int i = 0; i < onHits.Length; i++)
+        {
+            onHits[i].materials = originalMaterial[i];
+        }
         onHit = null;
     }
 
     public void Die()
     {
-        
+        gameObject.SetActive(false);
     }
 }

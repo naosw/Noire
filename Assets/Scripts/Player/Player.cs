@@ -32,7 +32,7 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
     private AbilitySO[] playerAbilitiesList;  // up to three abilities is currently supported
     private Dictionary<int, AbilitySO> playerAbilities;
     private readonly float playerHitBoxHeight = 1f;
-    private float invulnerableTimer;
+    public float invulnerableTimer;
     private Material onhitMaterial;
     private Coroutine onHitCoroutine;
 
@@ -325,8 +325,7 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
         Collider[] hitEnemies = Physics.OverlapSphere(weapon.GetAttackPoint().position, weapon.GetAttackRadius(), weapon.GetEnemyLayer());
         foreach (Collider enemy in hitEnemies)
         {
-            // enemy.GetComponent<Enemy>().OnHit();
-            enemy.GetComponent<BasicEnemy>().OnHit();
+            enemy.GetComponent<Enemy>().OnHit();
         }
     }
 
