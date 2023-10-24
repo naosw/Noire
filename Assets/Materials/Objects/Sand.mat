@@ -27,12 +27,11 @@ Material:
   m_ValidKeywords:
   - _EMISSION
   - _ENVIRONMENTREFLECTIONS_OFF
-  - _NORMALMAP
   m_InvalidKeywords: []
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: -1
   stringTagMap:
     RenderType: Opaque
   disabledShaderPasses: []
@@ -41,7 +40,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: c29b52e0b29b45b438e5562ca40fe662, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Base_Lighting_Ramp:
@@ -49,7 +48,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 04c8d8170b6cf90408993eaa7cc9d271, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -73,7 +72,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: c29b52e0b29b45b438e5562ca40fe662, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -123,13 +122,13 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Metallic: 0
+    - _Metallic: 0.467
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0.5
+    - _Smoothness: 0.452
     - _SmoothnessTextureChannel: 0
     - _SpecularHardness: 260.2
     - _SpecularHighlights: 1
@@ -142,7 +141,7 @@ Material:
     m_Colors:
     - _AmbientLighting: {r: 0.052954797, g: 0.08460308, b: 0.13207549, a: 0}
     - _BaseColor: {r: 0.2627451, g: 0.22836828, b: 0.15294118, a: 1}
-    - _Base_Color: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 1}
+    - _Base_Color: {r: 0.4716981, g: 0.3715735, b: 0.3715735, a: 1}
     - _Color: {r: 0.26274508, g: 0.22836825, b: 0.15294114, a: 1}
     - _EmissionColor: {r: 0.09433961, g: 0.08143466, b: 0.08143466, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
   m_Name: Vignette
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   color:
     m_OverrideState: 1
     m_Value: {r: 0.21931788, g: 0.16153437, b: 0.2830189, a: 1}
@@ -78,7 +78,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.278
+    m_Value: 0.469
   smoothness:
     m_OverrideState: 1
     m_Value: 0.171
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: Global Volume Profile
+  m_Name: BedrockPlains Volume Profile
   m_EditorClassIdentifier: 
   components:
   - {fileID: 6452915823352447194}
@@ -123,19 +123,19 @@ MonoBehaviour:
     m_Value: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.8
+    m_Value: 0.62
   intensity:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 2.34
   scatter:
     m_OverrideState: 1
-    m_Value: 0.4
+    m_Value: 1
   clamp:
     m_OverrideState: 0
     m_Value: 0.25
   tint:
-    m_OverrideState: 0
-    m_Value: {r: 1, g: 0.9547744, b: 0.7971698, a: 1}
+    m_OverrideState: 1
+    m_Value: {r: 0.84948534, g: 0.8679245, b: 0.741011, a: 1}
   highQualityFiltering:
     m_OverrideState: 0
     m_Value: 0
