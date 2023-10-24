@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6f656ab8114e939b71b289ffd9d7b2, type: 3}
   m_Name: FogSettings
   m_EditorClassIdentifier: 
-  useDistance: 1
+  useDistance: 0
   distanceGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -43,15 +43,15 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  near: 5.87
-  far: 124.4
-  distanceFogIntensity: 0.129
-  useHeight: 0
+  near: 110.3
+  far: 111.7
+  distanceFogIntensity: 0.007
+  useHeight: 1
   heightGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 0}
-    key2: {r: 0, g: 0, b: 0, a: 0}
+    key0: {r: 1, g: 1, b: 1, a: 0}
+    key1: {r: 1, g: 0.7490566, b: 0.81832683, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 1}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
@@ -65,22 +65,22 @@ MonoBehaviour:
     ctime5: 0
     ctime6: 0
     ctime7: 0
-    atime0: 44333
-    atime1: 59174
-    atime2: 0
-    atime3: 0
+    atime0: 0
+    atime1: 20432
+    atime2: 41827
+    atime3: 65535
     atime4: 0
     atime5: 0
     atime6: 0
     atime7: 0
-    m_Mode: 2
+    m_Mode: 0
     m_ColorSpace: -1
     m_NumColorKeys: 2
-    m_NumAlphaKeys: 2
-  low: 0
-  high: 20.2
-  heightFogIntensity: 0.151
+    m_NumAlphaKeys: 4
+  low: -171
+  high: 1
+  heightFogIntensity: 0.341
   cameraRelativePosition: 0
   distanceHeightBlend: 0
-  renderEvent: 600
-  applyInSceneView: 0
+  renderEvent: 500
+  applyInSceneView: 1

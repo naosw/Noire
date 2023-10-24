@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: OutlineSettings
   m_EditorClassIdentifier: 
   edgeColor: {r: 1, g: 1, b: 1, a: 0.16862746}
-  thickness: 1
+  thickness: 2
   resolutionInvariant: 0
-  useDepth: 1
-  useNormals: 0
+  useDepth: 0
+  useNormals: 1
   useColor: 0
-  minDepthThreshold: 4
-  maxDepthThreshold: 17.6
-  minNormalsThreshold: 3.76
-  maxNormalsThreshold: 56.3
-  minColorThreshold: 0.86
-  maxColorThreshold: 6.25
-  renderEvent: 300
+  minDepthThreshold: 46
+  maxDepthThreshold: 81.4
+  minNormalsThreshold: 1.02
+  maxNormalsThreshold: 11.8
+  minColorThreshold: 9.76
+  maxColorThreshold: 15.71
+  renderEvent: 1000
   outlineOnly: 0
   applyInSceneView: 0
