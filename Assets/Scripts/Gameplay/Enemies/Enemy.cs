@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void Start()
     {
+        Material[][] originalMaterial = new Material[onHits.Length][];
         for (int i = 0; i < onHits.Length; i++)
         {
             originalMaterial[i] = onHits[i].materials;

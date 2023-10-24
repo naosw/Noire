@@ -325,13 +325,7 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
         Collider[] hitEnemies = Physics.OverlapSphere(weapon.GetAttackPoint().position, weapon.GetAttackRadius(), weapon.GetEnemyLayer());
         foreach (Collider enemy in hitEnemies)
         {
-<<<<<<< Updated upstream
-            // enemy.GetComponent<Enemy>().OnHit();
-            enemy.GetComponent<BasicEnemy>().OnHit();
-=======
-            Debug.Log(enemy.name);
             enemy.GetComponent<Enemy>().OnHit();
->>>>>>> Stashed changes
         }
     }
 
