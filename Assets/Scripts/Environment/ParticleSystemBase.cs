@@ -31,8 +31,8 @@ public class ParticleSystemBase : MonoBehaviour
 
     public void Restart()
     {
-        particles.Clear();
-        particles.Play();
+        Stop();
+        Play();
     }
     
     // private void Update()

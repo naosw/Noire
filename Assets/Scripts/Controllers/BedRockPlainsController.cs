@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public class BedRockPlainsController : MonoBehaviour, IDataPersistence
@@ -19,6 +20,7 @@ public class BedRockPlainsController : MonoBehaviour, IDataPersistence
     [SerializeField] private AnimationCurve titleIntensityCurve;
     [SerializeField] private AnimationCurve UIIntensityCurve;
     [SerializeField] private float TitleAnimationTime = 3;
+    [SerializeField] private ScriptableRendererFeature fogRendererFeature;
     
     private bool lightsOpened;
     private List<InteractableObject> interactablesList;
@@ -27,6 +29,8 @@ public class BedRockPlainsController : MonoBehaviour, IDataPersistence
     {
         mainLight.intensity = 0;
         SceneManager.sceneLoaded += FindAllInteractables;
+        
+        fogRendererFeature.SetActive(true);
     }
 
     private void Start()
