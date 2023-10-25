@@ -212,7 +212,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 656d2681a16f64043b669c21db3fb374,
         type: 3}
       propertyPath: m_Name
-      value: Bed Variant
+      value: Bed
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 656d2681a16f64043b669c21db3fb374,
         type: 3}

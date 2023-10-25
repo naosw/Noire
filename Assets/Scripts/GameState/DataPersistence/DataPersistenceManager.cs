@@ -132,4 +132,10 @@ public class DataPersistenceManager : MonoBehaviour
     {
         return fileHandler.LoadAllProfiles();
     }
+
+    public void ModifyPosition(Vector3 position)
+    {
+        gameData.Position = position;
+        fileHandler.Save(gameData, selectedProfileId);
+    }
 }

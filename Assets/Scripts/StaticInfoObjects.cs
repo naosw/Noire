@@ -29,22 +29,24 @@ public class StaticInfoObjects : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
     
-    // maps scene -> (in transition, out transition, load type, load mode)
+    // maps scene -> (load type, load mode, initial position)
     public readonly Dictionary<GameScene, SceneInfo> LOADING_INFO = new()
     {
         { GameScene.MainMenuScene, new SceneInfo(SceneLoadType.Fast, LoadSceneMode.Single) },
         { GameScene.DeathScene, new SceneInfo(SceneLoadType.Fast, LoadSceneMode.Single) },
         { GameScene.ValleyofSolura, new SceneInfo(SceneLoadType.Normal, LoadSceneMode.Single) },
         { GameScene.BedrockPlains, new SceneInfo(SceneLoadType.Normal, LoadSceneMode.Single) },
+        { GameScene.TheShorelines, new SceneInfo(SceneLoadType.Normal, LoadSceneMode.Single) },
     };
     
     public readonly Dictionary<string, GameScene> GAMESCENES = new()
     {
         { "MainMenuScene", GameScene.MainMenuScene },
         { "DeathScene", GameScene.DeathScene },
-        { "ValleyofSolura", GameScene.ValleyofSolura },
+        { "LoadingScene", GameScene.LoadingScene },
         { "BedrockPlains", GameScene.BedrockPlains },
-        { "LoadingScene", GameScene.LoadingScene }
+        { "ValleyofSolura", GameScene.ValleyofSolura },
+        { "TheShorelines", GameScene.TheShorelines },
     };
 
     public readonly Dictionary<DreamState, Color> VORONOI_INDICATOR = new()
