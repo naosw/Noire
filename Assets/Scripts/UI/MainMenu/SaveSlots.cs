@@ -92,7 +92,7 @@ public class SaveSlot : UI
                 saveSlotButton.Disable();
             else
                 saveSlotButton.Enable();
-            saveSlotButton.SetText("Empty");
+            saveSlotButton.SetText("..");
         }
         else
         {
