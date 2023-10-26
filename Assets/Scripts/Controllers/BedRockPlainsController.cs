@@ -21,6 +21,8 @@ public class BedRockPlainsController : MonoBehaviour, IDataPersistence
     [SerializeField] private AnimationCurve UIIntensityCurve;
     [SerializeField] private float TitleAnimationTime = 3;
     [SerializeField] private ScriptableRendererFeature fogRendererFeature;
+    [Header("Audio Manager")]
+    [SerializeField] private AudioManager audioManager;
     
     private bool lightsOpened;
     private List<InteractableObject> interactablesList;
@@ -36,7 +38,8 @@ public class BedRockPlainsController : MonoBehaviour, IDataPersistence
     private void Start()
     {
         StartCoroutine(DisplaySceneName());
-        
+        //audioManager.ChangeGlobalParaByName();
+        audioManager.ChangeGlobalParaByName("Walking Surfaces",1);
         if (lightsOpened)
         {
             Begin();
@@ -75,7 +78,6 @@ public class BedRockPlainsController : MonoBehaviour, IDataPersistence
     private void Begin()
     {
         mainLight.intensity = finalIntensity;
-        bgmAudio.PlayBgmAudio();
         dustParticles.Play();
         ToggleAllInteractables(true);
     }
@@ -89,6 +91,7 @@ public class BedRockPlainsController : MonoBehaviour, IDataPersistence
     private IEnumerator PlayOpeningLightsAnimation()
     {
         yield return new WaitForSeconds(.2f);
+        bgmAudio.PlayBgmAudio();
         float time = 0;
         while (time < 1)
         {

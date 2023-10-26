@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{174fc116-d7d8-41cc-910c-f115f329d7d7}">
+		<property name="assetPath">
+			<value>Stone2.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.192</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{28bd54d8-5a67-4476-b471-a043c2e15d47}</destination>
+		</relationship>
+	</object>
+</objects>
