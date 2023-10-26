@@ -188,6 +188,16 @@ PrefabInstance:
       propertyPath: buttonText
       value: 
       objectReference: {fileID: 1476060270169449977}
+    - target: {fileID: 5278620463748377503, guid: 543271f55a37d244f87564827173c1d5,
+        type: 3}
+      propertyPath: leftIndicator
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5278620463748377503, guid: 543271f55a37d244f87564827173c1d5,
+        type: 3}
+      propertyPath: rightIndicator
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6452544896647324545, guid: 543271f55a37d244f87564827173c1d5,
         type: 3}
       propertyPath: m_Enabled
@@ -330,14 +340,41 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7953885503134625666, guid: 543271f55a37d244f87564827173c1d5,
         type: 3}
+      propertyPath: m_Transition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7953885503134625666, guid: 543271f55a37d244f87564827173c1d5,
+        type: 3}
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 8878863406454705047}
+    - target: {fileID: 7953885503134625666, guid: 543271f55a37d244f87564827173c1d5,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.a
+      value: 0.1764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 7953885503134625666, guid: 543271f55a37d244f87564827173c1d5,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0.39867705
+      objectReference: {fileID: 0}
+    - target: {fileID: 7953885503134625666, guid: 543271f55a37d244f87564827173c1d5,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.4056604
+      objectReference: {fileID: 0}
+    - target: {fileID: 7953885503134625666, guid: 543271f55a37d244f87564827173c1d5,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.23114988
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6452544896647324545, guid: 543271f55a37d244f87564827173c1d5, type: 3}
     - {fileID: 2690570384554502654, guid: 543271f55a37d244f87564827173c1d5, type: 3}
     m_RemovedGameObjects:
     - {fileID: 2383895219621784892, guid: 543271f55a37d244f87564827173c1d5, type: 3}
+    - {fileID: 7814381887165185293, guid: 543271f55a37d244f87564827173c1d5, type: 3}
+    - {fileID: 6467538802699468772, guid: 543271f55a37d244f87564827173c1d5, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7934775099835483932, guid: 543271f55a37d244f87564827173c1d5,
         type: 3}

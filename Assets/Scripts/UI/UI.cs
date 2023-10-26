@@ -25,7 +25,8 @@ public class UI : MonoBehaviour
     public virtual void Hide()
     {
         Deactivate();
-        StartCoroutine(Fade(1, 0));
+        if(gameObject.activeSelf)
+            StartCoroutine(Fade(1, 0));
     }
 
     protected IEnumerator Fade(float start, float end)

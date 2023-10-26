@@ -12,14 +12,17 @@ EditorBuildSettings:
     path: Assets/Scenes/LoadingScene.unity
     guid: fbc3ebd8009202c48a156eae1aacdfdf
   - enabled: 1
-    path: Assets/Scenes/ValleyofSolura.unity
-    guid: 265aa3983c249aa46b952f3eb254934b
-  - enabled: 1
     path: Assets/Scenes/DeathScene.unity
     guid: e656f644c10a7ea439cd52231a32771b
   - enabled: 1
     path: Assets/Scenes/BedrockPlains/BedrockPlains.unity
     guid: d14b2c5c3a15e4b4396a6640174de77a
+  - enabled: 1
+    path: Assets/Scenes/TheShorelines.unity
+    guid: 23c2baada5aec429c913aada29a71274
+  - enabled: 1
+    path: Assets/Scenes/ValleyOfSolura.unity
+    guid: 3678fdaa8cdc94c44bb2b14dfe525a03
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5c552abcd6bddc54ead10d6b479e874c,
       type: 2}

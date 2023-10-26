@@ -2,7 +2,8 @@
 {
     MainMenuScene,
     DeathScene,
-    ValleyofSolura,
     LoadingScene,
-    BedrockPlains
+    BedrockPlains,
+    ValleyofSolura,
+    TheShorelines,
 }

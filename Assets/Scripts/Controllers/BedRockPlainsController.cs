@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
-public class BedRockPlainsController : MonoBehaviour, IDataPersistence
+public class BedRockPlainsController : SceneController, IDataPersistence
 {
     [Header("Opening Lights Animation (Lantern Interact)")]
     [SerializeField] private Light mainLight;
@@ -13,33 +12,19 @@ public class BedRockPlainsController : MonoBehaviour, IDataPersistence
     [SerializeField] private AnimationCurve openLightsIntensityCurve;
     [SerializeField] private float animationTime = 3;
     [SerializeField] private ParticleSystemBase dustParticles;
-    [SerializeField] private BGMAudio bgmAudio;
-    [SerializeField] private InteractableObject[] unaffectedInteractableObjects;
-    [SerializeField] private CanvasGroup SceneTitle;
-    [SerializeField] private CanvasGroup UI;
-    [SerializeField] private AnimationCurve titleIntensityCurve;
-    [SerializeField] private AnimationCurve UIIntensityCurve;
-    [SerializeField] private float TitleAnimationTime = 3;
     [SerializeField] private ScriptableRendererFeature fogRendererFeature;
-    [Header("Audio Manager")]
-    [SerializeField] private AudioManager audioManager;
     
     private bool lightsOpened;
     private List<InteractableObject> interactablesList;
     
-    private void Awake()
+    protected override void Init()
     {
         mainLight.intensity = 0;
-        SceneManager.sceneLoaded += FindAllInteractables;
-        
         fogRendererFeature.SetActive(true);
     }
 
-    private void Start()
+    protected override void StartInit()
     {
-        StartCoroutine(DisplaySceneName());
-        //audioManager.ChangeGlobalParaByName();
-        audioManager.ChangeGlobalParaByName("Walking Surfaces",1);
         if (lightsOpened)
         {
             Begin();
@@ -56,28 +41,12 @@ public class BedRockPlainsController : MonoBehaviour, IDataPersistence
         GameEventsManager.Instance.BedrockPlainsEvents.OnLampInteract -= OpenLights;
         SceneManager.sceneLoaded -= FindAllInteractables;
     }
-
-    private void ToggleAllInteractables(bool active)
-    {
-        if (active)
-            foreach (var interactable in interactablesList)
-                interactable.Enable();
-        else
-            foreach (var interactable in interactablesList)
-                interactable.Disable();
-    }
     
-    private void FindAllInteractables(Scene scene, LoadSceneMode mode)
-    {
-        interactablesList = FindObjectsOfType<MonoBehaviour>(true)
-            .OfType<InteractableObject>()
-            .Except(unaffectedInteractableObjects)
-            .ToList();
-    }
 
     private void Begin()
     {
         mainLight.intensity = finalIntensity;
+        bgmAudio.PlayBgmAudio();
         dustParticles.Play();
         ToggleAllInteractables(true);
     }
@@ -85,13 +54,13 @@ public class BedRockPlainsController : MonoBehaviour, IDataPersistence
     private void OpenLights()
     {
         lightsOpened = true;
+        DataPersistenceManager.Instance.SaveGame();
         StartCoroutine(PlayOpeningLightsAnimation());
     }
 
     private IEnumerator PlayOpeningLightsAnimation()
     {
         yield return new WaitForSeconds(.2f);
-        bgmAudio.PlayBgmAudio();
         float time = 0;
         while (time < 1)
         {
@@ -105,36 +74,6 @@ public class BedRockPlainsController : MonoBehaviour, IDataPersistence
         }
 
         Begin();
-    }
-
-    private IEnumerator DisplaySceneName()
-    {
-        GameEventsManager.Instance.GameStateEvents.MenuToggle(true);
-        
-        SceneTitle.gameObject.SetActive(false);
-        UI.alpha = 0;
-        yield return new WaitForSeconds(1);
-        
-        SceneTitle.gameObject.SetActive(true);
-        float time = 0;
-        while (time < 1)
-        {
-            SceneTitle.alpha = Mathf.Lerp(1, 0, titleIntensityCurve.Evaluate(time));
-            time += Time.deltaTime / TitleAnimationTime;
-            yield return null;
-        }
-        SceneTitle.gameObject.SetActive(false);
-        
-        time = 0;
-        while (time < 1)
-        {
-            UI.alpha = Mathf.Lerp(0, 1, UIIntensityCurve.Evaluate(time));
-            time += Time.deltaTime;
-            yield return null;
-        }
-        UI.alpha = 1;
-        
-        GameEventsManager.Instance.GameStateEvents.MenuToggle(false);
     }
 
     #region IDataPersistence
