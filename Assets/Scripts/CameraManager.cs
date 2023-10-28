@@ -16,6 +16,9 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float zoomSpeed = 10f;
     [SerializeField] private float shiftCameraPerspectiveSpeed = 20f;
 
+    // only allow 3 camera turn angles: -1 for left, 0 middle, 1 right
+    private int cameraPosition;
+
     [Header("Camera effects")] 
     private const float shakeDuration = .5f;
     private const float shakeMagnitude = 10f;
@@ -33,6 +36,7 @@ public class CameraManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        cameraPosition = 0;
 
         shakeNoise = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         
@@ -49,11 +53,16 @@ public class CameraManager : MonoBehaviour
         virtualCamera.m_Lens.OrthographicSize = FOVDefault;
     }
 
-    private void GameInput_OnCameraTurn(bool turnDir)
+    private void GameInput_OnCameraTurn(bool isRightTurn)
     {
-        isMoving = true;
-        Vector3 offset = new Vector3(0, turnDir ? 45 : -45, 0);
-        targetCameraRotation = Quaternion.Euler(targetCameraRotation.eulerAngles + offset);
+        if ((isRightTurn && cameraPosition != 1) ||
+            (!isRightTurn && cameraPosition != -1))
+        {
+            isMoving = true;
+            Vector3 offset = new Vector3(0, isRightTurn ? 45 : -45, 0);
+            targetCameraRotation = Quaternion.Euler(targetCameraRotation.eulerAngles + offset);
+            cameraPosition = isRightTurn ? cameraPosition + 1 : cameraPosition - 1;
+        }
     }
 
     private void Update()

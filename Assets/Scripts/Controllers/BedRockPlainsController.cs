@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
@@ -15,7 +14,6 @@ public class BedRockPlainsController : SceneController, IDataPersistence
     [SerializeField] private ScriptableRendererFeature fogRendererFeature;
     
     private bool lightsOpened;
-    private List<InteractableObject> interactablesList;
     
     protected override void Init()
     {

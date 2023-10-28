@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 public class PauseMenu : UI 
 {
@@ -20,7 +18,7 @@ public class PauseMenu : UI
     
     private void Start()
     {
-        GameInput.Instance.OnPauseToggle += GameInputOnPauseToggle;
+        GameInput.Instance.OnPauseToggle += TogglePauseGame;
         
         resumeButton.AddListener(TogglePauseGame);
         mainMenuButton.AddListener(OnMainMenuClick);
@@ -31,12 +29,7 @@ public class PauseMenu : UI
 
     private void OnDestroy()
     {
-        GameInput.Instance.OnPauseToggle -= GameInputOnPauseToggle;
-    }
-
-    private void GameInputOnPauseToggle() 
-    {
-        TogglePauseGame();
+        GameInput.Instance.OnPauseToggle -= TogglePauseGame;
     }
     
     private void ToggleButtons(bool val)
@@ -69,7 +62,7 @@ public class PauseMenu : UI
         Hide();
         OptionsUI.Instance.Show();
     }
-
+    
     private void TogglePauseGame() 
     {
         IsGamePaused = !IsGamePaused;
@@ -79,8 +72,7 @@ public class PauseMenu : UI
         }
         else
         {
-            if(gameObject.activeSelf)
-                Hide();
+            Hide();
         }
         GameEventsManager.Instance.GameStateEvents.PauseToggle(IsGamePaused);
     }

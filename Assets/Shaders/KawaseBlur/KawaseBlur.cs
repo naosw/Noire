@@ -31,17 +31,14 @@ public class KawaseBlur : ScriptableRendererFeature
         public string targetName;        
         string profilerTag;
 
-        int tmpId1;
-        int tmpId2;
-
-        RenderTargetIdentifier tmpRT1;
-        RenderTargetIdentifier tmpRT2;
+        private RenderTargetIdentifier tmpRT1;
+        private RenderTargetIdentifier tmpRT2;
         
         private RenderTargetIdentifier source { get; set; }
 
         public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
         {
-            source = renderingData.cameraData.renderer.cameraColorTarget;
+            source = renderingData.cameraData.renderer.cameraColorTargetHandle;
         }
 
         public CustomRenderPass(string profilerTag)
@@ -54,8 +51,8 @@ public class KawaseBlur : ScriptableRendererFeature
             var width = cameraTextureDescriptor.width / downsample;
             var height = cameraTextureDescriptor.height / downsample;
 
-            tmpId1 = Shader.PropertyToID("tmpBlurRT1");
-            tmpId2 = Shader.PropertyToID("tmpBlurRT2");
+            int tmpId1 = Shader.PropertyToID("tmpBlurRT1");
+            int tmpId2 = Shader.PropertyToID("tmpBlurRT2");
             cmd.GetTemporaryRT(tmpId1, width, height, 0, FilterMode.Bilinear, RenderTextureFormat.ARGB32);
             cmd.GetTemporaryRT(tmpId2, width, height, 0, FilterMode.Bilinear, RenderTextureFormat.ARGB32);
 
@@ -74,7 +71,6 @@ public class KawaseBlur : ScriptableRendererFeature
             opaqueDesc.depthBufferBits = 0;
 
             // first pass
-            // cmd.GetTemporaryRT(tmpId1, opaqueDesc, FilterMode.Bilinear);
             cmd.SetGlobalFloat("_offset", 1.5f);
             cmd.Blit(source, tmpRT1, blurMaterial);
 
@@ -104,7 +100,7 @@ public class KawaseBlur : ScriptableRendererFeature
         }
     }
 
-    CustomRenderPass scriptablePass;
+    private CustomRenderPass scriptablePass;
 
     public override void Create()
     {

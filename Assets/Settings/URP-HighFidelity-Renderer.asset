@@ -1,20 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4604487927856889162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cca7768aaaea4b0081f14e7f9d4b5ad, type: 3}
-  m_Name: FlatKitOutline
-  m_EditorClassIdentifier: 
-  m_Active: 0
-  settings: {fileID: 11400000, guid: 5b5c006d039a35449922c44009c60d07, type: 2}
-  _effectMaterial: {fileID: 0}
 --- !u!114 &-4327920889024400675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   passMaterial: {fileID: 2100000, guid: ecdfe8e08ab214eb4bd5d638583e9571, type: 2}
-  injectionPoint: 600
+  injectionPoint: 550
   requirements: 0
-  passIndex: 0
+  passIndex: 1
 --- !u!114 &-1304647417798613784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,15 +76,13 @@ MonoBehaviour:
       type: 3}
     hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
   m_RendererFeatures:
-  - {fileID: -4604487927856889162}
   - {fileID: 8014490324881951954}
   - {fileID: 4078901449947301039}
-  - {fileID: 4259746766931862595}
   - {fileID: -1304647417798613784}
   - {fileID: 7790271975648803368}
   - {fileID: -4327920889024400675}
   - {fileID: 4861608501604974159}
-  m_RendererFeatureMap: b602840fa09219c0d2cc64e67c30396faf44effd412b9b3843a4178c1da91d3be8a4fbf815f6e4ed283a3a54169b1c6cdd32b5b9e122f0c34ffe2e9f2ce77743
+  m_RendererFeatureMap: d2cc64e67c30396faf44effd412b9b38e8a4fbf815f6e4ed283a3a54169b1c6cdd32b5b9e122f0c34ffe2e9f2ce77743
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -182,22 +165,6 @@ MonoBehaviour:
       restoreCamera: 1
       offset: {x: 0, y: 0, z: 0, w: 0}
       cameraFieldOfView: 60
---- !u!114 &4259746766931862595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01e8d8b64cbc0704a800ba614f411140, type: 3}
-  m_Name: PixelizeFeature
-  m_EditorClassIdentifier: 
-  m_Active: 0
-  settings:
-    renderPassEvent: 500
-    screenHeight: 598
 --- !u!114 &4861608501604974159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770acbaed70db4ad696458511aa3f084, type: 3}
   m_Name: FlatKitFog
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   settings: {fileID: 11400000, guid: a4b62fd46b1ce844cb8dab6b23d5de00, type: 2}
   _effectMaterial: {fileID: 0}
 --- !u!114 &8014490324881951954

@@ -1,7 +1,20 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Events;
+
+
+/// <summary>
+/// THE UI baseclass.
+/// Inheritors have access to Show(), Hide(), and Init().
+/// Inheritors should selectively implement the following event methods:
+/// 
+/// <code>Activate</code> Called before Show()'s fade transitions
+/// <code>Deactivate</code> Called before Hide()'s fade transitions
+/// <code>LateActivate</code> Called after Show()'s fade transitions
+/// <code>LateDeactivate</code> Called after Hide()'s fade transitions
+/// 
+/// </summary>
 
 [RequireComponent(typeof(CanvasGroup))]
 public class UI : MonoBehaviour
@@ -11,9 +24,11 @@ public class UI : MonoBehaviour
     protected RectTransform rectTransform;
     protected bool alternativeGameObject = false;
     private float animationTime = .5f;
-
+    
     protected virtual void Activate() { }
     protected virtual void Deactivate() { }
+    protected virtual void LateActivate() { }
+    protected virtual void LateDeactivate() { }
 
     public virtual void Show()
     {
@@ -45,8 +60,16 @@ public class UI : MonoBehaviour
         }
         
         canvasGroup.alpha = end;
-        if(end == 0)
+        
+        if (end == 0)
+        {
             Display(false);
+            LateDeactivate();
+        }
+        else
+        {
+            LateActivate();
+        }
     }
 
     private void Display(bool active)

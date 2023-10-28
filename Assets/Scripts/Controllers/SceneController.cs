@@ -20,7 +20,7 @@ public class SceneController : MonoBehaviour
     [SerializeField] private AnimationCurve UIIntensityCurve;
     private float titleAnimationTime = 3;
     
-    private List<InteractableObject> interactablesList;
+    protected List<InteractableObject> interactablesList;
 
     private void Awake()
     {

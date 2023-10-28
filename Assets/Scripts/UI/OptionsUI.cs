@@ -28,14 +28,11 @@ public class OptionsUI : UI
         backButton.AddListener(OnBackButtonClicked);
         
         gameObject.SetActive(false);
-    }
-
-    private void OnEnable()
-    {
+        
         GameInput.Instance.OnPauseToggle += GameInputOnPauseToggle;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         GameInput.Instance.OnPauseToggle -= GameInputOnPauseToggle;
     }

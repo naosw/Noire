@@ -51,14 +51,11 @@ public class ControlsUI : UI
         HidePressToRebindKey();
         
         gameObject.SetActive(false);
-    }
-
-    private void OnEnable()
-    {
+        
         GameInput.Instance.OnPauseToggle += GameInputOnPauseToggle;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         GameInput.Instance.OnPauseToggle -= GameInputOnPauseToggle;
     }

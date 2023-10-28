@@ -6,7 +6,7 @@ public class GameInput : MonoBehaviour
 {
     public static GameInput Instance { get; private set; }
     
-    public event Action<bool> OnCameraTurn; // 1 for right. 0 for left.
+    public event Action<bool> OnCameraTurn; // true iff right turn
     public event Action OnPlayerMenuToggle;
     public event Action OnPauseToggle;
     public event Action OnInteract;

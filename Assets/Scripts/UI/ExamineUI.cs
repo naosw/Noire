@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -12,7 +13,6 @@ public class ExamineUI : UI
     private void Awake()
     {
         Instance = this;
-
         canvasGroup = GetComponent<CanvasGroup>();
     }
 
@@ -24,15 +24,15 @@ public class ExamineUI : UI
 
     public void Display(string text)
     {
-        if(!gameObject.activeSelf)
-            gameObject.SetActive(true);
+        gameObject.SetActive(true);
         examineText.text = '-' + text;
         Show();
-        GameEventsManager.Instance.GameStateEvents.UIToggle(true);
+        StartCoroutine(HideText());
     }
 
-    protected override void Deactivate()
+    IEnumerator HideText()
     {
-        GameEventsManager.Instance.GameStateEvents.UIToggle(false);
+        yield return new WaitForSeconds(10);
+        Hide();
     }
 }
