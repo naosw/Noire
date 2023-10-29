@@ -72,14 +72,17 @@ public class GameInput : MonoBehaviour
         gameInputActions.Player.Ability1.performed += Ability1_performed;
         gameInputActions.Player.Ability2.performed += Ability2_performed;
         gameInputActions.Player.Ability3.performed += Ability3_performed;
-        
+    }
+
+    private void Start()
+    {
         // game states
         GameEventsManager.Instance.GameStateEvents.OnPauseToggle += TogglePause;
         GameEventsManager.Instance.GameStateEvents.OnLoadToggle += ToggleLoad;
         GameEventsManager.Instance.GameStateEvents.OnUIToggle += ToggleUI;
         GameEventsManager.Instance.GameStateEvents.OnMenuToggle += ToggleMenu;
     }
-    
+
     private void OnDisable()
     {
         // debug

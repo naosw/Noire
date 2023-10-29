@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlayerInteract : MonoBehaviour
+public partial class Player
 {
+    [Header("Interact")]
     [SerializeField] private float interactDistance = 6f;
     
     public void Interact(){

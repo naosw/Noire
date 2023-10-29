@@ -8,6 +8,8 @@ public interface IPlayer
     bool IsIdle();
     bool IsCasting();
     bool IsDead();
+    bool IsFalling();
+    
     AbilitySO CanCastAbility(int abilityId);
     float GetPlayerHitBoxHeight();
     Weapon GetWeapon();

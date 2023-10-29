@@ -498,6 +498,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DustParticles
       objectReference: {fileID: 0}
+    - target: {fileID: 3408444268450221785, guid: 49718368257c12f4fa2c02fae241c9cb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8649035043888989889, guid: 49718368257c12f4fa2c02fae241c9cb,
         type: 3}
       propertyPath: prewarm
@@ -761,6 +766,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fireflies
       objectReference: {fileID: 0}
+    - target: {fileID: 3408444268450221785, guid: 09608ae500e169b4786407c5831f6dcb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8649035043888989889, guid: 09608ae500e169b4786407c5831f6dcb,
         type: 3}
       propertyPath: playOnAwake
@@ -807,8 +817,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 648294665}
-  m_LocalRotation: {x: 0.2981332, y: 0.124485, z: -0.039249968, w: 0.9455578}
-  m_LocalPosition: {x: -1.8232158, y: 7.3740683, z: -6.804337}
+  m_LocalRotation: {x: 0.2815855, y: 0.12515105, z: -0.037071425, w: 0.95061696}
+  m_LocalPosition: {x: -1.8887129, y: 7.123731, z: -7.0487742}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -816,7 +826,7 @@ Transform:
   - {fileID: 2079515313}
   m_Father: {fileID: 1916311173}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 35, y: 15, z: 0}
+  m_LocalEulerAnglesHint: {x: 33, y: 15, z: 0}
 --- !u!114 &648294667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4024,8 +4034,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1936130293}
-  m_LocalRotation: {x: 0.29813322, y: 0.124485, z: -0.03924997, w: 0.9455578}
-  m_LocalPosition: {x: -1.8232158, y: 7.3740683, z: -6.804337}
+  m_LocalRotation: {x: 0.2815855, y: 0.12515105, z: -0.037071425, w: 0.95061696}
+  m_LocalPosition: {x: -1.8887129, y: 7.123731, z: -7.0487742}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4681,6 +4691,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FirefliesBurst
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509965084316310429, guid: 426a55fd669dbf44eb3392f73f8bf050,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

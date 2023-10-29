@@ -6,24 +6,18 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// The main partial class for Player
+/// </summary>
+
 [RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(PlayerInteract))]
 [RequireComponent(typeof(Animator))]
-public class Player : MonoBehaviour, IPlayer, IDataPersistence
+public partial class Player : MonoBehaviour, IPlayer, IDataPersistence
 {
     [Header("Fields")]
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     public static Player Instance { get; private set; }
     private Animator animator;
-    private PlayerInteract playerInteract;
-    
-    private readonly Quaternion rightRotation = Quaternion.Euler(new Vector3(0, 90, 0));
-    
-    [Header("Player Controller")]
-    [SerializeField] private float moveSpeed = 12f;
-    private PlayerState state;
-    private CharacterController controller;
-    private Vector3 moveDir;
     
     [Header("Player combat")]
     [SerializeField] private Weapon weapon;
@@ -53,10 +47,11 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
     [SerializeField] private InventorySO playerInventory;
     
     #region IPlayer
-    public bool IsWalking() => state == PlayerState.Walk;
+    public bool IsWalking() => state == PlayerState.Walking;
     public bool IsIdle() => state == PlayerState.Idle;
     public bool IsCasting() => state == PlayerState.Casting;
     public bool IsDead() => state == PlayerState.Dead;
+    public bool IsFalling() => state == PlayerState.Falling;
 
     public AbilitySO CanCastAbility(int abilityId)
     {
@@ -84,14 +79,19 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
     
     private void Awake()
     {
+        if (Instance != null) 
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
+        DontDestroyOnLoad(gameObject);
         
         state = PlayerState.Idle;
         DreamState = DreamState.Neutral;
         
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
-        playerInteract = GetComponent<PlayerInteract>();
         
         playerHealthSO.ResetHealth();
         playerStaminaSO.ResetStamina();
@@ -140,13 +140,17 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
         
         if(IsWalking() || IsIdle())
             HandleMovement();
+        
+        if(IsFalling())
+            HandleFall();
     }
+
     #endregion
 
     #region TRIGGER FUNCTIONS
     private void OnInteract()
     {
-        playerInteract.Interact();
+        Interact();
     }
     
     private void OnAbilityCast(int abilityId)
@@ -258,12 +262,13 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
         }
     }
     
-    // called after ending attacks/dashing for state transition
+    // called after ability for state transition
     public void ResetStateAfterAction()
     {
         state = GameInput.Instance.GetMovementVectorNormalized() != Vector3.zero 
-            ? PlayerState.Walk 
+            ? PlayerState.Walking
             : PlayerState.Idle;
+        SetAnimatorTrigger("Reset");
     }
 
     public void SetAnimatorTrigger(string triggerName)
@@ -271,46 +276,9 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
         animator.SetTrigger(triggerName);
     }
     
-    // move towards `moveDir` with speed
-    public void Move(float speed)
-    {
-        Vector3 moveDist = speed * Time.deltaTime * moveDir;
-        
-        // snap to terrain
-        // float terrainHeight = Terrain.activeTerrain.SampleHeight(transform.position + moveDist) + .1f;
-        // moveDist.y += terrainHeight - transform.position.y;
-        
-        controller.Move(moveDist);
-        
-        // rotation
-        transform.forward = new Vector3(moveDir.x, 0, moveDir.z);
-    }
-
     #endregion
     
     #region HANDLE FUNCTIONS
-    // called when player is either moving or idle
-    private void HandleMovement()
-    {
-        Vector3 inputVector = GameInput.Instance.GetMovementVectorNormalized();
-        if (inputVector == Vector3.zero)
-        {
-            state = PlayerState.Idle;
-            return;
-        }
-        
-        // calculates orthographic camera angle
-        Vector3 forward = virtualCamera.transform.forward;
-        forward.y = 0;
-        Vector3 right = rightRotation * forward;
-        forward *= inputVector.z;
-        right *= inputVector.x;
-        moveDir = (forward + right).normalized;
-        
-        // move
-        state = PlayerState.Walk;
-        Move(moveSpeed);
-    }
     
     // called every frame to decrease cooldown and handle ability states
     private void HandleAbilityCast()
@@ -325,7 +293,6 @@ public class Player : MonoBehaviour, IPlayer, IDataPersistence
         Collider[] hitEnemies = Physics.OverlapSphere(weapon.GetAttackPoint().position, weapon.GetAttackRadius(), weapon.GetEnemyLayer());
         foreach (Collider enemy in hitEnemies)
         {
-            
             enemy.GetComponent<BasicEnemy>()?.OnHit();
             enemy.GetComponent<Enemy>()?.OnHit();
         }

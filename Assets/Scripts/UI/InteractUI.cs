@@ -4,7 +4,6 @@ using TMPro;
 
 public class InteractUI : UI
 {
-    [SerializeField] private PlayerInteract playerInteract;
     [SerializeField] private TextMeshProUGUI interactText;
     private IInteractable interactable;
     private IInteractable lastInteractable;
@@ -36,7 +35,7 @@ public class InteractUI : UI
     private void Update()
     {
         lastInteractable = interactable;
-        interactable = playerInteract.GetInteractableObject();
+        interactable = Player.Instance.GetInteractableObject();
 
         if (interactable != null && (!isShowing || interactable != lastInteractable))
         {

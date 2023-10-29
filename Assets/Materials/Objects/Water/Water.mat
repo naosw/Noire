@@ -97,18 +97,18 @@ Material:
     - _Depth: 100
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _FadeDistance: -14.73
+    - _FadeDistance: -11.6
     - _FoamAmount: 1
     - _FoamDepth: 1.77
     - _FoamDirection: 0.04
     - _FoamFromTexture: 1
     - _FoamMode: 2
-    - _FoamNoiseAmount: 0.412
+    - _FoamNoiseAmount: 0.383
     - _FoamProcedural: 1
-    - _FoamScale: 0.81
+    - _FoamScale: 1.2
     - _FoamSharpness: 0
     - _FoamSpeed: 0.55
-    - _FoamStretchX: 1
+    - _FoamStretchX: 10
     - _FoamStretchY: 1
     - _FoamTexture: 1
     - _Frequency: 0.08
@@ -140,7 +140,7 @@ Material:
     - _UvFadeY: 0.1
     - _WaterClearness: 0
     - _WaterDepth: 25.8
-    - _WaveAmplitude: 0.7
+    - _WaveAmplitude: 0.8
     - _WaveDirection: 0.5
     - _WaveFrequency: 1
     - _WaveMode: 2

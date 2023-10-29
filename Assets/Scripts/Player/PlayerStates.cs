@@ -1,9 +1,10 @@
 ﻿public enum PlayerState
 {
     Idle,
-    Walk,
+    Walking,
     Dead,
-    Casting
+    Casting,
+    Falling
 }
 
 public enum DreamState
