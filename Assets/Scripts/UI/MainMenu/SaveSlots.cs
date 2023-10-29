@@ -14,7 +14,6 @@ public class SaveSlot : UI
     [SerializeField] private TextMeshProUGUI currentAreaText;
 
     private bool hasData = false;
-    public bool isLoadView; 
 
     private void Awake() 
     {
@@ -31,7 +30,7 @@ public class SaveSlot : UI
     {
         SaveSlotsMenu.Instance.ToggleMenuButtons(false);
 
-        if (!isLoadView) 
+        if (!SaveSlotsMenu.Instance.IsLoadingView) 
         {
             if (hasData)
             {
@@ -52,7 +51,8 @@ public class SaveSlot : UI
             {
                 NewGame();
             }
-        } else
+        } 
+        else
         {
             // load the slot
             Loader.Load(DataPersistenceManager.Instance.CurrentScene); 
@@ -89,18 +89,17 @@ public class SaveSlot : UI
         );
     }
     
-    public void SetData(GameData data, bool isLoadingView) 
+    public void SetData(GameData data) 
     {
         if (data == null)
         {
             hasData = false;
 
             saveSlotButton.SetText("..");
-            if (isLoadingView)
-                saveSlotButton.Disable();
-            else
+            SetInteractable(false);
+            
+            if (!SaveSlotsMenu.Instance.IsLoadingView)
                 saveSlotButton.Enable();
-            saveSlotButton.SetText("..");
         }
         else
         {
