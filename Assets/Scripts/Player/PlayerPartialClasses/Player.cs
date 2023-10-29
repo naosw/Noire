@@ -79,13 +79,7 @@ public partial class Player : MonoBehaviour, IPlayer, IDataPersistence
     
     private void Awake()
     {
-        if (Instance != null) 
-        {
-            Destroy(gameObject);
-            return;
-        }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
         
         state = PlayerState.Idle;
         DreamState = DreamState.Neutral;
@@ -138,11 +132,11 @@ public partial class Player : MonoBehaviour, IPlayer, IDataPersistence
         HandleStamina();
         HandleAbilityCast();
         
-        if(IsWalking() || IsIdle() || IsFalling())
-            HandleMovement();
-        
-        if(!IsCasting())
+        if (!IsCasting())
+        {
             HandleFall();
+            HandleMovement();
+        }
     }
 
     #endregion

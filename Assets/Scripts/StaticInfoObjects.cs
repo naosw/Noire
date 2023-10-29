@@ -32,11 +32,11 @@ public class StaticInfoObjects : MonoBehaviour
     // maps scene -> (load type, load mode, initial position)
     public readonly Dictionary<GameScene, SceneInfo> LOADING_INFO = new()
     {
-        { GameScene.MainMenuScene, new SceneInfo(SceneLoadType.Fast, LoadSceneMode.Single) },
-        { GameScene.DeathScene, new SceneInfo(SceneLoadType.Fast, LoadSceneMode.Single) },
-        { GameScene.ValleyofSolura, new SceneInfo(SceneLoadType.Normal, LoadSceneMode.Single) },
-        { GameScene.BedrockPlains, new SceneInfo(SceneLoadType.Normal, LoadSceneMode.Single) },
-        { GameScene.TheShorelines, new SceneInfo(SceneLoadType.Normal, LoadSceneMode.Single) },
+        { GameScene.MainMenuScene, new SceneInfo(SceneLoadType.Fast, LoadSceneMode.Single, Vector3.zero) },
+        { GameScene.DeathScene, new SceneInfo(SceneLoadType.Fast, LoadSceneMode.Single, Vector3.zero) },
+        { GameScene.ValleyofSolura, new SceneInfo(SceneLoadType.Normal, LoadSceneMode.Single, new Vector3(47.2f, 5.4f, 40.2f)) },
+        { GameScene.BedrockPlains, new SceneInfo(SceneLoadType.Normal, LoadSceneMode.Single, Vector3.zero) },
+        { GameScene.TheShorelines, new SceneInfo(SceneLoadType.Normal, LoadSceneMode.Single, Vector3.zero) },
     };
     
     public readonly Dictionary<string, GameScene> GAMESCENES = new()

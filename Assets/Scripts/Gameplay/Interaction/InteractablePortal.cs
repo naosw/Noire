@@ -20,7 +20,10 @@ public class InteractablePortal : InteractableObject
     {
         doorAnimator.SetTrigger(DOOR_OPEN);
         yield return new WaitForSeconds(1f);
-        DataPersistenceManager.Instance.ModifyPosition(Vector3.zero);
+
+        var nextSceneInfo = StaticInfoObjects.Instance.LOADING_INFO[destinationScene];
+        
+        DataPersistenceManager.Instance.ModifyPosition(nextSceneInfo.InitialPosition);
         Loader.Load(destinationScene);
     }
     

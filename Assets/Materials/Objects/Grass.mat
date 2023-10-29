@@ -115,8 +115,8 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _Wind_Density: 0.3
-    - _Wind_Strength: 0.5
+    - _Wind_Density: 2
+    - _Wind_Strength: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
@@ -124,8 +124,8 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Speed: {r: 2, g: 0, b: 0, a: 0}
-    - _TerrainSize: {r: 300, g: 250, b: 0, a: 0}
+    - _Speed: {r: 2, g: 2, b: 0, a: 0}
+    - _TerrainSize: {r: 200, g: 200, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7094747146320815484
 MonoBehaviour:
