@@ -47,12 +47,14 @@ public class SaveSlotsMenu : UI
     public void NewGameMenu()
     {
         isLoadingView = false;
+        foreach (SaveSlot saveSlot in saveSlots) saveSlot.isLoadView = false; 
         Show();
     }
     
     public void LoadGameMenu()
     {
         isLoadingView = true;
+        foreach (SaveSlot saveSlot in saveSlots) saveSlot.isLoadView = true; 
         Show();
     }
 
