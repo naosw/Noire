@@ -27,9 +27,8 @@ public partial class Player
 
     private void HandleFall()
     {
-        Move(0);
-        
-        if (Physics.Raycast(transform.position + raycastOffset, Vector3.down, out RaycastHit hit, Mathf.Infinity, raycastHit)) {
+        if (Physics.Raycast(transform.position + raycastOffset, Vector3.down, out RaycastHit hit, Mathf.Infinity, raycastHit)) 
+        {
             if (hit.distance > fallingThreshold)
             {
                 state = PlayerState.Falling;
@@ -47,6 +46,7 @@ public partial class Player
         Vector3 inputVector = GameInput.Instance.GetMovementVectorNormalized();
         if (inputVector == Vector3.zero)
         {
+            Move(0);
             state = PlayerState.Idle;
             return;
         }

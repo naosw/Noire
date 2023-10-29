@@ -27,7 +27,7 @@ public partial class Player : MonoBehaviour, IPlayer, IDataPersistence
     private Dictionary<int, AbilitySO> playerAbilities;
     private readonly float playerHitBoxHeight = 1f;
     public float invulnerableTimer;
-    private Material onhitMaterial;
+    private Material onHitMaterial;
     private Coroutine onHitCoroutine;
 
     [Header("Player Health/Stamina")]
@@ -138,10 +138,10 @@ public partial class Player : MonoBehaviour, IPlayer, IDataPersistence
         HandleStamina();
         HandleAbilityCast();
         
-        if(IsWalking() || IsIdle())
+        if(IsWalking() || IsIdle() || IsFalling())
             HandleMovement();
         
-        if(IsFalling())
+        if(!IsCasting())
             HandleFall();
     }
 
