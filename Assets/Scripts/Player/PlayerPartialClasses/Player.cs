@@ -39,8 +39,8 @@ public partial class Player : MonoBehaviour, IPlayer, IDataPersistence
     [SerializeField] private PlayerStatisticsSO dreamThreadsSO;
     
     [Header("Player Dream State")]
-    [Range(0,.5f)] public readonly float LucidThreshold = 0.2f;
-    [Range(.5f,1)] public readonly float DeepThreshold = 0.8f;
+    public readonly int LucidThreshold = 2;
+    public readonly int DeepThreshold = 7;
     public DreamState DreamState { get; private set; }
 
     [Header("Player Items")] 
@@ -70,7 +70,7 @@ public partial class Player : MonoBehaviour, IPlayer, IDataPersistence
     public Weapon GetWeapon() => weapon;
     public bool AddItem(CollectableItemSO item) => playerInventory.Add(item);
     public bool RemoveItem(CollectableItemSO item) => playerInventory.Remove(item);
-    public void SetMaxHP(float x) => playerHealthSO.SetMaxHP(x);
+    public void SetMaxHP(int x) => playerHealthSO.SetMaxHP(x);
     public void SetMaxStamina(float x) => playerStaminaSO.SetMaxStamina(x);
     
     #endregion
@@ -171,7 +171,7 @@ public partial class Player : MonoBehaviour, IPlayer, IDataPersistence
     }
     
     // called when taking any damage
-    private void OnTakingDamage(float dmg, Vector3 source)
+    private void OnTakingDamage(int dmg, Vector3 source)
     {
         if (invulnerableTimer > 0)
         {
@@ -214,7 +214,7 @@ public partial class Player : MonoBehaviour, IPlayer, IDataPersistence
     }
     
     // called when restoring drowsiness (hp)
-    private void OnRegenDrowsiness(float value)
+    private void OnRegenDrowsiness(int value)
     {
         if(playerHealthSO.RegenHealth(value))
         {
@@ -307,10 +307,10 @@ public partial class Player : MonoBehaviour, IPlayer, IDataPersistence
     {
         DreamState prevDreamState = DreamState;
         
-        float currentDrowsinessPercentage = playerHealthSO.CurrentDrowsinessPercentage;
-        if (currentDrowsinessPercentage < LucidThreshold)
+        int currDrowsiness = playerHealthSO.CurrentDrowsiness;
+        if (currDrowsiness < LucidThreshold)
             DreamState = DreamState.Lucid;
-        else if (currentDrowsinessPercentage > DeepThreshold)
+        else if (currDrowsiness > DeepThreshold)
             DreamState = DreamState.Deep;
         else
             DreamState = DreamState.Neutral;

@@ -12,17 +12,18 @@ public class HUD : UI
     [SerializeField] private PlayerStaminaSO PlayerStaminaSO;
     [SerializeField] private PlayerStatisticsSO dreamShardsSO;
     [SerializeField] private PlayerStatisticsSO dreamThreadsSO;
-    
+
     [SerializeField] private TextMeshProUGUI dreamShardsCount;
     [SerializeField] private TextMeshProUGUI dreamThreadsCount;
     
-    [SerializeField] private Slider neutralDrowsiness;
-    [SerializeField] private Slider lucidDrowsiness; // this appears when you are in lucid state
-    [SerializeField] private Slider deepDrowsiness;
+    [SerializeField] private SwitchableSprite icon; 
+
+    [SerializeField] private Bar neutralDrowsiness;
+    [SerializeField] private Bar lucidDrowsiness;
+    [SerializeField] private Bar deepDrowsiness;
     [SerializeField] private Slider stamina;
 
-    private float neutralBarLength;
-    private float deepBarLength;
+    private int neutralBarLength;
 
     private void Awake()
     {
@@ -33,7 +34,6 @@ public class HUD : UI
     private void Start()
     {
         neutralBarLength = Player.Instance.DeepThreshold - Player.Instance.LucidThreshold;
-        deepBarLength = 1 - Player.Instance.DeepThreshold;
         
         GameEventsManager.Instance.PlayerEvents.OnUpdateHealthBar += UpdateHealthBar;
         GameEventsManager.Instance.PlayerEvents.OnUpdateStaminaBar += UpdateStaminaBar;
@@ -58,28 +58,30 @@ public class HUD : UI
     private void UpdateHealthBar()
     {
         ToggleHealthBars();
-        var currPercentage = playerHealthSO.CurrentDrowsinessPercentage;
+        var drowsiness = playerHealthSO.CurrentDrowsiness;
         
-        if (currPercentage < Player.Instance.LucidThreshold)
+        if (drowsiness < Player.Instance.LucidThreshold)
         {
-            lucidDrowsiness.value = currPercentage / Player.Instance.LucidThreshold;
+            icon.Switch(0);
+            lucidDrowsiness.Display(drowsiness);
         }
-        else if (currPercentage > Player.Instance.DeepThreshold)
+        else if (drowsiness > Player.Instance.DeepThreshold)
         {
-            neutralDrowsiness.value = 1;
-            deepDrowsiness.value = (currPercentage - Player.Instance.DeepThreshold) / deepBarLength;   
+            icon.Switch(2);
+            neutralDrowsiness.Display(neutralBarLength);
+            deepDrowsiness.Display(drowsiness - Player.Instance.DeepThreshold);   
         }
         else
         {
-            neutralDrowsiness.value = (currPercentage - Player.Instance.LucidThreshold) / neutralBarLength;
-            deepDrowsiness.value = 0;
+            icon.Switch(1);
+            neutralDrowsiness.Display(drowsiness - Player.Instance.LucidThreshold);
+            deepDrowsiness.Display(0);
         }
     }
 
     private void ToggleHealthBars()
     {
-        var currPercentage = playerHealthSO.CurrentDrowsinessPercentage;
-        if (Player.Instance.LucidThreshold <= currPercentage)
+        if (Player.Instance.LucidThreshold <= playerHealthSO.CurrentDrowsiness)
         {
             neutralDrowsiness.gameObject.SetActive(true);
             deepDrowsiness.gameObject.SetActive(true);

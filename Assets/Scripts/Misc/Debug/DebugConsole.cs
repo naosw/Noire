@@ -45,7 +45,7 @@ public class DebugConsole : MonoBehaviour
         
         KILL = new DebugCommand("kill", "kills the player", "kill", () =>
         {
-            GameEventsManager.Instance.PlayerEvents.TakeDamage(Single.MaxValue, Vector3.zero);
+            GameEventsManager.Instance.PlayerEvents.TakeDamage(Int32.MaxValue, Vector3.zero);
         });
         
         SAVE = new DebugCommand("save", "saves the game", "save", () =>
@@ -55,7 +55,7 @@ public class DebugConsole : MonoBehaviour
         
         INFINITE_HP = new DebugCommand("inf_hp", "make the player's hp infinite", "inf_hp", () =>
         {
-            Player.Instance.SetMaxHP(Single.MaxValue);
+            Player.Instance.SetMaxHP(Int32.MaxValue);
         });
         
         INFINITE_STAMINA = new DebugCommand("inf_stamina", "make the player's stamina infinite", "inf_stamina", () =>
@@ -75,7 +75,7 @@ public class DebugConsole : MonoBehaviour
         };
     }
 
-    private IEnumerator dec_hp_cont(float value, float seconds)
+    private IEnumerator dec_hp_cont(int value, float seconds)
     {
         while (true)
         {

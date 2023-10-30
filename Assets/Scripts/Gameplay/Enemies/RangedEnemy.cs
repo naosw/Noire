@@ -259,7 +259,7 @@ public class RangedEnemy : Enemy
                     impactParticleSystem.transform.forward = -currentLaserDirection.normalized;
                     if (hit.collider.gameObject == TargetPlayer.gameObject)
                     {
-                        GameEventsManager.Instance.PlayerEvents.TakeDamage(damage, transform.position);
+                        GameEventsManager.Instance.PlayerEvents.TakeDamage((int)damage, transform.position);
                     }
                 
                     LaserLineRenderer.SetPosition(0, LaserFirePoint.position);
