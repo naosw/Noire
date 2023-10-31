@@ -115,7 +115,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _LightContribution: 1
+    - _LightContribution: 0.773
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Opaque: 0
@@ -151,7 +151,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0, g: 1, b: 0.7287984, a: 1}
-    - _ColorDeep: {r: 0.14733, g: 0.2924528, b: 0.2418701, a: 1}
+    - _ColorDeep: {r: 0.4887148, g: 0.735849, b: 0.64901805, a: 1}
     - _ColorShallow: {r: 1, g: 1, b: 1, a: 1}
     - _ColorTop: {r: 1, g: 1, b: 1, a: 0.34117648}
     - _CrestColor: {r: 1, g: 1, b: 1, a: 0.9}
