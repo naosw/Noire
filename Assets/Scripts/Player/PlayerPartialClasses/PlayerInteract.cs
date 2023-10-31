@@ -9,6 +9,7 @@ public partial class Player
     
     public void Interact(){
         GetInteractableObject()?.Interact();
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Character/Player/PlayerInteract", GetComponent<Transform>().position);
     }
     
     // returns a if a or b is closer to transform.position
