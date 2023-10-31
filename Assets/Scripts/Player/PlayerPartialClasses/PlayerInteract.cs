@@ -7,9 +7,14 @@ public partial class Player
     [Header("Interact")]
     [SerializeField] private float interactDistance = 6f;
     
-    public void Interact(){
-        GetInteractableObject()?.Interact();
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Character/Player/PlayerInteract", GetComponent<Transform>().position);
+    public void Interact()
+    {
+        var interactable = GetInteractableObject();
+        if (interactable != null)
+        {
+            interactable.Interact();
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Character/Player/PlayerInteract", transform.position);
+        }
     }
     
     // returns a if a or b is closer to transform.position
