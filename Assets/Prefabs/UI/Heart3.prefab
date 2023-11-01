@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5789475386930134203}
   - component: {fileID: 310857656155739708}
   m_Layer: 5
-  m_Name: Heart
+  m_Name: Heart3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,9 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 21300000, guid: 6de55c276007ede429e7516b7c166f1f, type: 3}
-  - {fileID: 21300000, guid: ce85571dc29e2454f9cbe672facbe211, type: 3}
-  len: 2
+  - {fileID: 21300000, guid: cdf5384b66a632f49a6c07af68d1e3de, type: 3}
+  - {fileID: 21300000, guid: 9142193a611e6de4ea4e0ee0600c6c8b, type: 3}
 --- !u!222 &5789475386930134203
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -76,15 +75,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 1, g: 0.53766024, b: 0.4377358, a: 1}
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 9142193a611e6de4ea4e0ee0600c6c8b, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

@@ -7,7 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Drowsiness", menuName = "Player/Drowsiness")]
 public class PlayerHealthSO : ScriptableObject
 {
-    private int max_hp = 10;
+    private int max_hp = 7;
     private int currentDrowsiness;
     
     public int CurrentDrowsiness => currentDrowsiness;

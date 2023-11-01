@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class SwitchableSprite : MonoBehaviour
 {
     [SerializeField] private Sprite[] sprites;
-    [SerializeField] private int len;
     private Image image;
 
     private void Awake()
@@ -17,7 +16,7 @@ public class SwitchableSprite : MonoBehaviour
     // switch to the `index` sprite
     public void Switch(int index)
     {
-        if (index < len)
+        if (index < sprites.Length)
             image.sprite = sprites[index];
     }
 }

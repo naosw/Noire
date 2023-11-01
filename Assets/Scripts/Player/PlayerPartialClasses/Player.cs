@@ -40,7 +40,7 @@ public partial class Player : MonoBehaviour, IPlayer, IDataPersistence
     
     [Header("Player Dream State")]
     public readonly int LucidThreshold = 2;
-    public readonly int DeepThreshold = 7;
+    public readonly int DeepThreshold = 5;
     public DreamState DreamState { get; private set; }
 
     [Header("Player Items")] 

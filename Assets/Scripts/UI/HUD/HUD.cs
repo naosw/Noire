@@ -45,6 +45,7 @@ public class HUD : UI
         UpdateStaminaBar();
         UpdateDreamShardsCount();
         UpdateDreamThreadsCount();
+        icon.Switch(2);
     }
     
     private void OnDisable()
@@ -62,19 +63,20 @@ public class HUD : UI
         
         if (drowsiness < Player.Instance.LucidThreshold)
         {
-            icon.Switch(0);
+            icon.Switch(3);
             lucidDrowsiness.Display(drowsiness);
         }
         else if (drowsiness > Player.Instance.DeepThreshold)
         {
-            icon.Switch(2);
+            icon.Switch(4);
             neutralDrowsiness.Display(neutralBarLength);
             deepDrowsiness.Display(drowsiness - Player.Instance.DeepThreshold);   
         }
         else
         {
-            icon.Switch(1);
-            neutralDrowsiness.Display(drowsiness - Player.Instance.LucidThreshold);
+            var i = drowsiness - Player.Instance.LucidThreshold;
+            icon.Switch(i);
+            neutralDrowsiness.Display(i);
             deepDrowsiness.Display(0);
         }
     }
