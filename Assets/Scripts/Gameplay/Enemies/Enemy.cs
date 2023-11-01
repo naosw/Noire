@@ -3,17 +3,27 @@ using UnityEngine.AI;
 using System.Collections;
 
 public class Enemy : MonoBehaviour
-{
-    public float maxHealth = 20;
+{   
+    [Header("Enemy Properties")]
+    [Tooltip("The maximum health of the enemy")]
+    [SerializeField] float maxHealth = 20;
+    [Tooltip("The enemy weapon damage")]
+    [SerializeField] protected float damage = 2f;
+    [Header("Enemy Effects")]
+    [Tooltip("The particle effects that play when the enemy is hit")]
     [SerializeField] ParticleSystem onHitParticleEffects;
+    [Tooltip("The material that is applied to the enemy on hit")]
     [SerializeField] Material OnHitMaterial;
+    [Tooltip("The players current weapon")]
+    [SerializeField] private Weapon weapon;
+    [Tooltip("Mesh Renderers to apply the on hit material to")]
+    [SerializeField] private MeshRenderer[] onHits;
+    
+    // private unserialized fields
     private Renderer renderer;
+    private float health;
     private Material[][] originalMaterial;
     private Coroutine onHit;
-    public Weapon weapon;
-    public float damage = 2f;
-    public float health;
-    public MeshRenderer[] onHits;
     private void Awake()
     {
         health = maxHealth;

@@ -4,34 +4,101 @@ using UnityEngine.AI;
 
 public class RangedEnemy : Enemy
 {
+    [Header("Target Settings")]
+    [Tooltip("The Transform of the player.")]
     public Transform TargetPlayer;
-    [SerializeField] private CoverPoint[] coverPoints;
-    public float AttackRange = 10;
+
+    [Header("Cover and Patrol")]
+    [SerializeField] [Tooltip("Possible cover points for the enemy.")]
+    private CoverPoint[] coverPoints;
+    [SerializeField] [Tooltip("Patrol points for enemy movement.")]
+    private Transform[] PatrolPoints;
+    [SerializeField] [Tooltip("Time to wait at each patrol point.")]
+    private float patrolWaitTime = 3f;
+    private int currentPatrolIndex = 0;
+    private bool switchingPatrol = false;
+
+    [Header("Attack Parameters")]
+    [Tooltip("Attack range of the enemy.")]
+    public float AttackRange = 10f;
+    [Tooltip("Damage inflicted by the enemy.")]
     public float Damage = 10.0f;
+    [Tooltip("Time between enemy attacks.")]
     public float TimeBetweenAttacks = 1.0f;
-    public LayerMask EnemyLayers;
-    public NavMeshAgent Agent;
-    public float HideSensitivity = 0;
-    public float MinPlayerDistance = 5f;
-    public float MinObstacleHeight = 1.25f;
-    public float lookRadiusHiding = 50f;
-    public float lastAttackTime = -1;
-    public bool isAttacking;
-    public bool AttackStarted = false;
-    public float slowUpdateTime = 0.5f;
-    public Range<float, float> AttackCooldownRange = new Range<float, float>(1.0f, 2.0f);
-    public float CurrentAttackCooldown = 0f;
-    public float AttackCooldownTimer = 0f;
-    public bool CanAttack = false;
-    public Transform[] PatrolPoints;
-    public int currentPatrolIndex = 0;
-    public float patrolWaitTime = 0.5f;
-    public bool switchingPatrol = false;
-    public LineRenderer WarningLineRenderer;
-    public ParticleSystem LaserParticles;
-    [SerializeField] private ParticleSystem impactParticleSystem;
+    [SerializeField] [Tooltip("Minimum distance from the player.")]
+    private float MinPlayerDistance = 5f;
+    [SerializeField] [Tooltip("Minimum height of obstacles for cover.")]
+    private float MinObstacleHeight = 1.25f;
+    [SerializeField] [Tooltip("How far the enemy can see to decide on attacking.")]
+    private float lookRadiusHiding = 50f;
+
+    [Header("AI Settings")]
+    [SerializeField] [Tooltip("The NavMeshAgent for the enemy.")]
+    private NavMeshAgent Agent;
+    [SerializeField] [Tooltip("Enemy layers to consider for AI decisions.")]
+    private LayerMask EnemyLayers;
+    [SerializeField] [Tooltip("Speed when patrolling.")]
+    private float patrolWalkSpeed = 3.5f;
+    [SerializeField] [Tooltip("Speed when attacking.")]
+    private float attackRunSpeed = 4.5f;
+    [SerializeField] [Tooltip("How often to update the slow update loop.")]
+    private float slowUpdateTime = 0.5f;
+
+    [Header("Attack Cooldown")]
+    [SerializeField] [Tooltip("Range of random cooldowns between attacks.")]
+    private Range<float, float> AttackCooldownRange = new Range<float, float>(1.0f, 2.0f);
+    private float CurrentAttackCooldown = 0f;
+    private float AttackCooldownTimer = 0f;
+    private bool CanAttack = false;
+
+    [Header("Visual Effects")]
+    [SerializeField] [Tooltip("Line renderer for showing the warning line.")]
+    private LineRenderer WarningLineRenderer;
+    [SerializeField] [Tooltip("Particle system for laser attacks.")]
+    private ParticleSystem LaserParticles;
+    [SerializeField] [Tooltip("Particle system for impact effect.")]
+    private ParticleSystem impactParticleSystem;
+    [Tooltip("Time for the warning effect before an attack.")]
     public float WarningTime = 0.5f;
+
+    [Header("Laser Direction and Speed")]
+    [Tooltip("Rotation speed of the laser.")]
+    public float rotationSpeed = 2f;
+    [SerializeField] [Tooltip("Initial direction of the laser.")]
+    private Vector3 initialLaserDirection;
+    [SerializeField] [Tooltip("Current direction of the laser.")]
+    private Vector3 currentLaserDirection;
+    [SerializeField] [Tooltip("Flag to check if initial laser direction is set.")]
+    private bool initialDirectionSet = false;
+    [Tooltip("Speed of lerp for laser aiming.")]
+    public float lerpSpeed = 0.1f;
+
+    [Header("Animation")]
+    [Tooltip("Animator for the player.")]
     public Animator PlayerAnimator;
+
+    [Header("State Management")]
+    [Tooltip("Current state of the enemy.")]
+    public EnemyState currentState;
+
+    [Header("Additional Components")]
+    [SerializeField] [Tooltip("Line renderer for the laser attack.")]
+    private LineRenderer LaserLineRenderer;
+    [SerializeField] [Tooltip("Animator for the enemy.")]
+    private Animator anim;
+    [SerializeField] [Tooltip("Layers considered as player.")]
+    private LayerMask PlayerLayers;
+    [SerializeField] [Tooltip("Point from which the laser fires.")]
+    private Transform LaserFirePoint;
+
+    private bool isAttacking;
+    private bool AttackStarted = false;
+    private float lastAttackTime = -1;
+    private float lastSpottedTime = 0f;
+    private float LoseInterestTimer = 8f;
+    private bool moveToNextPatrolPoint = true;
+
+    // Nested class for Range
     public struct Range<T, U>
     {
         public T Lower;
@@ -42,16 +109,9 @@ public class RangedEnemy : Enemy
             Upper = second;
         }
     }
+
+    // Enumeration for Enemy State
     public enum EnemyState { Idle, Attack }
-    public EnemyState currentState;
-    public LineRenderer LaserLineRenderer;
-    public float patrolWalkSpeed = 3.5f;
-    public float attackRunSpeed = 4.5f;
-    public Animator anim;
-    public LayerMask PlayerLayers;
-    public Transform LaserFirePoint;
-    public float lastSpottedTime = 0f;
-    public float LoseInterestTimer = 8f;
     public override void Start()
     {
         base.Start();
@@ -75,8 +135,6 @@ public class RangedEnemy : Enemy
         }
         Invoke("SlowUpdate", slowUpdateTime);
     }
-
-    public bool moveToNextPatrolPoint = true;
 
     private void IdleBehavior()
     {
@@ -177,7 +235,7 @@ public class RangedEnemy : Enemy
         }
     }
 
-    public float rotationSpeed = 2f;
+
     void FaceTarget()
     {
         Vector3 direction = (TargetPlayer.position - transform.position).normalized;
@@ -225,11 +283,6 @@ public class RangedEnemy : Enemy
             impactParticleSystem.Stop();
             Invoke("AttackCooldown", CurrentAttackCooldown);
         }
-
-        private Vector3 initialLaserDirection;
-        private Vector3 currentLaserDirection;
-        private bool initialDirectionSet = false;
-        public float lerpSpeed = 0.1f; // Adjust this value to control the speed of lerp
 
         private void LaserAttack(Vector3 initalDirection)
         {
