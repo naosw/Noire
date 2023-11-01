@@ -77,7 +77,11 @@ half3 LightingPhysicallyBased_DSTRM(Light light, InputData inputData)
 
 #if defined(DR_SPECULAR_ON)
     // Halfway between lighting direction and view vector.
-    const float3 halfVector = normalize(light.direction + inputData.viewDirectionWS);
+    
+    // const float3 halfVector = normalize(light.direction + inputData.viewDirectionWS);
+    // RIGHT NOW WE ARE NOT FIXING CAMERA ANGLE, SO WE WILL NOT USE inputData.viewDirectionWS
+    const float3 halfVector = normalize(light.direction);
+    
     const float NdotH = dot(inputData.normalWS, halfVector) * 0.5 + 0.5;
     const float specular = saturate(pow(abs(NdotH), 100.0 * (1.0 - _FlatSpecularSize) * (1.0 - _FlatSpecularSize)));
     const float specularTransition = smoothstep(0.5 - _FlatSpecularEdgeSmoothness * 0.1,

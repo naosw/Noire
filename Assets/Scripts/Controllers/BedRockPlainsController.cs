@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using FlatKit;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public class BedRockPlainsController : SceneController, IDataPersistence
@@ -11,9 +12,7 @@ public class BedRockPlainsController : SceneController, IDataPersistence
     [SerializeField] private AnimationCurve openLightsIntensityCurve;
     [SerializeField] private float animationTime = 3;
     
-    [Header("Fog")]
-    [SerializeField] private FlatKitFog fogRendererFeature;
-    [SerializeField] private FogSettings fogSettings;
+    [SerializeField] private int fogIndex;
     
     [Header("Particle Effects")]
     [SerializeField] private ParticleSystemBase dustParticles;
@@ -23,8 +22,7 @@ public class BedRockPlainsController : SceneController, IDataPersistence
     protected override void Init()
     {
         mainLight.intensity = 0;
-        fogRendererFeature.SetActive(true);
-        fogRendererFeature.settings = fogSettings;
+        ScriptableRendererFeatureManager.Instance.EnableOnlyOneFog(fogIndex);
     }
 
     protected override void LateInit()

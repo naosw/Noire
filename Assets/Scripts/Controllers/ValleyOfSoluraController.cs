@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 using FlatKit;
+using UnityEngine.Rendering.Universal;
 
 public class ValleyOfSoluraController : SceneController
 {
-    [SerializeField] private FlatKitFog fogRendererFeature;
-    [SerializeField] private FogSettings fogSettings;
+    [SerializeField] private int fogIndex;
     
     protected override void Init()
     {
-        fogRendererFeature.SetActive(true);
-        fogRendererFeature.settings = fogSettings;
+        ScriptableRendererFeatureManager.Instance.EnableOnlyOneFog(fogIndex);
     }
 }

@@ -16,7 +16,7 @@ MonoBehaviour:
   passMaterial: {fileID: 2100000, guid: ecdfe8e08ab214eb4bd5d638583e9571, type: 2}
   injectionPoint: 550
   requirements: 0
-  passIndex: 1
+  passIndex: 0
 --- !u!114 &-1304647417798613784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,6 +59,21 @@ MonoBehaviour:
       restoreCamera: 1
       offset: {x: 0, y: 0, z: 0, w: 0}
       cameraFieldOfView: 60
+--- !u!114 &-407661055715409898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770acbaed70db4ad696458511aa3f084, type: 3}
+  m_Name: Blue Yellow Fog
+  m_EditorClassIdentifier: 
+  m_Active: 0
+  settings: {fileID: 11400000, guid: 318f7bb7ad019804590d6bd7d7f1a9c8, type: 2}
+  _effectMaterial: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,13 +91,14 @@ MonoBehaviour:
       type: 3}
     hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
   m_RendererFeatures:
+  - {fileID: 4756957018105956587}
+  - {fileID: -407661055715409898}
   - {fileID: 8014490324881951954}
   - {fileID: 4078901449947301039}
   - {fileID: -1304647417798613784}
-  - {fileID: 4756957018105956587}
   - {fileID: -4327920889024400675}
   - {fileID: 4861608501604974159}
-  m_RendererFeatureMap: d2cc64e67c30396faf44effd412b9b38e8a4fbf815f6e4edebc8015c341b0442dd32b5b9e122f0c34ffe2e9f2ce77743
+  m_RendererFeatureMap: ebc8015c341b0442168052016eb257fad2cc64e67c30396faf44effd412b9b38e8a4fbf815f6e4eddd32b5b9e122f0c34ffe2e9f2ce77743
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -175,10 +191,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 770acbaed70db4ad696458511aa3f084, type: 3}
-  m_Name: Fog
+  m_Name: Pink Fog
   m_EditorClassIdentifier: 
-  m_Active: 1
-  settings: {fileID: 11400000, guid: 318f7bb7ad019804590d6bd7d7f1a9c8, type: 2}
+  m_Active: 0
+  settings: {fileID: 11400000, guid: a4b62fd46b1ce844cb8dab6b23d5de00, type: 2}
   _effectMaterial: {fileID: 0}
 --- !u!114 &4861608501604974159
 MonoBehaviour:
