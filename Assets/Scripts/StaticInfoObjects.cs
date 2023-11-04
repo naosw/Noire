@@ -34,7 +34,7 @@ public class StaticInfoObjects : MonoBehaviour
     {
         { GameScene.MainMenuScene, new SceneInfo(SceneLoadType.Fast, LoadSceneMode.Single, Vector3.zero) },
         { GameScene.DeathScene, new SceneInfo(SceneLoadType.Fast, LoadSceneMode.Single, Vector3.zero) },
-        { GameScene.ValleyofSolura, new SceneInfo(SceneLoadType.Normal, LoadSceneMode.Single, new Vector3(47.2f, 5.4f, 40.2f)) },
+        { GameScene.ValleyofSolura, new SceneInfo(SceneLoadType.Normal, LoadSceneMode.Single, new Vector3(44.5f, 10f, 26f)) },
         { GameScene.BedrockPlains, new SceneInfo(SceneLoadType.Normal, LoadSceneMode.Single, Vector3.zero) },
         { GameScene.TheShorelines, new SceneInfo(SceneLoadType.Normal, LoadSceneMode.Single, Vector3.zero) },
     };

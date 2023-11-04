@@ -54,34 +54,6 @@ MonoBehaviour:
   - Rain
   - Windy
   Exists: 1
---- !u!114 &-8239178424844013398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/BedRockPlain/WeatherSound
-  m_EditorClassIdentifier: 
-  Path: event:/BedRockPlain/WeatherSound
-  Guid:
-    Data1: 36053687
-    Data2: 1220597089
-    Data3: 1598374807
-    Data4: 783911936
-  Banks:
-  - {fileID: 2073874680224088596}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 8488368920744352805}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 167500
 --- !u!114 &-7617834468536545914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,35 +78,6 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
---- !u!114 &-6968178371931007726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/BedRockPlain/BackgroundMusicCave
-  m_EditorClassIdentifier: 
-  Path: event:/BedRockPlain/BackgroundMusicCave
-  Guid:
-    Data1: 1141363793
-    Data2: 1316821038
-    Data3: 583768246
-    Data4: 1618897406
-  Banks:
-  - {fileID: -5288706457553147157}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters:
-  - {fileID: 3506241490493543490}
-  - {fileID: 1458071578825670448}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 216058
 --- !u!114 &-6897070254303316913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +105,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 143214
+--- !u!114 &-6830080245896017382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Others/Fireplace
+  m_EditorClassIdentifier: 
+  Path: event:/Others/Fireplace
+  Guid:
+    Data1: -916346011
+    Data2: 1148520605
+    Data3: 1307298456
+    Data4: 816972735
+  Banks:
+  - {fileID: 2073874680224088596}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 60000
 --- !u!114 &-5470507981307631521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,33 +159,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-5445307150084985876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/BedRockPlain/Fireplace
-  m_EditorClassIdentifier: 
-  Path: event:/BedRockPlain/Fireplace
-  Guid:
-    Data1: -916346011
-    Data2: 1148520605
-    Data3: 1307298456
-    Data4: 816972735
-  Banks:
-  - {fileID: 2073874680224088596}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 60000
 --- !u!114 &-5436910303919886702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,10 +174,10 @@ MonoBehaviour:
   Path: NoireFM/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638324894546964102
+  lastModified: 638343696432621779
   FileSizes:
   - Name: Desktop
-    Value: 1536
+    Value: 1580
   Exists: 1
 --- !u!114 &-5288706457553147157
 MonoBehaviour:
@@ -251,7 +194,7 @@ MonoBehaviour:
   Path: NoireFM/Build/Desktop/OST.bank
   Name: OST
   StudioPath: bank:/OST
-  lastModified: 638324894547449709
+  lastModified: 638343696433091791
   FileSizes:
   - Name: Desktop
     Value: 7170592
@@ -354,6 +297,61 @@ MonoBehaviour:
   - Name: Desktop
     Value: 3609344
   Exists: 1
+--- !u!114 &-2952506944820352129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Others/WeatherSound
+  m_EditorClassIdentifier: 
+  Path: event:/Others/WeatherSound
+  Guid:
+    Data1: 36053687
+    Data2: 1220597089
+    Data3: 1598374807
+    Data4: 783911936
+  Banks:
+  - {fileID: 2073874680224088596}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -2736899005164890320}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 167500
+--- !u!114 &-2736899005164890320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/WeatherSound/Weather
+  m_EditorClassIdentifier: 
+  Name: Weather
+  StudioPath: 
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 1133086588
+    data2: 1698176828
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Sunny
+  - Rain
+  - Windy
+  Exists: 1
 --- !u!114 &-2389053035912567094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -374,6 +372,30 @@ MonoBehaviour:
   ID:
     data1: 3431416733
     data2: 3746192936
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &-1028124368952828784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/BackgroundMusicCave/Dowsiness Stage
+  m_EditorClassIdentifier: 
+  Name: Dowsiness Stage
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 679508957
+    data2: 3185187742
   Type: 0
   IsGlobal: 1
   Labels: []
@@ -496,22 +518,24 @@ MonoBehaviour:
   EditorEvents:
   - {fileID: -4343877614893540381}
   - {fileID: 1987584681221027207}
-  - {fileID: -6968178371931007726}
-  - {fileID: -5445307150084985876}
   - {fileID: 6226035333533333581}
   - {fileID: -5470507981307631521}
-  - {fileID: -8239178424844013398}
+  - {fileID: 812987023253959492}
+  - {fileID: 539385236045949475}
+  - {fileID: -6830080245896017382}
+  - {fileID: -2952506944820352129}
   EditorParameters:
   - {fileID: 4793595672983564214}
   - {fileID: 4320370547615308145}
   - {fileID: -2389053035912567094}
+  - {fileID: 2725092569944637218}
   MasterBanks:
   - {fileID: 5191857318038855451}
   StringsBanks:
   - {fileID: -5436910303919886702}
-  cacheTime: 638324894547670026
+  cacheTime: 638343696433311797
   cacheVersion: 131607
---- !u!114 &1458071578825670448
+--- !u!114 &539385236045949475
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -520,21 +544,53 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/BackgroundMusicCave/Intensity
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character/Player/PlayerInteract
   m_EditorClassIdentifier: 
-  Name: Intensity
-  StudioPath: 
-  Min: 0
-  Max: 100
-  Default: 0
-  ID:
-    data1: 3431416733
-    data2: 3746192936
-  Type: 0
-  IsGlobal: 1
-  Labels: []
-  Exists: 1
+  Path: event:/Character/Player/PlayerInteract
+  Guid:
+    Data1: 1755240509
+    Data2: 1109287440
+    Data3: 1254761379
+    Data4: -721465807
+  Banks:
+  - {fileID: 2073874680224088596}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 312
+--- !u!114 &812987023253959492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Others/BackgroundMusicCave
+  m_EditorClassIdentifier: 
+  Path: event:/Others/BackgroundMusicCave
+  Guid:
+    Data1: 1141363793
+    Data2: 1316821038
+    Data3: 583768246
+    Data4: 1618897406
+  Banks:
+  - {fileID: -5288706457553147157}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -1028124368952828784}
+  - {fileID: 5973953582804475184}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 216058
 --- !u!114 &1987584681221027207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,10 +633,36 @@ MonoBehaviour:
   Path: NoireFM/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638324894547670026
+  lastModified: 638343696433311797
   FileSizes:
   - Name: Desktop
-    Value: 3609344
+    Value: 3612864
+  Exists: 1
+--- !u!114 &2725092569944637218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Walking Surfaces
+  m_EditorClassIdentifier: 
+  Name: Walking Surfaces
+  StudioPath: parameter:/Walking Surfaces
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1922564014
+    data2: 3568646181
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Grass
+  - Rock
   Exists: 1
 --- !u!114 &3063085996791032867
 MonoBehaviour:
@@ -630,30 +712,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &3506241490493543490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/BackgroundMusicCave/Dowsiness Stage
-  m_EditorClassIdentifier: 
-  Name: Dowsiness Stage
-  StudioPath: 
-  Min: 0
-  Max: 3
-  Default: 0
-  ID:
-    data1: 679508957
-    data2: 3185187742
-  Type: 0
-  IsGlobal: 1
-  Labels: []
-  Exists: 1
 --- !u!114 &3597299913040692056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -744,22 +802,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/PlayerFootsteps/Different surfaces
+  m_Name: parameter:/PlayerFootsteps/Walking Surfaces
   m_EditorClassIdentifier: 
-  Name: Different surfaces
+  Name: Walking Surfaces
   StudioPath: 
   Min: 0
-  Max: 2
+  Max: 1
   Default: 0
   ID:
     data1: 1922564014
     data2: 3568646181
   Type: 2
-  IsGlobal: 0
+  IsGlobal: 1
   Labels:
   - Grass
-  - Sand
-  - Ground
+  - Rock
   Exists: 1
 --- !u!114 &5086426965566551007
 MonoBehaviour:
@@ -820,10 +877,10 @@ MonoBehaviour:
   Path: NoireFM/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638324894546964102
+  lastModified: 638343696432621779
   FileSizes:
   - Name: Desktop
-    Value: 2128
+    Value: 2314
   Exists: 1
 --- !u!114 &5232861813374661844
 MonoBehaviour:
@@ -880,6 +937,30 @@ MonoBehaviour:
   - Sand
   - Ground
   Exists: 1
+--- !u!114 &5973953582804475184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/BackgroundMusicCave/Intensity
+  m_EditorClassIdentifier: 
+  Name: Intensity
+  StudioPath: 
+  Min: 0
+  Max: 100
+  Default: 0
+  ID:
+    data1: 3431416733
+    data2: 3746192936
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &6226035333533333581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -900,7 +981,7 @@ MonoBehaviour:
     Data4: -721051577
   Banks:
   - {fileID: 2073874680224088596}
-  IsStream: 0
+  IsStream: 1
   Is3D: 0
   IsOneShot: 1
   Parameters:
@@ -908,30 +989,3 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &8488368920744352805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/WeatherSound/Weather
-  m_EditorClassIdentifier: 
-  Name: Weather
-  StudioPath: 
-  Min: 0
-  Max: 2
-  Default: 0
-  ID:
-    data1: 1133086588
-    data2: 1698176828
-  Type: 2
-  IsGlobal: 1
-  Labels:
-  - Sunny
-  - Rain
-  - Windy
-  Exists: 1

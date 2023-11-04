@@ -135,14 +135,6 @@ Shader "Hidden/Flat Kit/Terrain/Lit (Add Pass)"
             #include "LibraryUrp/Lighting_DR.hlsl"
             #include "LibraryUrp/TerrainLitPasses_DR.hlsl"
             
-			/* start CurvedWorld */
-			//#define CURVEDWORLD_BEND_TYPE_CLASSICRUNNER_X_POSITIVE
-			//#define CURVEDWORLD_BEND_ID_1
-			//#pragma shader_feature_local CURVEDWORLD_DISABLED_ON
-			//#pragma shader_feature_local CURVEDWORLD_NORMAL_TRANSFORMATION_ON
-			//#include "Assets/Amazing Assets/Curved World/Shaders/Core/CurvedWorldTransform.cginc"
-			/* end CurvedWorld */
-
             ENDHLSL
         }
     }

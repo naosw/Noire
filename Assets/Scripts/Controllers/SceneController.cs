@@ -2,8 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
+/// <summary>
+/// A scene controller supports virtual implementations of the following functions:
+/// <code>Init</code> Called in Awake()
+/// <code>LateInit</code> Called in Start(), This is called after DataPersistence!
+/// </summary>
 
 public class SceneController : MonoBehaviour
 {
@@ -28,15 +35,20 @@ public class SceneController : MonoBehaviour
         Init();
     }
 
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= FindAllInteractables;
+    }
+
     private void Start()
     {
         StartCoroutine(DisplaySceneName());
-        StartInit();
+        LateInit();
     }
 
     protected virtual void Init() { }
 
-    protected virtual void StartInit()
+    protected virtual void LateInit()
     {
         StartCoroutine(DisplaySceneName());
     }

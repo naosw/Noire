@@ -11,9 +11,6 @@ half4 SplatmapFragment_DSTRM(Varyings IN) : SV_TARGET
 #endif
 {
     UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(IN);
-#ifdef _ALPHATEST_ON
-    ClipHoles(IN.uvMainAndLM.xy);
-#endif
 
     half3 normalTS = half3(0.0h, 0.0h, 1.0h);
 #ifdef TERRAIN_SPLAT_BASEPASS

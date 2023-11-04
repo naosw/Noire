@@ -29,25 +29,33 @@ public class SaveSlot : UI
     private void OnSaveSlotClicked() 
     {
         SaveSlotsMenu.Instance.ToggleMenuButtons(false);
-        
-        if (hasData)
+
+        if (!SaveSlotsMenu.Instance.IsLoadingView) 
         {
-            // prompt to start new game
-            ConfirmationPopupMenu.Instance.ActivateMenu(
-                "Starting a New Game with this slot will override the currently saved data. Are you sure?",
-                () =>
-                {
-                    NewGame();
-                },
-                () =>
-                {
-                    SaveSlotsMenu.Instance.Show();
-                }
-            );
-        }
-        else 
+            if (hasData)
+            {
+                // prompt to start new game
+                ConfirmationPopupMenu.Instance.ActivateMenu(
+                    "Starting a New Game with this slot will override the currently saved data. Are you sure?",
+                    () =>
+                    {
+                        NewGame();
+                    },
+                    () =>
+                    {
+                        SaveSlotsMenu.Instance.Show();
+                    }
+                );
+            }
+            else
+            {
+                NewGame();
+            }
+        } 
+        else
         {
-            NewGame();
+            // load the slot
+            Loader.Load(DataPersistenceManager.Instance.CurrentScene); 
         }
     }
 
@@ -81,18 +89,17 @@ public class SaveSlot : UI
         );
     }
     
-    public void SetData(GameData data, bool isLoadingView) 
+    public void SetData(GameData data) 
     {
         if (data == null)
         {
             hasData = false;
 
-            SetInteractable(false);
-            if(isLoadingView)
-                saveSlotButton.Disable();
-            else
-                saveSlotButton.Enable();
             saveSlotButton.SetText("..");
+            SetInteractable(false);
+            
+            if (!SaveSlotsMenu.Instance.IsLoadingView)
+                saveSlotButton.Enable();
         }
         else
         {

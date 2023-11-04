@@ -200,189 +200,156 @@
             #include "LibraryUrp/StylizedInput.hlsl"
             #include "LibraryUrp/Lighting_DR.hlsl"
             #include "LibraryUrp/TerrainLitPasses_DR.hlsl"
-            
-			/* start CurvedWorld */
-			//#define CURVEDWORLD_BEND_TYPE_CLASSICRUNNER_X_POSITIVE
-			//#define CURVEDWORLD_BEND_ID_1
-			//#pragma shader_feature_local CURVEDWORLD_DISABLED_ON
-			//#pragma shader_feature_local CURVEDWORLD_NORMAL_TRANSFORMATION_ON
-			//#include "Assets/Amazing Assets/Curved World/Shaders/Core/CurvedWorldTransform.cginc"
-			/* end CurvedWorld */
 
             ENDHLSL
         }
-
+        
         // Passes from `TerrainLit.shader`.
-        Pass
-        {
-            Name "ShadowCaster"
-            Tags{"LightMode" = "ShadowCaster"}
+//        Pass
+//        {
+//            Name "ShadowCaster"
+//            Tags{"LightMode" = "ShadowCaster"}
+//
+//            ZWrite On
+//            ColorMask 0
+//
+//            HLSLPROGRAM
+//            #pragma target 2.0
+//
+//            #pragma vertex ShadowPassVertex
+//            #pragma fragment ShadowPassFragment
+//
+//            #pragma multi_compile_instancing
+//            #pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap
+//
+//            // -------------------------------------
+//            // Universal Pipeline keywords
+//
+//            // This is used during shadow map generation to differentiate between directional and punctual light shadows, as they use different formulas to apply Normal Bias
+//            #pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
+//
+//            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitPasses.hlsl"
+//            
+//			/* start CurvedWorld */
+//			//#define CURVEDWORLD_BEND_TYPE_CLASSICRUNNER_X_POSITIVE
+//			//#define CURVEDWORLD_BEND_ID_1
+//			//#pragma shader_feature_local CURVEDWORLD_DISABLED_ON
+//			//#pragma shader_feature_local CURVEDWORLD_NORMAL_TRANSFORMATION_ON
+//			//#include "Assets/Amazing Assets/Curved World/Shaders/Core/CurvedWorldTransform.cginc"
+//			/* end CurvedWorld */
+//
+//            ENDHLSL
+//        }
 
-            ZWrite On
-            ColorMask 0
-
-            HLSLPROGRAM
-            #pragma target 2.0
-
-            #pragma vertex ShadowPassVertex
-            #pragma fragment ShadowPassFragment
-
-            #pragma multi_compile_instancing
-            #pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap
-
-            // -------------------------------------
-            // Universal Pipeline keywords
-
-            // This is used during shadow map generation to differentiate between directional and punctual light shadows, as they use different formulas to apply Normal Bias
-            #pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
-
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitPasses.hlsl"
-            
-			/* start CurvedWorld */
-			//#define CURVEDWORLD_BEND_TYPE_CLASSICRUNNER_X_POSITIVE
-			//#define CURVEDWORLD_BEND_ID_1
-			//#pragma shader_feature_local CURVEDWORLD_DISABLED_ON
-			//#pragma shader_feature_local CURVEDWORLD_NORMAL_TRANSFORMATION_ON
-			//#include "Assets/Amazing Assets/Curved World/Shaders/Core/CurvedWorldTransform.cginc"
-			/* end CurvedWorld */
-
-            ENDHLSL
-        }
-
-        Pass
-        {
-            Name "DepthOnly"
-            Tags{"LightMode" = "DepthOnly"}
-
-            ZWrite On
-            ColorMask 0
-
-            HLSLPROGRAM
-            #pragma target 2.0
-
-            #pragma vertex DepthOnlyVertex
-            #pragma fragment DepthOnlyFragment
-
-            #pragma multi_compile_instancing
-            #pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap
-
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitPasses.hlsl"
-            
-			/* start CurvedWorld */
-			//#define CURVEDWORLD_BEND_TYPE_CLASSICRUNNER_X_POSITIVE
-			//#define CURVEDWORLD_BEND_ID_1
-			//#pragma shader_feature_local CURVEDWORLD_DISABLED_ON
-			//#pragma shader_feature_local CURVEDWORLD_NORMAL_TRANSFORMATION_ON
-			//#include "Assets/Amazing Assets/Curved World/Shaders/Core/CurvedWorldTransform.cginc"
-			/* end CurvedWorld */
-
-            ENDHLSL
-        }
+//        Pass
+//        {
+//            Name "DepthOnly"
+//            Tags{"LightMode" = "DepthOnly"}
+//
+//            ZWrite On
+//            ColorMask 0
+//
+//            HLSLPROGRAM
+//            #pragma target 2.0
+//
+//            #pragma vertex DepthOnlyVertex
+//            #pragma fragment DepthOnlyFragment
+//
+//            #pragma multi_compile_instancing
+//            #pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap
+//
+//            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitInput.hlsl"
+//            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitPasses.hlsl"
+//            
+//            ENDHLSL
+//        }
 
         // This pass is used when drawing to a _CameraNormalsTexture texture
-        Pass
-        {
-            Name "DepthNormals"
-            Tags{"LightMode" = "DepthNormals"}
+//        Pass
+//        {
+//            Name "DepthNormals"
+//            Tags{"LightMode" = "DepthNormals"}
+//
+//            ZWrite On
+//
+//            HLSLPROGRAM
+//            #pragma target 2.0
+//            #pragma vertex DepthNormalOnlyVertex
+//            #pragma fragment DepthNormalOnlyFragment
+//
+//            #pragma shader_feature_local _NORMALMAP
+//            #pragma multi_compile_instancing
+//            #pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap
+//
+//            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitInput.hlsl"
+//            #if VERSION_GREATER_EQUAL(12, 0)
+//            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitDepthNormalsPass.hlsl"
+//            #else
+//            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitPasses.hlsl"
+//            #endif
+//
+//            ENDHLSL
+//        }
 
-            ZWrite On
-
-            HLSLPROGRAM
-            #pragma target 2.0
-            #pragma vertex DepthNormalOnlyVertex
-            #pragma fragment DepthNormalOnlyFragment
-
-            #pragma shader_feature_local _NORMALMAP
-            #pragma multi_compile_instancing
-            #pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap
-
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitInput.hlsl"
-            #if VERSION_GREATER_EQUAL(12, 0)
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitDepthNormalsPass.hlsl"
-            #else
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitPasses.hlsl"
-            #endif
-
-			/* start CurvedWorld */
-			//#define CURVEDWORLD_BEND_TYPE_CLASSICRUNNER_X_POSITIVE
-			//#define CURVEDWORLD_BEND_ID_1
-			//#pragma shader_feature_local CURVEDWORLD_DISABLED_ON
-			//#pragma shader_feature_local CURVEDWORLD_NORMAL_TRANSFORMATION_ON
-			//#include "Assets/Amazing Assets/Curved World/Shaders/Core/CurvedWorldTransform.cginc"
-			/* end CurvedWorld */
-
-            ENDHLSL
-        }
-
-        Pass
-        {
-            Name "SceneSelectionPass"
-            Tags { "LightMode" = "SceneSelectionPass" }
-
-            HLSLPROGRAM
-            #pragma target 2.0
-
-            #pragma vertex DepthOnlyVertex
-            #pragma fragment DepthOnlyFragment
-
-            #pragma multi_compile_instancing
-            #pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap
-
-            #define SCENESELECTIONPASS
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitPasses.hlsl"
-            
-			/* start CurvedWorld */
-			//#define CURVEDWORLD_BEND_TYPE_CLASSICRUNNER_X_POSITIVE
-			//#define CURVEDWORLD_BEND_ID_1
-			//#pragma shader_feature_local CURVEDWORLD_DISABLED_ON
-			//#pragma shader_feature_local CURVEDWORLD_NORMAL_TRANSFORMATION_ON
-			//#include "Assets/Amazing Assets/Curved World/Shaders/Core/CurvedWorldTransform.cginc"
-			/* end CurvedWorld */
-
-            ENDHLSL
-        }
+//        Pass
+//        {
+//            Name "SceneSelectionPass"
+//            Tags { "LightMode" = "SceneSelectionPass" }
+//
+//            HLSLPROGRAM
+//            #pragma target 2.0
+//
+//            #pragma vertex DepthOnlyVertex
+//            #pragma fragment DepthOnlyFragment
+//
+//            #pragma multi_compile_instancing
+//            #pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap
+//
+//            #define SCENESELECTIONPASS
+//            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitInput.hlsl"
+//            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitPasses.hlsl"
+//
+//            ENDHLSL
+//        }
 
         // This pass it not used during regular rendering, only for lightmap baking.
-        Pass
-        {
-            Name "Meta"
-            Tags{"LightMode" = "Meta"}
+//        Pass
+//        {
+//            Name "Meta"
+//            Tags{"LightMode" = "Meta"}
+//
+//            Cull Off
+//
+//            HLSLPROGRAM
+//            #pragma vertex TerrainVertexMeta
+//            #pragma fragment TerrainFragmentMeta
+//
+//            #pragma multi_compile_instancing
+//            #pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap
+//            #pragma shader_feature EDITOR_VISUALIZATION
+//            #define _METALLICSPECGLOSSMAP 1
+//            #define _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A 1
+//
+//            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitInput.hlsl"
+//            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitMetaPass.hlsl"
+//
+//			/* start CurvedWorld */
+//			//#define CURVEDWORLD_BEND_TYPE_CLASSICRUNNER_X_POSITIVE
+//			//#define CURVEDWORLD_BEND_ID_1
+//			//#pragma shader_feature_local CURVEDWORLD_DISABLED_ON
+//			//#pragma shader_feature_local CURVEDWORLD_NORMAL_TRANSFORMATION_ON
+//			//#include "Assets/Amazing Assets/Curved World/Shaders/Core/CurvedWorldTransform.cginc"
+//			/* end CurvedWorld */
+//
+//            ENDHLSL
+//        }
 
-            Cull Off
-
-            HLSLPROGRAM
-            #pragma vertex TerrainVertexMeta
-            #pragma fragment TerrainFragmentMeta
-
-            #pragma multi_compile_instancing
-            #pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap
-            #pragma shader_feature EDITOR_VISUALIZATION
-            #define _METALLICSPECGLOSSMAP 1
-            #define _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A 1
-
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitMetaPass.hlsl"
-
-			/* start CurvedWorld */
-			//#define CURVEDWORLD_BEND_TYPE_CLASSICRUNNER_X_POSITIVE
-			//#define CURVEDWORLD_BEND_ID_1
-			//#pragma shader_feature_local CURVEDWORLD_DISABLED_ON
-			//#pragma shader_feature_local CURVEDWORLD_NORMAL_TRANSFORMATION_ON
-			//#include "Assets/Amazing Assets/Curved World/Shaders/Core/CurvedWorldTransform.cginc"
-			/* end CurvedWorld */
-
-            ENDHLSL
-        }
-
-        UsePass "Hidden/Nature/Terrain/Utilities/PICKING"
+//        UsePass "Hidden/Nature/Terrain/Utilities/PICKING"
     }
-    Dependency "AddPassShader" = "Hidden/Flat Kit/Terrain/Lit (Add Pass)"
-    Dependency "BaseMapShader" = "Hidden/Universal Render Pipeline/Terrain/Lit (Base Pass)"
-    Dependency "BaseMapGenShader" = "Hidden/Universal Render Pipeline/Terrain/Lit (Basemap Gen)"
+//    Dependency "AddPassShader" = "Hidden/Flat Kit/Terrain/Lit (Add Pass)"
+//    Dependency "BaseMapShader" = "Hidden/Universal Render Pipeline/Terrain/Lit (Base Pass)"
+//    Dependency "BaseMapGenShader" = "Hidden/Universal Render Pipeline/Terrain/Lit (Basemap Gen)"
 
-    Fallback "Hidden/Universal Render Pipeline/FallbackError"
+//    Fallback "Hidden/Universal Render Pipeline/FallbackError"
     CustomEditor "FlatKit.TerrainEditor"
 }

@@ -8,7 +8,7 @@ public class SaveSlotsMenu : UI
     [SerializeField] private ButtonUI backButton;
     private SaveSlot[] saveSlots;
 
-    private bool isLoadingView;
+    public bool IsLoadingView;
 
     private void Awake()
     {
@@ -40,19 +40,19 @@ public class SaveSlotsMenu : UI
         foreach (SaveSlot saveSlot in saveSlots) 
         {
             profilesGameData.TryGetValue(saveSlot.GetProfileId(), out GameData profileData);
-            saveSlot.SetData(profileData, isLoadingView);
+            saveSlot.SetData(profileData);
         }
     }
 
     public void NewGameMenu()
     {
-        isLoadingView = false;
+        IsLoadingView = false;
         Show();
     }
     
     public void LoadGameMenu()
     {
-        isLoadingView = true;
+        IsLoadingView = true;
         Show();
     }
 

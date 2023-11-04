@@ -91,8 +91,7 @@ public class AudioManager : MonoBehaviour
             Debug.LogError("Setting Global params failed");
         }
     }
-
-    public void PlayBackgroundMusic()
+    public void PlayInteractableAudio(string interactable)
     {
         
     }

@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -8,11 +8,10 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private CanvasGroup fadein;
     [SerializeField] private float fadeinTime = 5f;
     [SerializeField] private AnimationCurve fadeinCurve;
-    [SerializeField] private ScriptableRendererFeature fogRendererFeature; 
 
     private void Start()
     {
-        fogRendererFeature.SetActive(false);
+        ScriptableRendererFeatureManager.Instance.ToggleAllFog(false);
         StartCoroutine(FadeInCoroutine());
     }
 
