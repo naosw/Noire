@@ -32,8 +32,21 @@ public class QuestPoint : MonoBehaviour
         GameEventsManager.Instance.QuestEvents.OnQuestStateChange -= QuestStateChange;
         GameInput.Instance.OnInteract -= OnInteractQuest;
     }
+    private void OnTriggerEnter(Collider otherCollider)
+    {
+        if (otherCollider.CompareTag("Player"))
+        {
+            Debug.Log("hi");
+            GameEventsManager.Instance.QuestEvents.StartQuest(questId);
+            
+            if (currentQuestState.Equals(QuestState.CanFinish) && finishPoint)
+            {
+                GameEventsManager.Instance.QuestEvents.FinishQuest(questId);
+            }
+        }
+    }
 
-    private void OnInteractQuest()
+        private void OnInteractQuest()
     {
         // checks if player is near first
         // TODO: implement interaction system

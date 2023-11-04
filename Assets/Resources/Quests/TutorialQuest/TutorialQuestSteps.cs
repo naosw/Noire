@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CapsuleCollider))]
 public class TutorialQuestSteps : QuestStep
 {
-    private void Update()
+    private void OnTriggerEnter(Collider otherCollider)
     {
-       if  (Input.GetKeyDown(KeyCode.W))
+       if (otherCollider.CompareTag("Player"))
         {
             FinishQuestStep();
             Debug.Log("finished quest");

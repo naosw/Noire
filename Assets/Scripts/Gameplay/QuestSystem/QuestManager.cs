@@ -61,15 +61,18 @@ public class QuestManager : MonoBehaviour
                 return false;
             }
         }
-
         return true;
     }
     
     private void StartQuest(string id) 
     {
+        Debug.Log("start1");
         Quest quest = GetQuestById(id);
+        Debug.Log("start2");
         quest.InstantiateCurrentQuestStep(transform);
+        Debug.Log("start3");
         ChangeQuestState(quest.info.id, QuestState.InProgress);
+        Debug.Log("start4");
     }
 
     private void AdvanceQuest(string id)
