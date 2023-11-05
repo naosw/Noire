@@ -124,6 +124,7 @@ public class RangedEnemy : Enemy
 
     private void SlowUpdate()
     {
+        if (gameObject.activeSelf == false) return;
         switch (currentState)
         {
             case EnemyState.Idle:
