@@ -54,6 +54,33 @@ MonoBehaviour:
   - Rain
   - Windy
   Exists: 1
+--- !u!114 &-8154400465538517080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BedRockPlain/Ost
+  m_EditorClassIdentifier: 
+  Path: event:/BedRockPlain/Ost
+  Guid:
+    Data1: 1107171122
+    Data2: 1083193566
+    Data3: 1578759865
+    Data4: 1765462010
+  Banks:
+  - {fileID: -5288706457553147157}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 50400
 --- !u!114 &-7617834468536545914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,10 +201,10 @@ MonoBehaviour:
   Path: NoireFM/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638343666836199474
+  lastModified: 638347954939734242
   FileSizes:
   - Name: Desktop
-    Value: 1580
+    Value: 1624
   Exists: 1
 --- !u!114 &-5288706457553147157
 MonoBehaviour:
@@ -194,10 +221,10 @@ MonoBehaviour:
   Path: NoireFM/Build/Desktop/OST.bank
   Name: OST
   StudioPath: bank:/OST
-  lastModified: 638343666836503667
+  lastModified: 638347956491612264
   FileSizes:
   - Name: Desktop
-    Value: 7170592
+    Value: 7228224
   Exists: 1
 --- !u!114 &-4556618696504295988
 MonoBehaviour:
@@ -226,33 +253,6 @@ MonoBehaviour:
   - Rain
   - Windy
   Exists: 1
---- !u!114 &-4343877614893540381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/BedRockPlain/OstFirst
-  m_EditorClassIdentifier: 
-  Path: event:/BedRockPlain/OstFirst
-  Guid:
-    Data1: 1107171122
-    Data2: 1083193566
-    Data3: 1578759865
-    Data4: 1765462010
-  Banks:
-  - {fileID: -5288706457553147157}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 199032
 --- !u!114 &-4023761965069785460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,7 +516,6 @@ MonoBehaviour:
   - {fileID: -5288706457553147157}
   - {fileID: 2073874680224088596}
   EditorEvents:
-  - {fileID: -4343877614893540381}
   - {fileID: 1987584681221027207}
   - {fileID: 6226035333533333581}
   - {fileID: -5470507981307631521}
@@ -524,6 +523,8 @@ MonoBehaviour:
   - {fileID: 539385236045949475}
   - {fileID: -6830080245896017382}
   - {fileID: -2952506944820352129}
+  - {fileID: -8154400465538517080}
+  - {fileID: 440793489035882025}
   EditorParameters:
   - {fileID: 4793595672983564214}
   - {fileID: 4320370547615308145}
@@ -533,8 +534,35 @@ MonoBehaviour:
   - {fileID: 5191857318038855451}
   StringsBanks:
   - {fileID: -5436910303919886702}
-  cacheTime: 638343666836652216
+  cacheTime: 638347956491612264
   cacheVersion: 131607
+--- !u!114 &440793489035882025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/ValleyOfSolura/Ost
+  m_EditorClassIdentifier: 
+  Path: event:/ValleyOfSolura/Ost
+  Guid:
+    Data1: 857764405
+    Data2: 1179832620
+    Data3: -1219651957
+    Data4: -236153154
+  Banks:
+  - {fileID: -5288706457553147157}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 150000
 --- !u!114 &539385236045949475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,7 +661,7 @@ MonoBehaviour:
   Path: NoireFM/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638343666836652216
+  lastModified: 638337975374717147
   FileSizes:
   - Name: Desktop
     Value: 3612864
@@ -877,7 +905,7 @@ MonoBehaviour:
   Path: NoireFM/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638343666836198115
+  lastModified: 638347954939723169
   FileSizes:
   - Name: Desktop
     Value: 2314
