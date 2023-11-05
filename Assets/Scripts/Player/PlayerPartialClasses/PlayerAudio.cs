@@ -7,6 +7,7 @@ public partial class Player
     
     public void PlaySteps(string path)
     {
+        Debug.Log("Hey this shit ain't working");
         FMODUnity.RuntimeManager.PlayOneShot(path, transform.position);
     }
     public void PlaySwoosh(string path)

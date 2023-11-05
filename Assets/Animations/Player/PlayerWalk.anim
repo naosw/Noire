@@ -22477,7 +22477,7 @@ AnimationClip:
   - time: 0
     functionName: PlaySteps
     data: event:/Character/Player/PlayerFootsteps
-    objectReferenceParameter: {fileID: 11500000, guid: 9f9ae845cd3848118fa33cdcb9740318,
+    objectReferenceParameter: {fileID: 11500000, guid: bc0a60301def5df489454f8d0cde1fde,
       type: 3}
     floatParameter: 0
     intParameter: 0

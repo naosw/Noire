@@ -16,6 +16,8 @@ public class BedRockPlainsController : SceneController, IDataPersistence
     
     [Header("Particle Effects")]
     [SerializeField] private ParticleSystemBase dustParticles;
+    [Header("Audio Manager")]
+    [SerializeField] private AudioManager audioManager;
     
     private bool lightsOpened;
     
@@ -50,6 +52,7 @@ public class BedRockPlainsController : SceneController, IDataPersistence
         mainLight.intensity = finalIntensity;
         bgmAudio.PlayBgmAudio();
         dustParticles.Play();
+        audioManager.ChangeGlobalParaByName("Walking Surfaces", 1);
         ToggleAllInteractables(true);
     }
     
