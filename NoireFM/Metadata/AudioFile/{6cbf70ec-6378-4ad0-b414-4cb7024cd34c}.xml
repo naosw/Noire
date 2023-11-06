@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{6cbf70ec-6378-4ad0-b414-4cb7024cd34c}">
+		<property name="assetPath">
+			<value>Eytan Krief - Slick UI - Subtle Metal Click.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>96</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.40489583333333334</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{28bd54d8-5a67-4476-b471-a043c2e15d47}</destination>
+		</relationship>
+	</object>
+</objects>
