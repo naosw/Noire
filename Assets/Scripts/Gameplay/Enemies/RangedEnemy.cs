@@ -246,7 +246,6 @@ public class RangedEnemy : Enemy
         private IEnumerator PeekAndAttack()
         {
             AttackStarted = true;
-
             RaycastHit hit;
             Physics.Linecast(transform.position, TargetPlayer.position, out hit);
 
@@ -264,6 +263,8 @@ public class RangedEnemy : Enemy
             yield return new WaitForSeconds(0.25f);
             impactParticleSystem.Play();
             // Enable the main attack laser and perform the attack
+            //Attack Audio Play
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Character/Enemy/EyeballAttack", transform.position);
             LaserLineRenderer.enabled = true;
             CameraManager.Instance.CameraShake(WarningTime, 5f);
             float timer = 0;

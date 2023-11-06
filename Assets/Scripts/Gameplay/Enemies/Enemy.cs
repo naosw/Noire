@@ -89,6 +89,8 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
+        //PlayDyingSound
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Character/Enemy/EyeballDie", transform.position);
         gameObject.SetActive(false);
     }
 }

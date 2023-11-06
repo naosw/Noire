@@ -43,6 +43,7 @@
 	<object class="MasterTrack" id="{891ac4f9-d2fe-4bd1-b7e8-25f00dd7727e}">
 		<relationship name="modules">
 			<destination>{3282f858-d169-43a5-9aa2-d4e16c5145c4}</destination>
+			<destination>{af3527a8-2527-49e6-bc21-1389f508aa4b}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{38532815-390c-4ccb-b86e-fa07ce5f19e1}</destination>
@@ -73,6 +74,7 @@
 	<object class="ParameterProxy" id="{6bf8c70d-b85e-4b6a-ad74-7035c267beaa}">
 		<relationship name="modules">
 			<destination>{3282f858-d169-43a5-9aa2-d4e16c5145c4}</destination>
+			<destination>{af3527a8-2527-49e6-bc21-1389f508aa4b}</destination>
 		</relationship>
 		<relationship name="preset">
 			<destination>{6e37d5c8-b8bd-4e16-9eee-6c33347ae2b6}</destination>
@@ -93,7 +95,6 @@
 		<property name="start">
 			<value>1</value>
 		</property>
-		<property name="name" />
 		<relationship name="sounds">
 			<destination>{a509cfd3-2f3b-4f46-b282-51e16a73a9ce}</destination>
 			<destination>{e8dbb6b5-33b4-4e16-a7b6-e19799c714b4}</destination>
@@ -101,6 +102,29 @@
 		</relationship>
 		<relationship name="playPercentages">
 			<destination>{a8aaafd1-3f53-4021-bd84-7a1271a62e35}</destination>
+		</relationship>
+	</object>
+	<object class="MultiSound" id="{af3527a8-2527-49e6-bc21-1389f508aa4b}">
+		<property name="isAsync">
+			<value>true</value>
+		</property>
+		<property name="delayType">
+			<value>0</value>
+		</property>
+		<property name="startOffset">
+			<value>8</value>
+		</property>
+		<property name="voiceStealing">
+			<value>3</value>
+		</property>
+		<relationship name="modulators">
+			<destination>{3b541f79-121e-49df-9fd3-5b6ea1058a45}</destination>
+			<destination>{5d53842e-485e-49e1-9f1e-a56ed106bebd}</destination>
+		</relationship>
+		<relationship name="sounds">
+			<destination>{68c3aa54-8603-461e-bf7a-3c35377c2b1d}</destination>
+			<destination>{b156d26d-0e75-4024-bde5-a197c3d1c0c4}</destination>
+			<destination>{909831c6-5a1c-4174-a89d-29327f619a99}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{491d70f6-4767-4a10-a363-4175b17235e6}">
@@ -148,8 +172,63 @@
 			<destination>{e8dbb6b5-33b4-4e16-a7b6-e19799c714b4}</destination>
 		</relationship>
 	</object>
+	<object class="RandomizerModulator" id="{3b541f79-121e-49df-9fd3-5b6ea1058a45}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="amount">
+			<value>3</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{5d53842e-485e-49e1-9f1e-a56ed106bebd}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>pitch</value>
+		</property>
+		<property name="amount">
+			<value>8.33333015</value>
+		</property>
+	</object>
+	<object class="SingleSound" id="{68c3aa54-8603-461e-bf7a-3c35377c2b1d}">
+		<property name="length">
+			<value>0</value>
+		</property>
+		<property name="voiceStealing">
+			<value>3</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{13c95716-600b-4dc2-ad36-82ee647a590d}</destination>
+		</relationship>
+	</object>
+	<object class="SingleSound" id="{b156d26d-0e75-4024-bde5-a197c3d1c0c4}">
+		<property name="length">
+			<value>0</value>
+		</property>
+		<property name="voiceStealing">
+			<value>3</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{a517cf1a-61ad-44ce-9e33-61c47c016fc0}</destination>
+		</relationship>
+	</object>
+	<object class="SingleSound" id="{909831c6-5a1c-4174-a89d-29327f619a99}">
+		<property name="length">
+			<value>0</value>
+		</property>
+		<property name="voiceStealing">
+			<value>3</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{084c1e4f-4963-4173-8b2a-be81152288d5}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusFader" id="{349ed692-953f-4c86-9e2b-aa603e11390d}" />
 	<object class="ThreeEQEffect" id="{e187a05f-ecbc-4a97-9114-1e202139a5b5}">
+		<property name="lowGain">
+			<value>-11.5</value>
+		</property>
+		<property name="midGain">
+			<value>-8</value>
+		</property>
 		<property name="crossoverSlope">
 			<value>2</value>
 		</property>

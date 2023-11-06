@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{bc22eb58-1780-4f24-92d1-22af27ee3798}">
+		<property name="assetPath">
+			<value>Articulated Sounds - Snaps  Flaps - Whoosh Sharp Vanishing Whip.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>96</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>3.37425</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{28bd54d8-5a67-4476-b471-a043c2e15d47}</destination>
+		</relationship>
+	</object>
+</objects>

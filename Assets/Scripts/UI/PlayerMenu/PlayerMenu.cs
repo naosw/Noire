@@ -29,7 +29,6 @@ public class PlayerMenu : UI
         GameInput.Instance.OnPlayerMenuToggle += GameInput_OnPlayerMenuToggle;
 
         inventoryDisplay = GetComponentsInChildren<InventorySlot>();
-        
         gameObject.SetActive(false);
     }
     
