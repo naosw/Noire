@@ -23,6 +23,7 @@ public class BedRockPlainsController : SceneController, IDataPersistence
     
     protected override void Init()
     {
+        audioManager.ChangeGlobalParaByName("Walking Surfaces", 1);
         mainLight.intensity = 0;
         ScriptableRendererFeatureManager.Instance.EnableOnlyOneFog(fogIndex);
     }
@@ -48,11 +49,11 @@ public class BedRockPlainsController : SceneController, IDataPersistence
     
 
     private void Begin()
-    {
+    {  
+        audioManager.ChangeGlobalParaByName("Walking Surfaces", 1);
         mainLight.intensity = finalIntensity;
         bgmAudio.PlayBgmAudio();
         dustParticles.Play();
-        audioManager.ChangeGlobalParaByName("Walking Surfaces", 1);
         ToggleAllInteractables(true);
     }
     

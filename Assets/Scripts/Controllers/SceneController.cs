@@ -99,5 +99,9 @@ public class SceneController : MonoBehaviour
             .OfType<InteractableObject>()
             .Except(unaffectedInteractableObjects)
             .ToList();
+        for (int i=0;i<interactablesList.Count;i++)
+        {
+            Debug.Log(interactablesList[i]);
+        }
     }
 }
