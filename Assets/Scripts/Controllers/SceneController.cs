@@ -42,6 +42,8 @@ public class SceneController : MonoBehaviour
 
     private void Start()
     {
+        foreach (var obj in unaffectedInteractableObjects)
+            obj.Enable();
         StartCoroutine(DisplaySceneName());
         LateInit();
     }
