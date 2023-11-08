@@ -13,7 +13,9 @@ public class InteractablePortal : InteractableObject
     
     public override void Interact()
     {
+        onInteractIndicator.Play();
         StartCoroutine(NextScene());
+        interactableIndicator.Stop();
     }
 
     IEnumerator NextScene()

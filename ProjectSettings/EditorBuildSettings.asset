@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/DeathScene.unity
     guid: e656f644c10a7ea439cd52231a32771b
   - enabled: 1
-    path: Assets/Scenes/BedrockPlains/BedrockPlains.unity
+    path: Assets/Scenes/BedrockPlains.unity
     guid: d14b2c5c3a15e4b4396a6640174de77a
   - enabled: 1
     path: Assets/Scenes/TheShorelines.unity

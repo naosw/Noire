@@ -12,10 +12,12 @@ public class InteractableItemDropper : InteractableObject
     
     public override void Interact()
     {
+        onInteractIndicator.Play();
         interactionsOccured++;
+        
         // TODO: play animation of item dropping
         // TODO: play sound of item dropping
-
+        
         foreach (var item in itemDroppedWhenInteract)
             if (!Player.Instance.AddItem(item))
                 Debug.Log("Cannot add item: reached item upper limit");

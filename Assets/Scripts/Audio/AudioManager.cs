@@ -76,7 +76,6 @@ public class AudioManager : MonoBehaviour
     }
     public void ChangeGlobalParaByName(string name, float value)
     {
-        Debug.Log("yooo this shit aint working");
         FMOD.Studio.PARAMETER_DESCRIPTION parameterDescription;
         var result =
             FMODUnity.RuntimeManager.StudioSystem.getParameterDescriptionByName(name, out parameterDescription);

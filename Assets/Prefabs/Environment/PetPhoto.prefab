@@ -33,7 +33,7 @@ Transform:
   - {fileID: 7692178899215656920}
   - {fileID: 8711388940717719002}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &5505189956930788640
 BoxCollider:
@@ -71,7 +71,8 @@ MonoBehaviour:
   ID: pet-photo
   interactText: Examine
   maxInteractions: 1
-  interactableIndicator: {fileID: 8511831295273168677}
+  interactableIndicator: {fileID: 2632899264996169202}
+  onInteractIndicator: {fileID: 3198893279497485564}
   examineText: They look like more like a lion than a cat. They eat more like a lion
     than a cat too.
 --- !u!1001 &5279654661627370072
@@ -227,14 +228,32 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8325d3eece07f6940804a262516bedc2, type: 3}
---- !u!1 &8511831295273168677 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4568057972659828093, guid: 8325d3eece07f6940804a262516bedc2,
+--- !u!114 &2632899264996169202 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7911969261213650858, guid: 8325d3eece07f6940804a262516bedc2,
     type: 3}
   m_PrefabInstance: {fileID: 5279654661627370072}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &8711388940717719002 stripped
-RectTransform:
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98448373a9a7c114ca2c0f2ce9ee08bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3198893279497485564 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7287344867881789092, guid: 8325d3eece07f6940804a262516bedc2,
+    type: 3}
+  m_PrefabInstance: {fileID: 5279654661627370072}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98448373a9a7c114ca2c0f2ce9ee08bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &8711388940717719002 stripped
+Transform:
   m_CorrespondingSourceObject: {fileID: 3575871191110788994, guid: 8325d3eece07f6940804a262516bedc2,
     type: 3}
   m_PrefabInstance: {fileID: 5279654661627370072}
