@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 /// <summary>
 /// A base class for interactable objects
@@ -12,26 +10,23 @@ public class InteractableObject : MonoBehaviour, IInteractable, IDataPersistence
     [SerializeField] private string ID; // object id, should uniquely identifies an object
     [SerializeField] protected string interactText;
     [SerializeField] protected int maxInteractions;
-    [SerializeField] protected GameObject interactableIndicator;
+    [SerializeField] protected ParticleSystemBase interactableIndicator;
+    [SerializeField] protected ParticleSystemBase onInteractIndicator;
     protected int interactionsOccured = 0;
     protected bool disabled;
 
     private void Awake()
     {
         if(!interactableIndicator)
-            Debug.LogError("No interactable indicator found!");
+            Debug.LogError($"No interactable indicator found on {ID}");
+        if(!onInteractIndicator)
+            Debug.LogError($"No onInteractIndicator found on {ID}");
     }
 
-    private void Update()
-    {
-        if(!disabled)
-            interactableIndicator.transform.LookAt(CameraManager.Instance.LookAt);
-    }
-    
     protected void FinishInteract()
     {
         if(!CanInteract())
-            interactableIndicator.SetActive(false);
+            interactableIndicator.Stop();
     }
     
     #region IInteractable
@@ -49,13 +44,14 @@ public class InteractableObject : MonoBehaviour, IInteractable, IDataPersistence
     public virtual void Disable()
     {
         disabled = true;
-        interactableIndicator.SetActive(false);
+        interactableIndicator.Stop();
     }
     
     public virtual void Enable()
     {
         disabled = false;
-        interactableIndicator.SetActive(CanInteract());
+        if (CanInteract())
+            interactableIndicator.Play();
     }
     
     public virtual string GetInteractText() => interactText;
@@ -71,7 +67,8 @@ public class InteractableObject : MonoBehaviour, IInteractable, IDataPersistence
         {
             interactionsOccured = progress.interactionsOccured;
             disabled = progress.disabled;
-            interactableIndicator.SetActive(CanInteract());
+            if (CanInteract())
+                interactableIndicator.Play();
         }
     }
     

@@ -148,18 +148,36 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8325d3eece07f6940804a262516bedc2, type: 3}
---- !u!224 &4716590058529217360 stripped
-RectTransform:
+--- !u!4 &4273860429942618177 stripped
+Transform:
   m_CorrespondingSourceObject: {fileID: 3575871191110788994, guid: 8325d3eece07f6940804a262516bedc2,
     type: 3}
   m_PrefabInstance: {fileID: 788066772042768323}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5742576377236048303 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4568057972659828093, guid: 8325d3eece07f6940804a262516bedc2,
+--- !u!114 &7431837215570186345 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7911969261213650858, guid: 8325d3eece07f6940804a262516bedc2,
     type: 3}
   m_PrefabInstance: {fileID: 788066772042768323}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98448373a9a7c114ca2c0f2ce9ee08bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8056410876245834087 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7287344867881789092, guid: 8325d3eece07f6940804a262516bedc2,
+    type: 3}
+  m_PrefabInstance: {fileID: 788066772042768323}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98448373a9a7c114ca2c0f2ce9ee08bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8130328063452118226
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -171,7 +189,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a4b2548067ea37f4f8610acb7f080fe4,
         type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a4b2548067ea37f4f8610acb7f080fe4,
         type: 3}
@@ -241,7 +259,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a4b2548067ea37f4f8610acb7f080fe4,
         type: 3}
       propertyPath: m_Name
-      value: Book Variant
+      value: Book
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a4b2548067ea37f4f8610acb7f080fe4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1487463425200110184, guid: a4b2548067ea37f4f8610acb7f080fe4,
         type: 3}
@@ -258,6 +281,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2999603754109565285, guid: a4b2548067ea37f4f8610acb7f080fe4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -6070900075407532760, guid: a4b2548067ea37f4f8610acb7f080fe4, type: 3}
@@ -265,7 +293,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: a4b2548067ea37f4f8610acb7f080fe4,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4716590058529217360}
+      addedObject: {fileID: 4273860429942618177}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a4b2548067ea37f4f8610acb7f080fe4,
         type: 3}
@@ -324,5 +352,6 @@ MonoBehaviour:
   ID: book-examine
   interactText: Examine
   maxInteractions: 1
-  interactableIndicator: {fileID: 5742576377236048303}
+  interactableIndicator: {fileID: 7431837215570186345}
+  onInteractIndicator: {fileID: 8056410876245834087}
   examineText: an old, worn medical textbook, titled "Coma and Disorders of Consciousness"
