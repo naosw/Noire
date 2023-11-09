@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class PlayerAnimator : MonoBehaviour
 {
@@ -11,9 +9,11 @@ public class PlayerAnimator : MonoBehaviour
     private const string WALK = "PlayerWalk";
     private const string IDLE = "PlayerIdle";
     private const string FALL = "PlayerFall";
+    private const string RUN = "PlayerRun";
     private int WALK_ID;
     private int IDLE_ID;
     private int FALL_ID;
+    private int RUN_ID;
     
     public static PlayerAnimator Instance { get; private set; }
     
@@ -23,6 +23,7 @@ public class PlayerAnimator : MonoBehaviour
         WALK_ID  = Animator.StringToHash(WALK);
         IDLE_ID =  Animator.StringToHash(IDLE);
         FALL_ID =  Animator.StringToHash(FALL);
+        RUN_ID = Animator.StringToHash(RUN);
     }
 
     private void Update()
@@ -30,6 +31,7 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetBool(WALK_ID, Player.Instance.IsWalking());
         animator.SetBool(IDLE_ID, Player.Instance.IsIdle());
         animator.SetBool(FALL_ID, Player.Instance.IsFalling());
+        animator.SetBool(RUN_ID, Player.Instance.IsRunning());
     }
 
     public bool AnimatorIsPlaying(int layer)

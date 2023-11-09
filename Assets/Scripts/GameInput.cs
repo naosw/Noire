@@ -242,6 +242,11 @@ public class GameInput : MonoBehaviour
         Vector2 readVal = gameInputActions.Player.Move.ReadValue<Vector2>();
         return new Vector3(readVal.x, 0, readVal.y);
     }
+
+    public bool IsShiftModifierOn()
+    {
+        return gameInputActions.Player.ShiftModifier.IsPressed();
+    }
     
     #endregion
 

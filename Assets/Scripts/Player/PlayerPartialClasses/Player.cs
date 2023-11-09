@@ -52,12 +52,13 @@ public partial class Player : MonoBehaviour, IPlayer, IDataPersistence
     public bool IsCasting() => state == PlayerState.Casting;
     public bool IsDead() => state == PlayerState.Dead;
     public bool IsFalling() => state == PlayerState.Falling;
+    public bool IsRunning() => state == PlayerState.Running;
 
     public AbilitySO CanCastAbility(int abilityId)
     {
         bool hasAbility = playerAbilities.TryGetValue(abilityId, out AbilitySO ability);
         
-        if ((IsIdle() || IsWalking())
+        if ((IsIdle() || IsWalking() || IsRunning())
             && hasAbility
             && playerStaminaSO.CurrentStamina >= ability.staminaCost)
         {
@@ -259,10 +260,20 @@ public partial class Player : MonoBehaviour, IPlayer, IDataPersistence
     // called after ability for state transition
     public void ResetStateAfterAction()
     {
-        state = GameInput.Instance.GetMovementVectorNormalized() != Vector3.zero 
-            ? PlayerState.Walking
-            : PlayerState.Idle;
         SetAnimatorTrigger("Reset");
+        
+        bool isMoving = GameInput.Instance.GetMovementVectorNormalized() != Vector3.zero;
+        if (!isMoving)
+        {
+            state = PlayerState.Idle;
+            return;
+        }
+
+        bool isRunning = GameInput.Instance.IsShiftModifierOn();
+        if (isRunning)
+            state = PlayerState.Running;
+        else
+            state = PlayerState.Walking;
     }
 
     public void SetAnimatorTrigger(string triggerName)

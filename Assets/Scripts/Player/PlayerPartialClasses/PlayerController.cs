@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 public partial class Player
 {
     [Header("Player Controller")]
-    [SerializeField] private float moveSpeed = 12f;
+    [SerializeField] private float walkSpeed = 4f;
+    [SerializeField] private float runSpeed = 10f;
     [SerializeField] private float gravity = .1f;
     [SerializeField] private float turnSpeed = 30f;
     [SerializeField] private LayerMask raycastHit;
-    
+
     private PlayerState state;
     private CharacterController controller;
     private Vector3 moveDir;
@@ -15,14 +17,19 @@ public partial class Player
     private readonly float fallingThreshold = 1.3f;
     
     private readonly Quaternion rightRotation = Quaternion.Euler(new Vector3(0, 90, 0));
-
+    
     // move towards `moveDir` with speed
     public void Move(float speed)
     {
         Vector3 velocity = speed * Time.deltaTime * moveDir;
         velocity.y = -gravity;
         controller.Move(velocity);
-        transform.forward = Vector3.Lerp(transform.forward, moveDir, turnSpeed * Time.deltaTime);
+
+        float dist = Vector3.Distance(transform.forward, moveDir);
+        if(dist > 1.3f)
+            transform.forward = Vector3.Lerp(transform.forward, moveDir, 2 * turnSpeed * Time.deltaTime);
+        else
+            transform.forward = Vector3.Lerp(transform.forward, moveDir, turnSpeed * Time.deltaTime);
     }
 
     private void HandleFall()
@@ -46,7 +53,7 @@ public partial class Player
         Vector3 inputVector = GameInput.Instance.GetMovementVectorNormalized();
         if (inputVector == Vector3.zero)
         {
-            Move(0);
+            Move(0); // handle fall
             state = PlayerState.Idle;
             return;
         }
@@ -60,7 +67,15 @@ public partial class Player
         moveDir = (forward + right).normalized;
         
         // move
-        state = PlayerState.Walking;
-        Move(moveSpeed);
+        if (!GameInput.Instance.IsShiftModifierOn())
+        {
+            state = PlayerState.Walking;
+            Move(walkSpeed);
+        }
+        else
+        {
+            state = PlayerState.Running;
+            Move(runSpeed);
+        }
     }
 }

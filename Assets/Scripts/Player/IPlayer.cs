@@ -9,6 +9,7 @@ public interface IPlayer
     bool IsCasting();
     bool IsDead();
     bool IsFalling();
+    bool IsRunning();
     
     AbilitySO CanCastAbility(int abilityId);
     float GetPlayerHitBoxHeight();

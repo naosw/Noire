@@ -2,6 +2,7 @@
 {
     Idle,
     Walking,
+    Running,
     Dead,
     Casting,
     Falling
